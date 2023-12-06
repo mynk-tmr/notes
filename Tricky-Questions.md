@@ -13,5 +13,4 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 //Promise failed -> 1s -> caught
 //microqueue empty but rejection wasn't handled
-
 ```
