@@ -11,7 +11,7 @@ Intro
 
 Legacy way 1 (`constructor()`)
 
-```jsx
+```js
 const P = new Promise((resolveCB, rejectCB) => {
   if (something) resolveCB(x);
     else rejectCB(y); 
