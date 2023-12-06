@@ -151,21 +151,16 @@ import "./test.js";  // side-effect => only runs code in file
 More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
 https://devdocs.io/javascript/operators/import
 
-
-
 ### Event Loop, Macrotask, Microtasks
 
-JavaScript execution flow is based on an *event loop*. There’s an endless loop, where engine waits for *macrotasks*, executes them in FIFO and then sleeps, waiting for more. Tasks include `<script>` execution, `eventHandlers` and `setTimeout ,setInterval`
+JavaScript execution flow is based on an *event loop*. General algorithm of event loop :- 
+1. If call stack is empty and **task queue** has a *macrotask*, deque and execute it
+2. execute all *microtasks* placed in **microtask queue** by macrotask in similar fashion (FIFO)
+3. paint DOM, do network requests etc
+4. Go to step 1
 
-Also:
-1. Changes to DOM are painted only after current task is complete.
-2. If a task takes too long, the browser raises “Page Unresponsive”
-   
-
-Immediately after every *macrotask*, the engine executes all tasks from *microtask* queue, prior to other macrotasks or rendering or networking or anything else. Purpose of this is to preserve *environment state* between microtasks.
-
-
-Microtasks — execution of promise's `then/catch/finally` handler, `await` calls, `queueMicrotask(func)`
+Microtasks :- `promise` handlers, `await` calls, `queueMicrotask(func)` 
+Macrotasks :- `script` execution, `event` handlers, callbacks in  `setTimeout ,setInterval`
 
 ```js
 setTimeout(() => alert("timeout"));
@@ -175,21 +170,9 @@ alert("code");
 // "code promise timeout" because macro -> micro -> macro
 ```
 
-```jsx
-//split heavy tasks 
-let i = 0;
-void function count() {
-	do { i++; } while (i % 1e3 != 0)
-	if( i < 1e7) setTimeout(count);
-}()
-
-//to postpone something until event fully propagates, inside handler place
-setTimeout(func) //let other macrotasks complete
-queueMicrotask(func) //before other macrotask
-```
 
 **Web Workers**
 
-Run code in different parallel thread. Can exchange messages with the main process, but they have their own variables, and their own event loop.
+Run code in different parallel thread. Can exchange messages with the main process, but they have their own variables, and their own event loop.  JS never shares data across threads
 
 Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
