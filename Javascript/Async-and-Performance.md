@@ -261,7 +261,7 @@ function within(delay) {
 /*using*/ Promise.race( [ foo(), within(2000)] ).then(F,R)
 ```
 
-#### Converting callback based API to promise
+#### Promisifying old APIs
 
 ```jsx
 //setTimeout
@@ -280,6 +280,24 @@ const myFetch = (url) => new Promise( (resolve, reject) => {
   xhr.send();
 })
 myFetch(url).then(dothis)
+
+
+// custom prosifier
+const myPromisify = (fn) => {
+   return (...args) => {
+     return new Promise((resolve, reject) => {
+       function customCallback(err, ...results) {
+         if (err) {
+           return reject(err)
+         }
+         return resolve(results.length === 1 ? results[0] : results) 
+        }
+        args.push(customCallback)
+        fn.call(this, ...args)
+      })
+   }
+}
+
 ```
 
 
@@ -288,5 +306,5 @@ myFetch(url).then(dothis)
 Drawbacks of Promises
 - single value or reason => needs array/object wrapping to send >1
 - only way to pinpoint errors is 1 eventListener on window
-- callbacks trigger only once, unlike events 
+- handlers trigger only once, unlike for events
 - promisifying api takes effort => use a library
