@@ -72,10 +72,11 @@ Callbacks are *fundamental* async pattern in JS. It is a function that event loo
 - **Inversion of Control** : they implicitly give control over to another party to invoke the _continuation_ of your program.
 - **Non-linearity** : callbacks express async flow in a non-sequential way, which makes code much harder to understand and maintain. 
 - **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
+- **Race conditions** : when a async task may finish synchronously
 
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To avoid them, we now have 
 
-**Promises** , that use *split-callback* design, and solve 1,3 and imperfectly 2.
+**Promises** , that use *split-callback* design, and solve 1,3,4 and imperfectly 2.
 
 **Generators** let you 'pause' individual functions without pausing the state of the whole program. They don’t follow run to completion.
 
@@ -85,7 +86,7 @@ All these result in **Callback Hell** where code is unmaintable, unpredictable, 
 ## Promises
 
 Intro
-  - it's an object that **encapsulates** a future value ; waits until the value is settled, then executes 1 _callback handler_ asynchronously using microtask queue.
+  - it's an object that **encapsulates** a future value ; waits until the value is settled, then executes 1 _callback handler_ **asynchronously** using microtask queue.
   -  `[[PromiseResults]]` 
 
 ### Creating Promises
@@ -142,7 +143,7 @@ Promise.reject.call(NotPromise, "bar"); // bye bar
 
 - `obj.then(F,R)` : executes F or R async-ly based on object's state. Return a *promise P*  based on callback's return
   - non-promise --> P fulfilled immediately with value = return or undefined.
-  - promise --> P resolve to it (hard-linked to its eventual state & value)
+  - promise --> P resolve to it (hard-linked to its eventual state & value) 
   - error --> P rejected with throw *val* = `reason`
 
 - `obj.catch(R)` : shorthand for `then(null,R)`. Used to specify common error-handler for a then chain.
@@ -234,6 +235,14 @@ const chainOps = (...fs) => (initPromise) =>
 // can be done with await
 let acc = pr;
 for (const f of [...fs]) acc = await f(acc)
+
+// a utility for timing out a Promise
+function within(delay) {
+	return new Promise( (null,reject) =>
+		setTimeout( () => reject( "Timeout!" ), delay ));
+}
+/*using*/ Promise.race( [ foo(), within(2000)] ).then(F,R)
+
 ```
 
 **Converting callback based API to promise**
