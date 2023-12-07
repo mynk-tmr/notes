@@ -132,17 +132,12 @@ P.catch(console.log) //3
 	- `resolve()` => create **new** promise that will *resolve* to original (immutably linked to its eventual state & value) 
 	- `Promise.resolve()` => return **original** promise (to avoid deeply nested promises)
 
+
 `reject(), Promise.reject()` : if reason is
 - thenable :- call *onRejected* (no unwrapping)
 - others :- create a **new** rejected promise that wraps reason (no resolution)
 
-```jsx
-var a = Promise.resolve(1);
-var b = Promise.resolve(a);
-var c  = Promise.reject(a);
-b.then(console.log)  //1 (==a)
-c.then(console.log)  //Promise {1} 
-```
+SEE [[Tricky-Questions#Promises]]
 
 
 Using modern syntax on promise-likes
@@ -188,7 +183,6 @@ Promise.allSettled( [f(), g(), h()] ).then(doIt) //f,g,h return promises
 
 __Floating promise__ :- previous then handler started a promise but did not return it, there's no way to track its settlement anymore. Next `then` handler will be called *early* with `undefined` value.
 
-
 #### Error-handling
 
 When a promise is rejected, 2 events can fire on `window` 
@@ -208,6 +202,7 @@ f().then(x => g(x).then(h).catch(err1)) //handles g,h errors
 	 .then(z).catch(err2) //handles f,z errors
 ```
 
+TO PREVENT BUBBLING
 ```jsx
 //in browser
 window.addEventListner('unhandledrejection' , dealwithit);
@@ -293,5 +288,5 @@ myFetch(url).then(dothis)
 Drawbacks of Promises
 - single value or reason => needs array/object wrapping to send >1
 - only way to pinpoint errors is 1 eventListener on window
+- callbacks trigger only once, unlike events 
 - promisifying api takes effort => use a library
-- 

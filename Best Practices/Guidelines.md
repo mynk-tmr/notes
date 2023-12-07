@@ -1,4 +1,8 @@
 
+##### Github
+- Never *hardcode* 'API key' in code, bad bots can see then
+- 
+
 ##### Javascript
 - breakpoints over console.log 
 - log only *stringified* object in complex apps
