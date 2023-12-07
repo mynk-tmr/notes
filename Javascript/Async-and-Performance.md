@@ -38,6 +38,15 @@ if (data1 && data2 ) {
 	func(data1)
 	func(data2)
 }
+
+// LATCH -> first to execute wins. To avoid multiple callback invokes by 3rd party utility
+let done = false;
+paytm.sendMoney(amount, cb)
+jio.sendMoney(amount, cb)
+
+function cb() {
+	done = true; debitMoney(); 
+}
 ```
 
 ##### Cooperative Concurrency
@@ -58,21 +67,17 @@ void function count() {
 
 ## Callbacks
 
-Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws. 
-#### Inversion of Control
-they implicitly give control over to another party (often a third-party utility not in your control!) to invoke the _continuation_ of your program.
+Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
 
-#### Non-linearity 
-callbacks express async flow in a nonlinear, nonsequential way, which makes code much harder to understand and maintain. 
+- **Inversion of Control** : they implicitly give control over to another party to invoke the _continuation_ of your program.
+- **Non-linearity** : callbacks express async flow in a non-sequential way, which makes code much harder to understand and maintain. 
+- **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
 
-#### Callback hell / Pyramid of Doom
-A result from deep nesting of timers to perform a series of async operations.  
+All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To avoid them, we now have 
 
+**Promises** , that use *split-callback* design, and solve 1,3 and imperfectly 2.
 
----
-**Promises** are a way to write async code in a top-down way, with robust error handling syntax.
-
-**Generators** let you 'pause' individual functions without pausing the state of the whole program. They don’t follow run to completion behaviour of other functions.
+**Generators** let you 'pause' individual functions without pausing the state of the whole program. They don’t follow run to completion.
 
 `async/await` wrap generators and promises in a higher level syntax.
 
@@ -80,9 +85,8 @@ A result from deep nesting of timers to perform a series of async operations.
 ## Promises
 
 Intro
-  - an object that represents eventual completion or failure of an async operation. 
-  - Every promise upon settling executes 1 _callback handler_ asynchronously via microtask queue.
-  - stores a value `[[PromiseResults]]` provided at time of settling it.
+  - it's an object that **encapsulates** a future value ; waits until the value is settled, then executes 1 _callback handler_ asynchronously using microtask queue.
+  -  `[[PromiseResults]]` 
 
 ### Creating Promises
 
@@ -191,7 +195,7 @@ process.on("unhandledRejection", (reason, promise) => { /code/ });
 
 **Promise Concurrency**
 
-4 static methods are available to run promises or operation in parallel. They take iterable of promises & return *1 promise* based on how those promises are settled.
+4 static methods are available to run promises or operation in parallel. They take iterable of promises & return *1 promise* that will resolve based on how those promises are settled.
 
 ```js
 //general syntax
@@ -206,7 +210,7 @@ f(value) ; g(error_obj) ; error_obj.errors /* array of reasons*/
 //Promise.race -- as soon as 1 settles
 f(value) ; g(reason) 
 
-//Promise.allSettled 
+//Promise.allSettled -- always fulfill
 f( [data_p, data_q, data_r] ) 
 data_p.status //'fulfilled' or 'rejected'
 data_p.value  // of promise
