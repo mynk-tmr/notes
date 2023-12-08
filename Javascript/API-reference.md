@@ -112,28 +112,81 @@ abort, error, loadstart, progress, load /*only if success*/ , loadend
 
 ## Fetch API
 
-A *promise* based API to send/get network resources.
+A *promise* based API to send/get network resources. 
 
 ```jsx
 fetch(url, {mode: 'cors'}) //returns promise for response
-  .then(response => response.json()) //get a promise for data 
+  .then(response => response.json()) //extract body(data) 
   .then(data => console.log(data)) //once available, use
 
 //to post must include this
  headers: { "Content-Type": "application/json"}
+
+//using constructor to create Request, Headers object
+request = new Request(url, {mode: 'cors'})  //fetch(request)
+heads = new Headers({ "Content-Type": "application/json"}) // headers : heads
 ```
 
 **Options object**
+- `body: JSON.stringify(data)` : to POST data
+- `headers: JSON.stringify(header)` : set HTTP headers
 - `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
 - `referrerPolicy` : 
-- `method` : (GET, POST, PUT, DELETE, etc).
+- `method` : (GET, POST, PUT, DELETE, etc). Still sends response for succ/fail
 - `cache` : use from cache? `no-cache` `force-cache` 
-- `body: JSON.stringify(data)` : to POST data
-- `headers: JSON.stringify(heads)` : set HTTP headers
-- `credentials` : `omit` `same-origin**` `include` ; how to send/get credentials
-- `signal : ctr.signal` : signal whose .abort() will abort fetch.
+- `credentials` : send/get cookies ? -> `omit` `same-origin**` `include` 
+- `signal : ctr.signal`: set abortcontroller
 
-**Response properties**
-- `res.ok` (t/f) `res.status` (404) 
+
+**Headers object**
+- have a _guard_ to prevent malicious changes
+- methods
+	- `.append(key,value)`, `.delete(key)`, `.forEach(cb)` , `.get(key)` `.set(key,value)` , `.has(key)`
+	- `.getSetCookie()` : only on nodejs
+	- `.entries()`, `.keys()`, `.values()`
+
+
+**Request Object**
+- props same as in *options* object //read-only//
+- + `.url` 
+
+
+**Response objects**
+- returned when fetch promises are resolved
+- `res.ok` (t/f) `res.status` (404) `res.statusText` 
+- fetch rejects only when a network error or CORS is misconfigured
+
+
+```jsx
+//methods on Request and Response to extract body [return Promise]
+// can only run once
+.arrayBuffer()
+.blob()
+.formData()
+.json()
+.text()
+
+new Request(t, init) //creating customised copies ; Use this to get BODY again
+```
+
 
 Fetch library [axios](https://axios-http.com/) 
+
+**Uploading Form data** 
+
+`body : formData` 
+
+```jsx
+const formData = new FormData();
+const fileField = $('input[type="file"]');
+
+formData.append("username", "abc123");
+formData.append("avatar", fileField.files[0]);
+
+//for mutiple files
+for (const [i, photo] of [...fileField.files].entries()) {
+  formData.append(`photos_${i}`, photo);
+}
+
+new FormData(form, submitter) //creates formData from form fields 'name':'value' and submit button's 'name':'value'
+```

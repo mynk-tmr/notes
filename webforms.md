@@ -99,6 +99,14 @@ input[type='file']::-webkit-file-upload-button
 
 ```
 
+Submit buttons attributes 
+- formaction: Override the action attribute of the form.
+- formenctype: Override the enctype attribute of the form.
+- formmethod: Override the method attribute of the form.
+- formnovalidate: Override the novalidate attribute of the form.
+- formtarget: Override the target attribute of the form.
+
+
 
 ## Custom form controls
 
