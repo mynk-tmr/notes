@@ -72,7 +72,7 @@ Callbacks are *fundamental* async pattern in JS. It is a function that event loo
 - **Inversion of Control** : they handover the control & flow of code to other api (usually 3rd party) with minimal ways to tackle unpredicted behaviour
 - **Non-linearity** : callbacks express async flow in a non-sequential way, which makes code much harder to understand and maintain. 
 - **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
-- **Race conditions** : when some async task may finish synchronously
+- **Race conditions** : when some async callback may finish synchronously
 
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
 - **Promises** , that use *split-callback* design
@@ -85,12 +85,9 @@ All these result in **Callback Hell** where code is unmaintable, unpredictable, 
 An object that **encapsulates** a future value ; waits until the value is settled, then executes 1 _callback handler_ asynchronously using **microtask** queue.
 
 Solutions to callback hell
- - **IoC** :- we don't pass callback into 3rd party API, instead request a promise. To ensure we only get promise, use `Promise.resolve(api_call)`
- - **PoD** :- no deep nesting 
- - **races** :- always run on mtqueue, even when errors
-
-
-Internals :- `[[PromiseResults]]` 
+ - **Inv. of Control** :- we don't pass callback into 3rd party API, instead get a promise. To ensure we only get promise, use `Promise.resolve(api_call)`
+ - **Py. of Doom** :- no deep nesting 
+ - **Race conditons** :- callback always run on mtqueue, even when errors
 
 #### Creating Promises
 
@@ -126,7 +123,7 @@ P.catch(console.log) //3
 ```
 
 
-`resolve() v/s Promise.resolve()` : if value is 
+`resolve(), Promise.resolve()` : if value is 
 - non-promise :- create a promise *fulfilled* with value;
 - thenable :- call *onFulfilled* recursively until a definite value is found
 - promise :- 
@@ -302,63 +299,42 @@ const promisify = (fn, manyArgs=false) => function(...args) { //no arrow
 
 ## Async Await
 
-`async` => ensure function's returns & exceptions are wrapped in a *fulfilled / rejected* promise ( `resolve() NOT Promise.resolve()` )
-
+with `async` keyword, function declares itself as generator and promisifies return value (*fulfilled*) or error reason (*rejected*)
 ```jsx
-async function hello {...}
-async classmethod() {...}
- 
-await null; // defer stmts after it to microtask queue
+async function f() {...}
+f = async () => {...}
+async class_f() {...}
+arr.map(async x => x+1 )
+
+//return is always NEW promise
 ```
 
-`await expr` => applies `Promise.resolve()` on expr and suspends function execution until promise settles ; usable only in async-funcs & top-level in `modules`
+`await <promise>`
+- suspends function execution until promise settles. Stmts after it will run later on **microtask** queue. 
+- evaluates to *fulfillment* value of promise/thenable, ELSE to expr itself
+- resolution similar to `Promise.resolve()`
+- usable only in async-funcs & **top-level** in `modules`
 
-more linear way to write promises
-```jsx
- function chainOps(...fns) {
-	return async function(initval) {
-	let acc = initval;
-	for (const f of [...fns]) acc = await f(acc)
-	}
-}
+```jsx 
+await null; 
+/* code to run later */
 ```
 
 #### Error handling
 
-Promise chain is constructed in stages as control is successively yielded from and returned to the async function. As a result, we must be mindful of error handling behavior when dealing with concurrent asynchronous operations.
-
-
 ```jsx
-async function f() {
-  let response = await fetch('http://no-such-url'); 
-  // when expr throw error or reject promise, await throws it's reason
-  // f() returns a rejected promise
-}
-f().catch(console.log)
+//to handle errors thrown inside async function
+try { /*code*/ } catch(reason) {...} //in BODY OR
+asyncFn().catch((reason)=> {}) //on CALL
 
-//or do this
-let response = await fetch(url).catch(e => toString(e))
+//await becomes 'throw reason' when <promise> rejected OR error occurs 
 
-//DON't do this
-const results = [await p1, await p2] //
+//always use 'await' to call functions for better tracing
+await dosometask()
 
-//in the following code an unhandled promise rejection error will be thrown
-async function foo() {
-  const p1 = new Promise((resolve) => setTimeout(() => resolve("1"), 1000));
-  const p2 = new Promise((_, reject) => setTimeout(() => reject("2"), 500));
-  const results = [await p1, await p2]
-  ; // Do not do this! Use Promise.all or Promise.allSettled instead.
-}
-foo().catch(() => {}); // Attempt to swallow all errors...
-// use try-catch BLOCKS instead for UnhandledPromiseRejection
-```
-
-
-Improving stack trace
-```jsx
-async function deo() {
-  return await AsyncTask(); // without await deo won't show in stack trace.
-}
+//use composers to chain Promises
+wrong = [await p1, await p2]; // not caught by .catch()
+right = Promise.allSettled(p1,p2)
 ```
 
 #### Top level await
@@ -379,10 +355,9 @@ Causes parent module to pause, until child finishes
 import child from './child.js';
 
 //child.js
-const colors = fetch("../data/colors.json").then((response) => response.json());
+const colors = fetch("../data/colors.json").then(x => x.json());
 export default await colors;
 ```
-
 
 #### Control flow
 
@@ -392,7 +367,6 @@ async function foo(name) {
   await console.log(name, "middle"); //stmts after this happen on next tick
   console.log(name, "end");
 }
-
 foo("First");
 foo("Second");
 
@@ -404,3 +378,14 @@ foo("Second");
 // Second end
 ```
 
+
+#### Utilities
+
+```jsx
+ function chainOps(...fns) {
+	return async function(initval) {
+	let acc = initval;
+	for (const f of [...fns]) acc = await f(acc)
+	}
+}
+```
