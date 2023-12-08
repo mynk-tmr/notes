@@ -297,11 +297,13 @@ const promisify = (fn, manyArgs=false) => function(...args) { //no arrow
 ```
 
 
-## Async Await
+## Async / Await
 
-with `async` keyword, function declares itself as generator and promisifies return value (*fulfilled*) or error reason (*rejected*)
+Async/Await simplify the process of working with chained promises. 
+`async` keyword marks function as *generator* that return a Promise i.e. *rejected* (with `reason`) on error OR *resolved* (with return `value`)
+
 ```jsx
-async function f() {...}
+async function f() {...} //f promises to return a value in future
 f = async () => {...}
 async class_f() {...}
 arr.map(async x => x+1 )
@@ -335,6 +337,10 @@ await dosometask()
 //use composers to chain Promises
 wrong = [await p1, await p2]; // not caught by .catch()
 right = Promise.allSettled(p1,p2)
+
+//catch decorator
+const addCatch = (fn, handler) => (...args) => fn(...args).catch(handler)
+let safeYolo = addCatch(yolo, logError)
 ```
 
 #### Top level await
@@ -378,7 +384,6 @@ foo("Second");
 // Second end
 ```
 
-
 #### Utilities
 
 ```jsx
@@ -389,3 +394,28 @@ foo("Second");
 	}
 }
 ```
+
+#### Asyncifying promises
+
+```jsx
+function addPromise(x){
+  return new Promise(resolve => {
+    doubleAfter2Seconds(10).then((a) => {
+      doubleAfter2Seconds(20).then((b) => {
+        doubleAfter2Seconds(30).then((c) => {
+          resolve(x + a + b + c);
+      	})
+      })
+    })
+  });
+}
+
+//DUCK pattern --> this is fixed with Async/await
+async function addAsync(x) {
+  const a = await doubleAfter2Seconds(10);
+  const b = await doubleAfter2Seconds(20);
+  const c = await doubleAfter2Seconds(30);
+  return x + a + b + c;
+}
+```
+
