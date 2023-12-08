@@ -6,6 +6,7 @@
 `'1' : val` => integer prop, sorted automatically (+1) isn't
 `[Symbol.toPrimitive](hint) {}` => custom convert ; hint is decided by V8 => string, number, default (str+num)
 
+iterable protocol allows objects to define or customize their iteration behavior.
 
 ## Property and Object flags
 
