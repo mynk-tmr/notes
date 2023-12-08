@@ -7,29 +7,30 @@
 
 ## Constraint Validation API
 
+An `invalid` event (bubble:*false*) is triggered on every invalid field. API supports --> **button, fieldset, input, output, select, textarea & form**
+
 Setup
 ```jsx
-myform.noValidate=true; //disable auto-validation
+myform.noValidate=true; 
+//disable Auto-validation ; manually validate with checkValidity() or reportValidity()
+//setCustomValidity('msg') //custom error msg, sets state to invalid
+
 myform.addEventListener('submit', validateForm);
 
 function validateForm(e) {
-	e.preventDefault();
-	if(e.target.checkValidity()) form.submit(); //no auto validation
-	else {
-		//
-	}
+	e.preventDefault(); //don't submit
+	
 }
 ```
 
-An `invalid` event (bubble:*false*) is triggered on every invalid field. API supports --> **button, fieldset, input, output, select, textarea & form**
 
 ```js
 //inline 'onchange' & submit 'onsubmit'
 
 inp.onchange = (e) => {
   e.target.checkValidity() // true/false
-  e.target.setCustomValidity('msg') //custom error msg, sets state to invalid
-  e.target.reportValidity() // true/false + show error msg
+  e.target.
+  e.target.reportValidity() // 
 }
 ```
 

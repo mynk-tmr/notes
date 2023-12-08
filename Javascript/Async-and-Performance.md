@@ -7,7 +7,7 @@ Links
 
 ## Concepts
 
-Core JS is **synchronous**, code is executed line by line and there's no 'wait' feature. 
+Core JS is **synchronous**, code is executed line by line and there's no 'wait' feature
 
 **Async != Parellism** :- happens later vs. happening simultaneously. EL doesn't support parallelism ; webworkers do.
 
