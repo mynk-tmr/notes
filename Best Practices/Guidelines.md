@@ -14,7 +14,6 @@
 	- define functions at *top*-level in code
 	- handle errors in *all* callbacks
 	- create reusable functions and place them in a *module*
-- use `z = promise.resolve(x).catch(erH)` while initalising
 
 ##### Planning a website
 - find out common sections on every page
