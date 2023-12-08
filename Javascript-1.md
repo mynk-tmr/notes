@@ -125,7 +125,7 @@ Imports are _live_ bindings and importing module _cannot change it's value_
 
 ```js
 //named exports
-export let one, two  // declarations => any like func, class, etc.
+export let one, two  // declarations
 export {f, g}  // list 
 
 //default exports --> only 1 allowed
@@ -148,6 +148,7 @@ import "./test.js";  // side-effect => only runs code in file
 
 //test is namespace object ; a sealed object with null prototype. 
 ```
+
 More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
 https://devdocs.io/javascript/operators/import
 
@@ -163,7 +164,7 @@ Microtasks :- `promise` handlers, `await` calls, `queueMicrotask(func)`
 Macrotasks :- `script` execution, `event` handlers, callbacks in  `setTimeout ,setInterval`
 
 ```js
-setTimeout(() => alert("timeout"));
+setTimeout(() => alert("timeout")); 
 Promise.resolve().then(() => alert("promise"));
 alert("code");
 

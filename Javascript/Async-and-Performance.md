@@ -97,15 +97,16 @@ Internals :- `[[PromiseResults]]`
 ```jsx
 // constructor
 P = new Promise( (resolve, reject) => { 
-	if(A) resolve(value); 
-	if(B) reject(reason); 
-	return 3; //ignored, just for control flow
+	//do something ASYNC, if successful resolve ELSE reject
+	// returns are ignored
 	// if error, rejected with reason = err
 })
 
 // thenables (mock interface)
 const obj = {
-  then(onFulfilled, onRejected) { /*code*/ }
+  then(resolve, reject) { 
+	   //do ASYNC and signal success/failure
+   }
 }
 
 // modern syntax --> don't require EXECUTOR to be called
@@ -240,18 +241,21 @@ data_p.reason // of rejection if any
 `race()` => forever pending
 ```
 
+
+**Drawbacks of Promises**
+- single value or reason => needs array/object wrapping to send >1
+- only way to pinpoint errors is 1 eventListener on window
+- handlers trigger only once, unlike in events
+- promisifying api takes effort => use a library
+
 #### Helper Methods
 
 ```jsx
 // compose async ops
-const chainOps = (...fs) => (initPromise) => 
-  fs.reduce((pr, f) => pr.then(f) , initPromise)
+const chainOps = (...fs) => (initval) => 
+  fs.reduce((pr, f) => pr.then(f) , Promise.resolve(initval))
 
 /* using */ chainOps(...funcs)(pr)
-
-// can be done with await
-let acc = pr;
-for (const f of [...fs]) acc = await f(acc)
 
 // a utility to set time-limit for functions
 function within(delay) {
@@ -282,20 +286,15 @@ const myFetch = (url) => new Promise( (resolve, reject) => {
 myFetch(url).then(dothis)
 
 
-// custom prosifier
-const myPromisify = (fn) => {
-   return (...args) => {
-     return new Promise((resolve, reject) => {
-       function customCallback(err, ...results) {
-         if (err) {
-           return reject(err)
-         }
-         return resolve(results.length === 1 ? results[0] : results) 
+// custom prosifier 
+const promisify = (fn, manyArgs=false) => function(...args) { //no arrow
+    new Promise((Fu, Rj) => {
+        fn.call(this, ...args, cb)
+        //define cb
+        function cb(err, ...results) {
+            err? Rj(err) : ( manyArgs? Fu(results) : Fu(results[0]) );  
         }
-        args.push(customCallback)
-        fn.call(this, ...args)
-      })
-   }
+	})
 }
 
 ```
@@ -303,8 +302,105 @@ const myPromisify = (fn) => {
 
 ## Async Await
 
-Drawbacks of Promises
-- single value or reason => needs array/object wrapping to send >1
-- only way to pinpoint errors is 1 eventListener on window
-- handlers trigger only once, unlike for events
-- promisifying api takes effort => use a library
+`async` => ensure function's returns & exceptions are wrapped in a *fulfilled / rejected* promise ( `resolve() NOT Promise.resolve()` )
+
+```jsx
+async function hello {...}
+async classmethod() {...}
+ 
+await null; // defer stmts after it to microtask queue
+```
+
+`await expr` => applies `Promise.resolve()` on expr and suspends function execution until promise settles ; usable only in async-funcs & top-level in `modules`
+
+more linear way to write promises
+```jsx
+ function chainOps(...fns) {
+	return async function(initval) {
+	let acc = initval;
+	for (const f of [...fns]) acc = await f(acc)
+	}
+}
+```
+
+#### Error handling
+
+Promise chain is constructed in stages as control is successively yielded from and returned to the async function. As a result, we must be mindful of error handling behavior when dealing with concurrent asynchronous operations.
+
+
+```jsx
+async function f() {
+  let response = await fetch('http://no-such-url'); 
+  // when expr throw error or reject promise, await throws it's reason
+  // f() returns a rejected promise
+}
+f().catch(console.log)
+
+//or do this
+let response = await fetch(url).catch(e => toString(e))
+
+//DON't do this
+const results = [await p1, await p2] //
+
+//in the following code an unhandled promise rejection error will be thrown
+async function foo() {
+  const p1 = new Promise((resolve) => setTimeout(() => resolve("1"), 1000));
+  const p2 = new Promise((_, reject) => setTimeout(() => reject("2"), 500));
+  const results = [await p1, await p2]
+  ; // Do not do this! Use Promise.all or Promise.allSettled instead.
+}
+foo().catch(() => {}); // Attempt to swallow all errors...
+// use try-catch BLOCKS instead for UnhandledPromiseRejection
+```
+
+
+Improving stack trace
+```jsx
+async function deo() {
+  return await AsyncTask(); // without await deo won't show in stack trace.
+}
+```
+
+#### Top level await
+
+```jsx
+// in non-modules/old browsers
+(async () => {
+  let response = await fetch('/article/promise-chaining/user.json');
+  let user = await response.json();
+  ...
+})();
+```
+
+Causes parent module to pause, until child finishes
+
+```js
+// parent.js  
+import child from './child.js';
+
+//child.js
+const colors = fetch("../data/colors.json").then((response) => response.json());
+export default await colors;
+```
+
+
+#### Control flow
+
+```jsx
+async function foo(name) {
+  console.log(name, "start");
+  await console.log(name, "middle"); //stmts after this happen on next tick
+  console.log(name, "end");
+}
+
+foo("First");
+foo("Second");
+
+// First start
+// First middle
+// Second start
+// Second middle
+// First end
+// Second end
+```
+
