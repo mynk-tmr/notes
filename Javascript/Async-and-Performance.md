@@ -76,7 +76,7 @@ Callbacks are *fundamental* async pattern in JS. It is a function that event loo
 
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
 - **Promises** , that use *split-callback* design
-- **Generators** let you 'pause' individual functions without pausing the state of the whole program. They don’t follow run to completion.
+- **Generators** let you 'pause' individual functions. They don’t follow run to completion.
 - `async/await` wrap generators and promises in a higher level syntax.
 
 
@@ -300,7 +300,7 @@ const promisify = (fn, manyArgs=false) => function(...args) { //no arrow
 ## Async / Await
 
 Async/Await simplify the process of working with chained promises. 
-`async` keyword marks function as *generator* that return a Promise i.e. *rejected* (with `reason`) on error OR *resolved* (with return `value`)
+`async` keyword marks function as *generator* that return a Promise i.e. *rejected* (with error `reason`) OR *resolved* (with return `value`)
 
 ```jsx
 async function f() {...} //f promises to return a value in future

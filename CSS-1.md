@@ -58,8 +58,8 @@ Upto 200dpi `1.0` pixel-to-density ratio, 200-300dpi `1.5`, then `floor(dpi/150)
 `all: <revert>` : _property_ to reset all values of element
 
 We override default styles to get consistent cross-browser styling
-Meyer’s Reset : most popular
-Normalize.css : `npm install normalize.css`
+**Meyer’s Reset** : most popular
+**Normalize.css** : `npm i normalize.css`
 
 
 ## Logical Properties and values
