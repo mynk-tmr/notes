@@ -57,3 +57,36 @@ for(key2 in obj2) dothat(); //O(n) -> O(2n) -> O(n)
 
 ![[Pasted image 20231209203436.png]]
 
+
+## Recursion
+
+2 steps in recursion -> `base case` ; `recursion case`
+It can be `O(n)` like in factorials.
+
+```jsx
+//check if no. can be reached from 1 with +5 or *3 only
+function findSolution(num) {
+  var path2;
+  return find(`1`);
+  function find(path) {
+     path2 = eval(path)
+     return path2 == num? true : 
+        path2 > num ? false:
+        find(`${path} + 5`) || find(`${path} * 3`);
+  }
+}
+```
+
+```jsx
+// normalise object properties
+function cleanProps(input) {
+	let newObj = {};
+	void function normal(obj = input, name = '') {
+	for (key in obj)
+	if (typeof obj[key] == 'object') normal(obj[key], name + key + '_');
+	else newObj[name + key] = obj[key];
+	}();
+	return newObj;
+}
+```
+
