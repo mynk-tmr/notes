@@ -26,7 +26,7 @@
 **Ternary/conditional operator**
 - acts on 3 operands and works like an *inline-if-else*.
 - returns value of expr chosen to be evaluated.
-- can't work with `break` `continue`
+- can't work with `break` `continue` `return` (can't control flow)
 
 ### Error Handling
 

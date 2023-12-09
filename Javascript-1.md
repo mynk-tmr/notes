@@ -160,7 +160,7 @@ JavaScript execution flow is based on an *event loop*. General algorithm of eve
 3. paint DOM, do network requests etc
 4. Go to step 1
 
-Microtasks :- `promise` handlers, `await` calls, `queueMicrotask(func)` 
+Microtasks :- `promise` handling, `await` calls, `queueMicrotask(func)` 
 Macrotasks :- `script` execution, `event` handlers, callbacks in  `setTimeout ,setInterval`
 
 ```js
