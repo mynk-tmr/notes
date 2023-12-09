@@ -95,10 +95,10 @@ x.readyState // 0 1 2 ['', loading, loaded]
 x.result //loaded file
 
 //value of result depends on read function used
-readAsArrayBuffer()	//ArrayBuffer containing binary data.
-readAsBinaryString() //string.
-readAsDataURL()	//URL string 
-readAsText() //contents
+.readAsArrayBuffer()	//ArrayBuffer containing binary data.
+.readAsBinaryString() //string.
+.readAsDataURL()	//URL string 
+.readAsText() //contents
 
 //thumbnail preview of selected file
 const reader = new FileReader();
