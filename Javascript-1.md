@@ -24,7 +24,12 @@ Variable and expression type is determined during runtime, unlike in static lang
 __V8's JIT compiler__
 
 It compiles ECMAScript directly to native machine code.
-At first execution, interpreter is used. On further executions, V8 finds patterns such as frequently used functions, variables, etc. and compiles them to improve performance. The compiled code is re-optimized dynamically at runtime, based on code’s execution profile.
+At first execution, interpreter is used. On further executions, V8 finds *patterns* such as frequently used functions, variables, etc. and *compiles* them to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
+
+
+**Engine Memory** 
+- *Call stack* : a LIFO data structure that stores execution contexts, primitives and references to objects
+- *Memory Heap* : stores actual objects
 
 
 __Stages of code execution__
@@ -36,7 +41,7 @@ Takes place for each execution context,
 
 _Execution context_ is an internal data structure that contains details about a function’s execution like value of `this`, local & closure variable, control flow's location, etc.
 
-_Call Stack_ : a LIFO data structure that stores execution contexts. It is initialised with global context. When a function is called, it’s execution context is created and pushed to stack, and when it completes, it is popped
+_Call Stack_ : It is initialised with global context. When a function is called, it’s execution context is created and pushed to stack, and when it completes, it is popped
 
 _Parsing_ : Script is scanned left to right, line by line and converted into stream of tokens, control characters, line terminators, comments, or whitespace. 
 
