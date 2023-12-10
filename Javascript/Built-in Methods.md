@@ -122,7 +122,7 @@ delete ar[1] // creates empty slot, return T/f
 **Custom Sorts `sort(callback)`**
 - `cb(a,b)` -> elements being compared ; must return `Number`
 - If return > 0, then **a is bigger** and sorted behind.
-- **Random** **sort** : return `0.5 - Math.random()`
+- *random sort* : return `0.5 - Math.random()`
 
 **Iterative methods**
 ```jsx
@@ -147,3 +147,6 @@ cb(acc,curr,currindex, org_arr) {
 ```
 
 `.reduce()` reduces array to a single value by executing a callback for each element and passing the return of previous callback into next call
+
+## Map
+

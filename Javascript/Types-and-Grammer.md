@@ -1,4 +1,90 @@
 
+## Data structures
+
+### Iterables
+
+Objects that can be used in `for..of` are called _iterable_. eg. `Array` `String`. To make iterables
+- implement `[Symbol.iterator]()` which returns _iterator_ object
+- implement `next()` in *iterator* which returns value, each time `for of` calls it.
+
+```jsx
+let range = {
+  from: 1,
+  to: 10,
+  [Symbol.iterator]() {
+    return {
+      pos: this.from,
+      quit: this.to, //can be Infinity
+      next() { //done, value are keywords
+        return this.pos < = this.quit ?
+          { done: false, value: this.pos++ } :
+          { done: true };
+	}}}}
+```
+!! don't return `range` itself, 2 simultaneous `for-of` would share state
+
+calling ourselves
+```jsx
+let iterator = obj[Symbol.iterator]();
+while (true) {
+  let result = iterator.next();
+  if (result.done) break;
+}
+```
+
+Objects that have indexed properties and `length` are called _array-like_. Don't support *array* methods. Not necessarily same as iterables eg. `range`. `String` is both though.
+
+`Array.from(obj, ^mapFn, ^thisArg)` makes a real `Array` from an *iterable or array-like* using a callback that maps all next() values one by one.
+```jsx
+let x = Array.from(range, n => n * 2);
+```
+
+
+### Maps and Set
+
+[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) is a iterable collection of *unique keyed* data items, just like an `Object`, but allows keys of *any* type (even objects). Object allows only `String` or `Symbol`. Any other type is coerced to string.
+
+Set is a iterable collection of *unique* *values* of any type. They don't maintain insertion order and ignores duplicate values in `set()`
+
+Methods and properties in both
+- `new Map/Set(iterable)`
+- `.size` : length
+- `map.set(key, value) / set.add(val)` : Returns new map/set ; overrides previous
+- `.get(key)` – returns val or `undefined`
+- `.has(key)`
+- `.delete(key)` - return t/f
+- `.clear()`
+- `.keys(), .values(), .entries()` - return iterable array-like. Use Array.from or [...]
+
+Map uses *SameValueZero* check (NaN can be key).
+Map preserves insertion order unlike objects (seen in `for of`)
+
+```jsx
+new Map([[1, 'hello'], [2, 'bye']]); //for key-values
+new Map(Object.entries(obj)); //from obj's key-values
+Object.fromEntries(map) //create object
+
+unique_arr = (arr) => Array.from(new Set(arr))
+
+```
+
+#### Weakmap & Weakset
+
+```jsx
+let john = { name: "John" };
+
+let array = [ john ];
+
+john = null; // overwrite the reference
+
+// the object previously referenced by john is stored inside the array
+// therefore it won't be garbage-collected
+// we can get it as array[0]
+```
+
+
+
+
 ### Control Flow 
 
 **Conditional stmts**
@@ -54,7 +140,8 @@ All errors are *serializable* object, so can be cloned with structuredClone()�
 
 
 **Equality checks**
-- `==` : loosely equal (type convert operands)
-- `= = =` : strictly equal (no conversin)
-- `Object.is(val,val)`: strict, treats `-0` and `+0` differently, and 2 `NaN` as equal
+- *loosely equal* : equal after type conv.
+- *strictly equal* : same type & val
+- *samevalue* : treates `NaN` as equal, but `-0` =/= `+0` . USed by `Object.is(val,val)`
+- *samevalueZero* : treates `NaN==NaN`  `+0 == -0` . Many built-in use this e.g. Map
 
