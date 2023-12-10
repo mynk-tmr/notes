@@ -49,7 +49,7 @@ for(key2 in obj2) dothat(); //O(n) -> O(2n) -> O(n)
 
 **Memoizing** : caching results of expensive function calls in *pure functions*. A function can only be memoized if it is referentially transparent -> call can be substituted with its return.
 
-**Lazy evaluation** or call-by-need,[1] is an evaluation strategy which delays the evaluation of an expression until its value is needed 
+**Lazy evaluation** or call-by-need : delays the evaluation of an expression until its value is needed 
 
 **Approximate computing**: return results close to actual to improve efficiency e.g. search engines
 
