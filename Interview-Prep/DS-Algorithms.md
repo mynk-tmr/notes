@@ -93,10 +93,3 @@ function cleanProps(input) {
 
 ## Arrays
 
-
-![[Pasted image 20231210040058.png]]
-
-| Topic         | Difficulty |
-| ------------- | ---------- |
-| Binary Search | *diabolic* |
-
