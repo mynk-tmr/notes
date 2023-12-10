@@ -91,17 +91,6 @@ function cleanProps(input) {
 ```
 
 
-## Maths
-
-```jsx
-ispower2 = (n) => (n>0) && !(n & (n-1))
-
-
-```
-
-
-
-
 ## Arrays
 
 
