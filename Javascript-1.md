@@ -23,8 +23,7 @@ Variable and expression type is determined during runtime, unlike in static lang
 
 __V8's JIT compiler__
 
-It compiles ECMAScript directly to native machine code.
-At first execution, interpreter is used. On further executions, V8 finds *patterns* such as frequently used functions, variables, etc. and *compiles* them to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
+At first execution, interpreter is used. On further executions, V8 compiles & optimise *frequently executed code* (Hot code) into **machine code** to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
 
 
 **Engine Memory** 

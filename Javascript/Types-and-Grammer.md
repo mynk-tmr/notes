@@ -1,4 +1,19 @@
 
+**Equality checks**
+- *loosely equal* : equal after type conv.
+- *strictly equal* : same type & val
+- *samevalue* : treates `NaN` as equal, but `-0` =/= `+0` . Used by `Object.is(val,val)`
+- *samevalueZero* : treates `NaN==NaN`  `+0 == -0` . Many built-in use this e.g. Map
+- *Object equality* : when they share same memory space ; loosely equal to primitive counterparts 
+	- `empty_obj != {} ... not same memory`
+	- `Object.keys(obj).length == 0  //correct way`
+
+
+**postfix/prefix**
+- evaluates to a value, not a reference (so no chaining)
+- return original vs. return new
+- In while & do while loops, *postfix* runs *1 extra* than prefix.
+
 ## Data structures
 
 ### Iterables
@@ -23,7 +38,7 @@ let range = {
 ```
 !! don't return `range` itself, 2 simultaneous `for-of` would share state
 
-calling ourselves
+without `for of`
 ```jsx
 let iterator = obj[Symbol.iterator]();
 while (true) {
@@ -54,7 +69,9 @@ Methods and properties in both
 - `.has(key)`
 - `.delete(key)` - return t/f
 - `.clear()`
-- `.keys(), .values(), .entries()` - return iterable array-like. Use Array.from or [...]
+- `map.keys(), .values(), .entries()` 
+	- return iterable array-like. Use `Array.from() or [...]`
+	- not same as static `Object.keys(obj)` etc. -> return real array
 
 Map uses *SameValueZero* check (NaN can be key).
 Map preserves insertion order unlike objects (seen in `for of`)
@@ -72,20 +89,31 @@ unique_arr = (arr) => Array.from(new Set(arr))
 
 ```jsx
 let john = { name: "John" };
+let arr = [ john ]; 
+john = null; // original isn't garbage-collected [arr[0]]
 
-let array = [ john ];
+// to prevent this, use weakmap, weakset
+```
 
-john = null; // overwrite the reference
+[`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) only allow *objects* *keys* and have weak reference to them, so they can easily be removed by garbage collector. They only have `get` `set` `delete` `has` methods and no `size` and aren't iterables (you can't get all content)
 
-// the object previously referenced by john is stored inside the array
-// therefore it won't be garbage-collected
-// we can get it as array[0]
+`WeakMap` and `WeakSet` are used as “secondary” data structures for “primary” object storage. Use cases :
+- extra data about objects, which auto-deletes when object dies
+- memoizing /caching 
+- data about sealed/alien objects
+
+```jsx
+// Symbol can be used too for this, only our code can see this
+let isRead = Symbol("isRead");
+msg_obj[0][isRead] = true;
 ```
 
 
-
-
 ### Control Flow 
+
+**Expression evaluation**
+- decide order of operations -> by *precedence*
+- when same precedence -> *associativity* . Almost all are left-to-right
 
 **Conditional stmts**
 - `case: ` tests for *strict* equality ; case can be enum values / string object
@@ -96,7 +124,6 @@ john = null; // overwrite the reference
 - entry controlled (check first, then exec) -> `for` `while`
 - exit controlled (execute first, then check) -> `do while`
 - `for` evaluates step at end of current iteration
-- In ONLY while & do while loops, *postfix* runs *1 extra* than prefix.
 - `for in` iterates over *enumerable* properties (enum flag `true`) 
 - `for of` iterates over *values* of **iterable** objects (built-in or user-specified)
 	- both pass by **value** to key/val
@@ -137,11 +164,4 @@ All errors are *serializable* object, so can be cloned with structuredClone()�
 
 **Properties**
 - `name` , `message` , `stack` 
-
-
-**Equality checks**
-- *loosely equal* : equal after type conv.
-- *strictly equal* : same type & val
-- *samevalue* : treates `NaN` as equal, but `-0` =/= `+0` . USed by `Object.is(val,val)`
-- *samevalueZero* : treates `NaN==NaN`  `+0 == -0` . Many built-in use this e.g. Map
 

@@ -23,24 +23,53 @@ Math.floor(Math.random() * mod) + a;
 In a date object, time is static and stored as ms from Jan 1, 1970. It does not have any properties, only methods.
 
 ```js
-today = new Date(); //current timestamp
-today = Date.now();
-thatDay = new Date("1995-03-25T13:33:55.383")
-thatDay = new Date(1995, 3, 25) //omitting hr, min, sec set to 0
+new Date() //current time obj
+Date.now() //ms timestamp
+new Date(0); //1 jan 1970 ; ms
+new Date(-86400_000); //31 dec 1969
+new Date("1995-03-25T13:33:55.383") 
+new Date(1995, 3, 25) //omitted set to 0
 ms = Date.parse("Aug 9, 1995") //parsed date for set* methods
+
+//month & sunday start from 0
 ```
 
+smart objects
+```jsx
+ti.setDate(feb_28.getDate() + 2) //mar 1 or mar 2 (auto-leap-check)
+why.setMinutes(why.getMinutes() + 25) //+25 minutes
+dt.setDate(0) //18 apr -> 31 march
+
+dt - why //subtract ms
+
+function getLastDayOfMonth(year, month) {
+  let date = new Date(year, month + 1, 0);
+  return date.getDate();
+}
+```
 
 __Date object Methods__
-- set* => accepts ms/parsed date => setHours(), setFullYear()
-- get* => return in local time => getHours()
-- to* => return in human readable form => toLocaleDateString(), toLocaleTimeString()
+- set* => accepts *ms/parsed* date => setHours(), setFullYear()
+- get* => return in *local* time => getHours()
+- to* => human readable form => toLocaleDateString(), toLocaleTimeString()
 
+
+**Utilites**
 ```js
 // Returns days left in the year
-const endYear = new Date(2024, 0, 1); // 2024 Jan 1
+const endYear = new Date(2024, 0, 1); 
 let daysLeft = (endYear.getTime() - Date.now()) / 86400_000;
 daysLeft = Math.round(daysLeft);
+
+getWeekDay = (date) => {
+	let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+	return days[date.getDay()]
+}
+
+function secondsLost() {
+  let d = new Date();
+  return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+}
 ```
   
 
@@ -53,9 +82,6 @@ Object.assign(obj, ...CopyUs) //exclude prototype
 //Create deep copy => clones nested objects & circular references
 newobj = structuredClone(myObj)
 
-// Destructuring exclude non-enumerables & prototype
-mergeobj = {...A, ...B}
-
 // Object.create() create empty object with given prototype
 child = Object.create(parent, initprops); 
 child = Object.create(null, { p: 42 }); //initialised with p ; unwritable by default
@@ -64,12 +90,18 @@ child = Object.create(null, { p: 42 }); //initialised with p ; unwritable by def
 Object.entries("fo") // [ ['0', 'f'], ['1', 'o']]
 Object.keys(obj) Object.values(obj)
 
+//applying array methods on obj
+prices = Object.fromEntries(
+  Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
+);
+
 // Object.groupBy(arr_of_objs, callback) : execute cb on each ele and group elements based on callback’s return.
 result = Object.groupBy(students, ({subject}) => subject);
 
 // result = { maths : [...] , science : [...] }
 // refers original elements, changes sync
-// Map.groupBy() groups elements based on any return type, not just string
+
+Map.groupBy() //groups elements on any return type
 ```
 
 
@@ -141,12 +173,13 @@ bool .every(cb) // callback returned true for every item
 bool .some(cb) //  ...... for 1 item
 
 //setup reducer
-cb(acc,curr,currindex, org_arr) {
-	return //to-acc
+cb(acc,curr,currindex, org_arr) { 
+	return x; //if no initval, 1st ele -> acc, 2nd ele -> curr
 }
 ```
 
 `.reduce()` reduces array to a single value by executing a callback for each element and passing the return of previous callback into next call
 
-## Map
+## Non-standard
 
+[performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) - no. of milliseconds from the start of page loading with microsecond precision
