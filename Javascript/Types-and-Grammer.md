@@ -52,3 +52,9 @@ All errors are *serializable* object, so can be cloned with structuredClone()�
 **Properties**
 - `name` , `message` , `stack` 
 
+
+**Equality checks**
+- `==` : loosely equal (type convert operands)
+- `= = =` : strictly equal (no conversin)
+- `Object.is(val,val)`: strict, treats `-0` and `+0` differently, and 2 `NaN` as equal
+

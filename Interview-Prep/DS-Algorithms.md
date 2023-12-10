@@ -91,5 +91,9 @@ function cleanProps(input) {
 ```
 
 
-## Arrays
+## Algorithm Techniques
+
+![[Pasted image 20231210191521.png]]
+
+![[Pasted image 20231210191812.png]]
 
