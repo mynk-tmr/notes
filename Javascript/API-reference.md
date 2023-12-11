@@ -1,32 +1,57 @@
 
 ## Concepts
 
-[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) means that a script can only request resources from the same origin it was loaded from (ie. server). To bypass this, we enable **CORS** 
+[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) : a script can only request resources from the same origin it was loaded from (ie. server). To bypass this, we enable **CORS** 
 
 **Cross-Origin Resource Sharing** ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is an [HTTP](https://developer.mozilla.org/en-US/docs/Glossary/HTTP)-header based mechanism that allows a *server* to indicate other *origins* from which a browser permits loading resources
 
 ## JSON
 
-JSON is a **text**-based data format following JavaScript object syntax.
+JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
 
-JSON exists as a **string**. Converting a string to a native object is called _deserialization_, while converting a native object to a string for network transmission is called _serialization_.
+2 methods
+- `JSON.stringify` to convert object/array into JSON (_serialization_)
+- `JSON.parse` to convert JSON back into object/array (_deserialization_)
 
-JSON can be a single string, number etc. JSON keys requires double-quotes.
+JSON can be a single primitive or array. JSON keys requires double-quotes. Skips `function, symbol, undefined` keys
 
 ```jsx
-obj = JSON.parse('{"name":"John", "age":30}'); 
-arr = JSON.parse('["name":"John", "age":30]'); //arr[0] 
-JSON.parse(data, (key,val) => {} ) // transform values [must return]
+JSON.parse('{"name":"John"}'); 
+arr = JSON.parse('["name":"John"]'); //arr[0] 
+JSON.parse(data, (key,val) => {
+	//code
+	return newValue; // transform values including nested
+} ) 
 
-str = JSON.stringify(obj) //or array
-localStorage.setItem("cook", str); //store
+localStorage.setItem("cook", json); //store
 localStorage.getItem("cook");
 
 //date fields
-JSON.stringify({dt : Date.now()}) // auto-evaluated
-parsedObj.age = new Date(parsedObj.age);
+JSON.stringify({dt : date_obj}) // auto-evaluated
+parsedObj.age = new Date(parsedObj.age)
 ```
 
+```jsx
+
+//custom
+JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
+
+//skip values
+JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
+	return key == 'under' ? undefined : value
+	})
+
+//object's toJSON auto-invoked by stringify
+let room = {
+  number: 23,
+  toJSON() { return this.number }
+};
+
+//remove circular (self) references
+JSON.stringify(meetup, (key, value) => {
+  return (key !== "" && value == meetup) ? undefined : value;
+})
+```
 
 ## Constraint Validation API
 
