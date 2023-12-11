@@ -97,3 +97,6 @@ function cleanProps(input) {
 
 ![[Pasted image 20231210191812.png]]
 
+## Data Structures
+
+
