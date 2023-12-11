@@ -32,8 +32,6 @@ parsedObj.age = new Date(parsedObj.age)
 ```
 
 ```jsx
-
-//custom
 JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
 
 //skip values
