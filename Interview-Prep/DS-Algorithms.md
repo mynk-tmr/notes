@@ -99,4 +99,6 @@ function cleanProps(input) {
 
 ## Data Structures
 
+Recursively-defined data structure can be defined using itself like *linked list*. Such structures support easy recursion.
+`list = {value: val, next: list2}`
 
