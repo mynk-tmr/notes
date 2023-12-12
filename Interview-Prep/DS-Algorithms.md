@@ -1,3 +1,6 @@
+Links
+- [Coursera Algorithms](https://www.coursera.org/specializations/algorithms?action=enroll)
+- 
 
 ## Concepts
 
@@ -101,4 +104,6 @@ function cleanProps(input) {
 
 Recursively-defined data structure can be defined using itself like *linked list*. Such structures support easy recursion.
 `list = {value: val, next: list2}`
+
+[BFS v/s DFS](https://stackoverflow.com/questions/3332947/what-are-the-practical-factors-to-consider-when-choosing-between-depth-first-sea)
 
