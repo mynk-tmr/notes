@@ -2,7 +2,7 @@
 ##### Precedence table
 
 - ()
-- fn calls & prop_access >>> (empty constructor)
+- fn calls, prop_access & (empty constructor)
 - postfix
 - other unary => prefix, `! ~ + -` `typeof, void, delete`
 - arithmetic => `** ,  */ , -+` 
@@ -162,3 +162,7 @@ Notable changes
 - No duplicate parameters or object properties
 - Non-leaking eval : `eval("var x;")` ⇒ variables are scoped to eval only
 - Non-updating immutable `arguments` : stores original parameters
+
+---
+
+delete op: `true` for all cases *except* when the property is an [own](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn) [non-configurable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty#configurable_attribute) property
