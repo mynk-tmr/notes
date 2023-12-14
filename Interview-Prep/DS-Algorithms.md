@@ -107,3 +107,4 @@ Recursively-defined data structure can be defined using itself like *linked lis
 
 [BFS v/s DFS](https://stackoverflow.com/questions/3332947/what-are-the-practical-factors-to-consider-when-choosing-between-depth-first-sea)
 
+![[Pasted image 20231215004401.png]]

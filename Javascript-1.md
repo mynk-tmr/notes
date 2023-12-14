@@ -129,7 +129,7 @@ Imports are _live_ bindings and importing module _cannot change it's value_
 
 ```js
 //named exports
-export let one, two  // declarations
+export let one=1, two=2  // declarations
 export {f, g}  // list 
 
 //default exports --> only 1 allowed
@@ -137,7 +137,7 @@ export default myfunc;
 export {myfunc as default} 
 export default func(){..} 
 
-// re-export/aggregating combine import + export ; syntax like import
+// re-export/aggregation combine import + export ; syntax like import
 export {default as f, g} from './no.js' 
 export * from './nat.js'  // only re-export NAMED
 
