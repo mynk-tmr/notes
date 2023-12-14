@@ -108,15 +108,13 @@ Map.groupBy() //groups elements on any return type
 ## Array
 
 ```jsx
-box = new Array(40); //40 undefined elements, slower than a=[]
+box = new Array(40); //length -> 40
 box2 = Array.of(9.3); // 1 element 9.3
-box3 = Array.from(obj); // like ...spread but universal
+box3 = Array.from(obj); 
 box.length = 5 ; // truncate array , 0 empties it
 
 //2D arrays 
-const arr = [[1,2]]  //NO a = [][] syntax in JS
-arr[1] = [3,4]  // Can't use a[1][0] = 3.. since arr[1] isn't 2D yet
-a[1][1] = 5 // now valid.
+const arr = [[1,2]]
 
 //redefine arr to Object ; length is unaffected
 arr['hello'] = 'world';
@@ -130,24 +128,23 @@ fish = [ ,2,3, ]; // length 3 [last comma ignored]
 Note : empty slots can behave like `undefined` & skipped in iterative methods (*map keeps them*). If empty slot is manually assigned undefined, it won’t be skipped.
 
 ```jsx
-arr.at(-1) //last ele
+arr.at(-1) 
 
 //search, optional fromIndex which supports negatives 
-[pos] indexOf(val) , lastIndexOf(val) 
-[bool] includes(val) //-ve fromIndex treated as a[0] to a[-i]
+`pos` indexOf(val) , lastIndexOf(val) 
+`bool` includes(val) //-ve fromIndex treated as a[0] to a[-i]
 
-[str] join('*') 
-[itm] pop() ; shift() 
-[new_length] push(...val) ; unshift(...val)
+`DONT MODIFY ORIGINAL`
+.join('*') //stringify
+.slice(start, ^end_excl)
+.concat(...args) //args appended
+.flat(2) // lowers dimensionality by 2 
 
-new_array .slice(start, ^end_excl)
-new_array .concat(...args) //args appended
-new_array .flat(2) // lowers dimensionality by 2 ; remove 2 inner brackets
-
-!!! //modify original
-del_items .splice(start, 4,...args) //replace 4 items with arglist
-delete ar[1] // creates empty slot, return T/f
-.sort() // dictionary sort
+`MODIFIERS`
+.pop()  .shift() 
+.push(...val) .unshift(...val) //new_size
+.slice(start, 4,...newEle) //return deleted
+.sort()
 .reverse()
 ```
 
