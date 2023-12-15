@@ -144,4 +144,3 @@ Examples
 - [Dijkstra's Minimal Spanning Tree Algorithm](https://www.programiz.com/dsa/dijkstra-algorithm)
 - [Huffman Coding](https://www.programiz.com/dsa/huffman-coding)
 - [Ford-Fulkerson Algorithm](https://www.programiz.com/dsa/ford-fulkerson-algorithm)
-
