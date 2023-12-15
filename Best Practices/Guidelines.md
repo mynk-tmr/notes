@@ -1,7 +1,10 @@
 
 ##### Github
 - Never *hardcode* 'API key' in code, bad bots can see then
-- 
+- Caution
+    1. never `git amend/reset` commits pushed to remote.
+    2. never `git rebase` a branch, others are working on
+    4. never `git push --force` 
 
 ##### Javascript
 - breakpoints over console.log 

@@ -1,3 +1,4 @@
+**Links**: [Git tools](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection) , [Resolve Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts)
 
 Install & Configure
 
@@ -33,24 +34,15 @@ Most common…
 git init /path/
 git rm/mv  #rm/mv + track
 git clean -fd #delete all untracked stuff
-git rm -r --cached *****files***** #untrack files
-**git branch -a, -r, -d, -D, -m #list, delete, rename
-```
-
-Cloning
-
-```bash
-git clone [-b *bname*] *url  #can be local file path*
-git subtree add --prefix temp *url* main --squash #clone into temp folder
-#replace add with pull; push {no squash} for sync
+git rm -r --cached files #untrack files
 ```
 
 Restore Files…
 
 ```bash
-git checkout *sha* -- *files* #restore files from **commit**
+git checkout *sha* -- *files* #restore files from commit
 git restore -p #interactive restoring files
-git checkout-index ********************files #restore from **********index***********
+git checkout-index files #restore from index
 ```
 
 Compare …
@@ -67,43 +59,24 @@ git diff --name-only HEAD~1 #files changed by recent commit
 git ls-tree -r HEAD~2 #get sha & file/folders in it
 git ls-files #list tracked files recursively
 git status --ignored #see untracked files
-
-git subtree split -b newb --prefix dist/  #create new branch with dist folder contents
 ```
 
 Get details …
 
 ```bash
-git config --get *key*
-git show ***obj*** #details
+git config --get key
+git show obj #details
 git hash-object mix.css #show sha-1 of file
 git ls-files -s src | git hash-object --stdin #show sha-1 of folder src 
-git blame app.js *****#see latest changes + author
-#***** **-L 1,4** --> limit to lines
+git blame app.js #see latest changes + author
+#-L 1,4 --> limit to lines
 ```
 
-Working with Github
-
-```bash
-git remote #list all remote repos
-git remote add <name> <url> #link remote repo and give it name
-git remote remove name
-git push -u --all *name* #push all branches, create tracking references for branches
-git push [-d] orgin/feat **#to specific
-git fetch [--prune] origin/feat  #get changes
-git diff HEAD..origin/feat  #see changes
-
-#tags are explicitly pushed/fetched ; no pull
-git push origin --tags
-
-git pull [--rebase] #fetch + merge ; fix merge conflicts by prefixing alien commits
-```
 
 Git Log — browse history
 
 ```bash
 git log [>> dev.log] #display
-git log main..feat #show commits in feat, not in main
 git shortlog [-n][--reverse] #only msgs [sort options]
 git reflog     #includes changes to HEAD pointer
 ```
@@ -138,22 +111,6 @@ $git log --pretty=format:"%cn committed %h %cr"
 %H %h : commit hash (full, shortened)
 ```
 
-Changing commit history (!!! **Changes both index and working directory**)
-
-```bash
-git reset [--soft] <commit> #go back, soft preserves wkdir+index
-git reset HEAD@{n}  #git reflog
-git commit --amend  #replace last commit with this one
-
-git revert [--no-commit] <commit> #creates a new commit that undo changes of given commit
-git revert --abort #stop reverting
-
-git rebase main #make current branch HEAD and apply its commits on tip of main
-# Used to create Linear commit history
-
-git rebase -i --committer-date-is-author-date <commit> 
-# rolls back commits after <commit_id> and squash multiple commits into one
-```
 
 Git aliases — create custom git commands
 
@@ -203,4 +160,138 @@ git remote add A /pathto/
 git fetch A --tags
 git merge --allow-unrelated-histories A/main
 git remote remove A
+```
+
+
+---
+---
+
+Git is a **distributed VCS** and Github is a **hosting service** for Git repositories.
+
+Git features
+
+- version control : records changes in a project in a special database called **repository**.
+- Git has two main data structures - **object store & index,** stored in `.git` folder in each project
+- _distributed_ - each user has their own repo, which they use to update a remote repo.
+    - in local vcs, all changes are on local storage
+    - in centralised vcs, only one global repo exists for for all users. Risky because it has a single point of failure
+
+**Git objects** represent a data structure and have a unique hash-id. Types
+
+- **Blobs** (file structures)
+- **Trees** ( directory structure)
+    - **tree-ish** is anything that ultimately leads to a tree object. e.g. **branch, tag**
+    - **commit-ish** (type of tree-ishes) e.g. `HEAD, sha-1 hash`
+    - **combined** : tree-ish:path e.g. `main:assets/hello.js`
+
+
+### Branch
+
+- A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of commit
+- new `branch` -> new copy
+- `HEAD` is pointer to current local branch ; when it points to a specific commit -> detached
+
+```shell
+cat .git/HEAD #ref: refs/heads/main
+```
+
+```shell
+#USUAL FLOW
+
+git switch production
+git switch -c hotfix #new branch, now do changes
+git switch - #go back to prod
+git merge hotfix  #merge into current
+git push production origin  #push branch
+git push -d/-D hotfix  #delete
+```
+
+```shell
+#logging branches
+git log mybranch 
+git log --all 
+
+#list
+git branch -v #last commit in each branch
+git branch -vv # -v + which tracking
+git branch --merged / --no-merged <hotfix> #only these w.r.t a branch
+git branch -a, -r # all / only remote
+git log main..feat #show extra commits in feat
+git diff HEAD..origin/feat  #after fetch
+
+#rename
+git branch -m old new 
+git push -u origin new  #old still on remote
+git push origin -d old #delete
+
+#fix merge conflicts, stage it
+git mergetool 
+
+# restoring branch
+git checkout <sha>
+
+git subtree split -b newb --prefix dist/  #create new branch with dist folder contents
+```
+
+```shell
+#experimental commits
+git checkout sha 
+... do commits
+git branch newfeat #stored here
+```
+
+### Remote 
+
+```bash
+git clone -b bname <url> -o ape #defaults master, origin
+git remote #list repos
+git remote add <url> yuki
+git remote remove yuki
+
+#clone to folder
+git subtree add --prefix temp <url> main --squash 
+git subtree pull ....
+git subtree push .... #no --squash
+
+#branching, tracking
+git fetch [--prune] ape  #get new changes
+git fetch --all --tags #from all remotes
+git checkout feat #create feat locally, track it
+git branch -u ape/feat  #track feat from current branch
+git checkout -b cust ape/feat #for custom name
+
+#push, pull
+git push -u --all boogie && git push --tags
+git pull --rebase #use this when someone else rebases
+git push -force-with-lease #safe force 
+```
+
+### Rewriting history
+
+2 ways to integrate branches
+- merge : combine end-points and point to it. e.g. fast-forward or 2 parent
+- rebase : replay all commits on 1 branch on a different branch
+
+```shell
+git rebase main #current on main's tip
+git rebase main feat #given
+git rebase --onto main server client #rebase client, excluding commonality with server
+
+#finally
+git switch main && git merge client
+```
+
+```bash
+git reset [--soft] <commit> #go back, soft preserves wkdir+index
+git reset HEAD@{n}  #git reflog
+git commit --amend  #replace last commit with this one
+
+git revert [--no-commit] <commit> #creates a new commit that undo changes of given commit
+git revert --abort #stop reverting
+
+git rebase -i <commit> # rolls back commits after <commit>
+git rebase -i --root #first commit
+
+#flags
+  --committer-date-is-author-date 
 ```
