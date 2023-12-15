@@ -1,4 +1,4 @@
-**Links**: [Git tools](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection) , [Resolve Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts)
+**Links**: [Git tools](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection) , [Resolve Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts) , [Best-practices](https://www.theodinproject.com/lessons/javascript-using-git-in-the-real-world#additional-resources)
 
 Install & Configure
 
@@ -243,9 +243,20 @@ git branch newfeat #stored here
 ### Remote 
 
 ```bash
+#USUAL WORKFLOW
+...fork and clone forked  #origin : your_url
+git remote add <orginal_url> upstream
+git switch -c feat
+...build stuff
+git switch main && git pull upstream main
+git switch feat && git merge main #to clean feat, solve conflicts
+git push origin feat 
+...submit pull request on original page
+```
+
+```bash
 git clone -b bname <url> -o ape #defaults master, origin
 git remote #list repos
-git remote add <url> yuki
 git remote remove yuki
 
 #clone to folder
