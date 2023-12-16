@@ -55,7 +55,7 @@ support esm and ts
 {
 	"type": "module",
 	"scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
     },
 }
 
@@ -71,7 +71,7 @@ support esm and ts
 }
 ```
 
-tsconfig options
+jest config options
 ```json
 "testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
 "bail" : true,  //stop on first fail
