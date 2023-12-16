@@ -35,8 +35,12 @@ Setup
 npm i -D jest   #then install babel
 touch jest.config.json 
 mkdir test     #place test files here
-...create config/test
-npm test <file> #skip file for all
+
+...create configurations
+
+npm t <file> #skip file for all
+npm t -- --watch  #watch mode
+npm t -- --coverage  #get index.html coverage
 
 #support typescript
 npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
@@ -55,7 +59,7 @@ support esm and ts
 {
 	"type": "module",
 	"scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
     },
 }
 
