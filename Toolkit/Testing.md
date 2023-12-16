@@ -1,7 +1,7 @@
 ## Concepts
 
 **Automated testing**
-- performed by a testing tool that executes a pre-defined test script and generate results. e.g. Selenium
+- performed by a testing tool that executes a pre-defined test script and generate results. e.g. Jest
 - important part of CI/CD pipeline
 
 #### Common types
@@ -32,21 +32,23 @@
 
 Setup
 ```shell
-npm i -D jest #then install babel
+npm i -D jest   #then install babel
 touch jest.config.json 
+mkdir test     #place test files here
 ...create config/test
 npm test #to run tests
 
 #support typescript
 npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
-
 ```
 
-support esm
+support esm and ts
 ```json
 //jest.config.json
 {
 	"transform": {},
+	"preset": "ts-jest",
+	"testEnvironment": "node"
 }
 
 //package.json
@@ -57,22 +59,53 @@ support esm
     },
 }
 
-//babel.rc under preset-env
-"targets": { "node": "current"},
+//tsconfig.json  ... only for TS
+{
+  "exclude": [
+    "node_modules",
+    "test", 
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
+}
 ```
 
 
+### Unit test with Jest
+
 Basic test
 ```js
-//sum.js
+//your JS or TS file
 export default function sum(a, b) {
   return a + b;
 }
 
-//sum.test.js
-import sum from './sum.js';
+//demo.test.js or demo.test.ts
+import sum from './sum';   //no .js or .ts
 test('1+2 should be 3', () => {
   expect(sum(1, 2)).toBe(3);
+  //more expects...
 });
+```
+
+
+Rules
+1. only write code enough to make a failing unit test pass.
+2. Only write a unit test sufficient to fail
+
+Matchers
+```js
+.toBe(val) // Object.is
+.toEqual(val) // if val is obj
+.toStrictEqual(val) // flag undefined props & type mismatches
+
+.not.toBe(val) 
+.toBeTruthy(), etc
+.toBeCloseTo(0.3) //for floats
+.toMatch(/regex/)
+
+//error match
+expect(() => func()).toThrow(val) //can be Error, 'str', /reg/
 ```
 
