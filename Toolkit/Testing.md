@@ -30,3 +30,49 @@
 
 ## JEST
 
+Setup
+```shell
+npm i -D jest #then install babel
+touch jest.config.json 
+...create config/test
+npm test #to run tests
+
+#support typescript
+npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
+
+```
+
+support esm
+```json
+//jest.config.json
+{
+	"transform": {},
+}
+
+//package.json
+{
+	"type": "module",
+	"scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    },
+}
+
+//babel.rc under preset-env
+"targets": { "node": "current"},
+```
+
+
+Basic test
+```js
+//sum.js
+export default function sum(a, b) {
+  return a + b;
+}
+
+//sum.test.js
+import sum from './sum.js';
+test('1+2 should be 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+```
+
