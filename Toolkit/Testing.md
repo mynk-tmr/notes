@@ -71,7 +71,7 @@ support esm and ts
 }
 ```
 
-Configuring tsconfig options
+tsconfig options
 ```json
 "testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
 ```
@@ -106,7 +106,6 @@ Matchers
 
 .not.toBe(val) 
 .toBeTruthy(), etc
-.toBeCloseTo(0.3) //for floats
 .toMatch(/regex/)
 .toHaveProperty('prop', optional_val)
 
