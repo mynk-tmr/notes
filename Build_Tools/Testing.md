@@ -81,29 +81,10 @@ jest config options
 "bail" : true,  //stop on first fail
 ```
 
-Basic test
-```js
-//your JS or TS file
-export default function sum(a, b) {
-  return a + b;
-}
-
-//demo.test.js or demo.test.ts
-import sum from './sum';   //no .js or .ts
-test('1+2 should be 3', () => {
-  expect(sum(1, 2)).toBe(3);
-  //more expects...
-});
-```
-
 
 Rules
 1. only write code enough to make a failing unit test pass.
 3. maximize pure functions as they are immediately testable.
-
-
-**Mocking**
-writing “fake” versions of a function that always behaves exactly how you want. 
 
 ### Test structure
 
@@ -205,16 +186,21 @@ expect(fn).toThrowErrorMatchingSnapshot()
 
 ### Snapshots
 
+run test once -> save output -> test against same output in future
+
 ```js
-expect(node).toMatchSnapshot()
-// Jest 23+
+expect(invoice).toMatchSnapshot()
 expect(user).toMatchSnapshot({
   date: expect.any(Date),
 })
-expect(user).toMatchInlineSnapshot()
+expect(invoice).toMatchInlineSnapshot(`Rupee 200.`) 
+
+//update snapshots with 'u' key in --watch
 ```
 
 ### Mock functions
+
+writing “fake” versions of a function that always behaves exactly how you want. 
 
 ```js
 // const fn = jest.fn()
