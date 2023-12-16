@@ -71,6 +71,10 @@ support esm and ts
 }
 ```
 
+Configuring tsconfig options
+```json
+"testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
+```
 
 ### Unit test with Jest
 
