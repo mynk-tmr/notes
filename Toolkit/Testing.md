@@ -74,6 +74,7 @@ support esm and ts
 tsconfig options
 ```json
 "testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
+"bail" : true,  //stop on first fail
 ```
 
 ### Unit test with Jest
