@@ -36,7 +36,7 @@ npm i -D jest   #then install babel
 touch jest.config.json 
 mkdir test     #place test files here
 ...create config/test
-npm test #to run tests
+npm test <file> #skip file for all
 
 #support typescript
 npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
