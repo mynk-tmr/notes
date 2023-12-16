@@ -104,6 +104,7 @@ Matchers
 .toBeTruthy(), etc
 .toBeCloseTo(0.3) //for floats
 .toMatch(/regex/)
+.toHaveProperty('prop', optional_val)
 
 //error match
 expect(() => func()).toThrow(val) //can be Error, 'str', /reg/
