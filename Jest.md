@@ -19,8 +19,7 @@ import axios from 'axios';
 jest.mock('axios') //module-name
 
 //WAY 1
-axios.get = jest.fn()
-axios.get.mockReturnValue(1) 
+axios.get = jest.fn().mockReturnValue(1);
 
 //WAY 2
 jest.mock('axios' , () => ({
