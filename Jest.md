@@ -6,7 +6,7 @@ fake implementation of functions or modules/API
 ```js
 const mockfn = jest.fn( x => x+1 ) 
 test('', () => {
-	myfunc([0,1], fn)  //myfunc(arr, cb)
+	myfunc([0,1], mockfn)  //myfunc(arr, cb)
 	// now we can access call metadata via .mock
 	
 	expect(mockfn.mock.results[0]).toBe(val) //1st myfunc return was 'val'
@@ -15,13 +15,15 @@ test('', () => {
 
 Mocking modules
 ```js
-import lodash from 'lodash';
+import axios from 'axios';
+jest.mock('axios') //module-name
 
-jest.mock('lodash')  
-lodash.pipe.mockResolvedValue(1) //way 1
+//WAY 1
+axios.get = jest.fn()
+axios.get.mockReturnValue(1) 
 
-//way 2
-jest.mock('lodash' , () => ({
+//WAY 2
+jest.mock('axios' , () => ({
 	__esModule: true,
 	default: {
 		get: jest.fn().mockResolvedValue(1),
