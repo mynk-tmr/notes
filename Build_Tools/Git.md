@@ -1,5 +1,4 @@
 **Links**: [Git tools](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection) , [Resolve Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts) , [Best-practices](https://www.theodinproject.com/lessons/javascript-using-git-in-the-real-world#additional-resources)
-
 Install & Configure
 
 ```bash
@@ -25,8 +24,6 @@ ssh-keygen -t rsa -b 4096 -C "xyz@yahoo.in" #all yes
 # test
 ssh -T git@github.com
 ```
-
-#.gitignore /log (in root), log/ (anywhere)
 
 Most common…
 
@@ -164,17 +161,7 @@ git remote remove A
 
 
 ---
----
-
-Git is a **distributed VCS** and Github is a **hosting service** for Git repositories.
-
-Git features
-
-- version control : records changes in a project in a special database called **repository**.
-- Git has two main data structures - **object store & index,** stored in `.git` folder in each project
-- _distributed_ - each user has their own repo, which they use to update a remote repo.
-    - in local vcs, all changes are on local storage
-    - in centralised vcs, only one global repo exists for for all users. Risky because it has a single point of failure
+Git has two main data structures - **object store & index,** stored in `.git` folder
 
 **Git objects** represent a data structure and have a unique hash-id. Types
 
@@ -184,7 +171,7 @@ Git features
     - **commit-ish** (type of tree-ishes) e.g. `HEAD, sha-1 hash`
     - **combined** : tree-ish:path e.g. `main:assets/hello.js`
 
-
+---
 ### Branch
 
 - A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of commit
