@@ -129,7 +129,11 @@ other dependencies
 # Webpack
 
 Basics
-- Provide `index.js` as entry, bundles it & all dependency tree from it
+- Provide 2 files
+	- `index.js` :- entry for webpack .. the start of dependency tree
+	- `template.html` :- to create html (linked with emitted js)
+- run `build-d` while developing + live server 
+- 
 
 ## Cmds
 
@@ -139,14 +143,11 @@ npm i -D webpack webpack-cli webpack-merge
 
 #basic tools
 npm i -D html-loader style-loader css-loader html-webpack-plugin
-
-#cmds
-npx webpack --watch 
 ```
 
 ```json
 //scripts
-"build-d": "webpack --config webpack.dev.js"
+"build-d": "webpack --config webpack.dev.js --watch"
 "build-p": "webpack --config webpack.prod.js"
 ```
 
