@@ -133,7 +133,7 @@ Basics
 	- `index.js` :- entry for webpack .. the start of dependency tree
 	- `template.html` :- to create html (linked with emitted js)
 - run `build-d` while developing + live server 
-- 
+- loaders & plugins -> bundle non-js files, so double check
 
 ## Cmds
 
@@ -190,6 +190,14 @@ module.exports = {
 
 ```
 
+### Useful loaders, plugins
+
+mini-css-extract plugin [Avoid style-loader conflict](https://www.npmjs.com/package/mini-css-extract-plugin#recommended)
+
+postcss-loader cssnano autoprefixer postcss-pxtorem
+
+---
+
 
 Rest (from code splitting) => [https://webpack.js.org/guides/](https://webpack.js.org/guides/)
 
@@ -219,11 +227,3 @@ npm i -D @babel/preset-typescript
 ```
 
 ---
-
-**List of plugins & loaders**
-
-html-webpack-plugin
-
-mini-css-extract plugin [Avoid style-loader conflict](https://www.npmjs.com/package/mini-css-extract-plugin#recommended)
-
-postcss-loader cssnano autoprefixer postcss-pxtorem
