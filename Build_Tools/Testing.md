@@ -28,11 +28,17 @@
 - **Beta/UAT tests:** test in real environment by selected end users
 
 
+Rules of TDD
+1. only write code enough to make a failing unit test pass.
+2. maximize pure functions as they are immediately testable.
+
+
 ## JEST
 
-Setup
+### Install, Config
+
 ```shell
-npm i -D jest   #then install babel
+npm i -D jest 
 touch jest.config.json 
 mkdir test     #place test files here
 
@@ -46,7 +52,8 @@ npm t -- --coverage  #get index.html coverage
 npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
 ```
 
-support esm and ts
+#### Support ESM and typescript
+
 ```json
 //jest.config.json
 {
@@ -75,40 +82,37 @@ support esm and ts
 }
 ```
 
-jest config options
+#### jest config options
+
 ```json
 "testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
 "bail" : true,  //stop on first fail
 ```
 
-
-Rules
-1. only write code enough to make a failing unit test pass.
-3. maximize pure functions as they are immediately testable.
-
-### Test structure
+### Setup & teardown
 
 ```js
-describe('makePoniesPink', () => {
-  beforeAll(() => {
-    /* Runs before all tests */
-  })
-  afterAll(() => {
-    /* Runs after all tests */
-  })
-  beforeEach(() => {
-    /* Runs before each test */
-  })
-  afterEach(() => {
-    /* Runs after each test */
-  })
+beforeAll( () => {code} ) 
+
+//async-ops
+beforeAll(() => {
+	return somepromise();
+})
 ```
+
+**Execution order**
+- top level ones run before/after describe ones
+- top level `*Each` apply to *every* test, describe ones only to describe
+- all `test` in *file* run after all `describe` in file , i.e, `log` stmts outside test appear **before** any `test`
+- if test pass in isolation, but fails in group ; something's wrong with setup & teardown
+
 
 ## Matchers
 
 [Using matchers](http://jestjs.io/docs/en/using-matchers), [matchers docs](https://jestjs.io/docs/en/expect)
 
 ### Basic matchers
+
 
 ```js
 .toBe(val) // Object.is
@@ -198,29 +202,6 @@ expect(invoice).toMatchInlineSnapshot(`Rupee 200.`)
 //update snapshots with 'u' key in --watch
 ```
 
-### Mock functions
-
-writing “fake” versions of a function that always behaves exactly how you want. 
-
-```js
-// const fn = jest.fn()
-// const fn = jest.fn().mockName('Unicorn') -- named mock, Jest 22+
-expect(fn).toBeCalled() // Function was called
-expect(fn).not.toBeCalled() // Function was *not* called
-expect(fn).toHaveBeenCalledTimes(1) // Function was called only once
-expect(fn).toBeCalledWith(arg1, arg2) // Any of calls was with these arguments
-expect(fn).toHaveBeenLastCalledWith(arg1, arg2) // Last call was with these arguments
-expect(fn).toHaveBeenNthCalledWith(callNumber, args) // Nth call was with these 
-expect(fn).toHaveReturnedTimes(2) // Function was returned twice
-expect(fn).toHaveReturnedWith(value) 
-expect(fn).toHaveLastReturnedWith(value) 
-expect(fn).toHaveNthReturnedWith(num, value)
-expect(fn.mock.calls).toEqual([
-  ['first', 'call', 'args'],
-  ['second', 'call', 'args'],
-]) // Multiple calls
-expect(fn.mock.calls[0][0]).toBe(2) // fn.mock.calls[0][0] — the first argument of the first call
-```
 
 ### Misc
 
@@ -325,6 +306,7 @@ test('async test', (done) => {
 
 ## Mocks
 
+
 ### Mock functions
 
 ```js
@@ -359,6 +341,30 @@ const callback = jest.fn(() => true)
 ```
 
 [Mock functions docs](https://jestjs.io/docs/en/mock-function-api)
+
+### Mock functions
+
+
+```js
+// const fn = jest.fn()
+// const fn = jest.fn().mockName('Unicorn') -- named mock, Jest 22+
+expect(fn).toBeCalled() // Function was called
+expect(fn).not.toBeCalled() // Function was *not* called
+expect(fn).toHaveBeenCalledTimes(1) // Function was called only once
+expect(fn).toBeCalledWith(arg1, arg2) // Any of calls was with these arguments
+expect(fn).toHaveBeenLastCalledWith(arg1, arg2) // Last call was with these arguments
+expect(fn).toHaveBeenNthCalledWith(callNumber, args) // Nth call was with these 
+expect(fn).toHaveReturnedTimes(2) // Function was returned twice
+expect(fn).toHaveReturnedWith(value) 
+expect(fn).toHaveLastReturnedWith(value) 
+expect(fn).toHaveNthReturnedWith(num, value)
+expect(fn.mock.calls).toEqual([
+  ['first', 'call', 'args'],
+  ['second', 'call', 'args'],
+]) // Multiple calls
+expect(fn.mock.calls[0][0]).toBe(2) // fn.mock.calls[0][0] — the first argument of the first call
+```
+
 
 ### Returning, resolving and rejecting values
 
