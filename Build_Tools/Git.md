@@ -178,6 +178,12 @@ Git has two main data structures - **object store & index,** stored in `.git` f
 - new `branch` -> new copy
 - `HEAD` is pointer to current local branch ; when it points to a specific commit -> detached
 
+2 ways to integrate branches
+- merge : combine end-points and point to it.
+	- **fast-forward**: move main branch's tip forward onto feat tip
+	- **2 parent**: new commit is created (merge commit)
+- rebase : replay all commits on 1 branch on a different branch
+
 ```shell
 cat .git/HEAD #ref: refs/heads/main
 ```
@@ -266,9 +272,6 @@ git push -force-with-lease #safe force
 
 ### Rewriting history
 
-2 ways to integrate branches
-- merge : combine end-points and point to it. e.g. fast-forward or 2 parent
-- rebase : replay all commits on 1 branch on a different branch
 
 ```shell
 git rebase main #current on main's tip

@@ -129,14 +129,11 @@ other dependencies
 ---
 
 
-Rest (from code splitting) => [https://webpack.js.org/guides/](https://webpack.js.org/guides/)
-
 babel loader
 
 ```jsx
 //install
-npm i -D babel-loader @babel/core @babel/preset-env 
-npm i -D @babel/preset-typescript 
+
 
 //set .babelrc
 {
