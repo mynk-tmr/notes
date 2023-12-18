@@ -6,9 +6,6 @@ Rules of TDD
 
 ## JEST
 
-### Install, Config
-
-
 
 ### Setup & teardown
 
