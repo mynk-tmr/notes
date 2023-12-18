@@ -8,57 +8,7 @@ Rules of TDD
 
 ### Install, Config
 
-```shell
-npm i -D jest 
-touch jest.config.json 
-mkdir test     #place test files here
 
-...create configurations
-
-npm t <file> #skip file for all
-npm t -- --watch  #watch mode
-npm t -- --coverage  #get index.html coverage
-
-#support typescript
-npm i -D jest typescript ts-jest @types/jest  #babel's ts has issues
-```
-
-#### Support ESM and typescript
-
-```json
-//jest.config.json
-{
-	"transform": {},
-	"preset": "ts-jest",
-	"testEnvironment": "node"
-}
-
-//package.json
-{
-	"type": "module",
-	"scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
-    },
-}
-
-//tsconfig.json  ... only for TS
-{
-  "exclude": [
-    "node_modules",
-    "test", 
-  ],
-  "compilerOptions": {
-    "esModuleInterop": true
-  }
-}
-```
-
-#### jest config options
-
-```json
-"testPathIgnorePatterns": ["test/demo.*"]  //exclude tests
-"bail" : true,  //stop on first fail
-```
 
 ### Setup & teardown
 
