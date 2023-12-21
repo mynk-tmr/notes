@@ -1,6 +1,6 @@
 
 ##### Github
-- Never *hardcode* 'API key' in code, bad bots can see then
+- Never *hardcode* 'API key' in code, bad bots can see them
 - Caution
     1. never `git amend/reset` commits pushed to remote.
     2. never `git rebase` a branch, others are working on

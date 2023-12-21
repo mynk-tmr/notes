@@ -154,7 +154,6 @@ Semantic changes
 4. Easier to write *‘secure’* Javascript e.g. can't access `callee` , `caller` and `arguments` in strict fn
 
 Notable changes
-
 - no `globalThis` substitution (now `undefined` ). Can’t skip `var`
 - **block-scoped function declarations**
 - In functions -> rest, default, or destructured parameters is a syntax error.

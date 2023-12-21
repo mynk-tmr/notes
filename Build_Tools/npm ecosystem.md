@@ -117,7 +117,7 @@ other dependencies
     "foo": "1.0.0 - 2.9",
     "bar": "<2.1.2",
     "asd": "http://asdf.com/asdf.tar.gz",
-    "pem": "../foo/bar"
+    "wsad": "../foo/bar"
   },
   "peerDependencies": { //your pkg requires
 	  "tea": "2.x"
