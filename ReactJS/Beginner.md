@@ -22,6 +22,14 @@ Folder structure
 - `index.css` : global styles for app
 - `main.jsx` : displays component tree within a `root` element via `react-dom` library (or `react-native`)
 
+```json
+//eslintrc.cjs -> add
+rules: {
+	"react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
+}
+```
+
 #### Components
 
 
