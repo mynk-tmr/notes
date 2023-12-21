@@ -41,7 +41,7 @@ Syntax extension for JS that allows writing rendering logic (JS) and markup (HTM
 - *camelCase* attrs (except `data-` and `aria-`)
 - close *void* tags
 - every child element (in array) must have a unique *key*.
-- `nullish, true, false` are not JSX showable
+- `nullish, true, false` are not JSX showable. `0` or `''` are valid.
 - https://transform.tools/html-to-jsx
 
 To add logic & dynamic values in JSX
