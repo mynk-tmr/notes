@@ -21,3 +21,7 @@ Folder structure
 - `App.jsx` : top-level component which is rendered on app startup.
 - `index.css` : global styles for app
 - `main.jsx` : displays component tree within a `root` element via `react-dom` library (or `react-native`)
+
+#### Components
+
+
