@@ -152,6 +152,7 @@ State is a component’s memory.
 - State is *private* to component
 - State updates are *async*, `setter` updates DOM on **next** component render.
 - state updates are *batched* (combined) for re-rendering
+- React keeps state values “fixed” within one render’s event handlers. You don’t need to worry whether the state has changed while the code is running.
 
 **state-updater**: callback used to update state using previous 
 ```jsx
@@ -160,7 +161,9 @@ setPerson((prev) => ({ ...prev, age: prev.age + 1 }));
 //if NO updater, state until last setter is invoked is used for all
 ```
 
-Read [Choosing the State Structure](https://react.dev/learn/choosing-the-state-structure) for more tips.
+**Tips**
+- combine states that change together into 1
+- don't use deep nesting or duplication
 - don’t put values in state that can be calculated using existing values, state, and/or props.
 - don't *mutate* state, use `const` and call setter with modified *copy* of array/obj (setter uses `Object.is` check)
 
