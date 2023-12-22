@@ -147,7 +147,7 @@ State is a component’s memory.
 - declared using `useState()` Hook which return 
 	- a[0] -> current state value
 	- a[1] -> setter function to update state & trigger re-rendering
-- when state changes, component is *destroyed* & recreated with **latest** value from useState
+- when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
 - Internally, React matches `useState pairs` of a component by their *order*.
 - State is *private* to component
 - State updates are *async*, `setter` updates DOM on **next** component render.
@@ -161,11 +161,19 @@ setPerson((prev) => ({ ...prev, age: prev.age + 1 }));
 //if NO updater, state until last setter is invoked is used for all
 ```
 
-**Tips**
+### Tips
+
 - combine states that change together into 1
 - don't use deep nesting or duplication
 - don’t put values in state that can be calculated using existing values, state, and/or props.
 - don't *mutate* state, use `const` and call setter with modified *copy* of array/obj (setter uses `Object.is` check)
+
+```jsx
+function Message({ initialColor }) {
+  // The `color` state variable holds the *first* value of `initialColor`.
+  // Further changes to the `initialColor` prop are ignored.
+  const [color, setColor] = useState(initialColor);
+```
 
 **Errors**
 - infinte rendering -> `setter` is called unconditionally
