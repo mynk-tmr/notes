@@ -97,6 +97,11 @@ root.unmount(); //destroy rendered tree, root is unusable now
 
 Server-rendered apps use `hydrateRoot` instead
 
+## Event Handling
+
+All events propagate in React except `onScroll`. Default : call during bubble, for call during capture suffix `Capture` e.g. `onClickCapture={}`
+Handlers can have *side-effects* like changing state, unlike rendering functions. 
+
 ## Props
 
 - Components accept a single arg, a props object
@@ -283,6 +288,7 @@ Using **HOOKS**
 ```jsx
 
 ```
+
 
 ## Components
 
