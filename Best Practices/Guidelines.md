@@ -1,4 +1,3 @@
-
 ##### Github
 - Never *hardcode* 'API key' in code, bad bots can see them
 - Caution

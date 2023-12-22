@@ -1,5 +1,4 @@
 
-
 ```jsx
 console.log(a); //error
 function foo() { console.log(a,c) } // 'a' undefined {hoisted}

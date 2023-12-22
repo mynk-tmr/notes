@@ -4,8 +4,6 @@ _Binding_ : process of converting identifiers into addresses.
 
 _Environment_ : collection of bindings and their values that exist at a given time.
 
-Code Blocks {..} : define statements to be executed together.
-
 _Keywords_: reserved words and cannot be used as a variable name.
 
 _Expression_ : A fragment of code that produces a value.

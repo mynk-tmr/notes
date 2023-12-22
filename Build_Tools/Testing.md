@@ -552,7 +552,6 @@ fake implementation of functions or modules/API
 
 Required stmts
 ```js
-import { jest } from '@jest/globals'
 afterEach(jest.clearAllMocks) //to clear mockstate
 ```
 

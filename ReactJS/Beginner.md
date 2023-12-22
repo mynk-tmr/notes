@@ -5,7 +5,7 @@
 - Has rich ecosystem which enables us to build full fledged production apps
 - With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
 - React builds *virtual DOM* from component tree. It's a lightweight in-memory representation of CTREE
-- When *state* of a component changes, it's corresponding *NODE* is updated. Then **entire** virtual DOM is compared with previous version and nodes are updated by **react-dom** library. 
+- When *state* of a component changes, it's corresponding *NODE* is updated. Then **entire** virtual DOM is compared with previous version and only changes are re-rendered by **react-dom** library. 
 
 #### Setup
 
@@ -101,15 +101,29 @@ Server-rendered apps use `hydrateRoot` instead
 
 ## Props & State
 
+### Props
+In React, data is transferred from parent components to child components via props. This data transfer is unidirectional, meaning it flows in only one direction. Any changes made to this data will only affect child components using the data, and not parent or sibling components. 
+
 
 
 ## Conditional Rendering
 
-Rendering only a subset of components, based on app's state. Can be done with 
-- conditional flow JS stmts like `?:` , `if-else`, `switch`, `return`
-- logical operators `msg > 0 && <p>New msg<p>`
+Rendering only a subset of components, based on app's state. Can be done with conditional flow JS stmts.
+- prefer `?:` over `if-else` 
+- prefer ENUMs over `switch` 
+- prefer `&&` over `? val : null`. Example -> `msg > 0 && <p>New msg<p>`
+- for nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 
-To render **lists**, use `iterative` methods with *unique* keys.
+#### KEYS
+- list items are compared by React using their *key* for updating items that changed.
+- Rules
+	- siblings must have *unique* keys
+	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
+- not sent in props
+- if list never -/+/reorder, you can `key={index}` (default react)
+
+
+To render **lists**, use `iterative` methods and keys.
 ```jsx
 //inline
 return <ul>{msg.map((txt,i) => <li key={i}>{txt}</li>)}</ul>
@@ -119,8 +133,12 @@ msgList = msg.map((txt,i) => <li key={i}>{txt}</li>);
 return <ul>{msgList}</ul>
 
 //>1 node for each item
-msgList = msg.map( (txt,i) => <Fragment key={i}>...</Fragment> )
+<Fragment key={i}>...</Fragment> )
+
+//use JS in JSX with {IIFE}
+return <div>{( () => {/*code*/} )()}<div>
 ```
+
 
 Using **PROPS**
 ```jsx
@@ -132,6 +150,37 @@ const List = ({msg}) => <ul>{
 const ShowMsg = (msg) => <><h1>Messages</h1><List msg={msg}/></>
 ```
 
+
+Using **ENUMS** (object with key value pairs for mapping)
+```jsx
+Notify = (text, status) => <>{ 
+	{ //ENUM
+		info: <Info text={text} />,
+        warning: <Warning text={text} />,
+        error: <Error text={text} />,
+	}[status] //'info', 'error' etc.
+}</>
+
+//OR
+const getNotification = (text) => ({ /*ENUM key:values*/  });
+Notify = (text, status) => <>{getNotification(text)[status]}</>
+```
+
+
+Using **HOCs**
+```jsx
+const addLoader = (Component) => ({isLoading, ...props}) => 
+	isLoading? <p>Loading ...</p> : <Component {...props} /> //spread
+
+myComp = addLoader(myComp);
+const App = ({ list, done }) => <><myComp list={list} isLoading={!done}/></>
+```
+
+
+Using **HOOKS**
+```jsx
+
+```
 
 ## Components
 

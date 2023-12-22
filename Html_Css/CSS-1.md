@@ -184,7 +184,7 @@ _Attribute selectors_
 
 _Functions_
 - `p:is(.red, #ouch)` --> match p if any 1 is valid 
-- `p:has(.red, #ouch)` --> match p if it has a *descendant* with .red or #ouch
+- `p:has(.red, #ouch)` --> match p if it has a *descendant* with .red or # ouch
 - `p:where(s1,s2)` --> like is() ; but 0 specificity ; others compute to most specific arg
 - `p:not(s1,s2)` --> not all of them
 - `p::part(foo)`  --> match p shadow DOM with part="bye foo bar"
@@ -235,5 +235,3 @@ Alternate Model — width and height pertains to `border box`. Set by `box-sizin
   - if crosses border, container & child margins collapse
   - if parent `display: flow-root`, parent margin push = `given` and child's margin pushes _parent's borders_
 - `float` , `absolute` never collapse
-
-
