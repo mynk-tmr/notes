@@ -41,7 +41,7 @@ Syntax extension for JS that allows writing rendering logic (JS) and markup (HTM
 - *camelCase* attrs (except `data-` and `aria-`)
 - close *void* tags
 - every child element (in array) must have a unique *key*.
-- `nullish, true, false` are not JSX showable. `0` or `''` are valid.
+- `nullish, true, false` are not JSX showable, but `0` or `''` are shown.
 - https://transform.tools/html-to-jsx
 
 To add logic & dynamic values in JSX
@@ -100,7 +100,17 @@ root.unmount(); //destroy rendered tree, root is unusable now
 Server-rendered apps use `hydrateRoot` instead
 
 
-## 
+## Props & State
 
+
+## Conditional Rendering
+
+Rendering only a subset of components, based on app's state. Can be done with 
+- conditional flow JS stmts like `?:` , `if-else`, `switch`, `return`
+- logical operators `msg > 0 && <p>New msg<p>`
+
+
+
+## Components
 
 They are functions which can take some kind of input and return a React element.
