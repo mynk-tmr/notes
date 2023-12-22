@@ -2,7 +2,7 @@
 **Equality checks**
 - *loosely equal* : equal after type conv.
 - *strictly equal* : same type & val
-- *samevalue* : treates `NaN` as equal, but `-0` =/= `+0` . Used by `Object.is(val,val)`
+- *samevalue* : strict but treats `NaN==Nan` and `-0` =/= `+0` . Used by `Object.is(val,val)`
 - *samevalueZero* : treates `NaN==NaN`  `+0 == -0` . Many built-in use this e.g. Map
 - *Object equality* : when they share same memory space ; loosely equal to primitive counterparts 
 	- `empty_obj != {} ... not same memory`

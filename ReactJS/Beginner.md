@@ -4,8 +4,6 @@
 - A JS library to build web and native UI.
 - Has rich ecosystem which enables us to build full fledged production apps
 - With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
-- React builds *virtual DOM* from component tree. It's a lightweight in-memory representation of CTREE
-- When *state/prop* of a component changes, it's corresponding *NODE* is updated. Then **entire** virtual DOM is compared with previous version and only changes are re-rendered by **react-dom** library. This is called **re-conciliation algorithm**
 
 #### Setup
 
@@ -147,15 +145,54 @@ myfun = (url) => () => { window.location.href = url}
 State is a component’s memory. 
 
 - declared using `useState()` Hook which return 
-	- a[0] -> current state
+	- a[0] -> current state value
 	- a[1] -> setter function to update state & trigger re-rendering
-- when state changes, component is destroyed & recreated with **latest** value from useState
+- when state changes, component is *destroyed* & recreated with **latest** value from useState
 - Internally, React matches `useState pairs` of a component by their *order*.
 - State is *private* to component
+- State updates are *async*, `setter` updates DOM on **next** component render.
+- state updates are *batched* (combined) for re-rendering
+
+**state-updater**: callback used to update state using previous 
+```jsx
+setPerson((prev) => ({ ...prev, age: prev.age + 1 }));
+
+//if NO updater, state until last setter is invoked is used for all
+```
 
 Read [Choosing the State Structure](https://react.dev/learn/choosing-the-state-structure) for more tips.
+- don’t put values in state that can be calculated using existing values, state, and/or props.
+- don't *mutate* state, use `const` and call setter with modified *copy* of array/obj (setter uses `Object.is` check)
+
+**Errors**
+- infinte rendering -> `setter` is called unconditionally
+
 
 Props and state are both plain JavaScript objects. Props get passed to the component whereas state is managed within the component.
+
+## React Reconciliation
+
+The process through which React updates the Browser DOM fast and efficiently. It's a 3 step process
+
+**Trigger** : a re-render is triggered when *state/prop* changes
+
+**Render phase**
+- On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
+- On *re-renders*, React will calculate differing *attribute* *values* in JSX from previous render and update *nodes* with changes. (diffing algo)
+- This process is recursive: if the updated component returns some other component, React will render that component next, 
+- works best with *pure* function components
+
+**Commit phase**
+- react performs *minimum* operations on actual DOM needed to paint updated nodes, using *react-dom library
+
+### Virtual DOM
+
+- a lightweight in-memory representation of actual DOM kept by React
+- created on each trigger and compared with previous VDOM to render changes
+- **Diffing algorithm (O(n))**
+	- node is same only if same `type` and same `attributes` & `styles`
+	- uses *BFS* traversal
+
 
 ## Conditional Rendering
 
@@ -235,7 +272,7 @@ Using **HOOKS**
 
 ## Components
 
-They are functions which can take some kind of input and return a React element. Components are *PasalCased*
+They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice)
 
 
 ## Hooks
