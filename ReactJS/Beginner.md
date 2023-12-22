@@ -102,9 +102,47 @@ Server-rendered apps use `hydrateRoot` instead
 ## Props & State
 
 ### Props
-In React, data is transferred from parent components to child components via props. This data transfer is unidirectional, meaning it flows in only one direction. Any changes made to this data will only affect child components using the data, and not parent or sibling components. 
+
+- Components accept a single arg, a props object
+- used by components to *pass data* (communicate) unidirectionally from parent to child
+- 2 kinds of keys -> *standard* (predefined html-std attr) and *custom*
+- reflect component data currently, to update, ask new from parent.
+- Props are immutable. For interactivity, use **state**
 
 
+```jsx
+//prop forwarding
+const Avatar = (props) => <Image {...props} />
+
+//default values
+Avatar.defaultProps = some_obj 
+```
+
+
+```jsx
+const Card = ({children}) => <div class='card'>{children}</div> 
+//children prop is passed to parent component to refer to nested JSX inside it
+
+<Card><Avatar /></Card>  //children = <Avatar />
+<Card>Hello</Card>  //children = Hello 
+```
+
+
+passing handlers in props
+```jsx
+//WAY 1
+const myfun = (url) => { window.location.href = url}
+return <><Button handleClick={myfun}/></>
+
+//in Button component
+return <><button onClick={() => handleClick('some_url')}></button></>
+
+//WAY 2, shift () => to myfun 
+myfun = (url) => () => { window.location.href = url}
+```
+
+
+Props and state are both plain JavaScript objects. Props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function).
 
 ## Conditional Rendering
 
