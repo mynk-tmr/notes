@@ -109,7 +109,7 @@ Rendering only a subset of components, based on app's state. Can be done with
 - conditional flow JS stmts like `?:` , `if-else`, `switch`, `return`
 - logical operators `msg > 0 && <p>New msg<p>`
 
-To render lists, use `iterative` methods with unique keys.
+To render **lists**, use `iterative` methods with *unique* keys.
 ```jsx
 //inline
 return <ul>{msg.map((txt,i) => <li key={i}>{txt}</li>)}</ul>
