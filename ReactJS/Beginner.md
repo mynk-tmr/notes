@@ -5,7 +5,7 @@
 - Has rich ecosystem which enables us to build full fledged production apps
 - With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
 - React builds *virtual DOM* from component tree. It's a lightweight in-memory representation of CTREE
-- When *state* of a component changes, it's corresponding *NODE* is updated. Then **entire** virtual DOM is compared with previous version and only changes are re-rendered by **react-dom** library. 
+- When *state/prop* of a component changes, it's corresponding *NODE* is updated. Then **entire** virtual DOM is compared with previous version and only changes are re-rendered by **react-dom** library. This is called **re-conciliation algorithm**
 
 #### Setup
 
@@ -99,9 +99,7 @@ root.unmount(); //destroy rendered tree, root is unusable now
 
 Server-rendered apps use `hydrateRoot` instead
 
-## Props & State
-
-### Props
+## Props
 
 - Components accept a single arg, a props object
 - used by components to *pass data* (communicate) unidirectionally from parent to child
@@ -144,7 +142,20 @@ myfun = (url) => () => { window.location.href = url}
 ```
 
 
-Props and state are both plain JavaScript objects. Props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function).
+## State
+
+State is a component’s memory. 
+
+- declared using `useState()` Hook which return 
+	- a[0] -> current state
+	- a[1] -> setter function to update state & trigger re-rendering
+- when state changes, component is destroyed & recreated with **latest** value from useState
+- Internally, React matches `useState pairs` of a component by their *order*.
+- State is *private* to component
+
+Read [Choosing the State Structure](https://react.dev/learn/choosing-the-state-structure) for more tips.
+
+Props and state are both plain JavaScript objects. Props get passed to the component whereas state is managed within the component.
 
 ## Conditional Rendering
 
@@ -225,3 +236,11 @@ Using **HOOKS**
 ## Components
 
 They are functions which can take some kind of input and return a React element. Components are *PasalCased*
+
+
+## Hooks
+
+_Hooks_ are special functions that are only available while React is [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features.
+Rules 
+1. Hooks can only be called from the top level of a functional component.
+2. Hooks can’t be called from inside loops or conditions.
