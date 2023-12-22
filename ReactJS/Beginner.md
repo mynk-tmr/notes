@@ -38,7 +38,7 @@ Syntax extension for JS that allows writing rendering logic (JS) and markup (HTM
 
 - only 1 JSX tag is allowed to be returned. 
 	- *fragments* `<></>` let you group a list of children without adding extra nodes to DOM.
-- *camelCase* attrs (except `data-` and `aria-`)
+- *camelCase* attrs (except `data-` and `aria-`) 
 - close *void* tags
 - every child element (in array) must have a unique *key*.
 - `nullish, true, false` are not JSX showable, but `0` or `''` are shown.
@@ -49,7 +49,7 @@ To add logic & dynamic values in JSX
 className='hello' //string or ""
 src={title}  //passing value to attr
 <b> Hello {user} </b> //as text
-{expr} //any JS expression that RETURNS value, like ${expr}
+{expr} //any JS expression that RETURNS value
 ```
 
 #### Under the hood
@@ -99,8 +99,8 @@ root.unmount(); //destroy rendered tree, root is unusable now
 
 Server-rendered apps use `hydrateRoot` instead
 
-
 ## Props & State
+
 
 
 ## Conditional Rendering
@@ -109,8 +109,30 @@ Rendering only a subset of components, based on app's state. Can be done with
 - conditional flow JS stmts like `?:` , `if-else`, `switch`, `return`
 - logical operators `msg > 0 && <p>New msg<p>`
 
+To render lists, use `iterative` methods with unique keys.
+```jsx
+//inline
+return <ul>{msg.map((txt,i) => <li key={i}>{txt}</li>)}</ul>
+
+//using variable
+msgList = msg.map((txt,i) => <li key={i}>{txt}</li>);
+return <ul>{msgList}</ul>
+
+//>1 node for each item
+msgList = msg.map( (txt,i) => <Fragment key={i}>...</Fragment> )
+```
+
+Using **PROPS**
+```jsx
+const ListItem = ({txt, i}) => <li key={i}>{msg}</li>
+const List = ({msg}) => <ul>{
+	msg.map( (txt,i) => <ListItem txt={txt} i={i}/>)
+}</ul>
+
+const ShowMsg = (msg) => <><h1>Messages</h1><List msg={msg}/></>
+```
 
 
 ## Components
 
-They are functions which can take some kind of input and return a React element.
+They are functions which can take some kind of input and return a React element. Components are *PasalCased*
