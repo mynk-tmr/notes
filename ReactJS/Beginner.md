@@ -109,10 +109,12 @@ Server-rendered apps use `hydrateRoot` instead
 - reflect component data currently, to update, ask new from parent.
 - Props are immutable. For interactivity, use **state**
 
-
 ```jsx
 //prop forwarding
 const Avatar = (props) => <Image {...props} />
+
+//data spreading
+<Profile {...db['ichi']} />
 
 //default values
 Avatar.defaultProps = some_obj 
