@@ -100,12 +100,6 @@ root.unmount(); //destroy rendered tree, root is unusable now
 
 Server-rendered apps use `hydrateRoot` instead
 
-## Event Handling
-
-All events propagate in React except `onScroll`. Default : call during bubble, for call during capture suffix `Capture` e.g. `onClickCapture={}`
-Handlers can have *side-effects* like changing state, unlike rendering functions. 
-
-
 ## Props
 
 ```jsx
@@ -273,6 +267,20 @@ They are functions which can take some kind of input and return a React element.
 ##### Lifting State up
 - process of shifting *shared* state among components to their closest common *ancestor*, and control them with *props*
 - Things to pass via props -> <u>shared state, setter handler and rendering logic (optional)</u>
+- Don't lift unshared state
+
+#### Handling Events
+- All events propagate in React except `onScroll`. 
+- `onClick` (triggered during bubble), `onClickCapture` (during capture) 
+- Handlers can have *side-effects* like changing state, unlike rendering functions.
+- take in React *synthetic* event object
+	- wrapper over dom one with more features
+	- `e.nativeEvent`: underlying dom e_obj
+	- 
+- 3 types
+	- `{handleMe}` : use if specific
+	- `{(e) => handleUs(e, ...data)}` : use to call universal handler with extra info
+	- `{handleProp}` : callback handler are used to *communicate up* the component tree. Acquired from `props` 
 
 #### Types of Components
 
