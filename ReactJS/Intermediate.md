@@ -28,7 +28,7 @@ A container component provides the state and behavior to its children components
 
 #### Render Props
 
-- are functions which render JSX using inputs.
+- are functions props which render JSX using inputs. 
 - implement the pattern "child as a function"
 - helps to move part of rendering logic to parent
 
