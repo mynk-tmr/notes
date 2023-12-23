@@ -75,6 +75,9 @@ h1 = React.createElement('h1', {id:'jsx', onClick: () => log(1) }, 'hello');
 ```jsx
 <p>{[1, 2, 3, 4]}</p> --> <p>{1}{2}{3}{4}</p>
 {`${isRead}`} -> to render bools
+
+//use JS in JSX with {IIFE}
+return <div>{( () => {/*code*/} )()}<div>
 ```
 
 
@@ -191,7 +194,7 @@ Props and state are both plain JavaScript objects. Props get passed to the compo
 
 ## React Reconciliation
 
-The process through which React updates the Browser DOM fast and efficiently. It's a 3 step process
+The process through which React updates Browser DOM fast and efficiently. It's a 3 step process
 
 **Trigger** : a re-render is triggered when *state/prop* changes
 
@@ -240,10 +243,7 @@ msgList = msg.map((txt,i) => <li key={i}>{txt}</li>);
 return <ul>{msgList}</ul>
 
 //>1 node for each item
-<Fragment key={i}>...</Fragment> )
-
-//use JS in JSX with {IIFE}
-return <div>{( () => {/*code*/} )()}<div>
+<Fragment key={i}>...</Fragment>
 ```
 
 
