@@ -105,34 +105,19 @@ Server-rendered apps use `hydrateRoot` instead
 All events propagate in React except `onScroll`. Default : call during bubble, for call during capture suffix `Capture` e.g. `onClickCapture={}`
 Handlers can have *side-effects* like changing state, unlike rendering functions. 
 
+
 ## Props
 
-- Components accept a single arg, a props object
-- used by components to *pass data* (communicate) unidirectionally from parent to child
-- 2 kinds of keys -> *standard* (predefined html-std attr) and *custom*
-- reflect component data currently, to update, ask new from parent.
-- Props are immutable. For interactivity, use **state**
-
 ```jsx
+//prop spread -> duplicates overriden based on spread position
+<Profile {...db['maria']} title='joe'/> 
+
 //prop forwarding
 const Avatar = (props) => <Image {...props} />
-
-//data spreading
-<Profile {...db['ichi']} />
 
 //default values
 Avatar.defaultProps = some_obj 
 ```
-
-
-```jsx
-const Card = ({children}) => <div class='card'>{children}</div> 
-//children prop is passed to parent component to refer to nested JSX inside it
-
-<Card><Avatar /></Card>  //children = <Avatar />
-<Card>Hello</Card>  //children = Hello 
-```
-
 
 passing handlers in props
 ```jsx
@@ -149,17 +134,6 @@ myfun = (url) => () => { window.location.href = url}
 
 
 ## State
-
-A state variable is a component’s memory. 
-
-- declared using `useState()` Hook which return 
-	- a[0] -> current state value
-	- a[1] -> setter function to update state & trigger re-rendering
-- when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
-- Internally, React matches `useState pairs` of a component by their *order*.
-- State is *private* to component. Each state has only 1 component that owns it (single source of truth)
-- State updates are *async*, `setter` updates DOM on **next** component render.
-- state updates are *batched* (combined) for re-rendering
 
 ### Tips
 
@@ -184,13 +158,6 @@ function Message({ initialColor }) {
   //color=init only for 1st call of Message
 }
 ```
-
-### Errors
-
-- infinte rendering -> `setter` is called unconditionally
-
-
-Props and state are both plain JavaScript objects. Props get passed to the component whereas state is managed within the component.
 
 ## React Reconciliation
 
@@ -284,28 +251,54 @@ const App = ({ list, done }) => <><myComp list={list} isLoading={!done}/></>
 ```
 
 
-Using **HOOKS**
-```jsx
-
-```
-
-
 ## Components
 
 They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice).
 
-##### Types
-- “controlled” (driven by props) or “uncontrolled” (driven by state).
-- 
-
+#### Handling Data 
+##### Props
+- object used by components to *pass data* **down** the component tree (parent-> child)
+- have 2 kinds of keys -> *standard* (`src` predefined) and *custom*
+##### State
+- a *private* data structure that *mutates* over re-renders. It starts with def_value when component mounts.
+- Each state has only 1 component that owns it (single source of truth)
+- state updates are *async*, `setter` updates DOM on **next** component render.
+- state updates are *batched* (combined) for re-rendering
+- in practice, use small JSON-serialisable object as state
+##### Props vs. State
+- props are *immutable* & pass data ; state is mutable component memory
+- props are managed by *ancestor*, state is managed within *component*
+- props are more performant
+- use `props` to pass render & interactivity logic, use `state` to control interactivity
 ##### Lifting State up
 - process of shifting *shared* state among components to their closest common *ancestor*, and control them with *props*
-- Things to pass via props -> <u>shared state, handler to update state and rendering logic (optional)</u>
+- Things to pass via props -> <u>shared state, setter handler and rendering logic (optional)</u>
+
+#### Types of Components
+
+- **controlled** (driven by props)
+- **uncontrolled** (driven by own state)
+- **stateful** : have state & props; should only control interactivity
+- **stateless** : only props; should only render
 
 
 ## Hooks
 
 _Hooks_ are special functions that are only available while React is [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features.
+
 Rules 
 1. Hooks can only be called from the top level of a functional component.
 2. Hooks can’t be called from inside loops or conditions.
+
+#### useState
+- to construct a state
+	- a[0] -> current state value
+	- a[1] -> setter function to update state & trigger re-rendering
+- when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
+
+
+## Errors
+
+- infinte rendering -> `setter` is called unconditionally
+- got object, not function -> missing prop destructuring 
+- 
