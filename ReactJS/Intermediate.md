@@ -4,23 +4,22 @@ https://www.patterns.dev/react/
 https://www.robinwieruch.de/react-styled-components/
 https://www.robinwieruch.de/react-state/
 
-#### Slot pattern
+#### Composition
 
-used to compose react components together by passing them as props.
+used to create new components from existing ones. Relies on patterns. 
 ```jsx
-//when only 1, just use {children}, refers to nested JSX within component
-const Card = ({children}) => <div class='card'>{children}</div> 
+// specific components render generic ones with extra props & markup
+SpecialCard = ({children, ...extras}) => <Card {...extras}>{children}</Card>
 
-<Card><Avatar /></Card>  //children = <Avatar />
-<Card>Hello</Card>  //children = Hello 
+Card = ({children}) => <div class='card'>{children}</div> 
+//when only 1, use *props.children*, refers to nested JSX within component
 
-//when multiple, pass them as props
+//if multiple components, use SLOT pattern
  <Profile
     user={user}
     avatar={<AvatarRound user={user} />} //place it anywhere as {avatar}
     biography={<BiographyFat user={user} />} // {biography}
   />
-
 ```
 
 #### Render Props
@@ -42,3 +41,4 @@ const Amount = ({children}) => <>Converting ... {chilren(amount)}</>
 #### Prop Drilling
 
 - problem where every component between source & target has to *forward props*, even when they won't use them. Solved by **Context API**
+
