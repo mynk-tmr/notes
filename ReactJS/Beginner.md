@@ -157,7 +157,7 @@ A state variable is a component’s memory.
 	- a[1] -> setter function to update state & trigger re-rendering
 - when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
 - Internally, React matches `useState pairs` of a component by their *order*.
-- State is *private* to component
+- State is *private* to component. Each state has only 1 component that owns it (single source of truth)
 - State updates are *async*, `setter` updates DOM on **next** component render.
 - state updates are *batched* (combined) for re-rendering
 
@@ -294,14 +294,13 @@ Using **HOOKS**
 
 They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice).
 
-Types
-- **Uncontrolled** : one with no props, only local state.
-- **Controlled** : driven by props instead of local state.
+##### Types
+- “controlled” (driven by props) or “uncontrolled” (driven by state).
 - 
 
-### Lifting state
-
-
+##### Lifting State up
+- process of shifting *shared* state among components to their closest common *ancestor*, and control them with *props*
+- Things to pass via props -> <u>shared state, handler to update state and rendering logic (optional)</u>
 
 
 ## Hooks
