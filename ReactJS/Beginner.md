@@ -8,25 +8,24 @@
 Syntax extension for JS that allows writing rendering logic (JS) and markup (HTML) together.
 #### SYNTAX
 
-- only 1 JSX tag is allowed to be returned. 
-	- *fragments* `<></>` let you group a list of children without adding extra nodes to DOM.
+- only 1 JSX tag is allowed to return.
+	- *fragments* `<></>` group elements without adding extra nodes.
 - *camelCase* attrs (except `data-` and `aria-`) 
 - close *void* tags
-- every child element (in array) must have a unique *key*.
 - `nullish, true, false` are not JSX showable, but `0` or `''` are shown.
-- https://transform.tools/html-to-jsx
+- values supported: `"hello", 0, {expr}, {var}`
 
-To add logic & dynamic values in JSX
 ```jsx
-className='hello' //string or ""
-src={title}  //passing value to attr
-<b> Hello {user} </b> //as text
-{expr} //any JS expression that RETURNS value
+<p>{[1, 2, 3, 4]}</p> --> <p>{1}{2}{3}{4}</p>
+{`${isRead}`} -> to render bools
+
+//use JS in JSX with {IIFE}
+return <div>{( () => {/*code*/} )()}<div>
 ```
 
 #### Under the hood
 
-JSX is *transpiled* to a `React.createElement()` and it returns an `object`. JSX attributes map to `keys` of object.
+JSX is *transpiled* to `React.createElement()` and it returns an `object`. JSX attributes map to `keys` of object.
 
 ```jsx
 React.createElement(type, props, ...children) //syntax
@@ -44,14 +43,6 @@ h1 = React.createElement('h1', {id:'jsx', onClick: () => log(1) }, 'hello');
 		children: "hello"
 	}
 }
-```
-
-```jsx
-<p>{[1, 2, 3, 4]}</p> --> <p>{1}{2}{3}{4}</p>
-{`${isRead}`} -> to render bools
-
-//use JS in JSX with {IIFE}
-return <div>{( () => {/*code*/} )()}<div>
 ```
 
 
@@ -80,9 +71,6 @@ Server-rendered apps use `hydrateRoot` instead
 //prop spread -> duplicates overriden based on spread position
 <Profile {...db['maria']} title='joe'/> 
 
-//prop forwarding
-const Avatar = (props) => <Image {...props} />
-
 //default values
 Avatar.defaultProps = some_obj 
 
@@ -92,9 +80,6 @@ Avatar.defaultProps = some_obj
 ## State
 
 ```jsx
-//don't mutate state when using useState
-setPerson({ ...person, age: prev.age + 1 }); //correct
-
 // state is 'fixed' in handler till it runs to completion
 // use state-updater function to update state using previous
 setPerson(prev => ({ ...prev, age: prev.age + 1 }));
@@ -113,23 +98,21 @@ function Message({ initialColor }) {
 
 The process through which React updates Browser DOM fast and efficiently. It's a 3 step process
 
-**Trigger** : a re-render is triggered when *state/prop* changes
+**Trigger** : a re-render is triggered when *state/prop* changes.
 
 **Render phase**
 - On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
-- On *re-renders*, React will calculate differing *attribute* *values* in JSX from previous render and update *nodes* with changes. (diffing algo)
+- On *re-renders*, React will calculate differing *attribute* *values* in JSX from previous render and update *virtual nodes*. (diffing algo)
 - *recursive* : if updated component returns a component, React will render that component next.
-- works best with *pure* function components
 
 **Commit phase**
 - react performs *minimum* operations on actual DOM needed to paint updated nodes, using *react-dom library
 
-### Virtual DOM
-
+##### Virtual DOM
 - a lightweight in-memory representation of actual DOM kept by React
 - created on each trigger and compared with previous VDOM to render changes
 - **Diffing algorithm (O(n))**
-	- node is same only if same `type` and same `attributes` & `styles`
+	- equal nodes have equal `type` and value of `attributes` & `styles`
 	- uses *BFS* traversal and *Object.is()*
 
 
@@ -140,15 +123,15 @@ Rendering only a subset of components, based on app's state. Can be done with co
 - prefer ENUMs over `switch` 
 - prefer `&&` over `? val : null`. Example -> `msg > 0 && <p>New msg<p>`
 - for nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
-
 #### KEYS
-- list items are compared by React using their *key* for updating items that changed.
+- list items are compared by React using their *key* for updation.
 - Rules
 	- siblings must have *unique* keys
 	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
 - not sent in props
 - if list never -/+/reorder, you can `key={index}` (default react)
 
+### EXAMPLES
 
 To render **lists**, use `iterative` methods and keys.
 ```jsx
@@ -166,7 +149,7 @@ return <ul>{msgList}</ul>
 
 Using **PROPS**
 ```jsx
-const ListItem = ({txt, i}) => <li key={i}>{msg}</li>
+const ListItem = ({txt, i}) => <li key={i}>{txt}</li>
 const List = ({msg}) => <ul>{
 	msg.map( (txt,i) => <ListItem txt={txt} i={i}/>)
 }</ul>
@@ -191,19 +174,9 @@ Notify = (text, status) => <>{getNotification(text)[status]}</>
 ```
 
 
-Using **HOCs**
-```jsx
-const addLoader = (Component) => ({isLoading, ...props}) => 
-	isLoading? <p>Loading ...</p> : <Component {...props} /> //spread
-
-myComp = addLoader(myComp);
-const App = ({ list, done }) => <><myComp list={list} isLoading={!done}/></>
-```
-
-
 ## Components
 
-They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice).
+They are functions which consume inputs and return a React element. Components are *PasalCased*. `use strict;` -> (called twice)
 
 #### Handling Data 
 ##### Props
@@ -211,9 +184,7 @@ They are functions which can take some kind of input and return a React element.
 - have 2 kinds of keys -> *standard* (`src` predefined) and *custom*
 ##### State
 - a *private* data structure that *mutates* over re-renders. It starts with def_value when component mounts.
-- Each state has only 1 component that owns it (single source of truth)
-- state updates are *async*, `setter` updates DOM on **next** component render.
-- state updates are *batched* (combined) for re-rendering
+- Each state has only 1 owner component (single source)
 - in practice, use small JSON-serialisable object as state
 ##### Props vs. State
 - props are *immutable* & pass data ; state is mutable component memory
@@ -256,21 +227,22 @@ They are functions which can take some kind of input and return a React element.
 
 ## Hooks
 
-_Hooks_ are special functions that are only available while React is [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features.
+_Hooks_ are special functions available while [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features.
 
 Rules 
-1. Hooks can only be called from the top level of a functional component.
-2. Hooks can’t be called from inside loops or conditions.
+1. call from top level of a functional component.
+2. not inside loops or conditions.
 
 #### useState
 - to construct a state
 	- a[0] -> current state value
 	- a[1] -> setter function to update state & trigger re-rendering
 - when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
+- state is updated *later* on **next** component render. Multiple updates are combined in 1.
 
 
 ## Errors
 
-- infinte rendering -> `setter` is called unconditionally
-- got object, not function -> missing prop destructuring 
+- *infinte rendering* -> `setter` is called unconditionally
+- *got object, not function* -> missing prop destructuring 
 - 

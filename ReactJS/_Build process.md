@@ -21,10 +21,11 @@ rules: {
 ##### THINKING IN REACT
 1. Break UI into smallest components 
 	1. give name, and code each state (test all)
+	2. https://transform.tools/html-to-jsx
 2. Create heirarchy tree
 3. Build a static version
 4. Decide minimum state data that app needs
 	- a data should be *state* if it isn't prop, can't be computed from other data and changes over time. 
 	- don't deepnest or duplicate ; combine co-updating states
-6. decide where states live 
-7. pass down props, state, handlers etc..
+5. decide where states live 
+6. pass down props, state, handlers etc..

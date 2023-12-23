@@ -6,7 +6,7 @@ https://www.robinwieruch.de/react-state/
 
 #### Composition
 
-used to create new components from existing ones. Relies on user-defined props or pre-defined `props.children`. Composition -> reusable, readable, and extendable components.
+used to create new components from existing ones. Relies on custom props or standard `props.children`. Composition -> reusable, testable, and extendable components.
 
 ```jsx
 // specific components render generic ones with extra props & markup
@@ -23,9 +23,8 @@ Card = ({children}) => <div class='card'>{children}</div>
   />
 ```
 
-A specialized component is a component that is built from its accepted props to handle one specific case.
-A container component, is a component that provides the state and behavior to its children components.
-[React's Higher-Order Components](https://www.robinwieruch.de/react-higher-order-components/) can be used for Component Compositions too.
+A specialized component is built from props to handle one specific case.
+A container component provides the state and behavior to its children components.
 
 #### Render Props
 
@@ -63,7 +62,7 @@ const {prop1, prop2} = useContext(Ctx);
 To extract logic from a component and convert it into a reusable hook.
 
 ```jsx
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback } from "react";
 
 export useToggle = () => {
   const [status, setStatus] = useState(false);
@@ -80,3 +79,15 @@ const { status: darkmode, toggleStatus: toggleDarkmode } = useToggle();
 const { status: expanded, toggleStatus: toggleExpanded } = useToggle();
 ```
 
+
+## Higher Order Components
+
+```jsx
+const addLoader = (Component) => ({isLoading, ...props}) => 
+	isLoading? <p>Loading ...</p> : <Component {...props} />
+
+myComp = addLoader(myComp);
+const App = ({ list, done }) => <><myComp list={list} isLoading={!done}/></>
+```
+
+[React's Higher-Order Components](https://www.robinwieruch.de/react-higher-order-components/) 
