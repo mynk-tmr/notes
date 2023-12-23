@@ -201,7 +201,7 @@ The process through which React updates Browser DOM fast and efficiently. It's a
 **Render phase**
 - On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
 - On *re-renders*, React will calculate differing *attribute* *values* in JSX from previous render and update *nodes* with changes. (diffing algo)
-- This process is recursive: if the updated component returns some other component, React will render that component next, 
+- *recursive* : if updated component returns a component, React will render that component next.
 - works best with *pure* function components
 
 **Commit phase**
@@ -292,7 +292,16 @@ Using **HOOKS**
 
 ## Components
 
-They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice)
+They are functions which can take some kind of input and return a React element. Components are *PasalCased*. You can use Strict Mode to find mistakes in your components (calls them twice).
+
+Types
+- **Uncontrolled** : one with no props, only local state.
+- **Controlled** : driven by props instead of local state.
+- 
+
+### Lifting state
+
+
 
 
 ## Hooks
