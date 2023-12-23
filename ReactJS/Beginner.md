@@ -1,33 +1,7 @@
-## Intro
-#### Reactjs
-
+##### Reactjs
 - A JS library to build web and native UI.
 - Has rich ecosystem which enables us to build full fledged production apps
 - With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
-
-#### Setup
-
-```shell
-npm create vite@latest myapp -- --template react
-```
-Chrome extension called React Developer Tools.
-
-Folder structure
-- public : static assets like fonts, imgs, etc.
-- src : codebase
-
-**`/src`** 
-- `App.jsx` : top-level component which is rendered on app startup.
-- `index.css` : global styles for app
-- `main.jsx` : displays component tree within a `root` element via `react-dom` library (or `react-native`)
-
-```json
-//eslintrc.cjs -> add
-rules: {
-	"react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
-}
-```
 
 ## JSX (JS XML)
 
@@ -111,29 +85,11 @@ const Avatar = (props) => <Image {...props} />
 
 //default values
 Avatar.defaultProps = some_obj 
+
+//you can curry to pass handlers in prop
 ```
-
-passing handlers in props
-```jsx
-//WAY 1
-const myfun = (url) => { window.location.href = url}
-return <><Button handleClick={myfun}/></>
-
-//in Button component
-return <><button onClick={() => handleClick('some_url')}></button></>
-
-//WAY 2, shift () => to myfun 
-myfun = (url) => () => { window.location.href = url}
-```
-
 
 ## State
-
-### Tips
-
-- combine states that change together into 1
-- don't use deep nesting or duplication
-- don’t put values in state that can be calculated using existing values, state, and/or props.
 
 ```jsx
 //don't mutate state when using useState
