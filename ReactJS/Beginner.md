@@ -270,17 +270,25 @@ They are functions which can take some kind of input and return a React element.
 - Don't lift unshared state
 
 #### Handling Events
+
+##### Handlers
 - All events propagate in React except `onScroll`. 
 - `onClick` (triggered during bubble), `onClickCapture` (during capture) 
 - Handlers can have *side-effects* like changing state, unlike rendering functions.
 - take in React *synthetic* event object
 	- wrapper over dom one with more features
 	- `e.nativeEvent`: underlying dom e_obj
-	- 
+	- `isDefaultPrevented()`
+	- `isPropagationStopped()`
 - 3 types
 	- `{handleMe}` : use if specific
 	- `{(e) => handleUs(e, ...data)}` : use to call universal handler with extra info
 	- `{handleProp}` : callback handler are used to *communicate up* the component tree. Acquired from `props` 
+- Under the hood, React attaches event handlers at root, but this is not reflected in React event objects. For example, e.currentTarget may not be the same as the underlying e.nativeEvent.currentTarget. For polyfilled events, e.type may differ from e.nativeEvent.type
+
+##### Synthetic events
+- [read extra features](https://react.dev/reference/react-dom/components/common#animationevent-handler)
+
 
 #### Types of Components
 
