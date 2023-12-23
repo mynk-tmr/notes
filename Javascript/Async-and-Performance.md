@@ -75,14 +75,14 @@ Callbacks are *fundamental* async pattern in JS. It is a function that event loo
 - **Race conditions** : when some async callback may finish synchronously
 
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
-- **Promises** , that use *split-callback* design
+- **Promises**, that use *split-callback* design
 - **Generators** let you 'pause' individual functions. They don’t follow run to completion.
 - `async/await` wrap generators and promises in a higher level syntax.
 
 
 ## Promises
 
-An object that **encapsulates** a future value ; waits until the value is settled, then executes 1 _callback handler_ asynchronously using **microtask** queue.
+An object that **encapsulates** a future value ; when settled, it executes 1 _callback handler_ asynchronously using **microtask** queue.
 
 Solutions to callback hell
  - **Inv. of Control** :- we don't pass callback into 3rd party API, instead get a promise. To ensure we only get promise, use `Promise.resolve(api_call)`
@@ -123,15 +123,15 @@ P.catch(console.log) //3
 ```
 
 
-`resolve(), Promise.resolve()` : if value is 
+`resolve(value), Promise.resolve(value)` : if value is 
 - non-promise :- create a promise *fulfilled* with value;
 - thenable :- call *onFulfilled* recursively until a definite value is found
 - promise :- 
 	- `resolve()` => create **new** promise that will *resolve* to original (immutably linked to its eventual state & value) 
-	- `Promise.resolve()` => return **original** promise (to avoid deeply nested promises)
+	- `Promise.resolve()` => return **original** promise (flattens promises)
 
 
-`reject(), Promise.reject()` : if reason is
+`reject(r), Promise.reject(r)` : if reason is
 - thenable :- call *onRejected* (no unwrapping)
 - others :- create a **new** rejected promise that wraps reason (no resolution)
 
@@ -168,6 +168,9 @@ Promise.reject.call(Mock, "bar"); // rejected bar
 
 
 ```jsx
+//handler
+cb = (val) => {/*code*/}
+
 //then is chainable
 func().then(a,b).then(c,d)
 /* or */ pro1 = func().then(a,b) ;  pro2 = func().then(c,d);
@@ -257,7 +260,7 @@ const chainOps = (...fs) => (initval) =>
 // a utility to set time-limit for functions
 function within(delay) {
 	return new Promise( (f, reject) =>
-		setTimeout( () => reject(), delay ));
+		setTimeout( () => reject('timeout'), delay ));
 }
 /*using*/ Promise.race( [ foo(), within(2000)] ).then(F,R)
 ```
@@ -336,7 +339,7 @@ await dosometask()
 
 //use composers to chain Promises
 wrong = [await p1, await p2]; // not caught by .catch()
-right = Promise.allSettled(p1,p2)
+right = Promise.all(p1,p2)
 
 //catch decorator
 const addCatch = (fn, handler) => (...args) => fn(...args).catch(handler)

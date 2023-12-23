@@ -147,7 +147,7 @@ myfun = (url) => () => { window.location.href = url}
 
 ## State
 
-State is a component’s memory. 
+A state variable is a component’s memory. 
 
 - declared using `useState()` Hook which return 
 	- a[0] -> current state value
