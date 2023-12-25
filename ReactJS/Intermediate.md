@@ -6,12 +6,14 @@ https://www.robinwieruch.de/react-state/
 
 #### Composition
 
-used to create new components from existing ones. Relies on custom props or standard `props.children`. Composition -> reusable, testable, and extendable components.
+used to create new components from existing ones. Relies on custom props or standard `props.children`. Composition -> reusable, testable, and extendable components. 
+
+Principle
+- specific components render generic ones with extra props & markup
+- A specialized component is built from props to handle one specific case.
+- A container component provides the state and behavior to its children components.
 
 ```jsx
-// specific components render generic ones with extra props & markup
-SpecialCard = ({children, ...extras}) => <Card {...extras}>{children}</Card>
-
 Card = ({children}) => <div class='card'>{children}</div> 
 //when only 1, use children, refers to nested JSX within component
 
@@ -22,9 +24,6 @@ Card = ({children}) => <div class='card'>{children}</div>
     biography={<BiographyFat user={user} />} // {biography}
   />
 ```
-
-A specialized component is built from props to handle one specific case.
-A container component provides the state and behavior to its children components.
 
 #### Render Props
 

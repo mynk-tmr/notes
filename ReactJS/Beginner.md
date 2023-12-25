@@ -216,7 +216,6 @@ They are functions which consume inputs and return a React element. Components a
 ##### Synthetic events
 - [read extra features](https://react.dev/reference/react-dom/components/common#animationevent-handler)
 
-
 #### Types of Components
 
 - **controlled** (driven by props)
