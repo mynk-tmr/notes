@@ -8,7 +8,7 @@ npm create vite@latest myapp -- --template react
 - `/src` : codebase 
 	- `App.jsx` : top-level component, rendered on app startup.
 	- `index.css` : global styles for app
-	- `main.jsx` : displays component tree within a `root` element
+	- `main.jsx` : displays app within a `root` element
 
 ```json
 //eslintrc.cjs -> add
