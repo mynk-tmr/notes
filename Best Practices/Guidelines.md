@@ -44,5 +44,8 @@ revert: #header of reverted commit
 This reverts commit #sha
 ```
 
-
 ##### Monorepos (tbd)
+
+
+- [https://www.patterns.dev/#patterns](https://www.patterns.dev/#patterns)
+- [JavaScript module](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules#applying_the_module_to_your_html)

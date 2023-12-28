@@ -13,7 +13,7 @@ JSON is a **text**-based data format following JavaScript object syntax. JSON e
 - `JSON.stringify` to convert object/array into JSON (_serialization_)
 - `JSON.parse` to convert JSON back into object/array (_deserialization_)
 
-JSON can be a single primitive or array. JSON keys requires double-quotes. Skips `function, symbol, undefined` keys
+JSON can be a single primitive or array. JSON keys requires double-quotes. Skips keys for `function, symbol, undefined`
 
 ```jsx
 JSON.parse('{"name":"John"}'); 
@@ -75,10 +75,9 @@ Inline validation -> listen events `input` `change` `focus` `blur`
 **Field properties**
 - `validationMessage` : error msg
 - `validity` : an object with bool properties
-  - patternMismatch , stepMismatch
+  - patternMismatch , stepMismatch, typeMismatch (e.g. ❌ url)
   - tooLong, tooShort, valueMissing, badInput (unreadable)
   - rangeOverflow, rangeUnderflow
-  - typeMismatch (e.g. ❌ url)
   - valid (`true/false`)
   - willValidate (`true` if not hidden, readonly or disabled)
   - customError (`true` if custom msg was set)
@@ -118,7 +117,7 @@ x.readyState // 0 1 2 ['', loading, loaded]
 x.result //loaded file
 
 //value of result depends on read function used
-.readAsArrayBuffer()	//ArrayBuffer containing binary data.
+.readAsArrayBuffer()	// binary data.
 .readAsBinaryString() //string.
 .readAsDataURL()	//URL string 
 .readAsText() //contents
@@ -147,12 +146,12 @@ fetch(url, {mode: 'cors'}) //returns promise for response
 
 //using constructor to create Request, Headers object
 request = new Request(url, {mode: 'cors'})  //fetch(request)
-heads = new Headers({ "Content-Type": "application/json"}) // headers : heads
+heads = new Headers({ "Content-Type": "application/json"})
 ```
 
 **Options object**
 - `body: JSON.stringify(data)` : to POST data
-- `headers: JSON.stringify(header)` : set HTTP headers
+- `headers: JSON.stringify(heads)` : set HTTP headers
 - `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
 - `referrerPolicy` : 
 - `method` : (GET, POST, PUT, DELETE, etc). Still sends response for succ/fail

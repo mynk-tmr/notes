@@ -560,11 +560,9 @@ Mock functions
 const mockfn = jest.fn( x => x+1 ) 
 
 test('', () => {
-	myfunc([0,1], mockfn)  //myfunc(arr, cb)
+	tested_func([0,1], mockfn)  //(arr, cb)
 	// now we can access metadata via .mock
-	
-	expect(mockfn.mock.calls).toHaveLength(1)  //called once
-
+	expect(mockfn.mock.calls).toHaveLength(2) 
 })
 ```
 
@@ -572,8 +570,6 @@ Mocking modules
 ```js
 import axios from 'axios';
 jest.mock('axios') //module-name
-
-//WAY 1
 axios.get = jest.fn().mockReturnValue(1);
 ```
 

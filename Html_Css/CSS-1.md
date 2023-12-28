@@ -8,7 +8,6 @@ CSS _rule_ =
     _css declarations block_
   }
 
-
 ## Units (MDN vocabulory)
 
 `integer` , `number` (+decimals), `dimension/length` (num+unit), `%` (of parent) 
@@ -64,7 +63,7 @@ We override default styles to get consistent cross-browser styling
 
 ## Logical Properties and values
 
-Provide the ability to control layout based on writing mode.
+lets us control layout based on writing mode.
 `-inline-` : dimension parallel to text flow 
 `-block-` :  perpendicular to text flow 
 
