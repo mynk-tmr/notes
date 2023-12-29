@@ -65,40 +65,11 @@ root.unmount(); //destroy rendered tree, root is unusable now
 
 Server-rendered apps use `hydrateRoot` instead
 
-## Props
-
-```jsx
-//prop spread -> duplicates overriden based on spread position
-<Profile {...db['maria']} title='joe'/> 
-
-//default values
-Avatar.defaultProps = some_obj 
-
-//you can curry to pass handlers in prop
-```
-
-## State
-
-```jsx
-// state is 'fixed' in handler till it runs to completion
-// use state-updater function to update state using previous
-setPerson(prev => ({ ...prev, age: prev.age + 1 }));
-
-//useImmer, to allow mutation-like syntax
-setPerson(draft => {draft.age = draft.age+1 })
-
-//don't use props as state
-function Message({ initialColor }) {
-  const [color, setColor] = useState(initialColor); 
-  //color=init only for 1st call of Message
-}
-```
-
 ## React Reconciliation
 
 The process through which React updates Browser DOM fast and efficiently. It's a 3 step process
 
-**Trigger** : a re-render is triggered when *state/prop* changes.
+**Trigger** : a re-render is triggered when *state/prop/context* changes.
 
 **Render phase**
 - On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
@@ -232,28 +203,91 @@ Rules
 1. call from top level of a functional component.
 2. not inside loops or conditions.
 
-Note: component re-renders after *run to completion*. 
-##### useState hook
+### useState hook
+
+```jsx
+const [state, setState] = useState(0); //init used only for 1st mount
+//a[0] current state ; a[1] setter to update state & schedule re-rendering
+```
+
 - used to create a `state` in functional components.
-- returns
-	- a[0] -> current state value
-	- a[1] -> setter function to update state & trigger re-rendering
-- when state changes, component is *destroyed* & recreated with **last** value passed to `setter`
+- on next render, component is *unmounted* & mounted with **last** value passed to `setter`
 - Multiple updates are combined in 1.
-##### useEffect hook
+
+```jsx
+// state is 'fixed' in handler till it runs to completion
+// fix by state-updater function
+setPerson(prev => ({ ...prev, age: prev.age + 1 }));
+
+//useImmer, to allow mutation-like syntax
+setPerson(draft => {draft.age = draft.age+1 })
+
+//color=init only for 1st call of Message
+function Message({ colorprop }) {
+  const [color, setColor] = useState(colorprop); 
+}
+```
+
+### useEffect hook
+
+```jsx
+useEffect( () => {
+	//sync logic
+	
+	return () => { 
+	//cleanup & stop previous sync
+	//run only on unmount 
+	}
+}, []) //dep array (runs cb on mount, when any dep changes)
+
+//[] only 1st mount, no [] -> every re-render
+```
+
 - used to 
 	- run side-effects (things apart from rendering)
-	- sync component with external systems like a server, API, or browser DOM.
-- **cleanup** is needed to stop previous sync
-- effect runs when *any* dependency changes. Must be *reactive* value.
+	- sync component with external systems like **server, API, browser DOM, timeouts**
+- dependency must be *reactive* value.
 	- `state/prop/context` + any value derived using them
 	- `ref object` from useRef (not `ref.current`)
 	- these might change during re-renders. Those that don't change are *stable* (calc by React)
 - Best practices
 	- 1 Effect => 1 Sync
-	- separate non-reactive logic into Effect events
+	- separate non-reactive logic into *Effect events*
 	- DON'T use **object/functions** in Dep. (Object.is always =/=)
 - similar to `componentDidMount` and `componentDidUpdate`, but only runs when the component (or some of its props) changes and during the initial mount.
+
+**Correct timers in React**
+```jsx
+import { useEffect, useState } from 'preact/hooks';
+function Clock() {
+	const [timer, setter] = useState(1);
+	useEffect( () => {
+		let updater = () => setter(timer+1); //notice () => 
+		let id = setTimeout(updater, 1000)
+		return () => clearTimeout(id);
+	}, 
+	[timer])
+	return <h1>Time is {timer}</h1>
+}
+```
+
+### useRef hook
+```jsx
+const ref = useRef(0);
+const handler = (cal) => {setter(cal); ref.current++}
+```
+- to create `ref object` whose changing doesn't trigger re-render
+- good alt to useEffect
+
+*guards* to change useEffect behaviour
+```jsx
+//useEffect but only on change ; toggle inside useEffect 
+const firstmount = useRef(true);
+
+//useEffect but only 1st change
+const firstchange = useRef(true);
+```
+
 
 
 ## Errors

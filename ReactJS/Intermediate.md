@@ -64,20 +64,13 @@ To extract logic from a component and convert it into a reusable hook.
 import { useState, useCallback } from "react";
 
 export useToggle = () => {
-  const [status, setStatus] = useState(false);
-
-  const toggleStatus = useCallback(() => {
-    setStatus((prevStatus) => !prevStatus);
+  const [flag, setFlag] = useState(false);
+  const toggler = useCallback(() => {
+    setFlag(prev => !prev);
   }, []);
-  
-  return [status, toggleStatus]
+  return [flag, toggler]
 };
-
-//to use we can
-const { status: darkmode, toggleStatus: toggleDarkmode } = useToggle();
-const { status: expanded, toggleStatus: toggleExpanded } = useToggle();
 ```
-
 
 ## Higher Order Components
 
