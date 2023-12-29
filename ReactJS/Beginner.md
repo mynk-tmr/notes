@@ -211,7 +211,7 @@ They are functions which consume inputs and return a React element. Components a
 	- `{handleMe}` : use if specific
 	- `{(e) => handleUs(e, ...data)}` : use to call universal handler with extra info
 	- `{handleProp}` : callback handler are used to *communicate up* the component tree. Acquired from `props` 
-- Under the hood, React attaches event handlers at root, but this is not reflected in React event objects. For example, e.currentTarget may not be the same as the underlying e.nativeEvent.currentTarget. For polyfilled events, e.type may differ from e.nativeEvent.type
+- Under the hood, React attaches event handlers at root, but this is not reflected in React event objects. For example, `e.currentTarget` may =/= `e.nativeEvent.currentTarget`. For polyfilled events, types may differ
 
 ##### Synthetic events
 - [read extra features](https://react.dev/reference/react-dom/components/common#animationevent-handler)
@@ -232,12 +232,23 @@ Rules
 1. call from top level of a functional component.
 2. not inside loops or conditions.
 
-#### useState
-- to construct a state
+##### useState hook
+- used to create a `state` in functional components.
+- returns
 	- a[0] -> current state value
 	- a[1] -> setter function to update state & trigger re-rendering
-- when state changes, component is *destroyed* & recreated with **latest** value sent to `setter`
-- state is updated *later* on **next** component render. Multiple updates are combined in 1.
+- when state changes, component is *destroyed* & recreated with **last** value passed to `setter`
+- state updates on **next** component render. Multiple updates are combined in 1.
+##### useEffect hook
+- used to 
+	- run side-effects (things apart from rendering)
+	- sync component with external systems like a server, API, or browser DOM.
+- cleanup is needed to stop previous sync
+- effect runs when *any* dependency changes. Must be *reactive* value.
+	- `state/prop/context` + any value derived using them
+	- these might change during re-renders. Place *fixed* values outside components
+- *each useEffect must do only 1 thing* 
+- similar to `componentDidMount` and `componentDidUpdate`, but only runs when the component (or some of its props) changes and during the initial mount.
 
 
 ## Errors
