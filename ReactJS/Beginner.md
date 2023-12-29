@@ -256,19 +256,6 @@ useEffect( () => {
 	- DON'T use **object/functions** in Dep. (Object.is always =/=)
 - similar to `componentDidMount` and `componentDidUpdate`, but only runs when the component (or some of its props) changes and during the initial mount.
 
-**Correct timers in React**
-```jsx
-function Clock() {
-	const [timer, setter] = useState(1);
-	useEffect( () => {
-		let updater = () => setter(timer+1);
-		setTimeout(updater, 1000) 
-	}, 
-	[timer])
-	return <h1>Time is {timer}</h1>
-}
-```
-
 ### useRef hook
 ```jsx
 const ref = useRef(0);
