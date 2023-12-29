@@ -236,7 +236,7 @@ useEffect( () => {
 	
 	return () => { 
 	//cleanup & stop previous sync
-	//run only on unmount 
+	//also run on unmount 
 	}
 }, []) //dep array (runs cb on mount, when any dep changes)
 
@@ -258,13 +258,11 @@ useEffect( () => {
 
 **Correct timers in React**
 ```jsx
-import { useEffect, useState } from 'preact/hooks';
 function Clock() {
 	const [timer, setter] = useState(1);
 	useEffect( () => {
-		let updater = () => setter(timer+1); //notice () => 
-		let id = setTimeout(updater, 1000)
-		return () => clearTimeout(id);
+		let updater = () => setter(timer+1);
+		setTimeout(updater, 1000) 
 	}, 
 	[timer])
 	return <h1>Time is {timer}</h1>
