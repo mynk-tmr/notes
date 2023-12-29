@@ -1,6 +1,6 @@
 ##### CLI
 ```shell
-npm create vite@latest myapp -- --template react
+npm create vite@latest
 ```
 
 ##### Folder structure
