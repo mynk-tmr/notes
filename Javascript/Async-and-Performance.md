@@ -69,8 +69,8 @@ void function count() {
 
 Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
 
-- **Inversion of Control** : they handover the control & flow of code to other api (usually 3rd party) with minimal ways to tackle unpredicted behaviour
-- **Non-linearity** : callbacks express async flow in a non-sequential way, which makes code much harder to understand and maintain. 
+- **Inversion of Control** : they handover control & flow of code to other api with minimal ways to tackle unpredicted behaviour
+- **Non-linearity** : express async flow in a hard to grasp non-linear way
 - **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
 - **Race conditions** : when some async callback may finish synchronously
 
@@ -131,7 +131,7 @@ P.catch(console.log) //3
 	- `Promise.resolve()` => return **original** promise (flattens promises)
 
 
-`reject(r), Promise.reject(r)` : if reason is
+`reject(reason), Promise.reject(reason)` : if reason is
 - thenable :- call *onRejected* (no unwrapping)
 - others :- create a **new** rejected promise that wraps reason (no resolution)
 
