@@ -203,28 +203,24 @@ Rules
 
 ### useState hook
 
+- used to create a `state` in functional components
 ```jsx
-const [state, setState] = useState(0); //init used only for 1st mount
-//a[0] current state ; a[1] setter to update state & schedule re-rendering
+const [state, setState] = useState(0); //init value used only on mount
+//a[0] current state
+//a[1] setter to update state & schedule re-rendering
+
+useState(initializer) //its return serves as init, runs only on mount
+setState(updater) //uses previous state to return next state
+//both must be PURE FUNCTIONS
 ```
 
-- used to create a `state` in functional components.
-- on next render, component is *unmounted* & mounted with **last** value passed to `setter`
-- Multiple updates are combined in 1.
+##### useImmer 
+- to allow mutation-like syntax
+- `setPerson(draft => {draft.age = draft.age+1 })`
 
-```jsx
-// state is 'fixed' in handler till it runs to completion
-// fix by state-updater function
-setPerson(prev => ({ ...prev, age: prev.age + 1 }));
-
-//useImmer, to allow mutation-like syntax
-setPerson(draft => {draft.age = draft.age+1 })
-
-//color=init only for 1st call of Message
-function Message({ colorprop }) {
-  const [color, setColor] = useState(colorprop); 
-}
-```
+##### How state updates (batching)
+- they are shallowly *merged* in order of occurrence, at end of event. So component re-renders *only once*
+- state updates only on **next** re-render, not in current run. 
 
 ### useEffect hook
 
