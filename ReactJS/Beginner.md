@@ -238,7 +238,7 @@ useEffect( () => {
 	//cleanup & stop previous sync
 	//also run on unmount 
 	}
-}, []) //dep array (runs cb on mount, when any dep changes)
+}, []) //dep array (when any dep changes)
 
 //[] only 1st mount, no [] -> every re-render
 ```
@@ -254,7 +254,7 @@ useEffect( () => {
 	- 1 Effect => 1 Sync
 	- separate non-reactive logic into *Effect events*
 	- DON'T use **object/functions** in Dep. (Object.is always =/=)
-- similar to `componentDidMount` and `componentDidUpdate`, but only runs when the component (or some of its props) changes and during the initial mount.
+- 
 
 ### useRef hook
 ```jsx
