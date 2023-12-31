@@ -154,11 +154,9 @@ They are functions which consume inputs and return a React element. Components a
 - object used by components to *pass data* **down** the component tree (parent-> child)
 - have 2 kinds of keys -> *standard* (`src` predefined) and *custom*
 ##### State
-- a *private* data structure that *mutates* over re-renders. It starts with def_value when component mounts.
-- Each state has only 1 owner component (single source)
+- a component's *private* data that may *change* over re-renders. It starts with def_value when component mounts.
 - in practice, use small JSON-serialisable object as state
 ##### Props vs. State
-- props are *immutable* & pass data ; state is mutable component memory
 - props are managed by *ancestor*, state is managed within *component*
 - props are more performant
 - use `props` to pass render & interactivity logic, use `state` to control interactivity
