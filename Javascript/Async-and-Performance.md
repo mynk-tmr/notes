@@ -89,7 +89,7 @@ Solutions to callback hell
  - **Py. of Doom** :- no deep nesting 
  - **Race conditons** :- callback always run on mtqueue, even when errors
 
-#### Creating Promises
+### Creating Promises
 
 ```jsx
 // constructor
@@ -101,15 +101,14 @@ P = new Promise( (resolve, reject) => {
 
 // thenables (mock interface)
 const obj = {
-  then(resolve, reject) { 
+  then(onFulfilled, onRejected) { 
 	   //do ASYNC and signal success/failure
    }
 }
 
-// modern syntax --> don't require EXECUTOR to be called
+//promisifying definite value/reason
 Promise.resolve(value)
 Promise.reject(reason)
-
 ```
 
 *A promise is resolved/rejected once and fixed forerver* 
@@ -132,48 +131,31 @@ P.catch(console.log) //3
 
 
 `reject(reason), Promise.reject(reason)` : if reason is
-- thenable :- call *onRejected* (no unwrapping)
+- thenable/promise :- call *onRejected* (no unwrapping)
 - others :- create a **new** rejected promise that wraps reason (no resolution)
 
 SEE [[Tricky-Questions#Promises]]
 
 
-Using modern syntax on promise-likes
+Mock promises
 ```js
-onF = (val) => console.log('fulfilled',val)
-onR = (re) => console.log('rejected', re)
-
-class Mock {
+class MockPromise {
   constructor(executor) {
-    executor(onF , onR)
+	  this.then = executor; 
+	  //then, catch, finally call internal then(onF, onR) of object
   } 
 }
-Promise.resolve.call(Mock, "foo"); // fulfilled foo
-Promise.reject.call(Mock, "bar"); // rejected bar
 ```
 
-#### Consuming promises - then, catch, finally
 
-- Done by attaching callback handlers that execute when promise is settled.
-- these methods call internal `then(onF,onR)` of given object.
-	- a thenable might call both `onF,onR` , hence we use `Promise.resolve(p)` to ensure only 1 is called.
-- they return **new** promise *fulfilled* with `resolve(cb_return_value)` OR *rejected* with reason = `throw value` 
-- Usage
-	- `obj.then(onF, onR)` 
-	- `obj.catch(onR)` : shorthand for `then(null,onR)`. 
-		- specifies common error-handler for *preceding* then chain.
-	- `obj.finally(cb)` : to process something once promise is settled. Like `then(cb,cb)` but
-		- cb takes NO parameter and it's return is ignored
-		- finally returns a promise *fulfilled* with `resolve(obj)` OR *rejected* with reason = `throw value` 
-
-
-```jsx
-//handler
-cb = (val) => {/*code*/}
-
-//then is chainable
-func().then(a,b).then(c,d)
-/* or */ pro1 = func().then(a,b) ;  pro2 = func().then(c,d);
+### Consuming Promises
+| `then(onF,onR)` | `catch(onR)` | `finally(cb)` |
+| ---- | ---- | ---- |
+| handles both settlements; callback consume value/reason | handles all errors in previous then chain  | process something once promise is settled |
+| returns `promise` fullfilled with onF/onR's *return* or rejected with onF/onR's *throw* | same as then | fulfilled value is *invoker* object ; cb takes `no param` |
+```js
+pro1 = func().then(a,b)
+pro2 = pro1.then(c,d); //same as func().then.then
 
 // sequential async ops
 func().then(a).then(b).catch(g).finally(x)
@@ -182,9 +164,9 @@ func().then(a).then(b).catch(g).finally(x)
 Promise.allSettled( [f(), g(), h()] ).then(doIt) //f,g,h return promises
 ```
 
-__Floating promise__ :- previous then handler started a promise but did not return it, there's no way to track its settlement anymore. Next `then` handler will be called *early* with `undefined` value.
+__Floating promise__ :- when a then handler *does not return*, there's no way to track promise anymore. Next `then` handler is called *early* with `undefined` value.
 
-#### Error-handling
+### Error-handling
 
 When a promise is rejected, 2 events can fire on `window` 
 - each has `event.promise` and `event.reason` (the promise & its reason)
@@ -212,25 +194,25 @@ window.addEventListner('unhandledrejection' , dealwithit);
 process.on("unhandledRejection", (reason, promise) => { /code/ });
 ```
 
-#### Promise Concurrency
+### Promise Concurrency
 
 4 static methods are available to run promises or operation in parallel. They take iterable of promises & return *1 promise* that will resolve based on how those promises are settled.
 
 ```js
 //general syntax
-Promise.all(arr).then(f).catch(g)
+Promise.all(arr).then(onF).catch(onR)
 
 // Promise.all -- all OR 1st reject
-f( [val_p, val_q, val_r] ) ; g(reason)
+onF( [val_p, val_q, val_r] ) ; onR(reason)
 
 //Promise.any -- 1st ful OR all reject
-f(value) ; g(error_obj) ; error_obj.errors /* array of reasons*/
+onF(value) ; onR({errors}) ; /* array of reasons*/
 
 //Promise.race -- as soon as 1 settles
-f(value) ; g(reason) 
+onF(value) ; onR(reason) 
 
 //Promise.allSettled -- always fulfill
-f( [data_p, data_q, data_r] ) 
+onF( [data_p, data_q, data_r] ) 
 data_p.status //'fulfilled' or 'rejected'
 data_p.value  // of promise
 data_p.reason // of rejection if any
@@ -269,7 +251,7 @@ function within(delay) {
 
 ```jsx
 //setTimeout
-const wait = (ms) => new Promise(resCb => setTimeout(resCb, ms))
+const wait = (ms) => new Promise(onF => setTimeout(onF, ms))
 wait(1000).then(dothis)
 wait(1000).then( () => {
 	doA() ; return wait(1500)//for chaining delay
@@ -285,34 +267,19 @@ const myFetch = (url) => new Promise( (resolve, reject) => {
 })
 myFetch(url).then(dothis)
 
-
 // custom prosifier 
-const promisify = (fn, manyArgs=false) => function(...args) { //no arrow
-    new Promise((Fu, Rj) => {
-        fn.call(this, ...args, cb)
-        //define cb
-        function cb(err, ...results) {
-            err? Rj(err) : ( manyArgs? Fu(results) : Fu(results[0]) );  
-        }
-	})
+const promisify = (fn) => function(...args) { //no arrow
+	new Promise((onF, onR) => { //here arrow
+		const signal = (err, val) => err? onR(err) : onF(val);
+	    fn.call( this, ...args, signal)
+	})  //fn will signal success/failure
 }
-
 ```
-
 
 ## Async / Await
 
 Async/Await simplify the process of working with chained promises. 
-`async` keyword marks function as *generator* that return a Promise i.e. *rejected* (with error `reason`) OR *resolved* (with return `value`)
-
-```jsx
-async function f() {...} //f promises to return a value in future
-f = async () => {...}
-async class_f() {...}
-arr.map(async x => x+1 )
-
-//return is always NEW promise
-```
+`async` keyword marks function as *generator* that return a **new** Promise *rejected* (with error `reason`) OR *resolved* (with return `value`)
 
 `await <promise>`
 - suspends function execution until promise settles. Stmts after it will run later on **microtask** queue. 
@@ -328,9 +295,9 @@ await null;
 #### Error handling
 
 ```jsx
-//to handle errors thrown inside async function
-try { /*code*/ } catch(reason) {...} //in BODY OR
-asyncFn().catch((reason)=> {}) //on CALL
+//either in body or call
+body: try-catch
+call : f().catch()
 
 //await becomes 'throw reason' when <promise> rejected OR error occurs 
 
@@ -338,7 +305,7 @@ asyncFn().catch((reason)=> {}) //on CALL
 await dosometask()
 
 //use composers to chain Promises
-wrong = [await p1, await p2]; // not caught by .catch()
+wrong = [await p1, /*pause */ await p2]; // not caught by .catch()
 right = Promise.all(p1,p2)
 
 //catch decorator
@@ -348,17 +315,7 @@ let safeYolo = addCatch(yolo, logError)
 
 #### Top level await
 
-```jsx
-// in non-modules/old browsers
-(async () => {
-  let response = await fetch('/article/promise-chaining/user.json');
-  let user = await response.json();
-  ...
-})();
-```
-
-Causes parent module to pause, until child finishes
-
+Causes parent module to pause, until child finishes. In old browser / non-modules, use IIFE async to simulate
 ```js
 // parent.js  
 import child from './child.js';
@@ -392,33 +349,8 @@ foo("Second");
 ```jsx
  function chainOps(...fns) {
 	return async function(initval) {
-	let acc = initval;
+	let acc = await initval;
 	for (const f of [...fns]) acc = await f(acc)
 	}
 }
 ```
-
-#### Asyncifying promises
-
-```jsx
-function addPromise(x){
-  return new Promise(resolve => {
-    doubleAfter2Seconds(10).then((a) => {
-      doubleAfter2Seconds(20).then((b) => {
-        doubleAfter2Seconds(30).then((c) => {
-          resolve(x + a + b + c);
-      	})
-      })
-    })
-  });
-}
-
-//DUCK pattern --> this is fixed with Async/await
-async function addAsync(x) {
-  const a = await doubleAfter2Seconds(10);
-  const b = await doubleAfter2Seconds(20);
-  const c = await doubleAfter2Seconds(30);
-  return x + a + b + c;
-}
-```
-
