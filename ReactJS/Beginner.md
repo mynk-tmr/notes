@@ -203,7 +203,7 @@ Rules
 
 ### useState hook
 
-- used to create a `state` in functional components
+used to create a `state` in functional components
 ```jsx
 const [state, setState] = useState(0); //init value used only on mount
 //a[0] current state
@@ -220,7 +220,11 @@ setState(updater) //uses previous state to return next state
 
 ##### How state updates (batching)
 - they are shallowly *merged* in order of occurrence, at end of event. So component re-renders *only once*
-- state updates only on **next** re-render, not in current run. 
+- state updates only on **next** re-render, not in current run.
+- if setter is called during render (**outside handler**), component immediately re-renders after returning. Only component's own setter can be invoked during render.
+
+##### State management
+- change `key` to reset component + descendants (re-mounts)
 
 ### useEffect hook
 
@@ -251,15 +255,12 @@ useEffect( () => {
 - 
 
 ### useRef hook
-```jsx
-const ref = useRef(0);
-const handler = (cal) => {setter(cal); ref.current++}
-```
 - to create `ref object` whose changing doesn't trigger re-render
 - good alt to useEffect
-
-*guards* to change useEffect behaviour
+- *guards* to change useEffect behaviour
 ```jsx
+const ref = useRef(0); //only on mount -> ref.current=0
+
 //useEffect but only on change ; toggle inside useEffect 
 const firstmount = useRef(true);
 
@@ -267,10 +268,6 @@ const firstmount = useRef(true);
 const firstchange = useRef(true);
 ```
 
-
-
-## Errors
-
-- *infinte rendering* -> `setter` is called unconditionally
-- *got object, not function* -> missing prop destructuring 
+### useMemo hook
+- to store values derived from expensive compuation of state/props
 - 
