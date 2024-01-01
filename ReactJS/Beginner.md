@@ -12,8 +12,7 @@ Syntax extension for JS that allows writing rendering logic (JS) and markup (HTM
 	- *fragments* `<></>` group elements without adding extra nodes.
 - *camelCase* attrs (except `data-` and `aria-`) 
 - close *void* tags
-- `nullish, true, false` are not JSX showable, but `0` or `''` are shown.
-- values supported: `"hello", 0, {expr}, {var}`
+- `nullish, true, false` are considered *empty* nodes, but `0` or `''` aren't
 
 ```jsx
 <p>{[1, 2, 3, 4]}</p> --> <p>{1}{2}{3}{4}</p>
@@ -167,18 +166,22 @@ Building blocks of React App. A component encapsulate one piece of UI.
 Lifecycle methods run during phases
 - **mounting**: creation+insertion in DOM tree
 	- `constructor` => `getDerivedStateFromProps` => `render` => `componentDidMount` 
+
 - **updating**: re-render due to change in reactive object
 	- `gDSFP` => `shouldComponentUpdate` => `render` => `getSnapshotBeforeUpdate` => `componentDidUpdate`
+
 - **unmounting**: removed and destroyed
-	- `componentWillUnmount` : for cleanups (*commit* lifecycle)
+	- `componentWillUnmount` : for cleanups (while *commit*)
+
 - **error**: when descendant throws error
 	- `getDerivedStatefromError(error)` => `componentDidCatch(error,info)`
-	- 1st -> *render* lifecycle and returns new *state object* using error
-	- 2nd -> *commit* lifecycle ; used to log errors / remedies
+	- 1st -> *render* stage; returns new *state object* using error
+	- 2nd -> *commit* stage; used to log errors / remedies
 		- in dev mode, errors will always bubble to window
+		- `info.componentStack` <- stack trace
 
 
-**--- Render lifecycles (pure) ---**
+**--- Render (pure) ---**
 ```jsx
  constructor(props) {
     super(props);
@@ -193,11 +196,6 @@ static getDerivedStateFromProps(props, state)
 should return new state object or null
 used when new state depends on over-time changes in prop/state*/
 <Transition />
-```
-
-```jsx
-static getDerivedStateFromError(error)
-/* , returns new state object using error
 ```
 
 ```jsx
@@ -222,7 +220,7 @@ getSnapshotBeforeUpdate(prevProps, prevState)
 */
 ```
 
-**--- Commit lifecycles (side-effect allowed) ---**
+**--- Commit (side-effect allowed) ---**
 ```jsx
 componentDidMount()
 /* immediately after mount, use this for 
@@ -237,6 +235,11 @@ componentDidUpdate(prevProps, prevState, snapshot)
 	- acting on DOM, networking (only if prevs changed)
 	- this.state/props refer to new ones
 ```
+
+**NOTES**
+- When [Strict Mode](https://react.dev/reference/react/StrictMode) is on, in development React will call `componentDidMount`, then immediately call [`componentWillUnmount`,](https://react.dev/reference/react/Component#componentwillunmount) and then call `componentDidMount` again. This helps you notice if you forgot to implement `componentWillUnmount` or if its logic doesn’t fully “mirror” what `componentDidMount` does.
+- When [Strict Mode](https://react.dev/reference/react/StrictMode) is on, React will call `render` twice in development and then throw away one of the results. This helps you notice the accidental side effects
+
 
 ## Hooks
 
@@ -297,7 +300,7 @@ useEffect( () => {
 	- 1 Effect => 1 Sync
 	- separate non-reactive logic into *Effect events*
 	- DON'T use **object/functions** in Dep. (Object.is always =/=)
-- 
+- handles `componentDid--Mount, Update, Unmount` logic but if code is to run before browserpaint, use **useLayoutEffect**
 
 ### useRef hook
 - to create `ref object` whose changing doesn't trigger re-render
@@ -314,7 +317,30 @@ const firstchange = useRef(true);
 ```
 
 ### useMemo hook
-- to store values derived from expensive compuation
+- to store values derived from expensive computation
+- equivalent of `shouldComponentUpdate` of class
+
+### useSyncExternalStore
+- use to update component when **external** data (like server data or browser API object) changes value
+
+```jsx
+//custom hook to see online status
+export const useOnlineStatus = () => 
+	useSyncExternalStore(subscribe, getSnapshot)
+
+//get immutable snapshot of data at a point
+const getSnapshot = () => navigator.onLine ;
+
+//subscribe to events/changes ; return a function that unsuscribes
+function subscribe(cb) {
+	window.addEventListener('online', cb)
+	window.addEventListener('offline', cb)
+	return function() {
+		window.removeEventListener('online', cb)
+		window.removeEventListener('offline', cb)	
+	} 
+}
+```
 
 
 ## Class components
@@ -362,3 +388,7 @@ const countRef = useRef(0); //or
 const [countRef, _] = useState(() => React.createRef(0))
 ```
 
+**Error handling**
+- *error boundary* : a component to display fallback UI on errors
+- can be created only with class; implements *error lifecycle* methods
+- in function components, use `react-error-boundary` package
