@@ -88,7 +88,7 @@ Rendering only a subset of components, based on app's state. Can be done with co
 - prefer `&&` over `? val : null`. Example -> `msg > 0 && <p>New msg<p>`
 - for nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 #### KEYS
-- React identifies a list item with *key* for fast updation. 
+- React identifies a React element with *key* for updation & state managment.
 - Rules
 	- siblings must have *unique* keys
 	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
@@ -266,10 +266,15 @@ setState(updater) //uses previous state to return next state
 - if setter is called during render (**outside handler**), component immediately re-renders after returning. Only component's own setter can be invoked during render.
 
 ##### State management
-- tied to *position* of component in render tree. If component (not instance) or its position changes, it resets
-- To reset state, e.g. `test? <Tag>:<Tag>` 
-	- change it's *key* (subtree re-mount). `test? <Tag key={1}>:<Tag key={2}>`
-	- use `{test && <Tag>}{!test && <Tag>}`
+- tied to **key** of component instance. By default, key is *position* in render tree.
+- State resets when 
+	- diff component at given position
+	- change in key (subtree re-mounts)
+```jsx
+//reset state for test? <Tag> : <Tag>
+test? <Tag key={1}>:<Tag key={2}> 
+{test && <Tag>}{!test && <Tag>}
+```
 
 ### useEffect hook
 
