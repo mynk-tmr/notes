@@ -157,9 +157,13 @@ Building blocks of React App. A component encapsulate one piece of UI.
 
 - **controlled** (driven by props)
 - **uncontrolled** (driven by own state)
-- **stateful** : have state & props; should only control interactivity
-- **stateless** : only props; should only render
-- functions which consume inputs and return a React element
+- **functional** : functions which consume inputs and return a React element
+- **class components**: 
+	- JS classes which implement `render()` and optionally other *lifecycle* *methods* of `React.Component` as their base class. 
+	- use only for *error-handling* and implement `getSnapshotBeforeUpdate`
+- **specialized**: built from props to handle specific cases.
+- **container**: provides state and behavior to its children components.
+
 
 ## Component Lifecycle
 
@@ -170,8 +174,8 @@ Lifecycle methods run during phases
 - **updating**: re-render due to change in reactive object
 	- `gDSFP` => `shouldComponentUpdate` => `render` => `getSnapshotBeforeUpdate` => `componentDidUpdate`
 
-- **unmounting**: removed and destroyed
-	- `componentWillUnmount` : for cleanups (while *commit*)
+- **unmounting**: removed and destroyed  (*commit*) 
+	- `componentWillUnmount` : for cleanups ; should mirror componentDidMount
 
 - **error**: when descendant throws error
 	- `getDerivedStatefromError(error)` => `componentDidCatch(error,info)`
@@ -243,9 +247,9 @@ componentDidUpdate(prevProps, prevState, snapshot)
 
 ## Hooks
 
-_Hooks_ are special functions available while [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features.
+_Hooks_ are special functions available while [rendering](https://react.dev/learn/render-and-commit#step-1-trigger-a-render). They let you “hook into” different React features. To extract *resuable logic* from a component, create **custom hooks**
 
-Rules 
+Rules
 1. call from top level of a functional component.
 2. not inside loops or conditions.
 
@@ -316,6 +320,22 @@ const firstmount = useRef(true);
 const firstchange = useRef(true);
 ```
 
+### useContext hook
+- solves *prop drilling*, where every component between source & target has to forward props
+- makes *lifting state* easy 
+
+```jsx
+export const Ctx = createContext(null);
+
+//to make props available to entire component tree
+<Ctx.Provider value={props}> 
+	<Tree/>
+</Ctx.Provider>
+
+//access whatever needed in component with
+const {prop1, prop2} = useContext(Ctx);  
+```
+
 ### useMemo hook
 - to store values derived from expensive computation
 - equivalent of `shouldComponentUpdate` of class
@@ -344,8 +364,6 @@ function subscribe(cb) {
 
 
 ## Class components
-
-These are JS classes which implement `render()` and optionally other *lifecycle* *methods* of `React.Component` as their base class. 
 
 **Basic**
 ```jsx
@@ -389,6 +407,25 @@ const [countRef, _] = useState(() => React.createRef(0))
 ```
 
 **Error handling**
-- *error boundary* : a component to display fallback UI on errors
+- *error boundary* : a component to display fallback UI on errors in descendant React component
 - can be created only with class; implements *error lifecycle* methods
 - in function components, use `react-error-boundary` package
+
+```jsx
+class ErrorBoundary extends Component {
+  state = { hasError: false };
+  static getDerivedStateFromError(err) {
+    return { hasError: true };
+  }
+  render = () =>
+    this.state.hasError ? this.props.fallback : this.props.children;
+}
+
+//use it as 
+<ErrorBoundary fallback={<p>Error occured</p>}>
+	<Test/>
+</ErrorBoundary>
+```
+
+**Mixins** were used to reuse class components
+

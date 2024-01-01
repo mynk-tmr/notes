@@ -8,10 +8,7 @@ https://www.robinwieruch.de/react-state/
 
 used to create new components from existing ones. Relies on custom props or standard `props.children`. Composition -> reusable, testable, and extendable components. 
 
-Principle
-- specific components render generic ones with extra props & markup
-- A specialized component is built from props to handle one specific case.
-- A container component provides the state and behavior to its children components.
+Principle : specific components render generic ones with extra props & markup
 
 ```jsx
 Card = ({children}) => <div class='card'>{children}</div> 
@@ -33,46 +30,13 @@ Card = ({children}) => <div class='card'>{children}</div>
 
 ```jsx
 const App = () => <Amount rProp={(amount) => <Euro amount={amount} />} />
-const Amount = ({rProp}) => <>Converting ... {rProp(100)} </> //can be state var
-
-//refactored way
-const App = () => <Amount>{(amount) => <Euro amount={amount} />}</Amount>
-const Amount = ({children}) => <>Converting ... {chilren(amount)}</> 
-```
-
-
-#### Prop Drilling
-
-- problem where every component between source & target has to *forward props*, even when they won't use them. Solved by **Context API**
-
-```jsx
-const Ctx = createContext();
-return <Ctx.Provider value={propList}> {/*code */} </Ctx.Provider>
-//propList available in entire component tree created via code
-//propList may have shared states, so better state mgmt too
-
-//access whatever needed in component with
-const {prop1, prop2} = useContext(Ctx);  
-```
-
-
-#### Custom Hooks
-
-To extract logic from a component and convert it into a reusable hook.
-
-```jsx
-import { useState, useCallback } from "react";
-
-export useToggle = () => {
-  const [flag, setFlag] = useState(false);
-  const toggler = useCallback(() => {
-    setFlag(prev => !prev);
-  }, []);
-  return [flag, toggler]
-};
+const Amount = ({rProp}) => <>Converting ... {rProp(100)} </>
+//can also send it as children
 ```
 
 ## Higher Order Components
+
+Component which takes a component as input and returns it with extended functionalities.
 
 ```jsx
 const addLoader = (Component) => ({isLoading, ...props}) => 
