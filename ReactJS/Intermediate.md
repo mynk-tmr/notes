@@ -22,9 +22,8 @@ Card = ({children}) => <div class='card'>{children}</div>
   />
 ```
 
-#### Render Props
-
-- are functions props which render JSX using inputs. 
+#### Render Prop
+- A prop whose value is a function that render JSX using inputs. 
 - implement the pattern "child as a function"
 - helps to move part of rendering logic to parent
 
