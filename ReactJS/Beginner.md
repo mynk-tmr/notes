@@ -147,11 +147,12 @@ Notify = (text, status) => <>{getNotification(text)[status]}</>
 
 ## Components
 
-They are functions which consume inputs and return a React element. Components are *PasalCased*. `use strict;` -> (called twice)
+They are functions which consume inputs and return a React element. Components are *PasalCased*. `React.StrictMode` -> (called twice)
 
 #### Handling Data 
 ##### Props
 - object used by components to *pass data* **down** the component tree (parent-> child)
+- To communicate **up**, *callback* props are used.
 - have 2 kinds of keys -> *standard* (`src` predefined) and *custom*
 ##### State
 - a component's *private* data that may *change* over re-renders. It starts with def_value when component mounts.
@@ -176,10 +177,6 @@ They are functions which consume inputs and return a React element. Components a
 	- `e.nativeEvent`: underlying dom e_obj
 	- `isDefaultPrevented()`
 	- `isPropagationStopped()`
-- 3 types
-	- `{handleMe}` : use if specific
-	- `{(e) => handleUs(e, ...data)}` : use to call universal handler with extra info
-	- `{handleProp}` : callback handler are used to *communicate up* the component tree. Acquired from `props` 
 - Under the hood, React attaches event handlers at root, but this is not reflected in React event objects. For example, `e.currentTarget` may =/= `e.nativeEvent.currentTarget`. For polyfilled events, types may differ
 
 ##### Synthetic events
@@ -191,6 +188,11 @@ They are functions which consume inputs and return a React element. Components a
 - **uncontrolled** (driven by own state)
 - **stateful** : have state & props; should only control interactivity
 - **stateless** : only props; should only render
+
+#### Class Components
+
+
+
 
 
 ## Hooks
@@ -269,5 +271,5 @@ const firstchange = useRef(true);
 ```
 
 ### useMemo hook
-- to store values derived from expensive compuation of state/props
+- to store values derived from expensive compuation
 - 
