@@ -9,7 +9,6 @@
 iterable protocol allows objects to define or customize their iteration behavior.
 
 
-
 ## Property and Object flags
 
 Data property :- no getter, setter
@@ -49,7 +48,6 @@ Object.isFrozen(obj)
 ## Prototypal inheritance
 
 A model where an object or class is linked as prototype of another object (or class) enabling sharing of properties and methods to child. 
-
 
 ```js
 animal.isPrototypeOf(dog) //true ; check if chain contains animal
@@ -100,7 +98,7 @@ function createUser (name) {
 	let nitro = false;  //private member, possible due to closure
 	let discordName = '@' + name; //public member
 	let buyNitro = () => nitro = true; //privileged method that access private data.
-  return {name, discordName, showNitro() { return nitro }  }; //exposing members by return
+  return {discordName, showNitro = () => nitro}; //exposing members by return
 }
 
 olive = createUser('olive') //no new syntax
@@ -132,17 +130,17 @@ function createPlayer(id) {
 ### Implementing Composition
 
 ```js
-const learner = (state) => ({   // () -> return { learns() }
-  learns() { console.log(`learns ${state.what}`);}
+const learner = (state) => ({ 
+  learns = () => `learns ${state.what}`
 })
 
 const earner = (state) => ({ 
-  earns() { console.log(`earns from ${state.what}`);}
+  earns = () => `earns from ${state.what}`
 })
 
 const developer = (name) => {
 	let state = { name, what: 'coding'};  // internal state object
-	return Object.assign({}, learner(state), earner(state) )  // {learns(), earns()} with state bound
+	return Object.assign({}, {name}, learner(state), earner(state) )
 }
 ```
 
@@ -155,7 +153,7 @@ In this, an IIFE is used as factory function. It allows easy encapsulations and 
 const calculator = (function () {
   const add = (a, b) => a + b;
   const sub = (a, b) => a - b;
-  return { add, sub };  // calc -> returned object
+  return { add, sub };  // -> returned object
 })();
 
 calculator.add(2,4) //6
@@ -169,29 +167,41 @@ const myLib = (function(d1, d2, d3) {
 
 ## Class pattern
 
-Classes are technically functions and built over prototype-based constructors, with few differences 
- - in class, constructor() has to be defined explictly
- - class methods are non-enumerable
- - class uses strict-mode
- - class can’t be invoked without new keyword
- - class declarations have TDZ, unlike func_decl
+Classes are based on prototype-based *constructor functions*, except
+ - `constructor()` is **explictly** defined & requires **new** to be called
+ - class methods are **non-enumerable**
+ - in **strict-mode** and have **TDZ** like let
 
-Added to class prototype
- - no => static fields, private methods => can't be accessed with `super` or `this` inside instance
- - yes => everything else => accessed on object ; shadowed by object/subclass own properties
-
-Note :
- - class follow `object` syntax 
- - in class, use (`this.prop`) ; for static (`myclass.prop`)
- - `#times` => private member ; visible only inside defining class ; non-inheritable, non-deletable ; if instance tries to access --> 'undefined'.
- - `static` properties are created on the class itself instead of each instance. Used for providing utilites / shared state. Inherited to sub-classes.
- - `super` keyword is used to access public properties in a super-class, or invoke its constructor
- - super isn't object ; can't use `delete super.prop`
-
+**Public properties**
 ```js
-// to access private members, static is used
-static getX(obj) {
-    if (#x in obj) return obj.#x; //#x present in obj, but only class can see it
+class Myclass {
+	name = ''; //instance field ; added to class prototype
+	static type = 'myclass'; // not added to proto; created on class itself
+	constructor(val) {
+		this.width = '100'; //instance field verbose
+		this.name = val; //overrides default field
+	}
+}
+```
+
+**super**
+- keyword used to *access* *public* props in superclass, or invoke its constructor
+- immediately after `super()` is called, fields in base class are added to subclass.
+- not a object, can't use `delete super.prop`
+
+**Private fields** 
+- not added to class prototype ; NOT inherited, non-deletable
+- like metadata of instance, that only class knows
+```jsx
+class Privateclass {
+	#id; //added directly to instance, but hidden from it 
+	constructor(val) {
+		this.#id = `${val}`
+	}
+	//to make them visible
+	static getId(obj) { 
+	    if (#id in obj) return obj.#x; 
+	}
 }
 ```
 
@@ -202,8 +212,8 @@ Two ways to create super-class
 class child extends father // can be constructor function
 Object.setPrototypeOf(child.prototype, father.prototype) // extend is just sugar
 
-class sukuna extends null // valid ; 
-class gomie extends class {  /*code */ } // class can be expression
+class God extends null // valid ; 
+class Inline extends class {  /*code */ } // class can be expression
 const Hello = class optionalName{...}
 ```
 
@@ -228,8 +238,7 @@ To implement Composition, class refer to an object of another class, and only us
 
 ```js
 class newMap {
-  #data;
-  constructor() { this.#data  = new Map(); }
+  data = new Map();
   /* rest of methods */
 }
 ```
@@ -237,15 +246,15 @@ class newMap {
 ```js
 //simulate private constructor
 class Hello {
-  static #flg = false;
+  static #created = false;
   static create() {
-    Hello.#flg = true;
+    Hello.#created = true;
     return new Hello();
   }
   constructor() {
-    if (!Hello.#flg) throw 'error'; // outside can't see flg
-    // logic if true
-    Hello.#flg = false;
+    if (!Hello.#created) throw 'bad instantiation'; 
+    //else rest of code...
+    Hello.#created = false;
   }
 }
 ```

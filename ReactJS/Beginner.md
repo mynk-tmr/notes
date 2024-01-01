@@ -57,7 +57,7 @@ render(<App/>, document.getElementById('root'));
 
 ```jsx
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App/>); //takes in reactNode, reactElement or string, number, null, undefined.
+root.render(<App/>);
 root.unmount(); //destroy rendered tree, root is unusable now
 ```
 
@@ -91,7 +91,6 @@ The process through which React updates Browser DOM fast and efficiently. It's a
 
 Rendering only a subset of components, based on app's state. Can be done with conditional flow JS stmts.
 - prefer `?:` over `if-else` 
-- prefer ENUMs over `switch` 
 - prefer `&&` over `? val : null`. Example -> `msg > 0 && <p>New msg<p>`
 - for nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 #### KEYS
@@ -118,36 +117,9 @@ return <ul>{msgList}</ul>
 ```
 
 
-Using **PROPS**
-```jsx
-const ListItem = ({txt, i}) => <li key={i}>{txt}</li>
-const List = ({msg}) => <ul>{
-	msg.map( (txt,i) => <ListItem txt={txt} i={i}/>)
-}</ul>
-
-const ShowMsg = (msg) => <><h1>Messages</h1><List msg={msg}/></>
-```
-
-
-Using **ENUMS** (object with key value pairs for mapping)
-```jsx
-Notify = (text, status) => <>{ 
-	{ //ENUM
-		info: <Info text={text} />,
-        warning: <Warning text={text} />,
-        error: <Error text={text} />,
-	}[status] //'info', 'error' etc.
-}</>
-
-//OR
-const getNotification = (text) => ({ /*ENUM key:values*/  });
-Notify = (text, status) => <>{getNotification(text)[status]}</>
-```
-
-
 ## Components
 
-They are functions which consume inputs and return a React element. Components are *PasalCased*. `React.StrictMode` -> (called twice)
+Building blocks of React App. A component encapsulate one piece of UI.
 
 #### Handling Data 
 ##### Props
@@ -188,12 +160,83 @@ They are functions which consume inputs and return a React element. Components a
 - **uncontrolled** (driven by own state)
 - **stateful** : have state & props; should only control interactivity
 - **stateless** : only props; should only render
+- functions which consume inputs and return a React element
 
-#### Class Components
+## Component Lifecycle
+
+Lifecycle methods run during phases
+- **mounting**: creation+insertion in DOM tree
+	- `constructor` => `getDerivedStateFromProps` => `render` => `componentDidMount` 
+- **updating**: re-render due to change in reactive object
+	- `gDSFP` => `shouldComponentUpdate` => `render` => `getSnapshotBeforeUpdate` => `componentDidUpdate`
+- **unmounting**: removed and destroyed
+	- `componentWillUnmount` : for cleanups (*commit* lifecycle)
+- **error**: when descendant throws error
+	- `getDerivedStatefromError(error)` => `componentDidCatch(error,info)`
+	- 1st -> *render* lifecycle and returns new *state object* using error
+	- 2nd -> *commit* lifecycle ; used to log errors / remedies
+		- in dev mode, errors will always bubble to window
 
 
+**--- Render lifecycles (pure) ---**
+```jsx
+ constructor(props) {
+    super(props);
+    this.state = ... //don't setState here
+    this.handler = this.handler.bind(this);
+  }
+```
 
+```jsx
+static getDerivedStateFromProps(props, state)
+/* invoked pre-render
+should return new state object or null
+used when new state depends on over-time changes in prop/state*/
+<Transition />
+```
 
+```jsx
+static getDerivedStateFromError(error)
+/* , returns new state object using error
+```
+
+```jsx
+render() 
+/* returns renderable viz. react element, arrays, fragments, portals and JS primtive types*/
+```
+
+```jsx
+shouldComponentUpdate(nextProps, nextState)
+/* returns true/false to instruct React to re-render
+	- not called on first render, forceUpdate 
+	- for optimisation only (don't do deep copy/JSON stringify)
+	- children are unaffected by return */
+```
+
+**--- Pre-commit (can DOM read) ---**
+```jsx
+getSnapshotBeforeUpdate(prevProps, prevState)
+/* immediately before commit stage
+	- use to capture snapshot of DOM before update
+	- use when new items shouldn't push away prev ones
+*/
+```
+
+**--- Commit lifecycles (side-effect allowed) ---**
+```jsx
+componentDidMount()
+/* immediately after mount, use this for 
+	- inits/setState based on DOM node e.g. tooltip position
+	- network request objects
+	- subscriptions */
+```
+
+```jsx
+componentDidUpdate(prevProps, prevState, snapshot)
+/* immediately after update, use this for
+	- acting on DOM, networking (only if prevs changed)
+	- this.state/props refer to new ones
+```
 
 ## Hooks
 
@@ -272,4 +315,50 @@ const firstchange = useRef(true);
 
 ### useMemo hook
 - to store values derived from expensive compuation
-- 
+
+
+## Class components
+
+These are JS classes which implement `render()` and optionally other *lifecycle* *methods* of `React.Component` as their base class. 
+
+**Basic**
+```jsx
+class Button extends React.Component {
+  state = { edit: true };
+  handler = () => this.setState({ edit: false }); //Arrow, else bind
+  render() {}
+}
+//constructor not required
+```
+
+**APIs** (used *within* class methods)
+```jsx
+this.setState(updater, afterRender) //queues state update for next render
+this.setState(obj) //Merged with state object
+updater = (state, props) => //code  ; the prev ones
+afterRender = () => //like componentdidUpdate()
+
+this.forceUpdate(callback) //force re-render
+```
+
+**Properties**
+```jsx
+class Mycomp {
+	static defaultProps = {};  
+	static contextType = SomeCtx; //read 1 context
+		//in render(), access as const ctx = this.context
+	static propTypes = {
+		name: PropTypes.string,
+	}
+	countRef = React.createRef(0);
+}
+```
+
+```jsx
+//functional equivalent
+const ctx = useContext(SomeCtx);
+
+const countRef = useRef(0); //or
+const [countRef, _] = useState(() => React.createRef(0))
+```
+
