@@ -267,6 +267,7 @@ setState(updater) //uses previous state to return next state
 
 ##### State management
 - tied to **key** of component instance. By default, key is *position* in render tree.
+- non-index key -> fix re-order bugs
 - State resets when 
 	- diff component at given position
 	- change in key (subtree re-mounts)
