@@ -7,11 +7,11 @@
 
 Syntax extension for JS that allows writing rendering logic (JS) and markup (HTML) together.
 #### SYNTAX
-
 - only 1 JSX tag is allowed to return.
 	- *fragments* `<></>` group elements without adding extra nodes.
 - *camelCase* attrs (except `data-` and `aria-`) 
 - close *void* tags
+- supports any **renderable** viz. react element, arrays, fragments, portals and JS primtive types
 - `nullish, true, false` are considered *empty* nodes, but `0` or `''` aren't
 
 ```jsx
@@ -23,23 +23,18 @@ return <div>{( () => {/*code*/} )()}<div>
 ```
 
 #### Under the hood
-
-JSX is *transpiled* to `React.createElement()` and it returns an `object`. JSX attributes map to `keys` of object.
+- A component is class/constructor function for a React Element
+- When component is **rendered** (`<Tag />`), an instance is created by transpiled JSX with `React.createElement(type, props, ...children)` 
 
 ```jsx
-React.createElement(type, props, ...children) //syntax
-//type, children -> html tags, react components
-//props -> object having element attrs (null, if none)
-
-h1 = <h1 id="jsx" onClick={() => log(1)}>hello</h1>
-->
-h1 = React.createElement('h1', {id:'jsx', onClick: () => log(1) }, 'hello');
--> {
+<h1 id="jsx" onClick={handler}> hello </h1>
+React.createElement('h1', {id:'jsx', onClick: handler }, 'hello');
+ {
 	type: "h1",
 	props: {
 		id: "jsx",
-		onClick: () => log(1),
-		children: "hello"
+		onClick: handler,
+		children: "hello" //if multiple appear as [{}, {}]
 	}
 }
 ```
@@ -203,14 +198,9 @@ used when new state depends on over-time changes in prop/state*/
 ```
 
 ```jsx
-render() 
-/* returns renderable viz. react element, arrays, fragments, portals and JS primtive types*/
-```
-
-```jsx
 shouldComponentUpdate(nextProps, nextState)
-/* returns true/false to instruct React to re-render
-	- not called on first render, forceUpdate 
+/* returns true/false to hint React to re-render
+	- not called on first render or forceUpdate 
 	- for optimisation only (don't do deep copy/JSON stringify)
 	- children are unaffected by return */
 ```
@@ -251,7 +241,7 @@ _Hooks_ are special functions available while [rendering](https://react.dev/lear
 
 Rules
 1. call from top level of a functional component.
-2. not inside loops or conditions.
+2. not inside flow control stmts (*conditional hooks are disallowed*)
 
 ### useState hook
 
