@@ -332,7 +332,17 @@ const {prop1, prop2} = useContext(Ctx);
 ```
 
 ### useReducer hook
-- 
+- adds a *reducer* function to manage complex state transitions
+- returns current *state* and *dispatcher* that internally calls `setState` with reducer's return
+```jsx
+const [state, dispatch] = useReducer(reducer, init [, initialiser])
+//if initialiser, invoked as initialiser(init)
+
+dispatch(action) //action object to perform state transition
+reducer = (prevState, action) => {
+	//check action.type and return new state accordingly
+}
+```
 
 ### useMemo hook
 - to store values derived from expensive computation

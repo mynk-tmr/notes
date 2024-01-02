@@ -15,8 +15,8 @@ function Clock() {
 ## Custom hooks
 
 ```jsx
-const useToggle = () => {
-  const [flag, setFlag] = useState(false);
+const useToggle = (init) => {
+  const [flag, setFlag] = useState(init);
   const toggler = useCallback(() => {
     setFlag(prev => !prev);
   }, []);
@@ -32,5 +32,15 @@ const useLocalStorage = (key) => {
   }, [value]);
   return [value, setValue];
 };
+```
+
+```jsx
+function useReducer(reducer, initArg, initialiser) {
+  const [state, setState] = useState(initArg ?? () => initialiser(initArg));
+  function dispatch(action) {
+    setState(prev => reducer(prev, action));
+  }
+  return [state, dispatch];
+}
 ```
 
