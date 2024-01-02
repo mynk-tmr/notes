@@ -365,6 +365,7 @@ reducer = (prevState, action) => {
 
 ### useSyncExternalStore
 - use to update component when **external** data (like server data or browser API object) changes value
+- returns a **snapshot** of data
 
 ```jsx
 //custom hook to see online status
@@ -468,6 +469,7 @@ export const MemoListItem = React.memo(ListItem);
 - 1st memoize returns of expensive functions calls. (>1ms)
 - 2nd memoize *function objects* instead of values
 - updates cached value when dependencies change
+- wrap fn *returned* by custom hooks in `useCallback`
 ```jsx
 const val = useMemo(fn, dep_array) //must be pure, take no args
 const fn = useCallback(fn, dep_arr) //no restrictions
