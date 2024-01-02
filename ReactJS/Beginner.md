@@ -65,10 +65,10 @@ The process through which React updates Browser DOM fast and efficiently. It's a
 
 **Trigger** : a re-render is triggered when *state/prop/context* changes.
 
-**Render phase**
+**Render phase** 
+- involves running component definitons in subtree
 - On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
-- On *re-renders*, React will calculate differing *attribute* *values* in JSX from previous render and update *virtual nodes*. (diffing algo)
-- *recursive* : if updated component returns a component, React will render that component next.
+- On *re-renders*, React calculates differing *attribute* *values* in JSX from previous render and update *virtual nodes*. (diffing algo)
 
 **Commit phase**
 - react performs *minimum* operations on actual DOM needed to paint updated nodes, using *react-dom library
@@ -363,10 +363,6 @@ reducer = (prevState, action) => {
 }
 ```
 
-### useMemo hook
-- to store values derived from expensive computation
-- equivalent of `shouldComponentUpdate` of class
-
 ### useSyncExternalStore
 - use to update component when **external** data (like server data or browser API object) changes value
 
@@ -454,3 +450,34 @@ class ErrorBoundary extends Component {
 
 **Mixins** were used to reuse class components
 
+## Memoization
+
+#### React's memo API
+- returns a **HOC** that won't run if props don't change.
+- memoize data-heavy components like long lists such that only new items render. 
+- equivalent of `shouldComponentUpdate` of class
+- needs `useMemo` & `useCallback` to keep object/function props same.
+```jsx
+export const MemoList = React.memo(List);
+export const MemoListItem = React.memo(ListItem);
+//entire tree must be memoised
+```
+
+#### useMemo, useCallback hooks
+- used for *internal optimisation* of component, unlike memo API
+- 1st memoize returns of expensive functions calls. (>1ms)
+- 2nd memoize *function objects* instead of values
+- updates cached value when dependencies change
+```jsx
+const val = useMemo(fn, dep_array) //must be pure, take no args
+const fn = useCallback(fn, dep_arr) //no restrictions
+
+//allowed
+const MemoList = useMemo(<List items={list}/>, [list]);
+```
+
+#### Other ways
+
+1. using `{children}`; they aren't re-rendered
+2. localising state as much possible
+3. don't abuse sideeffects
