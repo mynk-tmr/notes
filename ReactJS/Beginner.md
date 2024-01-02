@@ -302,12 +302,27 @@ useEffect( () => {
 - handles `componentDid--Mount, Update, Unmount` logic but if code is to run before browserpaint, use **useLayoutEffect**
 
 ### useRef hook
-- to create `ref object` whose changing doesn't trigger re-render
-- good alt to useEffect
-- *guards* to change useEffect behaviour
+- to create `ref object` whose mutations don't trigger re-render
+- component's memory; avoid `ref.current` while rendering ; only in side-effects
 ```jsx
 const ref = useRef(0); //only on mount -> ref.current=0
+const [ref, _] = useState(() => React.createRef(0)); //same thing
 
+//ref.current = button HTMLElement ; reset to null upon unmount
+<button ref={ref}> Click </button>
+
+//using initialiser
+const ref = useRef(null);
+ref.current ??= initialiser();
+
+//forwarding ref 
+const Component = forwardRef(function (props, ref) {
+	// component usual logic
+})
+```
+
+*guards* to change useEffect behaviour
+```jsx
 //useEffect but only on change ; toggle inside useEffect 
 const firstmount = useRef(true);
 
@@ -317,18 +332,22 @@ const firstchange = useRef(true);
 
 ### useContext hook
 - solves *prop drilling*, where every component between source & target has to forward props
-- makes *lifting state* easy 
+	- passing JSX as `children`, another solution
+- enable components to render differently based on context
+- To override a context, wrap children with different context value
+- Use cases : theming, current user data, routing 
 
 ```jsx
 export const Ctx = createContext(null);
 
 //to make props available to entire component tree
+//always give object to value
 <Ctx.Provider value={props}> 
 	<Tree/>
 </Ctx.Provider>
 
-//access whatever needed in component with
-const {prop1, prop2} = useContext(Ctx);  
+//get CLOSEST Ctx value
+const {prop1, prop2} = useContext(Ctx); 
 ```
 
 ### useReducer hook
@@ -409,9 +428,7 @@ class Mycomp {
 ```jsx
 //functional equivalent
 const ctx = useContext(SomeCtx);
-
-const countRef = useRef(0); //or
-const [countRef, _] = useState(() => React.createRef(0))
+const countRef = useRef(0); 
 ```
 
 **Error handling**

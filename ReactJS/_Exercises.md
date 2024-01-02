@@ -36,11 +36,13 @@ const useLocalStorage = (key) => {
 
 ```jsx
 function useReducer(reducer, initArg, initialiser) {
-  const [state, setState] = useState(initArg ?? () => initialiser(initArg));
+  const [state, setState] = useState(init);
+  function init() {
+    return initialiser?.(initArg) ?? initArg
+  }
   function dispatch(action) {
     setState(prev => reducer(prev, action));
   }
   return [state, dispatch];
 }
 ```
-
