@@ -256,10 +256,6 @@ setState(updater) //uses previous state to return next state
 //both must be PURE FUNCTIONS
 ```
 
-##### useImmer 
-- to allow mutation-like syntax
-- `setPerson(draft => {draft.age = draft.age+1 })`
-
 ##### How state updates (batching)
 - they are shallowly *merged* in order of occurrence, at end of event. So component re-renders *only once*
 - state updates only on **next** re-render, not in current run.
@@ -334,6 +330,9 @@ export const Ctx = createContext(null);
 //access whatever needed in component with
 const {prop1, prop2} = useContext(Ctx);  
 ```
+
+### useReducer hook
+- 
 
 ### useMemo hook
 - to store values derived from expensive computation
