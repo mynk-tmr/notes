@@ -42,7 +42,6 @@ const addLoader = (Component) => ({isLoading, ...props}) =>
 	isLoading? <p>Loading ...</p> : <Component {...props} />
 
 myComp = addLoader(myComp);
-const App = ({ list, done }) => <><myComp list={list} isLoading={!done}/></>
 ```
 
 [React's Higher-Order Components](https://www.robinwieruch.de/react-higher-order-components/) 
