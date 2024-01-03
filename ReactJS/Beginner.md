@@ -155,7 +155,18 @@ Building blocks of React App. A component encapsulate one piece of UI.
 	- use only for *error-handling* and implement `getSnapshotBeforeUpdate`
 - **specialized**: built from props to handle specific cases.
 - **container**: provides state and behavior to its children components.
+- **higher-order**: takes component(s) as input and returns an enhanced version of them
 
+**Composition**: used to create new components from existing ones. This makes code reusable, testable & scalable.
+##### Children 
+- `props.children` in child = *innerJSX* that container component placed within child
+- static `Children` methods
+	- `count(children)` 
+	- `forEach(children, fn, thisArg?)` where fn (child, index)
+	- `map(children, fn, thisArg?)`
+	- `only(children)` : t/f if only 1 child
+	- `toArray(children)` : always before vanilla array methods
+- every renderable (also empty ones) count as child, array is spread into N children 
 
 ## Component Lifecycle
 
