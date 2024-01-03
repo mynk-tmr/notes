@@ -76,11 +76,5 @@ const Amount = ({rProp}) => <>Converting ... {rProp(100)} </>
 
 Component which takes a component as input and returns an enhanced version of it
 
-```jsx
-const addLoader = (Component) => ({isLoading, ...props}) => 
-	isLoading? <p>Loading ...</p> : <Component {...props} />
-
-myComp = addLoader(myComp);
-```
 
 [React's Higher-Order Components](https://www.robinwieruch.de/react-higher-order-components/) 
