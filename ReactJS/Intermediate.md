@@ -5,18 +5,6 @@ https://www.smashingmagazine.com/search/?q=react
 https://www.robinwieruch.de/react-styled-components/
 https://www.robinwieruch.de/react-state/
 
-### Compound pattern
-
-
-```jsx
-
-```
-
-**Flyout.jsx**
-```jsx
-
-```
-
 #### Render Prop
 - A function prop that render JSX using inputs.
 - implement the pattern "child as a function"
