@@ -7,11 +7,8 @@
 
 Syntax extension for JS that allows writing rendering logic (JS) and markup (HTML) together.
 #### SYNTAX
-- only 1 JSX tag is allowed to return.
-	- *fragments* `<></>` group elements without adding extra nodes.
 - *camelCase* attrs (except `data-` and `aria-`) 
-- close *void* tags
-- supports any **renderable** viz. react element, arrays, fragments, portals and JS primtive types
+- supports any renderable viz. **react element, arrays, fragments, portals and JS primtive types**
 - `nullish, true, false` are considered *empty* nodes, but `0` or `''` aren't
 
 ```jsx
@@ -331,8 +328,9 @@ const firstchange = useRef(true);
 ```
 
 ### useContext hook
-- solves *prop drilling*, where every component between source & target has to forward props
-	- passing JSX as `children`, another solution
+- solves *prop drilling* 
+	- case where all components between container and descendant must forward props
+	- causes re-render of every forwarding component
 - enable components to render differently based on context
 - To override a context, wrap children with different context value
 - Use cases : theming, current user data, routing 
@@ -346,7 +344,7 @@ export const Ctx = createContext(null);
 	<Tree/>
 </Ctx.Provider>
 
-//get CLOSEST Ctx value
+//get CLOSEST Ctx.Provider value
 const {prop1, prop2} = useContext(Ctx); 
 ```
 

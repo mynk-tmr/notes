@@ -15,17 +15,15 @@ function Clock() {
 ## Custom hooks
 
 ```jsx
-const useToggle = (init) => {
-  const [flag, setFlag] = useState(init);
-  const toggler = useCallback(() => {
-    setFlag(prev => !prev);
-  }, []);
+function useToggle(init = false) {
+  const [flag, setFlag] = useState(init)
+  const toggler = () => setFlag(prev => !prev)
   return [flag, toggler]
 };
 ```
 
 ```jsx
-const useLocalStorage = (key) => {
+function useLocalStorage(key) {
   const [value, setValue] = useState(localStorage.getItem(key) || '');
   useEffect(() => {
     localStorage.setItem(key, value);
