@@ -74,7 +74,7 @@ const Amount = ({rProp}) => <>Converting ... {rProp(100)} </>
 
 ## Higher Order Components
 
-Component which takes a component as input and returns it with extended functionalities.
+Component which takes a component as input and returns an enhanced version of it
 
 ```jsx
 const addLoader = (Component) => ({isLoading, ...props}) => 
