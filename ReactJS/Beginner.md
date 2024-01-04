@@ -374,8 +374,6 @@ const {prop1, prop2} = useContext(Ctx);
 ### useLayoutEffect hook
 ![[Pasted image 20240104064255.png]]
 
-
-
 ### useSyncExternalStore
 - use to update component when **external** data (like server data or browser API object) changes value
 - returns a **snapshot** of data
