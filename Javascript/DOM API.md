@@ -9,9 +9,7 @@ div.scrollIntoView (
 
 ## IntersectionObserver
 
-*asyncly* observes if element is *intersecting* with its container or viewport
-- notification is fired *twice* (enter/leave) 
-- callback is executed only when threshold is crossed while intersecting
+*asyncly* observes if element is *intersecting* with its container or viewed
 
 ```jsx
 callback(entries, observor) { 
@@ -19,11 +17,3 @@ callback(entries, observor) {
 }
 obs.disconnect() //unbobserve all
 ```
-
-Each entry has read-only properties
-
-- `root` , `rootMargin` and `**thresholds`** which is array of all thresholds for given entry. (1 obs = array contains 1 threshold)
-- `**isIntersecting**` : describe whether target is going into (**********true)********** or going out of ****(false)**** intersecting state.
-- `target` : element which fired notification
-- `time` : time (ms) at which intersection was recored, starting from DOM creation
-- `intersectionRatio` : ratio of target’s intersected area to its total area
