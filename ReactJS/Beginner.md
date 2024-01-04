@@ -120,10 +120,14 @@ Building blocks of React App. A component encapsulate one piece of UI.
 ##### State
 - a component's *private* data that may *change* over re-renders. It starts with def_value when component mounts.
 - in practice, use small JSON-serialisable object as state
-##### Props vs. State
 - props are managed by *ancestor*, state is managed within *component*
 - props are more performant
-- use `props` to pass render & interactivity logic, use `state` to control interactivity
+##### Refs
+- stateful objects that are *mutable* and don't trigger re-renders
+- unlike state, ref updates are *synchronous*
+- provide a way to access 
+	- DOM/React nodes for manipulation
+	- timeout ids to clear
 ##### Lifting State up
 - process of shifting *shared* state among components to their closest common *ancestor*, and control them with *props*
 - Things to pass via props -> <u>shared state, setter handler and rendering logic (optional)</u>
@@ -310,23 +314,16 @@ useEffect( () => {
 - handles `componentDid--Mount, Update, Unmount` logic but if code is to run before browserpaint, use **useLayoutEffect**
 
 ### useRef hook
-- to create `ref object` whose mutations don't trigger re-render
-- component's memory; avoid `ref.current` while rendering ; only in side-effects
+- to create `ref object` 
+- avoid `ref.current` while rendering ; only in side-effects
+
 ```jsx
 const ref = useRef(0); //only on mount -> ref.current=0
 const [ref, _] = useState(() => React.createRef(0)); //same thing
 
-//ref.current = button HTMLElement ; reset to null upon unmount
-<button ref={ref}> Click </button>
-
 //using initialiser
 const ref = useRef(null);
 ref.current ??= initialiser();
-
-//forwarding ref 
-const Component = forwardRef(function (props, ref) {
-	// component usual logic
-})
 ```
 
 *guards* to change useEffect behaviour
@@ -336,6 +333,29 @@ const firstmount = useRef(true);
 
 //useEffect but only 1st change
 const firstchange = useRef(true);
+```
+
+*drill refs* from container to DOM-level nodes
+```jsx
+//ref.current = button HTMLElement ; reset to null upon unmount
+const Button = forwardRef(function (props, ref) {
+	return <button ref={ref}> Click </button>
+})
+
+//to restrict operations on ref; within Button add
+const realRef = useRef(null);
+useImperativeHandle(ref, () => ({ //return object
+	click() { realRef.current.click() }
+}))
+return //button with ref={realRef}
+```
+
+*sync state update* to ref update
+```jsx
+flushSync(() => {
+  setTodos([ ...todos, newTodo]); //update todo & DOM synchronously
+});
+listRef.current.lastChild.scrollIntoView(); 
 ```
 
 ### useContext hook
