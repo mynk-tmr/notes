@@ -301,11 +301,10 @@ useEffect( () => {
 ```
 
 - used to 
-	- run side-effects (things apart from rendering)
+	- run side-effects **after** rendering
 	- sync component with external systems like **server, API, browser DOM, timeouts**
 - dependency must be *reactive* value.
-	- `state/prop/context` + any value derived using them
-	- `ref object` from useRef (not `ref.current`)
+	- `state/prop/context/ref.current` + any value derived using them
 	- these might change during re-renders. Those that don't change are *stable* (calc by React)
 - Best practices
 	- 1 Effect => 1 Sync
@@ -314,25 +313,13 @@ useEffect( () => {
 - handles `componentDid--Mount, Update, Unmount` logic but if code is to run before browserpaint, use **useLayoutEffect**
 
 ### useRef hook
-- to create `ref object` 
-- avoid `ref.current` while rendering ; only in side-effects
 
 ```jsx
-const ref = useRef(0); //only on mount -> ref.current=0
-const [ref, _] = useState(() => React.createRef(0)); //same thing
-
 //using initialiser
 const ref = useRef(null);
 ref.current ??= initialiser();
-```
 
-*guards* to change useEffect behaviour
-```jsx
-//useEffect but only on change ; toggle inside useEffect 
-const firstmount = useRef(true);
-
-//useEffect but only 1st change
-const firstchange = useRef(true);
+//useEffect guards
 ```
 
 *drill refs* from container to DOM-level nodes
@@ -382,15 +369,11 @@ const {prop1, prop2} = useContext(Ctx);
 ### useReducer hook
 - adds a *reducer* function to manage complex state transitions
 - returns current *state* and *dispatcher* that internally calls `setState` with reducer's return
-```jsx
-const [state, dispatch] = useReducer(reducer, init [, initialiser])
-//if initialiser, invoked as initialiser(init)
 
-dispatch(action) //action object to perform state transition
-reducer = (prevState, action) => {
-	//check action.type and return new state accordingly
-}
-```
+### useLayoutEffect hook
+![[Pasted image 20240104064255.png]]
+
+
 
 ### useSyncExternalStore
 - use to update component when **external** data (like server data or browser API object) changes value
