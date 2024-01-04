@@ -27,7 +27,7 @@ npx pkg_cmd #run, skip npx in auto-scripts
 npm run build #run script
 
 npm init -y #auto init
-npm init esm -y
+npm create vite@latest #vite
 npm get init-license #default value
 npm set init-license 'MIT' #default value
 npm config edit #open editor

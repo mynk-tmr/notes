@@ -1,7 +1,3 @@
-##### CLI
-```shell
-npm create vite@latest
-```
 
 ##### Folder structure
 - `/public` : static assets like fonts, imgs, etc.
