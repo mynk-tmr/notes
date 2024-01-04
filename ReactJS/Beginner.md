@@ -262,6 +262,7 @@ used to create a `state` in functional components
 const [state, setState] = useState(0); //init value used only on mount
 //a[0] current state
 //a[1] setter to update state & schedule re-rendering
+setter is stable identity
 
 useState(initializer) //its return serves as init, runs only on mount
 setState(updater) //uses previous state to return next state
