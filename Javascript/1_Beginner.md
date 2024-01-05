@@ -383,7 +383,7 @@ Notable changes
 ---
 ### Functions
 
-- *first class* : treated like variables. Functions are **executable objects**; we can add properties to it. Local variables =/= properties.
+- *first class* : treated like variables. Functions are **executable objects**
 - *Callback* : a function passed into another as an argument and then invoked inside it
 - _pure_ *function* : always produces same value for same args. No side-effects and not read global values. Helps us avoid action-at-distance anti-pattern.
 - _higher-order functions :_ consume and/or return functions. They abstract actions, and are used in data processing and function composing
@@ -424,8 +424,16 @@ User-defined Properties `myfun.prop = expr/func;`
 
 #### Closure
 - combination of a function and its lexical environment specification object
-- LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access outer variables around its place of creation during runtime
+- LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access outer variables around its *definition*
+- Each closure references **untouched new** version of variables (for encapsulation purpose)
 - Like plain objects, LEX isn't garbage collected till its referenced
+- Closures can capture variables in *block/module* scope too
+
+```js
+//common mistake....
+//when var is used to create functions in loop, they refer to end value of var
+//let is like snapshot, so safe
+```
 
 #### Arrow Functions
 
@@ -510,7 +518,6 @@ obj = {
   },
 };
 
-fn = obj.getThisGetter(); // fn() = obj [arrow binding]
-fn2 = obj.getThisGetter ; // context isn't passed with =
-fn2()() === window  // decided here
+fn = obj.getThisGetter(); // fn is arrow, fn() == obj
+hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
 ```
