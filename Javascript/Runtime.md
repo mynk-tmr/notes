@@ -1,27 +1,15 @@
-JavaScript is an object-oriented scripting language used to make webpages interactive. 
+#### JavaScript
+- Features
+	- object-oriented scripting language
+	- runtime envr provides I/O ability to JS through objects
+	- ECMAScript : Standardized JS
+	- interpreted and JIT compiled
+	- single-threaded : Core JS has 1 call stack
+	- *dynamic* : runtime type binding ; unlike compile time viz. fixed
+- Limits
+	- type checks, security, critical performance
 
-Inside a host environment, JavaScript can be connected to host’s objects to acquire control over host. Core JS has no input or output ; host provides that mechanism.
-
-_ECMAScript_ : Standardized version of JavaScript 
-
-Features of JS
- - lightweight & has low CPU usage
- - interpreted and JIT compiled
- - single-threaded : Core JS has 1 call stack
- - multi-paradigm : OOP, functional, declarative
- - dynamic/untyped
-
-Limits of core JS
- - Weak error handling and type checking
- - Security risks: cross-site script attacks
- - Performance: comparatively slow
-
-hashbang comment : `#!/usr/bin/env node` ; specifies path to engine that will execute script
-
-Variable and expression type is determined during runtime, unlike in static languages where it is determined at compile time and can’t be changed
-
-
-__V8's JIT compiler__
+##### V8's JIT compiler
 
 At first execution, interpreter is used. On further executions, V8 compiles & optimise *frequently executed code* (Hot code) into **machine code** to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
 
@@ -72,28 +60,26 @@ JS engine apply many optimizations to speed it up
  - **Incremental collection** – engine splits the whole set of existing objects into multiple parts. And then clear these parts one after another.
  - **Idle-time collection** – the garbage collector tries to run only while the CPU is idle
 
+---
+### Scope
 
-### Scope and Closures
+`var` : no Block scope, no TDZ, redeclarable, creates a property on `window`
+##### Scope Chain
+- Each scope can access values in all its enclosing scopes but not vice-versa. This approach is called **lexical scoping** 
+- names in inner scope **overshadow** outer ones. Using var to overshadow let/const is `illegal`
+- inner function can be `only` called from statements in parent function.
+##### Hoisting
+- process where, before code execution, interpreter relocates _func/class/variable/import_ declarations to `top` of their scope. 
+- Only functions are hoisted with their values. 
+- `let/const/class` remain in TDZ until their declarations are reached during program flow. Any attempt to access during TDZ throws error.
+##### Lexical Environment
+- A specification object for a *executing* function/code block/script. It has 2 keys
+	1. **Environment Record** : local variables are its properties, also store `this : value`
+	2. A reference to **outer LEX** object (or null)
+- ERec is populated with variables during allocation phase, but are uninitialised until declared. (why TDZ exist)
+- JS engine traverses LEX chain to find variables 
 
-_Scope_ : accessibility or visibility of variables / functions ⇒ global < module < function < block.
-
-_Overshadowing_ : when more specific variable/func is used in a scope, given name-conflicts. Using var to overshadow let/const is `illegal` , usually result of `vars` in block
-
-_Global scope_ : declared outside any code block or with a global object. When declared with `var`, they become properties of `globalThis` ; future proof => `window.x`
-
-
-`var` vs. `let/const` : no Block scope, supports hoisting, redeclarations
-
-_Scope Chain_ 
-  - Each scope can access data/functions in all enclosing scopes but not vice-versa. This approach is called *lexical scoping*. 
-  - JS engine searches a variable’s value firstly in current scope and then outer scope(s) one by one until global scope is reached.
-  - inner function can be `only` called from statements in parent function.
-
-_Hoisting_ : process where, before code execution, interpreter relocates _func/class/variable/import_ declarations to `top` of their scope. Only functions are hoisted with their values. 
-
-`let/const/class` remain in TDZ until their declarations are reached during program flow. `temporal` means zone depends on execution order of statements.
-
-
+----
 ### Using JS 
 
 3 ways to include JS 
@@ -101,13 +87,11 @@ _Hoisting_ : process where, before code execution, interpreter relocates _func/c
   - `internal` (within script element)
   - `external` (link file)
 
-
 __CommonJS modules__
 `modules.export= getHello` => export
 `const myvar = require('url')` => import
 
 require() function can be called from anywhere within the program, whereas import() cannot be called conditionally. require() needs `.js` files, import() needs `.mjs`
-
 
 ### ES6 modules
 
@@ -123,9 +107,7 @@ Tell runtime it's a module
   - `type=module` in html
   - `'type': 'module'` in package.json
 
-
 Imports are _live_ bindings and importing module _cannot change it's value_
-
 
 ```js
 //named exports

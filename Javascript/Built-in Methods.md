@@ -76,34 +76,28 @@ function secondsLost() {
 ## OBJECT CLASS  
 
 ```js
-// Object.assign() create shallow copies (nested objects are copied by reference)
-Object.assign(obj, ...CopyUs) //exclude prototype
+Object.preventExtensions(obj) //no new props
+Object.seal(obj) // no (+) (-) props , sets config-false for all
+Object.freeze(obj) // seal and write-false all
 
-//Create deep copy => clones nested objects & circular references
-newobj = structuredClone(myObj)
+//test
+Object.isExtensible(obj)
+Object.isSealed(obj)
+Object.isFrozen(obj)
 
-// Object.create() create empty object with given prototype
-child = Object.create(parent, initprops); 
-child = Object.create(null, { p: 42 }); //initialised with p ; unwritable by default
+//group object based on cb's return for each obj
+Object.groupBy(arr_of_obj, cb) //return sync with original
 
-//Object.entries() return 2D array of [own_enum_prop, value] as elements
-Object.entries("fo") // [ ['0', 'f'], ['1', 'o']]
-Object.keys(obj) Object.values(obj)
+Object.entries(obj) //2D array, with a entry as [own_enum_prop, value]
+Object.fromEntries(array_2d)
 
-//applying array methods on obj
-prices = Object.fromEntries(
-  Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
-);
+// create object with given prototype
+child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
 
-// Object.groupBy(arr_of_objs, callback) : execute cb on each ele and group elements based on callback’s return.
-result = Object.groupBy(students, ({subject}) => subject);
-
-// result = { maths : [...] , science : [...] }
-// refers original elements, changes sync
-
-Map.groupBy() //groups elements on any return type
+//copying
+Object.assign(target, obj1, obj2) //exclude prototype, shallow
+structuredClone(obj) //deep copy ; nested objects & circular references
 ```
-
 
 ## Array
 
@@ -143,7 +137,7 @@ arr.at(-1)
 `MODIFIERS`
 .pop()  .shift() 
 .push(...val) .unshift(...val) //new_size
-.slice(start, 4,...newEle) //return deleted
+.splice(start, 4,...newEle) //return deleted
 .sort()
 .reverse()
 ```
@@ -154,6 +148,8 @@ arr.at(-1)
 - *random sort* : return `0.5 - Math.random()`
 
 **Iterative methods**
+signature : `fn(cb,thisArg)` ; for each element & index, executes cb.
+
 ```jsx
 undefined !!! forEach()
 .map(cb) //array of callback’s return values
@@ -177,6 +173,96 @@ cb(acc,curr,currindex, org_arr) {
 
 `.reduce()` reduces array to a single value by executing a callback for each element and passing the return of previous callback into next call
 
+ [typed array guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Typed_arrays).
+
+## Number
+
+```js
+Number.MAX_VALUE;
+Number.MIN_VALUE;
+Number.POSITIVE_INFINITY;
+Number.NEGATIVE_INFINITY;
+
+//Static methods
+Number.parseInt(num, radix) //returns integers, based to radix. 
+Number.toString(num, radix) //returns in string format
+Number.parseFloat(num)
+Number.isFinite(num)   //false if infinity or NaN
+Number.isInteger(num)  // type integer 
+
+//Round/Floatise a number
+num.toFixed(2) // 2 decimals
+num.toPrecision(3) //3 digits
+num.toExponential(decimals_in_coeff) //coeff * 10^n where 1≤coeff<10
+```
+
+## String
+
+```js
+str.concat(...args) 
+str.trim() , trimStart(), trimEnd() //remove whitespaces
+str.padStart(4, “de”), padEnd() // dede<str>
+str.repeat(N) //string copied N times
+
+//char related
+str[4]    //undefined
+str.charAt(4) // ''
+str.charCodeAt(4) //UTF-16, NO match - NaN
+
+String.fromCharCode(...unicodes) //returns a concat string from unicodes
+
+utf_str.normalize() // converts to normal string. e.g. "\u5043\u3422\u4722" becomes some readable text
+
+//Search Methods — all are Case-Sensitive by default.
+
+[bool] startsWith(substr, check_upto) or endsWith()
+[bool] includes(substr, check_from)
+[pos] indexOf(substr, check_from) or lastIndexOf() //reverse search
+[pos] search(/regex/) //string arg -> regex
+[arr or null] match(/regex/) //array of matches
+[arr] split(/regex/) //array of non-matches (default : arr[0] =str)
+
+// String Extraction 
+replace(/regex/, inserted) //first match replaced (unless /g)
+slice(0,8)  // 0-7 returns '' if  +end < +start
+substring(0,8) //0-7 -ve indices treated as 0; if end < start, it swaps args
+substr(0, 4) //4 length
+```
+
+## RegExp
+
+```js
+const regex1 = /ab\\+c/g; // treat + as '+'
+const regex2 = new RegExp("a(b\\+)c", "g"); // flags are immutable
+
+//2 methods [return after first match]
+regex2.exec("dyab+c83") ///["ab+c" , "b+"] [fullMatch, ...groupMatches] 
+regex2.test("dyab+c83") //true
+
+//return range of matches
+const regex3 = /foo/dg; //d flag 
+regex3.exec("foo bar foo").indices  // [[0,3]]
+regex3.exec("foo bar foo").indices  // [[8,11]] ; stateful
+
+//group capture & replace
+str.replace(/(-)(\w)/g, "$2$1")
+str.replace(regex, (current_match, ...groups) => 
+  groups[1].toUpperCase())  //on hit, curr replaced with returned val
+```
+
+Regex objects (with /g or /y) are stateful , ie., store `lastIndex` of matched string. **exec** and **test** advance past previous match.
+
+```jsx
+myreg = new RegExp("d(b+)d", "g")
+myreg.exec("cdbbdbsbz") //lastIndex : 5 ; li is 1-based
+myreg.exec("cdbbdbsbz") //lastIndex : 0
+
+/d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5
+/d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5 ; different literal 
+```
+
+[https://cheatography.com/davechild/cheat-sheets/regular-expressions/](https://cheatography.com/davechild/cheat-sheets/regular-expressions/)
+
 ## Non-standard
 
-[performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) - no. of milliseconds from the start of page loading with microsecond precision
+[performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) - no. of milliseconds from page load with microsecond precision

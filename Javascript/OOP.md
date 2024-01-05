@@ -1,13 +1,3 @@
-# OOP in Javascript
-
-## Objects
-
-`[expr] : val` => computed or dynamic props
-`'1' : val` => integer prop, sorted automatically (+1) isn't
-`[Symbol.toPrimitive](hint) {}` => custom convert ; hint is decided by V8 => string, number, default (str+num)
-
-iterable protocol allows objects to define or customize their iteration behavior.
-
 
 ## Property and Object flags
 
@@ -32,17 +22,6 @@ Object.getOwnPropertyDescriptors(user) // plural, return {p : flag, q: flag ..}
 
 //flag aware cloning -- include all symbols, properties, flags
 let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
-```
-
-```js
-Object.preventExtensions(obj) //no new props
-Object.seal(obj) // no (+) (-) props , sets config-false for all
-Object.freeze(obj) // seal and write-false all
-
-//test
-Object.isExtensible(obj)
-Object.isSealed(obj)
-Object.isFrozen(obj)
 ```
 
 ## Prototypal inheritance

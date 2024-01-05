@@ -1,4 +1,6 @@
 
+[Practice-exercises](https://www.codeguage.com/courses/js/basics](https://www.codeguage.com/courses/js/basics)
+
 ```jsx
 console.log(a); //error
 function foo() { console.log(a,c) } // 'a' undefined {hoisted}
