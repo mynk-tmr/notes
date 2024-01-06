@@ -50,10 +50,6 @@ NOTES
 | creates **is-a** relationships viz restrictive | allows **has-a, uses-a, or can-do** relationships. simpler, more expressive, and more flexible |
 | used when you decide types based on what they are | … based on what they do |
 | animal sees, dog is animal that barks, cat is animal that meow | animal is seer, dog is seer+barker, cat is seer+meower |
-## Generator Functions
-
-
-
 
 ## Functional Programming
 #### Decorator Functions
@@ -89,3 +85,8 @@ Lambda calculus
 1. This [Medium article](https://medium.com/@axdemelas/lambda-calculus-with-javascript-897f7e81f259)
 2. This [Medium article](https://medium.com/functional-javascript/lambda-calculus-in-javascript-part-1-28ff63824d4d) a tutorial on lambda calculus in JavaScript.
 3. This [blog post](https://www.willtaylor.blog/an-introduction-to-lambda-calculus-explained-through-javascript/) explains how to apply its concepts to JavaScript.
+
+## Generator Functions
+
+functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself and only iterator object can resume it. `yield` / `next(..)` is a control + communication mechanism
+
