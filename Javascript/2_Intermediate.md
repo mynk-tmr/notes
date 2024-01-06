@@ -88,5 +88,34 @@ Lambda calculus
 
 ## Generator Functions
 
-functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself and only iterator object can resume it. `yield` / `next(..)` is a control + communication mechanism
+functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only iterator object can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run
+
+```jsx
+function* f() {
+	for(let i=0; i<10; i++)
+	let response = yeild i; //send {value:i, done: false} 
+	return 3; // send {done: true} , no value
+}
+
+const keygen = f(); //create iterator object
+keygen.next() //start *f
+keygen.next('ok') //response = 'ok'
+keygen.return('quit') // {done: true, value: 'quit'}
+keygen.throw('error') //throw error in *f
+
+[...keygen] //0,1,2....
+```
+
+##### Generator composition
+`yeild*` can be used for it. It “embeds” one generator into another by delegating execution to another generator function
+```jsx
+function* innerGenerator() {
+	yield 1; yield 2; yield 3;
+}
+function* outerGenerator() {
+	yield* innerGenerator(); //as if inner's body embeded here
+}
+```
+
+Note: any object with `next()` that return `{value, done}` schema is iterator too
 

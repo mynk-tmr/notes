@@ -83,48 +83,30 @@ const obj = {
 	[Symbol.toPrimitive](hint) { //'string'/'number'/'default'
 		//return primitive equivalent ; 
 	},
-	[Symbol.iterator]() {
-		return { //object ; never return obj itself
-			from:1, to:100, 
-			next() { 
-				if(this.from > this.to) return {done: true};
-				return { done: false, value: this.from++ }
-	           //done, value are keywords
-			}
-		},
-	},
+	*[Symbol.iterator]() { 
+	    for(let i = 0; i <= 100; i++) yield i;
+	}
 }
 ```
 
 ---
 ### Iterables
 
-Objects that can be used in `for..of`. eg. `Array` `String`. To make iterables
-- implement `[Symbol.iterator]()` which returns _iterator_ object
-- implement `next()` in *iterator* which returns value, each time `for of` calls it.
+Objects that can be used in `for of` and `...spread` . To make iterables, implement `*[Symbol.iterator]()`.  Objects that have indexed properties and `length` are _array-like_. Don't support all *array* methods. Iterables =/= array-like in all cases
 
-without `for of`
-```jsx
-let iterator = obj[Symbol.iterator]();
-while (true) {
-  let result = iterator.next();
-  if (result.done) break;
-}
-```
-
-Objects that have indexed properties and `length` are called _array-like_. Don't support *array* methods. Not necessarily same as iterables eg. `range`. `String` is both though.
-
-`Array.from(obj, ^mapFn, ^thisArg)` makes a real `Array` from an *iterable or array-like* using a callback that maps all next() values one by one.
+`Array.from(obj, ^mapFn, ^thisArg)` makes a real `Array` from an *iterable or array-like* using a callback that maps all yeilded values
 ```jsx
 let x = Array.from(range, n => n * 2);
 ```
 
----
-### Maps and Set
+## Keyed Collections
 
-[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) is an *iterable* object with unique keys of *any* type (even objects). Plain Object allows only `String` or `Symbol` keys
-
-Set is a iterable collection of *unique* *values* of any type. They don't maintain insertion order and ignore duplicate values in `set()`
+Keyed collections 
+- data structures *ordered by key* not index. e.g. Map and set objects 
+- associative in nature and use *SameValueZero* check (NaN can be key).
+- **iterable in order of insertion**
+- Map is a collection of **unique** **keyed** items, of *any* type (even objects). Plain Object allows only `String` or `Symbol` keys
+- Set is a iterable collection of *unique* *values* of any type 
 
 Methods and properties in both
 - `new Map/Set(iterable)`
@@ -137,8 +119,6 @@ Methods and properties in both
 - `map.keys(), .values(), .entries()` 
 	- not same as static `Object.keys` etc. -> return real array ; not arraylike
 
-Map uses *SameValueZero* check (NaN can be key).
-Map preserves insertion order unlike objects (seen in `for of`)
 
 ```jsx
 new Map([[1, 'hello'], [2, 'bye']]); //for key-values
