@@ -134,31 +134,26 @@ abort, error, loadstart, progress, load /*only if success*/ , loadend
 
 ## Fetch API
 
-A *promise* based API to send/get network resources. 
+A *promise* based API to send/get network resources using http headers
 
 ```jsx
-fetch(url, {mode: 'cors'}) //returns promise for response
-  .then(response => response.json()) //extract body(data) 
-  .then(data => console.log(data)) //once available, use
-
-//to post must include this
- headers: { "Content-Type": "application/json"}
+const response = fetch(url, options);
 
 //using constructor to create Request, Headers object
-request = new Request(url, {mode: 'cors'})  //fetch(request)
-heads = new Headers({ "Content-Type": "application/json"})
+const heads = new Headers({ "Content-Type": "application/json"})
+const request = new Request(url, heads) //request.url ; request["Cont..]
+fetch(request)
 ```
 
 **Options object**
 - `body: JSON.stringify(data)` : to POST data
-- `headers: JSON.stringify(heads)` : set HTTP headers
+- `headers: JSON.stringify(obj)` : set HTTP headers
 - `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
 - `referrerPolicy` : 
-- `method` : (GET, POST, PUT, DELETE, etc). Still sends response for succ/fail
+- `method` : (GET, POST, PUT, DELETE, etc)
 - `cache` : use from cache? `no-cache` `force-cache` 
 - `credentials` : send/get cookies ? -> `omit` `same-origin**` `include` 
 - `signal : ctr.signal`: set abortcontroller
-
 
 **Headers object**
 - have a _guard_ to prevent malicious changes
@@ -167,36 +162,20 @@ heads = new Headers({ "Content-Type": "application/json"})
 	- `.getSetCookie()` : only on nodejs
 	- `.entries()`, `.keys()`, `.values()`
 
-
-**Request Object**
-- props same as in *options* object //read-only//
-- + `.url` 
-
-
 **Response objects**
 - returned when fetch promises are resolved
 - `res.ok` (t/f) `res.status` (404) `res.statusText` 
 - fetch rejects only when a network error or CORS is misconfigured
 
-
 ```jsx
 //methods on Request and Response to extract body [return Promise]
 // can only run once
-.arrayBuffer()
-.blob()
-.formData()
-.json()
-.text()
-
-new Request(t, init) //creating customised copies ; Use this to get BODY again
+.arrayBuffer() .blob() .formData() .json() .text()
 ```
-
 
 Fetch library [axios](https://axios-http.com/) 
 
-**Uploading Form data** 
-
-`body : formData` 
+**Uploading Form data**  `body : formData` 
 
 ```jsx
 const formData = new FormData();
@@ -212,3 +191,4 @@ for (const [i, photo] of [...fileField.files].entries()) {
 
 new FormData(form, submitter) //creates formData from form fields 'name':'value' and submit button's 'name':'value'
 ```
+

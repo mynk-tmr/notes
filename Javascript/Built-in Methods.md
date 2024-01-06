@@ -72,7 +72,6 @@ function secondsLost() {
 }
 ```
   
-
 ## OBJECT CLASS  
 
 ```js
@@ -94,9 +93,25 @@ Object.fromEntries(array_2d)
 // create object with given prototype
 child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
 
-//copying
-Object.assign(target, obj1, obj2) //exclude prototype, shallow
-structuredClone(obj) //deep copy ; nested objects & circular references
+//inherit
+Object.getPrototypeOf(dog) // Function : animal
+dog.hasOwnProperty("type") 
+"type" in dog  // true if own or inherited 
+```
+
+**property descriptors**
+```js
+Object.defineProperty(obj, 'name', flags) //will overwrite
+Object.defineProperties(obj, {name: flags}) //multi
+Object.getOwnPropertyDescriptor(obj, 'name')
+Object.getOwnPropertyDescriptors(obj)
+
+//flag aware cloning -- include all symbols, properties, flags
+let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+
+//no-flag aware
+Object.assign(target, obj1, obj2) //exclude prototype
+structuredClone(obj) //deep copy of nested objects & circular references
 ```
 
 ## Array

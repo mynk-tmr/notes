@@ -142,7 +142,7 @@ Mock promises
 class MockPromise {
   constructor(executor) {
 	  this.then = executor; 
-	  //then, catch, finally call internal then(onF, onR) of object
+	  //then, catch, finally call internal then(onF, onR) {...} of object
   } 
 }
 ```

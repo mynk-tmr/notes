@@ -178,8 +178,6 @@ msg_obj[0][isRead] = true;
 
 **Conditional stmts**
 - `case: ` tests for *strict* equality ; case can be enum values / string object
-- `switch` is faster -> due to jump table creation during compilation
-- `if-else` is more flexible than switch
 
 **Loops**
 - `for` evaluates step at end of current iteration
@@ -356,13 +354,6 @@ let {
 ```
 
 ---
-**`new` keyword** : calls a method in *constructor* form
-- If no `return`, returns `this` object created by function's `[[ Construct ]]`
-- otherwise
-    - If `return` is object, it is returned
-    - If `return` is primitive, it’s ignored.
-
----
 ##### Strict mode `‘use strict’;` 
 
 Semantic changes
@@ -430,17 +421,18 @@ User-defined Properties `myfun.prop = expr/func;`
 - Closures can capture variables in *block/module* scope too
 
 ```js
-//common mistake....
-//when var is used to create functions in loop, they refer to end value of var
-//let is like snapshot, so safe
+//common mistake... using non-block var in loops (var ; let from outer)
+//functions created in loop will refer to end value of variable
 ```
 
 #### Arrow Functions
 
 Special anon F.Ex. that inherit `this` from outer scope ie., they are **statically** bound to the **enclosing** context where it is **defined.**
 
-Pros : predictable behaviour w.r.t closures / this. 
-In non-arrows, 
+Pros : 
+- predictable behaviour w.r.t closures / this. 
+- bound to instance as instance fields and to class as static fields.
+In non-arrows , 
 - `this` is runtime bound; either invoker object OR globalThis ; 
 - they lose `this` when passed as callbacks
 
@@ -448,6 +440,16 @@ In non-arrows,
 obj.show = function() {  //same as show() {..} in obj
 	this.arr.forEach(arrowcb) //this -> obj and arrowcb will not lose it
 } 
+
+obj = {
+  getThisGetter() {
+    const getter = () => this;
+    return getter;
+  },
+};
+
+fn = obj.getThisGetter(); // fn is arrow, fn() == obj
+hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
 ```
 
 Limits :
@@ -495,29 +497,28 @@ function partializer(original_func, ...bindUs) {
 
 
 ---
-### this keyword
+#### this keyword
 
-Class and Object context
-- instance methods (+ constructor) : same as function
-- static methods : `this` = current class
-- arrow functions are bound to instance for instance fields and to class for static fields.
-- derived constructors : no initial `this` binding, but when calls `super()` , this = new Base(). Throws error if super isn’t called.
-- `super.func()` => around function call not super-class
-- getters and setters : `this` = object being accessed
-- object literals : `this` inhertied from enclosing context
-
+object literals : `this` inhertied from enclosing context
 Event handlers
 - `this=currentTarget`
 - in inline, `this=element` but in function refers to `window`
 
-```js
-obj = {
-  getThisGetter() {
-    const getter = () => this;
-    return getter;
-  },
-};
+---
+#### Property Descriptors
 
-fn = obj.getThisGetter(); // fn is arrow, fn() == obj
-hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
+Data property :- *no getter, no setter*
+Accessor property :- *no value*, no writable ; use when value is dynamic like date-dependent
+Getter & setter are automatically called when working with **accessor** property
+
+```js
+flags  = {
+  value : 'Mayank', // for property 
+  writable : true, // value editable ; if config-false, can be set to false, but not to true
+  enumberable : true, //seen by loops
+  configurable : true, // deletable, attr modifiable
+  get() {}, // or get : getter 
+  set() {}, 
+}
 ```
+
