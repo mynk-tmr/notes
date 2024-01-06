@@ -34,6 +34,27 @@ NOTES
 - derived constructors have no initial `this` binding ; upon `super()` , this = new Base().
 - `super.func()` uses `this` around function call not super-class
 
+##### 3 types of inheritance in Javascript
+- Differential Inheritance
+    - a **delegate prototype** is used to serve as base for other objects. 
+    - Object acquire some or all of its properties from *prototype* rather than from class definitions.
+    - Cons : not good for storing state, any mutation to proto’s member by any instance, changes it for all other instances.
+- Concatinative Inheritance / Mixins / Object composition
+    - **copying properties** from one or more objects to another, without retaining a reference between them. It relies on JavaScript’s runtime object extension feature ie. `Object.assign()`
+- Functional Inheritance
+    - using factory function, and then adding new properties using concatenative inheritance.
+    - functional mixins : functions created for extending existing objects
+##### Comparison
+| Class inheritance | Object Composition |
+| :--- | ---- |
+| creates **is-a** relationships viz restrictive | allows **has-a, uses-a, or can-do** relationships. simpler, more expressive, and more flexible |
+| used when you decide types based on what they are | … based on what they do |
+| animal sees, dog is animal that barks, cat is animal that meow | animal is seer, dog is seer+barker, cat is seer+meower |
+## Generator Functions
+
+
+
+
 ## Functional Programming
 #### Decorator Functions
 
