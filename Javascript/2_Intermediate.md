@@ -88,7 +88,7 @@ Lambda calculus
 
 ## Generator Functions
 
-functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only iterator object can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run
+functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own iterator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run
 
 ```jsx
 function* f() {
@@ -117,5 +117,31 @@ function* outerGenerator() {
 }
 ```
 
-Note: any object with `next()` that return `{value, done}` schema is iterator too
+##### Iterators
+- objects that abide by iteration protocol ie., a `next()` that return `{value, done}` schema
+- they can iterate over *iterable objects* that implement `[Symbol.iterator]
+- Arraylike have index and length but aren't always iterable
 
+```js
+Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
+```
+
+|                   | Iterators                   | Async iterators        |
+| ----------------- | --------------------------- | ---------------------- |
+| Object implements | `Symbol.iterator`           | `Symbol.asyncIterator` |
+| `next()` returns  | {value, done}                   | `Promise` that resolves to {value, done}              |
+| to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`        |
+| features          | can be `...spread`          | NO                     |
+```jsx
+async function* f(url) {
+  for (let i = 0; i <= 5; i++) {
+    let i = await fetch(url[i]);
+    yeild i;
+  }
+}
+```
+
+Async iterators allow us to process a stream of generating data chunk by chunk.
+```js
+
+```

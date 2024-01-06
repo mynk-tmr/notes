@@ -119,7 +119,6 @@ structuredClone(obj) //deep copy of nested objects & circular references
 ```jsx
 box = new Array(40); //length -> 40
 box2 = Array.of(9.3); // 1 element 9.3
-box3 = Array.from(obj); 
 box.length = 5 ; // truncate array , 0 empties it
 
 //2D arrays 
@@ -166,7 +165,7 @@ arr.at(-1)
 signature : `fn(cb,thisArg)` ; for each element & index, executes cb.
 
 ```jsx
-undefined !!! forEach()
+arr.forEach(cb)
 .map(cb) //array of callback’s return values
 .flatMap(cb) // map then flat 1
 .filter(cb) // array of items for which callback returned true

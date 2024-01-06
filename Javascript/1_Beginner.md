@@ -84,19 +84,9 @@ const obj = {
 		//return primitive equivalent ; 
 	},
 	*[Symbol.iterator]() { 
-	    for(let i = 0; i <= 100; i++) yield i;
+	    for(let i = 0; i <= 100; i++) yield i; //return iterator object
 	}
 }
-```
-
----
-### Iterables
-
-Objects that can be used in `for of` and `...spread` . To make iterables, implement `*[Symbol.iterator]()`.  Objects that have indexed properties and `length` are _array-like_. Don't support all *array* methods. Iterables =/= array-like in all cases
-
-`Array.from(obj, ^mapFn, ^thisArg)` makes a real `Array` from an *iterable or array-like* using a callback that maps all yeilded values
-```jsx
-let x = Array.from(range, n => n * 2);
 ```
 
 ## Keyed Collections
