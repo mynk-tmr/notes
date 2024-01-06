@@ -142,6 +142,181 @@ async function* f(url) {
 ```
 
 Async iterators allow us to process a stream of generating data chunk by chunk.
-```js
 
+## Callbacks
+
+Core JS is **synchronous**, code is executed line by line and there's no 'wait' feature
+
+**Async != Parellism** :- happens later vs. happening simultaneously. EL doesn't support parallelism ; webworkers do.
+
+**Concurrency** :- when 2 or more "processes" happen in same window of time (rapid context switches) which gives illusion of parallelism. Event loop supports concurrency.
+
+**Run to completion** :- JS code is broken up into two or more chunks (e.g `functions`) , where the first chunk runs completely _now_ and the next chunk runs _later_, in response to an *event*. <u>Macro-tasks peform modification on top of previous state, micro-tasks run within same state</u>
+
+Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
+
+- **Inversion of Control** : they handover control & flow of code to other api with minimal ways to tackle unpredicted behaviour
+- **Non-linearity** : express async flow in a hard to grasp non-linear way
+- **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
+- **Race conditions** : when some async callback may finish synchronously
+
+All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
+- **Promises**, that use *split-callback* design
+- **Generators** let you 'pause' individual functions. They don’t follow run to completion.
+- `async/await` wrap generators and promises in a higher level syntax.
+
+## Promises
+
+An object that represents eventual completion of 1 async task ; when settled, it can execute _callback handler_ asynchronously using **microtask** queue.
+
+Solutions to callback hell
+ - **Inv. of Control** :- we don't pass callback into 3rd party API, instead get a promise. To ensure we only get promise, use `Promise.resolve(api_call)`
+ - **Race conditons** :- callback always run on mtqueue, even when errors
+
+> A promise is resolved/rejected once and fixed forerver
+##### Resolution
+- non-promise: immediately fulfilled with value
+- thenable: call onFulfilled recursively until a definite value is found
+- promise:  create **new** promise that will *resolve* to original (hardlinked to eventual state)
+- `Promise.resolve()` => return **original** promise (flattens promises)
+##### Rejection
+- thenable/promise :- call *onRejected* (no unwrapping)
+- others :- create a **new** rejected promise that wraps reason
+
+### Consuming Promises
+| `then(onF,onR)` | `catch(onR)` | `finally(cb)` |
+| ---- | ---- | ---- |
+| handles both settlements; callback consume value/reason | handles all errors in previous then chain  | process something once promise is settled |
+| returns `promise` fullfilled with onF/onR's *return* or rejected with onF/onR's *throw* | same as then | fulfilled value is *invoker* object ; cb takes `no param` |
+
+__Floating promise__ :- when a then handler *does not return*, there's no way to track promise anymore. Next `then` handler is called *early* with `undefined` value.
+
+### Error-handling
+
+When a promise is rejected, 2 events can fire on `window` 
+- each has `event.promise` and `event.reason` (the promise & its reason)
+- these are
+	- `rejectionhandled` : rejection was handled with a `.then()` or `.catch()` on promise. Used to see **intermediate errors** in a promise chain. !!! really useful.
+	- `unhandledrejection` : rejection was not handled by current macrotask & its microtasks. It **"bubbles"** to top of call stack and host throws an `error` 
+- try-catch-finally blocks are sync, so can't work on Promise.
+
+TO PREVENT BUBBLING
+```jsx
+//in browser
+window.addEventListner('unhandledrejection' , dealwithit);
 ```
+
+### Promise Concurrency
+
+4 static methods are available to run promises or operation in parallel. They take iterable of promises & return *1 promise* that will resolve based on how those promises are settled.
+Catch if iterable is empty
+```js
+`all() & allSettled()` => immediately fulfillled
+`any()`  => immediately rejected
+`race()` => forever pending
+```
+
+
+**Drawbacks of Promises**
+- single value or reason => needs array/object wrapping to send >1
+- only way to pinpoint errors is 1 eventListener on window
+- handlers trigger only once, unlike in events
+- promisifying api takes effort => use a library
+
+## Async / Await
+
+Async/Await simplify the process of working with chained promises. 
+`async` function return a Promise that will resolve to function's *actual return* value (when its available)
+
+`await <promise>`
+- suspends function execution until promise settles
+- await becomes 'throw reason' when promise is rejected OR error occurs
+- evaluates to *fulfillment* value of promise/thenable, ELSE to expr itself
+- resolution similar to `Promise.resolve()`
+
+```jsx 
+await null; 
+/* code to run later on mtqueue (after this tick) */
+```
+
+#### Error handling
+
+```jsx
+//always use 'await' to call functions for better tracing
+await dosometask()
+
+//use composers to chain Promises
+wrong = [await p1, /*pause */ await p2]; // not caught by .catch()
+right = Promise.all(p1,p2)
+```
+
+## ES6 Modules
+
+A self-contained piece of code that encapsulates related functionality together. Written in separate files and imported & exported to other modules. 
+
+__CommonJS modules__
+`modules.export= getHello` => export
+`const myvar = require('url')` => import 
+
+##### Different imports
+- static : `import ..` that can't be called conditionally.
+- dynamic: `import()` or `require()` 
+	- return a promise that resolves into a *namespace* object with exported values
+	- called from any place
+	- no `type=module` requirement
+	- **not a function**, just a keyword
+
+### ES6 modules
+  - organize code into logical units, easier to maintain and reuse.
+  - expose and use only relevant data/functionality
+  - doesn't pollute global scope  ; no `globalThis`
+  - use strict mode, auto-defered 
+  - if name conflicts, neither value is exported
+  - namespace object is a **sealed** object with null prototype
+
+Imports are _live_ bindings and importing module _cannot change it's value_
+
+```js
+export {myfunc as default} //named to default
+
+// combine import + export
+export {default as f, g} from './no.js' 
+export * from './nat.js'  // only re-export NAMED
+
+// 4 types of import
+import {f, g as google} from './dist.js' //named 
+import mydef from './hi.js' //default  => give name
+import * as tree from './test.js' // namespace
+import "./test.js";  // side-effect
+```
+
+More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
+#### Dependency evaluation
+```js
+// -- a.js (entry) --
+import { b } from "./b.js"; //evaluate dependency b first
+export const a = 2;
+
+// -- b.js --
+import { a } from "./a.js"; //a not declared yet, so ReferenceError if accessed
+export const b = 1;
+
+//CYCLICAL DEPENDECIES are errpr-prone
+```
+
+#### Top level await
+In modules, `await` can be used at top level
+Causes parent module to pause, until child finishes. In old browser, use IIFE async to simulate
+```js
+// parent.js  
+import child from './child.js';
+
+//child.js
+const colors = fetch("../data/colors.json").then(x => x.json());
+export default await colors;
+```
+
+##### Isomorphic modules
+- runtime agnostic modules, achieved using dependency inversion
+- modules  `binding.js` responsible for communicating with runtime should perform checks and insert polyfills / change methods according
+

@@ -206,8 +206,6 @@ in instanceof <= etc.//compare
 
 ---
 #### Equality checks
-- *loose* : equal after type coercion
-- *strict* : same type & val
 - *samevalue*: strict but `NaN==Nan` and `-0` =/= `+0` . Used by `Object.is`
 - *samevalueZero*: `+0 == -0` e.g. Map methods
 - *Object equality* : same memory space ; loosely equal to primitive counterparts 
@@ -272,7 +270,7 @@ operate on individual bits of operands. Treat them as signed int, but result is 
 ##### Unary Operators
 
 ```jsx
-[bool] delete obj[prop] //true except if prop is own non-configurable
+delete obj[prop] //true except if prop is own non-configurable
 typeof op // string
 void op //evaluate op and return undefined
 ```

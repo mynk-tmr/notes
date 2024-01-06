@@ -32,7 +32,6 @@ _Call Stack_ : It is initialised with global context. When a function is called,
 
 _Parsing_ : Script is scanned left to right, line by line and converted into stream of tokens, control characters, line terminators, comments, or whitespace. 
 
-
 ### Garbage Collection
 
 Notes
@@ -79,64 +78,7 @@ JS engine apply many optimizations to speed it up
 - ERec is populated with variables during allocation phase, but are uninitialised until declared. (why TDZ exist)
 - JS engine traverses LEX chain to find variables 
 
-----
-### Using JS 
-
-3 ways to include JS 
-  - `inline` (event attributes) 
-  - `internal` (within script element)
-  - `external` (link file)
-
-__CommonJS modules__
-`modules.export= getHello` => export
-`const myvar = require('url')` => import
-
-require() function can be called from anywhere within the program, whereas import() cannot be called conditionally. require() needs `.js` files, import() needs `.mjs`
-
-### ES6 modules
-
-A self-contained piece of code that encapsulates related functionality together. Written in separate files and imported & exported to other modules. 
-
-Benfits -
-  - organize code into logical units, easier to maintain and reuse.
-  - expose and use only relevant data/functionality
-  - doesn't pollute global scope  ; no `globalThis`
-  - use strict mode, auto-defered 
-
-Tell runtime it's a module
-  - `type=module` in html
-  - `'type': 'module'` in package.json
-
-Imports are _live_ bindings and importing module _cannot change it's value_
-
-```js
-//named exports
-export let one=1, two=2  // declarations
-export {f, g}  // list 
-
-//default exports --> only 1 allowed
-export default myfunc; 
-export {myfunc as default} 
-export default func(){..} 
-
-// re-export/aggregation combine import + export ; syntax like import
-export {default as f, g} from './no.js' 
-export * from './nat.js'  // only re-export NAMED
-
-//name-conflicts => neither value is exported e.g. if 'nat.js' has g
-
-
-// 4 types of import
-import {f, g as google} from './dist.js' //named 
-import mydef from './hi.js' //default  => give name
-import * as tree from './test.js' // namespace => test.func() ; 'as' is mandatory
-import "./test.js";  // side-effect => only runs code in file
-
-//test is namespace object ; a sealed object with null prototype. 
-```
-
-More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
-
+---
 ### Event Loop, Macrotask, Microtasks
 
 JavaScript execution flow is based on an *event loop*. General algorithm of event loop :- 
@@ -156,6 +98,13 @@ alert("code");
 // "code promise timeout" because macro -> micro -> macro
 ```
 
+**Scheduling Execution**
+- Browser starts enforcing **atleast 4ms** delay if same callback has been scheduled **5 or more** times.
+- Timer may slow down
+    - on tabs that are inactive or streaming or loading page
+    - OS power saving settings
+- timer continues “ticking” while showing alert/confirm/prompt.
+- **Zero delay scheduling** is used to execute code immediately after current thread has executed
 
 **Web Workers**
 
@@ -164,85 +113,3 @@ Run code in different parallel thread. Can exchange messages with the main proce
 Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
 
 ---
-Dynamic imports
-Export and import statements that we covered in previous chapters are called “static”. The syntax is very simple and strict.
-
-First, we can’t dynamically generate any parameters of import.
-
-The module path must be a primitive string, can’t be a function call. This won’t work:
-
-import ... from getModuleName(); // Error, only from "string" is allowed
-Second, we can’t import conditionally or at run-time:
-
-if(...) {
-  import ...; // Error, not allowed!
-}
-
-{
-  import ...; // Error, we can't put import in any block
-}
-That’s because import/export aim to provide a backbone for the code structure. That’s a good thing, as code structure can be analyzed, modules can be gathered and bundled into one file by special tools, unused exports can be removed (“tree-shaken”). That’s possible only because the structure of imports/exports is simple and fixed.
-
-But how can we import a module dynamically, on-demand?
-
-The import() expression
-The import(module) expression loads the module and returns a promise that resolves into a module object that contains all its exports. It can be called from any place in the code.
-
-We can use it dynamically in any place of the code, for instance:
-
-let modulePath = prompt("Which module to load?");
-
-import(modulePath)
-  .then(obj => <module object>)
-  .catch(err => <loading error, e.g. if no such module>)
-Or, we could use let module = await import(modulePath) if inside an async function.
-
-For instance, if we have the following module say.js:
-
-// 📁 say.js
-export function hi() {
-  alert(`Hello`);
-}
-
-export function bye() {
-  alert(`Bye`);
-}
-…Then dynamic import can be like this:
-
-let {hi, bye} = await import('./say.js');
-
-hi();
-bye();
-Or, if say.js has the default export:
-
-// 📁 say.js
-export default function() {
-  alert("Module loaded (export default)!");
-}
-…Then, in order to access it, we can use default property of the module object:
-
-let obj = await import('./say.js');
-let say = obj.default;
-// or, in one line: let {default: say} = await import('./say.js');
-
-say();
-Here’s the full example:
-
-Resultsay.jsindex.html
-<!doctype html>
-<script>
-  async function load() {
-    let say = await import('./say.js');
-    say.hi(); // Hello!
-    say.bye(); // Bye!
-    say.default(); // Module loaded (export default)!
-  }
-</script>
-<button onclick="load()">Click me</button>
-Please note:
-Dynamic imports work in regular scripts, they don’t require script type="module".
-
-Please note:
-Although import() looks like a function call, it’s a special syntax that just happens to use parentheses (similar to super()).
-
-So we can’t copy import to a variable or use call/apply with it. It’s not a function.

@@ -192,3 +192,182 @@ for (const [i, photo] of [...fileField.files].entries()) {
 new FormData(form, submitter) //creates formData from form fields 'name':'value' and submit button's 'name':'value'
 ```
 
+## Window
+
+```jsx
+let jsWindow = window.open(url,'Google', features); //like height,width
+//now .open() new url & .close() 
+
+jsWindow.opener //reference to window that opened it ; data-sharing
+
+// size & position related
+window.resizeTo(600,600)   // width, height
+window.resizeBy(-100,-100) // relative W, H
+window.moveTo(0,0)         // X, Y coords
+window.moveBy(100,100)
+```
+
+#### window.location
+
+```jsx
+href //url string
+search //search string [?...]
+hash   // #title
+
+assign(url) //navigate to URL, push in history stack, no reload for hashchange
+location.href=url ; //same as assign
+replace(url)  //navigate but no push in stack
+reload(/*true*/)   //reload from cache OR from server
+```
+
+```jsx
+const urlParams = new URLSearchParams(location.search); //iterable
+for ([key, value] of urlParams) {  // [props are delimited by &]
+}
+//keys(), values(), entries()
+urlParams.has('brand')  //true  ; parameter check
+```
+
+#### window.navigator
+
+represents state and identity of user agent. "browser sniffing" and “fingerprinting” properties often return fake values.
+```jsx
+userAgentData.brands[0]  // {brand: 'Google Chrome', version: '119'}
+userAgentData.mobile  //false
+userAgentData.platform // 'Linux'
+connection.downlink  // 10   /mbps/
+deviceMemory  //8
+languages  // ['en-IN', 'en']
+language  // 'en-IN'
+```
+
+## History API
+
+provides a way to manipulate browser history to create SPAs and non-reloading navigation
+
+The **history stack** stores the browser’s session history (in tab or frame). To manipulate it, use  `window.history` object. For security reasons, you can’t query session-history but you can navigate it.
+
+```jsx
+history.back()  //visit previous page
+history.forward() //visit next page
+history.go(-2) // go to 2nd last page.
+history.go() // reload current page [0]
+history.length // no. of pages in history stack
+
+//add a new entry to stack [back button -> original page]
+history.pushState({page: 1}, "Introduction", "?page=1")
+
+// replace current entry in stack [no way to go back]
+history.replaceState({page: 2}, "Chapter 1", "?page=2");
+```
+
+**`pushState()`** and **`replaceState()`** take 3 arguments:
+- **state object** — arbitrary object that represents current state of app. Keep it short.
+- **title** — title to display
+- **URL** (default : current) — updates the address bar
+
+These methods follow **same-origin** url policy.
+
+`pushState()` is better than `window.location` method since we can give extra parameters and skip url part. It never causes a `hashchange` event to be fired
+
+`replaceState()` is useful when you want to update the state object
+
+**`popstate`** event fires whenever history changes, ie., back / forward / pushState() or replaceState().
+To get a **copy** of current **state object**, use `history.state` OR `event.state` 
+
+## Cookies API
+
+A **cookie** is a small piece of **data** exchanged between server and browser to create **statefulness** in requests and responses.
+
+Main uses — session management, personalisation, tracking user.
+
+HTTP headers
+- server (multiple `Set-cookie`) and browser (single semi-colon joined `Cookie` )
+- `Set-Cookie: id=a3fWa; Secure; HttpOnly` ⇒ send only over https and make invisible to javascript
+
+Cookie types — **permanent** (have expiry date) and **session** **(no expiry; lasts 1 session)
+
+#### Client-side cookie manipulation
+
+`document.cookie` — accessor property to create, read, and delete cookies.
+
+```jsx
+//can only set 1 cookie at time; sets name & id
+document.cookie = "name=John; max-age=100;"
+document.cookie = "id=3233; max-age=100;"
+
+//name=John; id=3233;
+console.log(document.cookie) 
+
+//decode URI (%20 -> ' ')
+let cookies = decodeURIComponent(document.cookie)
+
+// format cookies
+document.cookie.split(';').map(coo => { 
+	coo.trim(); 
+	return coo.split('=') 
+})
+
+// find and return a cookie value
+cookies.find(coo => coo.startsWith("name="))?.split("=")[1];
+```
+
+Parameters
+```js
+`expires=${dateobj.toUTCString()}` //default session
+`max-age=100` //seconds after session end; set to -ve expire
+`domain=example.com` //domain to which cookie will be sent (same-origin)
+`path=/path/to/host` //on domain
+```
+
+
+## LocalStorage and IndexDB
+
+**Local storage vs. Cookies**
+- Cookies are for client-server, Local storage are for client only
+- Cookies are sent in every HTTP headers and can be disabled
+- Cookie has a size limit of 4 Kb. Local Storage can be any.
+- Cookie has a expiration date.
+
+
+
+
+## Console and Dialog
+
+```jsx
+//**synchronous** modals - stop code execution until dismissed.
+alert(msg) //one button
+confirm(msg) // 2 buttons t/f
+prompt(msg, def_value)  //null or val
+
+//Writing log at different levels, colors and icons
+console.debug(), console.error(), console.warn(), console.info()
+
+console.log('Go to $o', 'goo.gl') //hyperlinking
+console.log('%cBanana', ‘color:yellow;’)  //css styled output
+
+//formated output
+console.table(object or array)
+console.dir(object)
+console.keys(object) 
+console.values(key_list)
+
+//useful
+console.assert(test_expr, "text_if_fail")
+console.count('msg')  //logs msg: 1  msg: 2 ... count times code was visited
+console.time(bob)     //create a new timer
+console.timeEnd(bob)  //stop timer and logs it
+console.timeStamp('label')  //log a event during recording
+console.memory()    //return objects containing info on page memory use.
+
+// log stack trace at that point
+console.trace('msg') and console.exception('error_msg')
+
+//create a group of console statements
+console.group('label') or console.groupCollapsed('label') //initially collapsed
+...
+console.groupEnd()
+
+console.profile('title for header') // Use JS profiler to print profile report
+console.profileEnd()
+```
