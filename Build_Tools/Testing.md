@@ -487,22 +487,6 @@ describe.each([['mobile'], ['tablet'], ['desktop']])('checkout flow on %s', (vie
 
 [describe.each() docs](https://jestjs.io/docs/en/api#describeeachtablename-fn-timeout), [test.each() docs](https://jestjs.io/docs/en/api#testeachtablename-fn-timeout),
 
-## Skipping tests
-
-Don’t run these tests:
-
-```js
-describe.skip('makePoniesPink'...
-tests.skip('make each pony pink'...
-```
-
-Run only these tests:
-
-```js
-describe.only('makePoniesPink'...
-tests.only('make each pony pink'...
-```
-
 ## Testing modules with side effects
 
 Node.js and Jest will cache modules you `require`. To test modules with side effects you’ll need to reset the module registry between tests:
@@ -536,9 +520,6 @@ test('second text', () => {
 - [React Testing Examples](https://react-testing-examples.com/)
 - [Testing React Applications](https://youtu.be/59Ndb3YkLKA) by Max Stoiber
 - [Effective Snapshot Testing](https://blog.kentcdodds.com/effective-snapshot-testing-e0d1a2c28eca) by Kent C. Dodds
-- [Migrating to Jest](https://medium.com/@kentcdodds/migrating-to-jest-881f75366e7e#.pc4s5ut6z) by Kent C. Dodds
-- [Migrating AVA to Jest](http://browniefed.com/blog/migrating-ava-to-jest/) by Jason Brown
-- [How to Test React and MobX with Jest](https://semaphoreci.com/community/tutorials/how-to-test-react-and-mobx-with-jest) by Will Stern
 - [Testing React Intl components with Jest and Enzyme](https://medium.com/@sapegin/testing-react-intl-components-with-jest-and-enzyme-f9d43d9c923e) by Artem Sapegin
 - [Testing with Jest: 15 Awesome Tips and Tricks](https://medium.com/@stipsan/testing-with-jest-15-awesome-tips-and-tricks-42150ec4c262) by Stian Didriksen
 - Taking Advantage of Jest Matchers by Ben McCormick: [Part 1](https://benmccormick.org/2017/08/15/jest-matchers-1/), [Part 2](https://benmccormick.org/2017/09/04/jest-matchers-2/)
@@ -585,3 +566,53 @@ expect(cb.contexts[0]).toBe(hot); //this=hot in first mockfn call
 expect(cb.instances.length).toBe(2); //exactly 2 instances from mockfn
 expect(cb.instances[1].name).toBe('jon'); //2nd obj has name: jon
 ```
+
+## Jest DOM
+
+You can use Jest base methods too
+
+```jsx
+//link id in markup
+<button data-testid="button"/>
+
+//check
+expect(getByTestId('button')).toBeDisabled()
+.toBeEmptyDOMElement() //no node child
+.toBeInTheDocument() //present
+.toBeInvalid() //field is invalid state
+.toBeRequired()
+.toBeValid()
+.toBeVisible()
+.toContainElement(ele) //contains() of dom-api
+.toContainHTML(string) //innerhtml
+.toHaveAttribute('type', 'submit')
+.toHaveClass(...str)
+.not.toHaveClass() //no class
+.toHaveFocus()
+```
+
+Work for `aria-` customised too
+```jsx
+.toHaveFormValues({  //for value check, auto-converts
+  username: 'jane.doe',
+  rememberMe: true,
+})
+.toHaveValue(any) //for individual, pass ['one', 'two'] if checking <select>
+.toHaveDisplayValue(regex) //value seen by user
+.toBeChecked() //seen by user
+.toBePartiallyChecked() //aria-mixed=true
+```
+
+```jsx
+.toHaveStyle({display: 'none'}) //or 'display : none' ; checks final computed style
+.toHaveTextContent(regex) //if string, does partial match
+.toHaveAccessibleDescription(regex) //aria-label, alt
+.toHaveAccessibleError(regex) //aria-error
+.toHaveErrorMessage(/invalid time/i) 
+```
+
+Further test the accessibility and validity of the DOM with  [`jest-axe`](https://github.com/nickcolley/jest-axe).
+
+## React Testing Library
+
+see DOCS online
