@@ -3,6 +3,8 @@ Rules of TDD
 1. only write code enough to make a failing unit test pass.
 2. maximize pure functions as they are immediately testable.
 
+https://kentcdodds.com/blog/making-your-ui-tests-resilient-to-change
+
 ### Setup & teardown
 
 ```js
