@@ -17,9 +17,8 @@ beforeAll(() => {
 **Execution order**
 - top level ones run before/after describe ones
 - top level `*Each` apply to *every* test, describe ones only to describe
-- all `test` in *file* run after all `describe` in file , i.e, `log` stmts outside test appear **before** any `test`
+- all `test` in *file* run after all `describe` in file , i.e, `log` stmts appear **before** any `test`
 - if test pass in isolation, but fails in group ; something's wrong with setup & teardown
-
 
 ## Matchers
 
@@ -219,7 +218,6 @@ test('async test', (done) => {
 ```
 
 ## Mocks
-
 
 ### Mock functions
 
@@ -545,15 +543,9 @@ test('second text', () => {
 - [Testing with Jest: 15 Awesome Tips and Tricks](https://medium.com/@stipsan/testing-with-jest-15-awesome-tips-and-tricks-42150ec4c262) by Stian Didriksen
 - Taking Advantage of Jest Matchers by Ben McCormick: [Part 1](https://benmccormick.org/2017/08/15/jest-matchers-1/), [Part 2](https://benmccormick.org/2017/09/04/jest-matchers-2/)
 
----
 ## Mock
 
 fake implementation of functions or modules/API
-
-Required stmts
-```js
-afterEach(jest.clearAllMocks) //to clear mockstate
-```
 
 Mock functions
 ```js

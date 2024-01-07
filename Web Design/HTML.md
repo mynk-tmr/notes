@@ -402,6 +402,57 @@ function loadJSAsync(url) {
 }
 ```
 
-## Attributes
+## Tables
 
-`tabindex='1'` : tab order of an element, when "tab" button is used for navigating.
+```jsx
+<table>
+  <caption>Description of contents (A11y)</caption>
+  <colgroup>
+    <!--many <col /> for group-styling --> 
+  </colgroup>
+  <thead>
+    <!-- 1 <tr> with many <th> -->
+  </thead>
+ <tfoot>
+    <!-- 1 <tr> with many <td> -->
+    <!-- always displayed at end -->    
+  </tfoot>
+  <tbody>
+    <!-- many <tr> each with 1 <th> and many <td> -->
+  </tbody>
+</table>
+
+<td colspan rowspan/> //to create big cells (give no.)
+<th scope="row|rowgroup|column|colgroup" /> // define whether heading is for row(s)/column(s)
+
+//To create explicit associations b/w `th(s) and td(s)`
+<th id="price">  .... <td headers="price cost">
+```
+
+`tabindex` : tab-order. -1 (not tabbable), 0 (at last), 1 2 3..(ordering). Try to use only `0 & 1` and use markup to order.
+
+__Good Table UI/UX__
+
+Styling
+  - alignment `left` for text, headings, qualitative data (phone no. etc.). 
+  - `right` for qualitative no. and same decimal length
+  - Combine related col/rows. Use different `font-weight & size` for combined data in cells e.g units, %change
+  - `1px solid light gray` (good borders)
+  - use `vertical-align : top` for large data
+  - cell heights : `40px or 48px or 56px`
+  - `scroll-smooth`
+  - low contrast `color` & `bgcol` (zebra) in alternate rows / cols
+  - `:hover` slight change 
+
+Too many columns/rows
+  - allow Resizing/Toggling col/rows
+  - Sorting options
+  - sticky header, footer, leftmost column
+  - horizontal scroll
+
+Table features
+  - small icons/thumbnails
+  - Expandable rows
+  - Modals for cell (can have editing features)
+  - Full screen mode
+
