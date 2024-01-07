@@ -371,3 +371,10 @@ console.groupEnd()
 console.profile('title for header') // Use JS profiler to print profile report
 console.profileEnd()
 ```
+
+## Canvas API
+
+To create download for canvas as PNG
+```js
+$("a").$add("click", e => e.target.href = canvas.toDataURL());
+```

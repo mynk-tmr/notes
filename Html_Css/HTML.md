@@ -385,14 +385,22 @@ _translations_ with `hreflang`
 ### Script loading
 
 - script loading & execution blocks parsing, so fix needed.
-- attributes to not block
-	- `async`: execute after complete download, and before window's `onload` event. Use for *critical* ones like analytics
+	- `async`: block & execute after complete download, and before window's `onload` event. Use for *critical* ones like analytics
 	- `defer`: execute after page parsing, before window's `DOMcontentLoaded`. Less *critical* like videos
 - `import('path').then(analytics => analytics.init())` 
 - for 3rd party scripts, `preconnect` & `dns-prefetch` can be used
 - lazy loading with `Intersection Observer`
 - using *CDNs*
 - cache script with *webworker*
+
+```js
+function loadJSAsync(url) {
+	let script = document.createElement('script');
+	script.src = url;  
+	script.async = true;
+	document.body.appendChild(script);
+}
+```
 
 ## Attributes
 
