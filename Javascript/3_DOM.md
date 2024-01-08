@@ -188,8 +188,8 @@ closest('.book') //itself or ancestor closest
 matches('.book') //true if this ele matched
 
 //will relocate if node is in DOM
-append(...nodes) 
-prepend(...nodes)
+append(...nodes) //after last child
+prepend(...nodes) //before first child
 insertBefore(node, nextSibling) //append for none
 replaceChildren(newnodes) 
 replaceChild(newN, old) 
