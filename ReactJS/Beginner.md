@@ -9,7 +9,7 @@ Syntax extension for JS that allows writing rendering logic (JS) and markup (HTM
 #### SYNTAX
 - *camelCase* attrs (except `data-` and `aria-`) 
 - supports any renderable viz. **react element, arrays, fragments, portals and JS primtive types**
-- `nullish, true, false` are considered *empty* nodes, but `0` or `''` aren't
+- `nullish, bools` are considered *empty* nodes, but `0` or `''` aren't
 
 ```jsx
 <p>{[1, 2, 3, 4]}</p> --> <p>{1}{2}{3}{4}</p>
@@ -26,6 +26,7 @@ return <div>{( () => {/*code*/} )()}<div>
 ```jsx
 <h1 id="jsx" onClick={handler}> hello </h1>
 React.createElement('h1', {id:'jsx', onClick: handler }, 'hello');
+//outputs
  {
 	type: "h1",
 	props: {
@@ -38,11 +39,6 @@ React.createElement('h1', {id:'jsx', onClick: handler }, 'hello');
 
 
 ## React-dom & React libraries
-
-```jsx
-render(reactNode, domNode, callback); //deprecated
-render(<App/>, document.getElementById('root'));
-```
 
 `createRoot(node,options?)`: create a root node to render React components. It is entry for React to takeover DOM handling.
 
@@ -60,12 +56,12 @@ Server-rendered apps use `hydrateRoot` instead
 
 The process through which React updates Browser DOM fast and efficiently. It's a 3 step process
 
-**Trigger** : a re-render is triggered when *state/prop/context* changes.
+**Trigger** : a re-render is triggered when *state/prop/context* value changes.
 
 **Render phase** 
-- involves running component definitons in subtree
+- involves running component definitons in subtree with triggerer as root
 - On *first* render of component, *all nodes* are added to virtual DOM as per returned JSX
-- On *re-renders*, React calculates differing *attribute* *values* in JSX from previous render and update *virtual nodes*. (diffing algo)
+- On *re-renders*, React checks differing nodes and update *virtual nodes*. (using diffing algo)
 
 **Commit phase**
 - react performs *minimum* operations on actual DOM needed to paint updated nodes, using *react-dom library
@@ -80,10 +76,8 @@ The process through which React updates Browser DOM fast and efficiently. It's a
 
 ## Conditional Rendering
 
-Rendering only a subset of components, based on app's state. Can be done with conditional flow JS stmts.
-- prefer `?:` over `if-else` 
-- prefer `&&` over `? val : null`. Example -> `msg > 0 && <p>New msg<p>`
-- for nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
+Rendering only a subset of components, based on app's state. Can be done with conditional flow 
+For nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 #### KEYS
 - React identifies a React element with *key* for updation & state managment.
 - Rules
@@ -102,9 +96,6 @@ return <ul>{msg.map((txt,i) => <li key={i}>{txt}</li>)}</ul>
 //using variable
 msgList = msg.map((txt,i) => <li key={i}>{txt}</li>);
 return <ul>{msgList}</ul>
-
-//>1 node for each item
-<Fragment key={i}>...</Fragment>
 ```
 
 

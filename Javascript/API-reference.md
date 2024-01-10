@@ -111,6 +111,11 @@ $('video').onload = () => URL.revokeObjectURL(video.src) //memory management
 `FileReader` object lets webpage asynchronously read contents of files selected by user
 
 ```js
+//thumbnail preview of selected file
+const reader = new FileReader();
+reader.readAsDataURL(files[0]);   //start async reading
+reader.onload = (e) => img.src = reader.result
+
 //readonly props 
 x.error  // error_obj
 x.readyState // 0 1 2 ['', loading, loaded]
@@ -121,12 +126,6 @@ x.result //loaded file
 .readAsBinaryString() //string.
 .readAsDataURL()	//URL string 
 .readAsText() //contents
-
-//thumbnail preview of selected file
-const reader = new FileReader();
-reader.readAsDataURL(files[0]);   //start async reading
-reader.onload = (e) => img.src = reader.result
-
 
 //events on filereader
 abort, error, loadstart, progress, load /*only if success*/ , loadend
@@ -240,6 +239,15 @@ deviceMemory  //8
 languages  // ['en-IN', 'en']
 language  // 'en-IN'
 ```
+
+API to send analytics to server
+```jsx
+subscribeBtn.onclick = () => {
+    navigator.sendBeacon(url, data); //server handles this info
+  }
+//data can be any type (Blob, formData etc)
+```
+
 
 ## History API
 
