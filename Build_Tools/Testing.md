@@ -614,7 +614,3 @@ Work for `aria-` customised too
 ```
 
 Further test the accessibility and validity of the DOM with  [`jest-axe`](https://github.com/nickcolley/jest-axe).
-
-## React Testing Library
-
-see DOCS online

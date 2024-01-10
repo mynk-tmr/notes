@@ -19,14 +19,9 @@ nvm use --lts
 ## Common npm commands
 
 ```bash
-npm -v
-npm cmd -h #help
 npm docs lodash #open doc website
 npm i npm@latest -g #upgrade
-npx pkg_cmd #run, skip npx in auto-scripts
-npm run build #run script
 
-npm init -y #auto init
 npm create vite@latest #vite
 npm get init-license #default value
 npm set init-license 'MIT' #default value
@@ -37,7 +32,7 @@ npm i / rm lodash momo #install multiple ; can be .tgz, git url
 npm ci #clean install project using pkglock
 
 #pkg version
-npm i -E pkg@2.1.2 #specific
+npm i -E pkg@2.1.2 #exact
 npm i -S pkg@1.2 #~1.2.latest
 npm i -S pkg@4 #^4.L.L
 npm i -P pkg #install as dependecy
