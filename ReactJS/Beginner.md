@@ -265,7 +265,7 @@ const [state, setState] = useState(0); //init value used only on mount
 setter is stable identity
 
 useState(initializer) //its return serves as init, runs only on mount
-setState(updater) //uses previous state to return next state
+setState(updater) //uses previous state to return next state (safer)
 //both must be PURE FUNCTIONS
 ```
 
@@ -278,7 +278,7 @@ setState(updater) //uses previous state to return next state
 - tied to **key** of component instance. By default, key is *position* in render tree.
 - non-index key -> fix re-order bugs
 - State resets when 
-	- diff component at given position
+	- diff component type at given position
 	- change in key (subtree re-mounts)
 ```jsx
 //reset state for test? <Tag> : <Tag>
