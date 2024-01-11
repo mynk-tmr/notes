@@ -253,35 +253,29 @@ subscribeBtn.onclick = () => {
 
 provides a way to manipulate browser history to create SPAs and non-reloading navigation
 
-The **history stack** stores the browser’s session history (in tab or frame). To manipulate it, use  `window.history` object. For security reasons, you can’t query session-history but you can navigate it.
+The **history stack** stores the browser’s session history (in tab or frame). To manipulate it, use  `window.history` object. 
 
 ```jsx
+//control navigation
 history.back()  //visit previous page
 history.forward() //visit next page
 history.go(-2) // go to 2nd last page.
 history.go() // reload current page [0]
 history.length // no. of pages in history stack
-
-//add a new entry to stack [back button -> original page]
-history.pushState({page: 1}, "Introduction", "?page=1")
-
-// replace current entry in stack [no way to go back]
-history.replaceState({page: 2}, "Chapter 1", "?page=2");
 ```
 
-**`pushState()`** and **`replaceState()`** take 3 arguments:
-- **state object** — arbitrary object that represents current state of app. Keep it short.
-- **title** — title to display
-- **URL** (default : current) — updates the address bar
+```js
+//manipulate history [state object, title, append to URL]
+history.pushState({page: 1}, "Introduction", "?page=1")
+// and replaceState
+
+`onpopstate` //fires upon navigation; has `state` prop for a copy of pushed/replaced state object
+
+//correct way to handle
+window.onpopstate = () => setTimeout(doSomeThing, 0);
+```
 
 These methods follow **same-origin** url policy.
-
-`pushState()` is better than `window.location` method since we can give extra parameters and skip url part. It never causes a `hashchange` event to be fired
-
-`replaceState()` is useful when you want to update the state object
-
-**`popstate`** event fires whenever history changes, ie., back / forward / pushState() or replaceState().
-To get a **copy** of current **state object**, use `history.state` OR `event.state` 
 
 ## Cookies API
 
