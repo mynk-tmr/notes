@@ -5,3 +5,5 @@
 - to enables more _dynamic UX_ and avoid repaints
 
 Client Side Routing enables developers to manipulate the browser history stack without making a document request to the server.
+
+https://www.youtube.com/watch?v=Dkx5ydvtpCA

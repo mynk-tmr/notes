@@ -249,7 +249,7 @@ mp4, mp3, webm, ogg
 
 **Subtitles** (`.vtt` file)
 ```jsx
-//include; style with video::cue {}
+//style with video::cue {}
 <video>
 	<track kind='subtitles | caption' src='path/to' srclang='en' 
 	label='English' default/>
@@ -301,7 +301,7 @@ set CSP of webpage
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
 ```
 
-`author` — specify author. Used by content management systems to provide visitors your info (if available).
+`author` — specify author. Used by CMS to provide visitors your info (if available).
 ```html
 <meta name="author" content="Gus Fring"/>
 ```
@@ -318,7 +318,7 @@ set CSP of webpage
 
 `theme-color`: for PWAs, browser UI
 ```html
-<meta name="theme-color" content="#226DAA" media="query"/>
+<meta name="theme-color" content="#226DAA" media="<query>"/>
 ```
 
 `property`: opengraph cards
@@ -350,8 +350,7 @@ To improve page performance
 
 
 **Favicons** `link rel=”icon”`
-- defaults to `favicon.ico` in root
-- use same-color scheme for them
+- defaults to `favicon.ico` in root ; use same-color scheme for them
 - if blocked by CSP, google
 ```html
 <link rel="icon" type="image/png" href="con.png" sizes="16x16 32x32 48x48"/>
