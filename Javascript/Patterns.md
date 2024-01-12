@@ -57,7 +57,7 @@ const developer = (name) => {
 ```
 
 
-## Module Pattern
+## Module IIFE
 
 In this, an IIFE is used as factory function. It allows easy encapsulations and namespacing (a technique to avoid name collisions). It cannot be reused to create additional instances.
 
@@ -74,32 +74,20 @@ calculator.add(2,4) //6
 const myLib = (function(d1, d2, d3) {
   //code
 })(obj1, obj2, obj3);
-
 ```
 
+## Concurrency
 #### Interactive concurrency
 
 ```jsx
-ajax( URL, foo );  
-ajax( URL2, bar ); 
+fetch(a).then(foo) ; fetch(b).then(bar)
+//foo & bar, if don't share state, can execute safely in any order
+// or else we must avoid unpredictable output with explicit order
 
-//we don't know foo, bar execution order but if they don't share variables or affect each other, it's FINE !!!
+fetch(a).then(foo).then(() => fetch(b)).then(bar)
 
-// but if they do ; we then must avoid unpredictable output
-
-// CHECK the order
-function func(data) {
-	if(data.url  == URL) res[0] = data; 
-	if(data.url  == URL2) res[1] = data; 
-}
-
-// GATE -> call method only when all values are available
-let index=0;
-function func(data) { res[index++] = data }
-if (data1 && data2 ) {
-	func(data1)
-	func(data2)
-}
+//or GATE where get exec foo then bar when both fetch done
+fetch(a).then(gate) ; fetch(b).then(gate)
 
 // LATCH -> first to execute wins. To avoid multiple callback invokes by 3rd party utility
 paytm.sendMoney(amount, cb)
@@ -118,9 +106,7 @@ function cb() {
 let i = 0;
 void function count() {
 	do { i++; } while (i % 1e3 ! =  0)
-	if( i < 1e7) 
-		setTimeout(count); //0 delay trick ; at end of task queue
-		//or queueMicrotask(count) ; end of mt-queue
+	if( i < 1e7) setTimeout(count);
 }()
 
 //use zero delay to postpone a func until event fully propagates
