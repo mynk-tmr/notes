@@ -84,19 +84,8 @@ fetch(a).then(foo) ; fetch(b).then(bar)
 //foo & bar, if don't share state, can execute safely in any order
 // or else we must avoid unpredictable output with explicit order
 
-fetch(a).then(foo).then(() => fetch(b)).then(bar)
-
-//or GATE where get exec foo then bar when both fetch done
-fetch(a).then(gate) ; fetch(b).then(gate)
-
-// LATCH -> first to execute wins. To avoid multiple callback invokes by 3rd party utility
-paytm.sendMoney(amount, cb)
-jio.sendMoney(amount, cb)
-let done = false;
-function cb() {
-	if(!done) debitMoney(); 
-	done = true;
-}
+Promise.all(fetch(a), fetch(b)).then(gate) // exec foo then bar in gate
+Promise.any(fetch(a), fetch(b)).then(debitmoney) //latch pattern ; first wins
 ```
 
 #### Cooperative Concurrency
