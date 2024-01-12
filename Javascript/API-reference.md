@@ -172,8 +172,6 @@ fetch(request)
 .arrayBuffer() .blob() .formData() .json() .text()
 ```
 
-Fetch library [axios](https://axios-http.com/) 
-
 **Uploading Form data**  `body : formData` 
 
 ```jsx
