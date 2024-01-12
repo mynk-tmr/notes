@@ -210,6 +210,7 @@ window.moveBy(100,100)
 
 ```jsx
 href //url string
+pathname // after host/
 search //search string [?...]
 hash   // #title
 
