@@ -4,3 +4,5 @@
 https://jsonplaceholder.typicode.com/
 
 leetcode clone with spaced repetition
+
+[Convert site to https](https://certbot.eff.org/pages/about)

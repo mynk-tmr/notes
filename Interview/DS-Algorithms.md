@@ -1,6 +1,5 @@
 Links
 - [Coursera Algorithms](https://www.coursera.org/specializations/algorithms?action=enroll)
-- 
 
 ## Concepts
 

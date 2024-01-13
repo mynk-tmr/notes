@@ -384,12 +384,12 @@ User-defined Properties `myfun.prop = expr/func;`
 #### Closure
 - combination of a function and its lexical environment specification object
 - LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access outer variables around its *definition*
-- Each closure references **untouched new** version of variables (for encapsulation purpose)
+- Each closure is created with **untouched new** version of variables (for encapsulation purpose)
 - Like plain objects, LEX isn't garbage collected till its referenced
 - Closures can capture variables in *block/module* scope too
 
 ```js
-//common mistake... using non-block var in loops (var ; let from outer)
+//common mistake... using non-block variable in loops (var ; let from outer)
 //functions created in loop will refer to end value of variable
 ```
 

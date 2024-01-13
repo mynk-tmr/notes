@@ -96,46 +96,46 @@ At source, data travels **down** the layer — each layer adds routing data and 
 a *TCP-based* appLayer protocol to securely send commands to a computer on network
 Features
 - SSH uses **public key cryptography** to authenticate and encrypt connections. In SSH connection, both sides have a **public/private key pair**, and each side authenticates the other using these keys.
-- _SSH tunneling_ uses **port forwarding** to send packets from one machine to another. E.g. you can connect to an open server to send data to a closed server. From its perspective, data packets are coming from inside private network.
+- _SSH tunneling_ uses **port forwarding** to send packets from one machine to another. E.g. you can connect to an open server to send data to a closed server.
 - Port 22 is the default port for SSH
 
 Most common SSH use cases are:
-
 - Remotely managing servers, infrastructure, and employee computers
 - Securely transferring files
 - Accessing services in the cloud without exposing a local machine's ports to the Internet
-- Connecting remotely to services in a private network
-- Bypassing firewall restrictions
 
 SSH vs. HTTPS — https only verifies the server identity, never blocked by firewalls, and doesn’t allow the client to access the server's command line
 
----
+### File Transfer Protocols — all are built on **TCP**
 
-**File Transfer Protocols** — all are built on **TCP**
-
-**File Transfer Protocol** is foundational. It allows multiple directory transfers concurrently.
-
+**File Transfer Protocol** is foundational
+- allows concurrent directory transfers 
 - Lacks encryption and uses dual data channcels — risky
 - limited encoding support (ASCII, 8bit, ECBD)
 
 **FTP Secure** adds TLS encryption to FTP. It has wide support since most of internet infrastructure has built-in support for SSL
 
 **Secure FTP** uses SSH encryption. It is the **recommended** choice.
-
 - advanced file management features — create, delete, transfer etc.
 - recipient of your files must authenticate with cryptographic keys
 
 **Secure Copy Protocol** also uses SSH encryption but is simple.
-
 - better suited for one-time file transfers ; way faster than SFTP.
 - doesn’t have file mgmt features ; cannot resume file transfers.
 
 **Managed File Transfer** support protocols like SFTP and FTPS. Used in banking industry, MFT provides additional encryption.
 
-**WebSockets**
+## Trending
 
-This protocol provides full-duplex channels(=bidirectional) over a single TCP connection. It differs from HTTP — gives a **persistent connection** that **both parties can use** to send data at any time.
+### WebSockets
+- provides full-duplex channels(=bidirectional) over a single TCP connection. 
+- differs from HTTP — gives a **persistent connection** that **both parties can use** to send data at any time.
+- Websocket connections begin with a **handshake.** Once the connection is established, communication switches to a bidirectional protocol. 
+- HTTP for sending web pages and websockets to update them.
+### Server-sent events
+- allows a server to send events to client. Browser converts http stream into Event objects
 
-Websocket connections begin with a **handshake.** Once the connection is established, communication switches to a bidirectional protocol. You can receive the response (without any request) and it comes with a much smaller header.
-
-You can use HTTP for sending web pages and websockets to update them.
+### Webhooks
+- **HTTP-based callback function** that allows lightweight, event-driven communication between 2 APIs. An application must have an API to use a webhook.
+- Webhooks can be used to r**eceive small amounts of data** from other apps or to **trigger automation workflows** in GitOps environments.
+- Webhooks are **reverse APIs or push APIs**, because they put the responsibility of communication on server. Server sends the client a single POST request as soon as the data is available.

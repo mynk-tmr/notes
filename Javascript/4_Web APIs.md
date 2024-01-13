@@ -1,9 +1,17 @@
+A Web API acts as `interface` to use browser's or system's data/functionality. A web app uses many `APIs` to perform tasks.
+##### Types of APIs
+- `Browser APIs` — built into browser and are able to expose data from browser and system. e.g. Web Audio API
+- `Third-party APIs `— built into third-party platforms (e.g. Twitter, Facebook) that allow you to use some of platform's functionality in your web pages
+- `JavaScript libraries` — JS files containing **custom** functions that you can use. e.g React.
+- `JavaScript frameworks` — packages of HTML, CSS, JavaScript, and other technologies that you use to write an entire web application from scratch
 
-## Concepts
+Library vs. Framework — "Inversion of Control". _A developer calls a method from a library. A framework calls the developer's code._
 
-[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) : a script can only request resources from the same origin it was loaded from (ie. server). To bypass this, we enable **CORS** 
-
-**Cross-Origin Resource Sharing** ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is an [HTTP](https://developer.mozilla.org/en-US/docs/Glossary/HTTP)-header based mechanism that allows a *server* to indicate other *origins* from which a browser permits loading resources
+Features of Client-side web APIs
+- **Objects-based —** code interacts with APIs using objects, which serve as containers for the data and functionality that API uses and exposes
+- **Fixed recognizable entry points.** e.g in Web Audio API — it is the `AudioContext` object. In DOM API, it is Node object
+- Use of **events** to handle changes in state
+- **Security mechanisms** where appropriate
 
 ## JSON
 
