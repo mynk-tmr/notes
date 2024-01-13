@@ -347,12 +347,13 @@ listRef.current.lastChild.scrollIntoView();
 - enable components to render differently based on context
 - To override a context, wrap children with different context value
 - Use cases : theming, current user data, routing 
+- Cons
+	- can cause all consumer components to re-render on updates
 
 ```jsx
-export const Ctx = createContext(null);
+export const Ctx = createContext(null); //create context object
 
-//to make props available to entire component tree
-//always give object to value
+//provide context value to entire component tree
 <Ctx.Provider value={props}> 
 	<Tree/>
 </Ctx.Provider>
