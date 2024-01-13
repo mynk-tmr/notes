@@ -372,6 +372,7 @@ JS engine apply many optimizations to speed it up
 ### Scope
 
 `var` : no Block scope, no TDZ, redeclarable, creates a property on `window`
+`const` : can’t be bound to another reference during runtime
 ##### Scope Chain
 - Each scope can access values in all its enclosing scopes but not vice-versa. This approach is called **lexical scoping** 
 - names in inner scope **overshadow** outer ones. Using var to overshadow let/const is `illegal`

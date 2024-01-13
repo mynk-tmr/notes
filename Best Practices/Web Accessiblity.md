@@ -1,3 +1,4 @@
+Web accessibility — websites, tools, and technologies are designed to have as few barriers as possible.
 
 **Customisable Text** 
 - Using *relative units* for fonts and controls

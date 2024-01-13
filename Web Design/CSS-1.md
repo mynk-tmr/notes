@@ -221,7 +221,6 @@ Boxes can be — block or inline ; and have an outer & inner display.
 Standard Model — width and height pertains to content box.
 Alternate Model — width and height pertains to `border box`. Set by `box-sizing: border-box`
 
-
 ## Margin Collapsing
 
 - 2 positive margins — use largest
