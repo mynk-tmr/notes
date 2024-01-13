@@ -113,15 +113,14 @@ Building blocks of React App. A component encapsulate one piece of UI.
 - have 2 kinds of keys -> *standard* (`src` predefined) and *custom*
 ##### State
 - a component's *private* data that may *change* over re-renders. It starts with def_value when component mounts.
-- in practice, use small JSON-serialisable object as state
+- in practice, use small serialisable object as state
 - props are managed by *ancestor*, state is managed within *component*
-- props are more performant
 ##### Refs
 - stateful objects that are *mutable* and don't trigger re-renders
 - unlike state, ref updates are *synchronous*
-- provide a way to access 
-	- DOM/React nodes for manipulation
-	- timeout ids to clear
+- provide a way to  
+	- access DOM/React nodes for vanilla manipulation
+	- store setInterval ids to clear later
 ##### Lifting State up
 - process of shifting *shared* state among components to their closest common *ancestor*, and control them with *props*
 - Things to pass via props -> <u>shared state, setter handler and rendering logic (optional)</u>
@@ -256,7 +255,6 @@ used to create a `state` in functional components
 const [state, setState] = useState(0); //init value used only on mount
 //a[0] current state
 //a[1] setter to update state & schedule re-rendering
-setter is stable identity
 
 useState(initializer) //its return serves as init, runs only on mount
 setState(updater) //uses previous state to return next state (safer)
@@ -332,7 +330,7 @@ useImperativeHandle(ref, () => ({ //return object
 return //button with ref={realRef}
 ```
 
-*sync state update* to ref update
+*sync state update* to ref updates (vaz synchronous)
 ```jsx
 flushSync(() => {
   setTodos([ ...todos, newTodo]); //update todo & DOM synchronously
@@ -363,8 +361,9 @@ const {prop1, prop2} = useContext(Ctx);
 ```
 
 ### useReducer hook
-- adds a *reducer* function to manage complex state transitions
+- adds a *reducer* function to manage complex state transitions. It must be *pure* and map old state and *action* object to a new state
 - returns current *state* and *dispatcher* that internally calls `setState` with reducer's return
+- reducers are easy to test ; bugs are always in action usage
 
 ### useLayoutEffect hook
 ![[Pasted image 20240104064255.png]]
@@ -375,19 +374,18 @@ const {prop1, prop2} = useContext(Ctx);
 
 ```jsx
 //custom hook to see online status
-export const useOnlineStatus = () => 
-	useSyncExternalStore(subscribe, getSnapshot)
+export const useOnlineStatus = () => useSyncExternalStore(subscribe, getSnapshot)
 
 //get immutable snapshot of data at a point
 const getSnapshot = () => navigator.onLine ;
 
 //subscribe to events/changes ; return a function that unsuscribes
-function subscribe(cb) {
-	window.addEventListener('online', cb)
-	window.addEventListener('offline', cb)
+function subscribe(getter) {
+	window.addEventListener('online', getter)
+	window.addEventListener('offline', getter)
 	return function() {
-		window.removeEventListener('online', cb)
-		window.removeEventListener('offline', cb)	
+		window.removeEventListener('online', getter)
+		window.removeEventListener('offline', getter)	
 	} 
 }
 ```
@@ -467,7 +465,7 @@ class ErrorBoundary extends Component {
 ```jsx
 export const MemoList = React.memo(List);
 export const MemoListItem = React.memo(ListItem);
-//entire tree must be memoised
+//entire subtree must be memoised
 ```
 
 #### useMemo, useCallback hooks
@@ -485,7 +483,6 @@ const MemoList = useMemo(<List items={list}/>, [list]);
 ```
 
 #### Other ways
-
 1. using `{children}`; they aren't re-rendered
 2. localising state as much possible
 3. don't abuse sideeffects
