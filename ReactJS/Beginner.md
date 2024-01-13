@@ -1,5 +1,6 @@
 > https://www.developerway.com/posts
 >  https://www.robinwieruch.de/
+>  https://www.meje.dev/blog
 
 ##### Reactjs
 - A JS library to build web and native UI.
@@ -458,10 +459,10 @@ class ErrorBoundary extends Component {
 ## Memoization
 
 #### React's memo API
-- returns a **HOC** that won't run if props don't change.
+- returns a **HOC** that won't re-render if props are equal 
 - memoize data-heavy components like long lists such that only new items render. 
 - equivalent of `shouldComponentUpdate` of class
-- needs `useMemo` & `useCallback` to keep object/function props same.
+- needs `useMemo` & `useCallback` in container to achieve referential equality of props
 ```jsx
 export const MemoList = React.memo(List);
 export const MemoListItem = React.memo(ListItem);
@@ -473,7 +474,7 @@ export const MemoListItem = React.memo(ListItem);
 - 1st memoize returns of expensive functions calls. (>1ms)
 - 2nd memoize *function objects* instead of values
 - updates cached value when dependencies change
-- wrap fn *returned* by custom hooks in `useCallback`
+- wrap fn *returned* by custom hooks in `useCallback` 
 ```jsx
 const val = useMemo(fn, dep_array) //must be pure, take no args
 const fn = useCallback(fn, dep_arr) //no restrictions
