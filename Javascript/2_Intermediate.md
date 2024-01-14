@@ -88,7 +88,7 @@ Lambda calculus
 
 ## Generator Functions
 
-functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own iterator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run
+functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own iterator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run ever
 
 ```jsx
 function* f() {
@@ -98,8 +98,8 @@ function* f() {
 }
 
 const keygen = f(); //create iterator object
-keygen.next() //start *f
-keygen.next('ok') //response = 'ok'
+keygen.next() //start *f ; 1
+keygen.next('ok') //response = 'ok' ; 2
 keygen.return('quit') // {done: true, value: 'quit'}
 keygen.throw('error') //throw error in *f
 
@@ -133,9 +133,9 @@ Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 | to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`        |
 | features          | can be `...spread`          | NO                     |
 ```jsx
-async function* f(url) {
+async function* f(urls) {
   for (let i = 0; i <= 5; i++) {
-    let i = await fetch(url[i]);
+    let i = await fetch(urls[i]);
     yeild i;
   }
 }
