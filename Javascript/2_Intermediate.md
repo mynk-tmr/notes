@@ -156,13 +156,13 @@ Core JS is **synchronous**, code is executed line by line and there's no 'wait'
 Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
 
 - **Inversion of Control** : they handover control & flow of code to other api with minimal ways to tackle unpredicted behaviour
-- **Non-linearity** : express async flow in a hard to grasp non-linear way
+- **Non-linearity** : flow is hard to grasp in non-linear way
 - **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
 - **Race conditions** : when some async callback may finish synchronously
 
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
 - **Promises**, that use *split-callback* design
-- **Generators** let you 'pause' individual functions. They don’t follow run to completion.
+- **Generators** let you 'pause' individual functions.
 - `async/await` wrap generators and promises in a higher level syntax.
 
 ## Promises
