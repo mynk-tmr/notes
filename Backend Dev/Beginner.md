@@ -40,11 +40,11 @@ Parts of http-based system : `client => proxies => server`
 - HEAD like GET, but only ask for headers (no body)
 - POST create a resource on server
 - PUT update a resource with sent payload body
+- PATCH applies partial modifications to a resource
 - DELETE resource
 - CONNECT for tunneling 
 - OPTIONS retrive cors-related configuration
 - TRACE performs a message loop-back test 
-- PATCH applies partial modifications to a resource
 
 ### Headers 
 allow passing **additional info** in each http message.
@@ -58,42 +58,40 @@ MIME Types : specify content types in `Accept` field, consist of a `type` an
 
 ### Request 
 ![Request body is optional, but required in POST (info to post)](Untitled%201.png)
-- an HTTP verb -- kind of operation to perform
-- a path to a resource
-- a _header_, which allows the client to pass along information about the request
-- an optional message body containing data
+- consists of an *HTTP verb* -- kind of operation to perform
+- a *path* to a resource, *headers* and optional *body*
 
 ### Response
 ![Untitled](Untitled%202.png) 
 
-## CORS
+## Security
 
-[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) : a script can only request resources from the server it was loaded from. To bypass this, we enable **CORS** 
-
-**Cross-Origin Resource Sharing** ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is an HTTP-header based mechanism that allows a *server* to indicate other *origins* from which a browser permits loading resources
+##### Cross Origin Resource Sharing
+- allows client-side script to communicate with a server *different* from the one that loaded it.
+- Client sends a cors request to cross server `OPTIONS` verb with `Origin` header
+- server responds with a header `Access-Control-Allow-Origin : <domains>` 
+- If origin is part of allowed domains, cors proceeds
 
 ## REST
 
 Create, Read, Update, Delete *resources* are 4 basic functions of an API model. In a *REST* environment, CRUD refers to `POST, GET, PUT, DELETE` . Read is a `pure` operation. 
 
-RESTful system use http style response/request protocol. To design RESTful system
-1. create data schema of resources (key-values, type, classes etc.)
-2. `Accept & Content-Type` of each resource
-3. request format to perform CRUD operations eg. `POST user/4/todo/new <body>`
+RESTful system use *http based response/request* protocol. To design RESTful system
+1. create data schema of resources (key-values, types, classes etc.)
+2. `Content-Type` of each resource
+3. request format to perform CRUD operations eg. `POST user/:id/todo/new <body>`
 4. reponse format that server sends for each e.g. `200 (OK) Content-type:text/css <body>`
 
 ##### Status codes & msg
-|  |  |  |
-| ---- | ---- | ---- |
 | GET `200 OK` <br>POST `201 CREATED`  <br>PUT `200 OK` <br>DELETE `204 NO CONTENT` | `404 NOT FOUND` resouce isn't there <br>`403 FORBIDDEN`<br>`400 BAD REQUEST` <br> `500 INTERNAL SERVOR ERROR` server failed | `301`  redirect GET/HEAD<br>`308` redirect POST etc<br>`304` sent cached data |
+| ---- | ---- | ---- |
 ### 6 Characteristics of Restful System
 
 ##### Separation of Client and Server
 client & server code evolve independently and interact via standard operations on resources. 
-Clients use same REST endpoints and have identical form of request/response
+Clients use same REST endpoints and request/response doesn't vary among clients
 ##### Statelessness
-- client server can work without knowing each other's state and content of previous msgs.
-- no `interface` is required
+- client + server can work without knowing each other's state and content of previous msgs.
 ##### Cachebility
 to reduce the load on database and handle large traffic. e,g, `Redis` to implement this
 ##### Layered system
@@ -101,13 +99,14 @@ to reduce the load on database and handle large traffic. e,g, `Redis` to impleme
 Servers can extend client's functionality by transferring executable code.
 ##### Uniform interface
 - Resources are identified in requests and are separate from their representations
-- Clients receive files that represent resources. Client is able to modify or delete them
-- Each reponse has message that is self-explainatory
+- Clients is sent resource that it can read, modify or delete
+- Each reponse has a message that is self-explainatory
 - After accessing a resource, client is told of other actions that are currently available (hyperlinks)
 
 ## Basic Backend
 
 Server runs an `app` that contains logic about how to respond to requests based on `routes` (`http-verb+uri`) and this is called `routing`. Each `route` can have one or many request `handler` functions. 
-Databases provide an interface to save data in a persistent way to memory. 
+
+Databases provide an interface (abstract model) to manage data at backend. 
 
 A Web API is collection of *endpoints* and the *resources* these endpoints expose. It is defined by requests it handles and responses it gives
