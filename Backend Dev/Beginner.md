@@ -105,8 +105,14 @@ Servers can extend client's functionality by transferring executable code.
 
 ## Basic Backend
 
-Server runs an `app` that contains logic about how to respond to requests based on `routes` (`http-verb+uri`) and this is called `routing`. Each `route` can have one or many request `handler` functions. 
+Server runs a **web application** that contains logic about how to respond to requests based on `routes` (`http-verb+uri`). Each `route` can have one or many request `handler` functions. Server performs `routing` of requests. 
 
-Databases provide an interface (abstract model) to manage data at backend. 
+**Databases** provide an interface (abstract model) to manage data at backend. 
 
-A Web API is collection of *endpoints* and the *resources* these endpoints expose. It is defined by requests it handles and responses it gives
+A **Web API** is collection of *endpoints* and the *resources* these endpoints expose. It is defined by requests it handles and responses it gives
+
+Node.js uses an event-driven, non-blocking I/O model. This non-blocking I/O eliminates the need for multi-threading.
+
+two types of events in Node.
+- System Events: C++ core from a library called libuv. (For example, finished reading a file).
+- Custom Events: JavaScript core.
