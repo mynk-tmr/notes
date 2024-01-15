@@ -76,7 +76,7 @@ MIME Types : specify content types in `Accept` field, consist of a `type` an
 
 Create, Read, Update, Delete *resources* are 4 basic functions of an API model. In a *REST* environment, CRUD refers to `POST, GET, PUT, DELETE` . Read is a `pure` operation. 
 
-RESTful system use *http based response/request* protocol. To design RESTful system
+RESTful system use *http based response/request* protocol. To design RESTful API/system
 1. create data schema of resources (key-values, types, classes etc.)
 2. `Content-Type` of each resource
 3. request format to perform CRUD operations eg. `POST user/:id/todo/new <body>`
@@ -109,7 +109,7 @@ Server runs a **web application** that contains logic about how to respond to re
 
 **Databases** provide an interface (abstract model) to manage data at backend. 
 
-A **Web API** is collection of *endpoints* and the *resources* these endpoints expose. It is defined by requests it handles and responses it gives
+A **Web API** is collection of *endpoints* and the *resources* these endpoints expose. It is defined by requests it handles and responses it gives eg. `get/users/` having endpoints `/:id` or `/:type`
 
 Node.js uses an event-driven, non-blocking I/O model. This non-blocking I/O eliminates the need for multi-threading.
 
