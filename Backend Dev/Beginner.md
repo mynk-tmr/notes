@@ -115,10 +115,10 @@ Node.js uses an event-driven, non-blocking I/O model. This non-blocking I/O elim
 
 ### Model View Controller
 
-A pattern which aims to separate business logic and UI.
+An architectural pattern which aims to separate app into 3 main logical components
 ##### Model
 manages data and business logic. When data state changes, it notifies *View* to update UI or *Controller* if update needs extra logic to occur
 ##### View
-handles display of data to user
+handles display of data to user (templating / rendering)
 ##### Controller
-routes commands to model and view in response to events. 
+routes commands to model and view when requested by client
