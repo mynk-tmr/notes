@@ -113,6 +113,12 @@ A **Web API** is collection of *endpoints* and the *resources* these endpoints e
 
 Node.js uses an event-driven, non-blocking I/O model. This non-blocking I/O eliminates the need for multi-threading.
 
-2 types of events in Node.
-- System Events: from C++ core library `libuv`
-- Custom Events: from JavaScript core.
+### Model View Controller
+
+A pattern which aims to separate business logic and UI.
+##### Model
+manages data and business logic. When data state changes, it notifies *View* to update UI or *Controller* if update needs extra logic to occur
+##### View
+handles display of data to user
+##### Controller
+routes commands to model and view in response to events. 
