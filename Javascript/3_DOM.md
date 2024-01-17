@@ -228,15 +228,10 @@ $`isTrusted`  — user-generated `true` and for synthetic `false`
 $`timeStamp` — time(ms) when event was created
 
 ---
-#### Drag ‘n Drop
+#### Drag events
 
 `dragstart` → `drag` → // `dragenter` → `dragover` → `dragleave` or `drop` // → `dragend` 
-
-- Define draggable elements with html `draggable='true'`
-- attatch handlers to draggable & droppable elements using `forEach()`
-- **!!!! add `preventDefault()`** to any handler that “drops” element
-
-dragevent’s **properties** are like mousevent’s
+dragevent’s properties are like *mousevent’s*
 `event.dataTransfer` stores data being dragged.
 
 ```jsx
