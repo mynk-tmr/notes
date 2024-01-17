@@ -302,10 +302,7 @@ Event Properties
 - `DOMContentLoaded` – DOM built but resources are yet to be loaded. `load` happens when resources loaded
 - `resize` —  window is resized.
 - `beforeunload` — before page close ; shows confirm dialog. In handler, prevent default and set event.returnValue = '"';
-
-Any element with resources e.g. img
-`load` — element’s resource was successfully loaded.
-`error` — element’s resource failed to load, or can't be used
+Any **element** with resources e.g. img `load` — success `error` 
 
 ---
 **Full screen and PIP mode**
