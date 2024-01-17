@@ -72,11 +72,34 @@ MIME Types : specify content types in `Accept` field, consist of a `type` an
 - server responds with a header `Access-Control-Allow-Origin : <domains>` 
 - If origin is part of allowed domains, cors proceeds
 
+## API
+
+**API —** interface or standard of communication between softwares.
+
+How do APIs Work?
+- client initiates request via API’s URI
+- API makes a call to the server (after authorisation checks)
+- Server responds to API which sends it to client
+
+Types of API
+- **Remote APIs** : interact via network and manipulate resources on network.
+- **Web APIs** : remote API based on http protocol. It can be built using Java, .NET
+- **Local APIs** : to get local middleware services e.g. TAPI and .NET
+- **Program APIs** : makes a remote program appear to be local by making use of RPCs (Remote Procedural Calls). e.g. **SOAP** (SIMPLE OBJECT ACCESS PROTOCOL
+
+Server-side APIs
+- **REST**
+	- a *architectural* system based on HTTP response/request cycle.
+- **GraphQL
+    - a query language and server-side runtime.
+    - gives clients exactly the data they request and no more.
+    - can pull data from multiple sources in a single API call.
+
 ## REST
 
 Create, Read, Update, Delete *resources* are 4 basic functions of an API model. In a *REST* environment, CRUD refers to `POST, GET, PUT, DELETE` . Read is a `pure` operation. 
 
-RESTful system use *http based response/request* protocol. To design RESTful API/system
+To design RESTful API/system
 1. create data schema of resources (key-values, types, classes etc.)
 2. `Content-Type` of each resource
 3. request format to perform CRUD operations eg. `POST user/:id/todo/new <body>`
@@ -88,18 +111,20 @@ RESTful system use *http based response/request* protocol. To design RESTful API
 ### 6 Characteristics of Restful System
 
 ##### Separation of Client and Server
-client & server code evolve independently and interact via standard operations on resources. 
-Clients use same REST endpoints and request/response doesn't vary among clients
+- client & server code evolve independently and interact via standard operations on resources. 
+- Clients use *same* endpoints and *structure* of request/response
 ##### Statelessness
 - client + server can work without knowing each other's state and content of previous msgs.
 ##### Cachebility
-to reduce the load on database and handle large traffic. e,g, `Redis` to implement this
+- to reduce the load on database and handle large traffic. e,g, `Redis` to implement this
+- It permits any data format
 ##### Layered system
+-  inherits security from underlying TCP layer
 ##### Code on demand (optional)
 Servers can extend client's functionality by transferring executable code.
 ##### Uniform interface
 - Resources are identified in requests and are separate from their representations
-- Clients is sent resource that it can read, modify or delete
+- Client is sent resource that it can read, modify or delete
 - Each reponse has a message that is self-explainatory
 - After accessing a resource, client is told of other actions that are currently available (hyperlinks)
 
