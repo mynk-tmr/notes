@@ -20,10 +20,6 @@ Use <output> to display selected value in `range`
   <optgroup label='subheading'>
     <option selected value='1'>Banana</option> <!-- value=text by default --> 
 
-
-<!-- datalist modifies an input and fills it with pre-defined values -->
-https://codepen.io/Mayank-https/pen/vYbQemB
-
 <!-- track bars ; they are inline elements -->
 <progress value="32" max="100">32%</progress> <!-- fallback child -->
 <meter min max low optimum high > <!-- divide range & color codes it -->
