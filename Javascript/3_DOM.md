@@ -324,7 +324,7 @@ pictureInPicture
 **Pointer Lock**
 ```jsx
 div.requestPointerLock(); // lock pointer, set div as target for pointer events
-div.exitPointerLock();
+document.exitPointerLock(); //on doc
 document.pointerlockElement //read only getter
 'pointerlockchange' // event associated
 ```
