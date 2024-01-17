@@ -352,7 +352,7 @@ Execution : takes place for each execution context,
 - garbage collector — a background process that monitors all objects and removes those that are _unreachable_ via chain of references from **root**
 - a root is a data which is never garbage collected — global bindings and local bindings of current chain of nested function calls.
 - To delete an object, we must delete all _incoming_ references to it. 
-- _Unreachable island_: when a pack of interlinked objects is cutoff from root references.
+- If object is *weakly referenced*, it can be garbage collection if it is unreachable via hard link
 
 **“mark-and-sweep”** : basic garbage collection algorithm
 ```go

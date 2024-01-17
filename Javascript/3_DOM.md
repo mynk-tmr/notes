@@ -12,16 +12,20 @@ DOM basic objects
 - `document` : property of window. Serves as **root** node.
     - its properties are `documentElement` (html) , `head` `body`
 
-##### DOM Datatypes
-- **NodeList** : a iterable collection of nodes, usually **static**
-    - has `length, [index], forEach` support
-- **HTMLCollection :** a *live* iterable collection of elements
-    - return type of methods with ‘**Element**’ (except getElementsbyName)
-    - also has `namedItem(id)` to get an element by id
-- **NamedNodeMap :** array-like *live* list of **Attr** objects (element’s attributes)
-    - Stored in element’s `attributes` property
-    - Attr object has `name, value, specified` properites.
-- **DOMTokenList :** space-separated tokens returned by `classList` property
+#### DOM Datatypes
+```js
+`NODELIST (iterable of nodes)`
+children.length, children[4], children.forEach //live
+
+`HTMLCollection - a live iterable of HTMLElements`
+//returned by -Element- methods
+
+`NamedNodeMap - a live iterable of `Attr` objects mapping element's attributes`
+div.attributes.id.value //or specified 
+
+`DOMTokenList - space separated live classes on element`
+div.classList //get
+```
 
 ##### Node Codes / Constants
 `1 (Node.ELEMENT_NODE)`
@@ -30,7 +34,7 @@ DOM basic objects
 `9 (Node.DOCUMENT_NODE)`
 `11 (Node.DOCUMENT_FRAGMENT_NODE)`
 
-`DocumentFragment` interface is a lightweight version of `Document`. It is used to compose nodes and inserted as a whole to imporve performance
+`DocumentFragment` interface is a lightweight version of `Document`. It is used to compose nodes and inserted as a whole to improve performance
 ```jsx
 let fragment = new DocumentFragment();
 fragment.append(eleList) //append to fragment
@@ -44,16 +48,13 @@ An element is a node with a specific node type `Node.ELEMENT_NODE`. It has sever
 ##### Node Relationships
 Each node has **6 relationships** (default : null)
 `parentNode` `firstChild` `lastChild` `previousSibling` `nextSibling` `childNodes`
-Element only versions too. ChildNodes ⇒ `children` (live nodelist ⇒ HTMLCollection)
-
-Working with DOM
+(with `*Element*` versions )
 - Selecting nodes — use the most specific method, match is **case-sensitive.**
 - Altering attributes — always use **get** and **set** methods
-- Methods inserting multiple nodes return **undefined** or throw error if insertion fails.
-- Methods inserting or deleting one node returns *reference* to node.
+- Inserting *multiple nodes* return **undefined** or throw error if insertion fails.  But for 1 node a *reference* to node is returned
 
 ##### Altering attributes
-- standard html attributes -> node properties (live). Some may type convert
+- standard html attributes -> element properties. Some may type convert
 - Boolean attributes can’t be set to false, they have to be `removeAttribute()`
 
 ```jsx
@@ -99,7 +100,6 @@ Event flow has 3 phases
 - a technique which uses **bubbling** to handle event at a Node higher than actual node target
 - Greatly reduces no. of event handlers needed, thus improving memory utilisation and performance
 - wherever possible, attach listeners on `document`
-- combined handlers used for them
 
 ##### Handler Optimisations
 used for rate-limiting the execution of callback to improve performance
@@ -110,8 +110,8 @@ used for rate-limiting the execution of callback to improve performance
 - throttling — *infinite scrolling*
 
 3 ways to register **event-listeners :**
-- HTML event attributes — `onclick='callback()'`
-- property — `btn.onclick = callback`
+- HTML event attributes — `onclick='handler()'`
+- property — `btn.onclick = handler`
 - `.add`
     - can add any number of handlers for a **single** event.
     - works on any event target, even XMLHttpRequest
@@ -128,17 +128,11 @@ addEventListener(type, listener, flags)
 }
 ```
 
-```jsx
-const ctr = new AbortController();
-div.addEventListener("click", modifyText, { signal: ctr.signal })
-ctr.abort(); // remove listener
-```
-
 Adding more listeners **inside a listener** doesn’t trigger them during **current phase** of flow
 
 **Listener** can add **effects** to event 
 - `preventDefault()` — prevent the browser’s default handling of event ; works only if property `cancelable=true` ; sets `defaultPrevented` to true.
-- `stopPropagation()` — stops the event-flow once it has finished processing all related event listeners on **currentTarget** ; works only if `bubbles=true` (default)
+- `stopPropagation()` — stops the event-flow once it has processed all its listeners on **currentTarget** ; works only if `bubbles=true` (default)
 - `stopImmediatePropagation()` stops the event-flow. No other listeners will be called
 
 **Passive Listeners**
@@ -154,8 +148,6 @@ btn.onclick = input.dispatchEvent(event);
 
 Unlike **"native" async** events, it invokes event handlers _synchronously_ and returns when all of them have executed. `false` if atleast 1 handler used `preventDefault()`, else true.
 
-Observers use weak references to nodes. If an observed node is removed from DOM, and becomes unreachable, it can be garbage collected
-
 ## Reference
 
 ```js
@@ -164,7 +156,7 @@ window.parent
 
 document.activeElement //focused
 document.referrer //uri of referrer page
-document.readyState //loading, loaded, completed  (downloaded, rendered)
+document.readyState //loading, loaded, completed
 document.styleSheets //iterable stylesheet collection
 document.title 
 document.forms //links, images, etc
@@ -179,49 +171,51 @@ document.getSelection().toString() //selected text
 
 ```js
 tagName //uppercase
-nodeType //node code
 innerHTML textContent //markup inside vs. all textnodes in ele+children
 innerText //respect css hidden
+
+//FIND elements
 $q //first matched child
 $qall //static nodelist
-closest('.book') //itself or ancestor closest
-matches('.book') //true if this ele matched
+div.closest('.book') //itself or ancestor closest
+div.matches('.book') //true if this ele matched
+
+//ASSERT
+div.contains(ele) //descendant
+div.hasChildNodes()
+div.hasfocus() 
+div.isEqualNode(ele) //equal,
+div.isSameNode(ele)
 
 //will relocate if node is in DOM
-append(...nodes) //after last child
-prepend(...nodes) //before first child
-insertBefore(node, nextSibling) //append for none
-replaceChildren(newnodes) 
-replaceChild(newN, old) 
-removeChild(child)
-remove() //remove itself
-before(...nodes) // insert these, for `strings` -> textnodes
-after(...nodes)
+div.before(...nodes) // insert these
+div.prepend(...nodes) //before first child
+div.append(...nodes) //after last child
+div.after(...nodes)
+div.insertBefore(new, nextSibling) //append for none
+div.replaceChildren(...nodes) 
+div.replaceChild(new, old) 
+div.removeChild(child)
+div.remove() //remove itself
+
+//helpers
+div.blur() div.focus() div.click()
+div.cloneNode(deep=true) //clone with listeners (+children)
+div.normalize() //fix jumbled text nodes
 ```
 
 ```js
-insertAdjacentElement(pos, ele) 
-insertAdjacentHTML(pos, markup) 
+div.insertAdjacentElement(pos, ele) 
+div.insertAdjacentHTML(pos, markup) 
 'beforebegin' 'afterbegin' // before element / first child
 'beforeend' 'afterend' // after last child / element
-```
-
-```js
-hasfocus() blur() focus() click()
-hasChildNodes()
-contains(ele) //if descandant
-isEqualNode(ele) //equal,
-isSameNode(ele)
-cloneNode(deep=true) //clone with listeners (+children)
-normalize() //fix jumbled text nodes
-
 ```
 
 ---
 ##### Event Object properties
 $ `target` — element that triggered event
 $ `type` of event that was fired e.g. `‘click'`
-$`currentTarget` — element on which event is currently firing
+$`currentTarget` — element on which event is currently flowing
 $`detail` more info about the event
 $`eventPhase` — 1 for capturing phase, 2 for target, 3 for bubbling
 $`isTrusted`  — user-generated `true` and for synthetic `false`
@@ -230,38 +224,29 @@ $`timeStamp` — time(ms) when event was created
 ---
 #### Drag events
 
-`dragstart` → `drag` → // `dragenter` → `dragover` → `dragleave` or `drop` // → `dragend` 
-dragevent’s properties are like *mousevent’s*
 `event.dataTransfer` stores data being dragged.
-
 ```jsx
 dT.setData('text/plain', str) //text/uri-list 
 dT.getData('text/plain'); //str
 dT.setDragImage('hi.png', 50, 50) //cursor at (50,50) inside drag image
-dT.dropEffect = 'link'; //changes cursor
+dT.dropEffect = 'link'; //cursor [move, copy, none] ; if none event got cancelled
 [...dT.types].includes("text/html") //false
 ```
-
-`dropEffect` :- ‘move’ , ‘link’, ‘copy’ , ‘none’ . In `dragend` handler, used to check if event was cancelled (’none’)
 
 ---
 #### Pointer Events
 
 Better since, they are _hardware-agnostic_ and supports mouse, stylus, touch, etc.
-`down` `up` : when pressed or released. `preventDefault` in down
-`move` : is cancelled by default. To fix
-- preventDefault `ondragstart` , and
-- `ele { touch-action: none }` in CSS
-
-`over` `out` : pointer moves in/out of element. Good for _Delegation_.
-`enter` `leave` : like over & out but **do not bubble** i.e., not fired when pointer moves in/out of descandants
-`cancel` :- malfunction, orientation change, default hijacking, etc.
-`got` & `lostpointercapture` :- on element who gains or loses capture
-
-🖱️ `click` `dblclick` ; `contextmenu` right-click.
-
+Event flow : `down` `enter` `over` `move` `out` `leave` `up`  ; can `cancel` anywhere
+Others : `got/lost pointercapture` 
+Mouse-only : `click` `dblclick` ; `contextmenu` right-click.
+Notes
+- preventDefault  `down`
+- for `move` to work, prevent `ondragstart` and add `touch-action: none` on element
+- `enter/leave` do not bubble
+- `move` fires continously 
 ##### Event properties
-- `pointerId` given to **each** finger, stylus, etc from `down` till `up/cancel` happen. Starts from 1.
+- `pointerId` given to **each** finger, stylus, etc during a flow. Starts from 1.
 - `pointerType` (mouse, pen, touch, etc.).
 - `isPrimary` true if primary for given **type**
 - `button` — 0 to 5 {L,M,R, X1, X2, eraser}
@@ -272,8 +257,6 @@ Better since, they are _hardware-agnostic_ and supports mouse, stylus, touch, et
 - `pageX` `pageY` — document relative, takes scrolled amount into account
 - `offsetX` `offsetY` — target relative
 
-`div.setPointerCapture(e.pointerId)` retargets all subsequent events to element. Auto-removed when ele or id is destroyed
-
 ---
 #### Keyboard Events
 
@@ -282,8 +265,8 @@ Types
 - `keydown` – auto-repeats if the key is pressed for long
 - `keyup` – release [once only]
 Properties
-- `code` – the “key code” (`"KeyA"`, `"Digit0"` , `"Enter"`), specific to the **physical location** on keyboard.
-- `key` – the character (`"A"`, `"a"`) or same as `code` for non-character keys , ie., **interpretation**
+- `code` (location) : `"KeyA"`, `"Digit0"` , `"Enter"`
+- `key` (interpretation) : `"A"`, `"a"` or same as `code` for non-character keys
 - Modifier keys `altKey`, `ctrlKey`, `shiftKey` , `metaKey`
 - `location` : which **version** of key pressed. [0,1,2,3] → [single key, left one, right one, numpad]
 - `repeat` : **true** if long key press
@@ -304,19 +287,18 @@ Event targets :- `<input> <textarea> <select>` and any element with `contentedit
 Event Properties
 - _input_ and _beforeinput_
     - `data` : single inserted char ; null for anything else.
-    - `dataTransfer` : object representing inserted data. Has **get, set & clear** Data methods.
-    - `inputType` : returns string describing change in editable content.Some values - insertText, deleteContentBackward, insertFromPaste, and formatBold
+    - `dataTransfer` : object representing inserted data. Has **get, set & clear** methods.
+    - `inputType` : insertText, deleteContentBackward, insertFromPaste, formatBold
     - `isComposing`
 - _clipboard-related_
     - `event.clipboardData` gives access to clipboard.
         - `getData('text/plain')` `setData('text/plain', str)`
         - `dataTransfer`
 
-Composition event :- occur when user indirectly enters text. It has a `data` property that contains text entered during 1 composition session. A session consists of a `start`, many `update`, and a `end`
-
 ----
+#### Load events
 
-Only `<body>` related
+**document.body**
 - `DOMContentLoaded` – DOM built but resources are yet to be loaded. `load` happens when resources loaded
 - `resize` —  window is resized.
 - `beforeunload` — before page close ; shows confirm dialog. In handler, prevent default and set event.returnValue = '"';
@@ -345,8 +327,8 @@ pictureInPicture
 **Pointer Lock**
 ```jsx
 div.requestPointerLock(); // lock pointer, set div as target for pointer events
-document.pointerlockElement //** div ; read only
 div.exitPointerLock();
+document.pointerlockElement //read only getter
 'pointerlockchange' // event associated
 ```
 
@@ -372,8 +354,8 @@ div.getBoundingClientRect()  // position w.r.t viewport
 #### Scroll manipulation
 
 ```jsx
-window.
-scrollX .scrollY  //amount scrolled
+window
+.scrollX .scrollY  //amount scrolled
 .scrollTo(0, 10) .scrollBy(0, 10)  // left,top [No -ve allowed]
 
 //1 page scrolling
