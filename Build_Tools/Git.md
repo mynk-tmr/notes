@@ -63,8 +63,8 @@ Get details …
 ```bash
 git config --get key
 git show obj #details
-git hash-object mix.css #show sha-1 of file
-git ls-files -s src | git hash-object --stdin #show sha-1 of folder src 
+git hash-object file #show sha-1 
+git ls-files -s folder | git hash-object --stdin #show sha-1
 git blame app.js #see latest changes + author
 #-L 1,4 --> limit to lines
 ```
@@ -96,29 +96,14 @@ Flags for **git log**
 
 Pretty Formats
 
-```c
+```shell
 $git log --pretty=format:"%cn committed %h %cr"
-	Sainki committed 7477ad4 2 hours ago
-	Harsh committed 636s29 3 hours ago
 
-%n : newline
-%Cred %Cgreen %Cblue %Creset : change colors
-%cn %ce %cl :  committer name, email and local-part
-%ch %cr : committed date (human style, relative )
-%H %h : commit hash (full, shortened)
-```
-
-
-Git aliases — create custom git commands
-
-```bash
-open .config file and paste
-[alias] 
-newinfo = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --force --env-filter \\"if [[ \\\\\\"$`echo $VAR`\\\\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\\" $@; }; f"
-
-# Change author info retroactively
-git newinfo GIT_AUTHOR_NAME "oldname" "newname"
-git newinfo GIT_AUTHOR_EMAIL "oldmail" "newmail"
+#%n : newline
+#%Cred %Cgreen %Cblue %Creset : change colors
+#%cn %ce %cl :  committer name, email and local-part
+#%ch %cr : committed date (human style, relative )
+#%H %h : commit hash (full, shortened)
 ```
 
 Git stash — save current working directory
@@ -134,9 +119,9 @@ git stash pop stash@{2}
 Git tags
 
 ```bash
-git tag --list [*pattern*] #list all/matching tags in repo 
+git tag --list v1.* #list matched
 git tag -a `v1.0` HEAD #Creates light tag ; opens msg editor
-git tag v1.2.2 -m `Release version 1.2.2` #create good tag
+git tag v1.2.2 -m `Release version 1.2.2` #good tag
 ```
 
 Git Notes — Only 1 note is allowed per commit.
@@ -174,7 +159,7 @@ Git has two main data structures - **object store & index,** stored in `.git` f
 ---
 ### Branch
 
-- A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of commit
+- A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of last commit
 - new `branch` -> new copy
 - `HEAD` is pointer to current local branch ; when it points to a specific commit -> detached
 
@@ -182,7 +167,7 @@ Git has two main data structures - **object store & index,** stored in `.git` f
 - merge : combine end-points and point to it.
 	- **fast-forward**: move main branch's tip forward onto feat tip
 	- **2 parent**: new commit is created (merge commit)
-- rebase : replay all commits on 1 branch on a different branch
+- rebase : replay all commits in a particular branch over a different branch
 
 ```shell
 cat .git/HEAD #ref: refs/heads/main
@@ -196,7 +181,7 @@ git switch -c hotfix #new branch, now do changes
 git switch - #go back to prod
 git merge hotfix  #merge into current
 git push production origin  #push branch
-git push -d/-D hotfix  #delete
+git branch -d hotfix  #delete
 ```
 
 ```shell
@@ -207,15 +192,14 @@ git log --all
 #list
 git branch -v #last commit in each branch
 git branch -vv # -v + which tracking
-git branch --merged / --no-merged <hotfix> #only these w.r.t a branch
+git branch --merged / --no-merged production #only these w.r.t a branch
 git branch -a, -r # all / only remote
 git log main..feat #show extra commits in feat
 git diff HEAD..origin/feat  #after fetch
 
 #rename
 git branch -m old new 
-git push -u origin new  #old still on remote
-git push origin -d old #delete
+git push -u origin NEW && git push origin -d OLD 
 
 #fix merge conflicts, stage it
 git mergetool 
@@ -235,20 +219,21 @@ git branch newfeat #stored here
 
 ### Remote 
 
+USUAL WORKFLOW
 ```bash
-#USUAL WORKFLOW
-...fork and clone forked  #origin : your_url
-git remote add <orginal_url> upstream
+#fork Opensource first
+git clone forkedURL  
+git remote add <real_repo_url> upstream
 git switch -c feat
-...build stuff
+#...build stuff
 git switch main && git pull upstream main
 git switch feat && git merge main #to clean feat, solve conflicts
 git push origin feat 
-...submit pull request on original page
+#...submit pull request on original page
 ```
 
 ```bash
-git clone -b bname <url> -o ape #defaults master, origin
+git clone -b bname <url> -o ape #defaults main, origin
 git remote #list repos
 git remote remove yuki
 
@@ -258,27 +243,22 @@ git subtree pull ....
 git subtree push .... #no --squash
 
 #branching, tracking
-git fetch [--prune] ape  #get new changes
+git fetch --prune ape  #get new changes
 git fetch --all --tags #from all remotes
-git checkout feat #create feat locally, track it
-git branch -u ape/feat  #track feat from current branch
-git checkout -b cust ape/feat #for custom name
+git checkout fetched_branch #creates it locally
+git branch -u origin/fetched_branch  #remote tracking
 
 #push, pull
-git push -u --all boogie && git push --tags
+git push -u --all --tags origin
 git pull --rebase #use this when someone else rebases
 git push -force-with-lease #safe force 
 ```
 
 ### Rewriting history
 
-
 ```shell
 git rebase main #current on main's tip
-git rebase main feat #given
 git rebase --onto main server client #rebase client, excluding commonality with server
-
-#finally
 git switch main && git merge client
 ```
 
@@ -292,7 +272,5 @@ git revert --abort #stop reverting
 
 git rebase -i <commit> # rolls back commits after <commit>
 git rebase -i --root #first commit
-
-#flags
   --committer-date-is-author-date 
 ```
