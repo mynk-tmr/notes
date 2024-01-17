@@ -243,7 +243,7 @@ dragevent’s **properties** are like mousevent’s
 dT.setData('text/plain', str) //text/uri-list 
 dT.getData('text/plain'); //str
 dT.setDragImage('hi.png', 50, 50) //cursor at (50,50) inside drag image
-dT.dropEffect = 'coedgepy'; //changes cursor
+dT.dropEffect = 'link'; //changes cursor
 [...dT.types].includes("text/html") //false
 ```
 
