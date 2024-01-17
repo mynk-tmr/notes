@@ -9,6 +9,18 @@ foo();
 var c = "c";
 ```
 
+## Timers
+
+```jsx
+function printNumbers(from, to, delay = 1000) {
+  for (i = from; i <= to; i++)
+    setTimeout(console.log, delay, i);
+}
+
+printNumbers(1, 5); // 1sec delay --> immediately output 6 6 6 6 6 
+//var i is func scoped so callbacks refer 6 at end of script
+//then all together wait 1sec (they are ASYNC remember)
+```
 
 ## Promises
 

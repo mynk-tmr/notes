@@ -27,7 +27,7 @@ Classes are based on prototype-based *constructor functions*, with enhancements
  - have **strict-mode** and **TDZ** like let
  - **super** keyword is used to *access* *public* props in superclass, or invoke its constructor
  - have *private* fields that aren't inherited and only accessible in Class definition
- - **extends** syntactic sugar of `Object.setPrototypeOf`
+ - **extends** as syntactic sugar of `Object.setPrototypeOf`
 
 NOTES
 - Bound functions and Proxy can be constructed, but non-inhertiable ( No `prototype` )
@@ -392,7 +392,7 @@ JS engine apply many optimizations to speed it up
 
 JavaScript execution flow is based on an *event loop*. General algorithm of event loop :- 
 1. If call stack is empty and **task queue** has a *macrotask*, deque and execute it
-2. execute all *microtasks* placed in **microtask queue** by macrotask in (FIFO)
+2. execute all *microtasks* placed in **microtask queue** by macrotask (same fashion as above)
 3. paint DOM, do network requests etc
 4. Go to step 1
 
