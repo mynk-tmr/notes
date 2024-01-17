@@ -243,7 +243,7 @@ dragevent’s **properties** are like mousevent’s
 dT.setData('text/plain', str) //text/uri-list 
 dT.getData('text/plain'); //str
 dT.setDragImage('hi.png', 50, 50) //cursor at (50,50) inside drag image
-dT.dropEffect = 'copy'; //changes cursor
+dT.dropEffect = 'coedgepy'; //changes cursor
 [...dT.types].includes("text/html") //false
 ```
 
@@ -356,14 +356,46 @@ div.exitPointerLock();
 ```
 
 ---
-#### Scroll manipulation
+#### Dimensions
 
 ```js
-div.scrollIntoView (  
+window.
+outerHeight. outerWidth //window
+.innerHeight .innerWidth //viewport 
+
+div. //read only
+offsetHeight .offsetWidth // border box + scrollbar
+.clientHeight  .clientWidth // viewable padding box
+.scrollHeight  .scrollWidth // full padding box
+.offsetTop .offsetLeft  // (x,y) w.r.t parent
+
+div.getBoundingClientRect()  // position w.r.t viewport
+// contains top, bottom, left, right
+```
+
+---
+#### Scroll manipulation
+
+```jsx
+window.
+scrollX .scrollY  //amount scrolled
+.scrollTo(0, 10) .scrollBy(0, 10)  // left,top [No -ve allowed]
+
+//1 page scrolling
+window.scrollTo({top: 100, left: 100, behavior: "smooth"})
+
+//get and set scroll value
+div.scrollTop, div.scrollLeft // min 0 , max = scrollHeight - clientHeight
+
+//scroll div into container’s visible area
+div.scrollIntoView ({
 	behavior: 'smooth',
-    block: 'nearest',
-    inline: 'center'
-)
+    block: 'nearest', //align to y-edge (start, center, end)
+    inline: 'center' //align to x-edge ("")
+})
+```
+
+```js
 //zoom using 'wheel' event
 scale += event.deltaY * -0.01; //wheel down zooms
 scale = Math.min(Math.max(0.125, scale), 4); //limit zoom
@@ -372,4 +404,3 @@ div.style.transform = `scale(${scale})`;
 //scroll events 
 'scroll', 'scrollend'
 ```
-
