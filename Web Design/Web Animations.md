@@ -2,7 +2,7 @@
 
 SVG is a XML based markup language for vector images. Raster images are pixel based.
 Pros:
-  - unlike raster images, svg can scale without quality loss
+  - can scale without quality loss
   - text in svg remains accessible (SEO)
   - each image component can be styled differently via CSS/JS
 Tips

@@ -6,4 +6,4 @@
 
 Client Side Routing enables developers to manipulate the browser history stack without making a document request to the server.
 
-https://www.youtube.com/watch?v=Dkx5ydvtpCA
+[10 rendering patterns](https://www.youtube.com/watch?v=Dkx5ydvtpCA)

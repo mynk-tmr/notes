@@ -1,27 +1,21 @@
-## Basic Syntax
 
-CSS — a language used to describe a webpage's presentation on screen, paper, or in other media. 
-CSS is a rule-based language.
+```css
+/* a css rule*/
+selector {
+	declarations
+}
+```
 
-CSS _rule_ = 
-  _selector_ {
-    _css declarations block_
-  }
-
-## Units (MDN vocabulory)
-
-`integer` , `number` (+decimals), `dimension/length` (num+unit), `%` (of parent) 
-`angle` : 45deg, .25 turn (turn 90deg)
-`color` : hex, rgb, hsl. 
-`image` : file / url() / *-gradient() / image-set('a.ico' 1x, 'b.ico' 2x). 
-`gradient` : img with no intrinsic size
-
-
-`position` : 2 coords - X and Y. Hardcoded values or _top left bottom right center_. Default : center. Can be combined *top 100px center right*
-
-`identifier` : unquoted values that CSS understands eg. red
-
-`string` : quoted values
+```css
+/* css units */
+integer , number (2.3) , length (2.3vh), % (of parent)
+angle (90deg or 0.25 turn)
+color (hex, rgb, hsl)
+image -- url('path'), *gradient , image-set('one.ico' 1x, 'two.ico' 2x)
+position -- top, left, 100px etc. (center is default)
+identifier -- like red
+string -- `hello`
+```
 
 Absolute units : always same in any context
 Relative units : relative to something else
@@ -41,7 +35,6 @@ Print : `cm, mm, in, pt, px`
 
 `min-content` : “E pluribus unum” --> “pluribus”.
 `max-content` : full sentence
-
 
 Upto 200dpi `1.0` pixel-to-density ratio, 200-300dpi `1.5`, then `floor(dpi/150)`
 

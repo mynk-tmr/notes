@@ -96,7 +96,7 @@ durations
 ```
 
 ##### Lists
-- all **Block** (menu, ul, ol, li, `dl, dt, dd`)
+- all **Block** (`menu, ul, ol, li, dl, dt, dd`)
 - description lists for QnA, defn, glossary, metadata display
 - you can give many dd for 1 dt.
 - Attributes
