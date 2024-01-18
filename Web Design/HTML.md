@@ -71,12 +71,11 @@ letter S — &#83; or &#x53;
 - rec: insert content with `mark::before` for a11y
 
 ##### Code text
-
 - `<pre>` : *block* text; preserves formatting ; must be nested inside `<figure>` and describe with `<figcaption>`
 - `<code>` — generic inline code, usually wrapped in `<pre>`
+- `<samp>` — sample output of `<code>`
 - `<var>` — for variable names beside non-code text
 - `<kbd>` — keyboard inputs
-- `<samp>` — sample output of `<code>`
 - `<output>` — result of a calc from `input`
 
 ##### Machine-readable info
