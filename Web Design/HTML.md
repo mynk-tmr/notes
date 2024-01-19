@@ -342,13 +342,8 @@ To improve page performance
 
 
 **Favicons** `link rel=”icon”`
-- defaults to `favicon.ico` in root ; use same-color scheme for them
-- if blocked by CSP, google
 ```html
 <link rel="icon" type="image/png" href="con.png" sizes="16x16 32x32 48x48"/>
-
-<!-- widthxheight
-use sizes="any" for scalable icons -->
 ```
 
 **Canonical links** `link rel='canonical' href=''`
@@ -376,7 +371,7 @@ _translations_ with `hreflang`
 ### Script loading
 
 - script loading & execution blocks parsing, so fix needed.
-	- `async`: block & execute after complete download, and before window's `onload` event. Use for *critical* ones like analytics
+	- `async`: block & execute only after complete download, and before window's `onload` event. Use for *critical* ones like analytics
 	- `defer`: execute after page parsing, before window's `DOMcontentLoaded`. Less *critical* like videos
 - `import('path').then(analytics => analytics.init())` 
 - for 3rd party scripts, `preconnect` & `dns-prefetch` can be used

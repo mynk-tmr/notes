@@ -52,3 +52,5 @@ Tips
 ## Animations
 
 Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
+`@keyframes` provides transition states and browser does interpolation.
+Events : just like `transition`
