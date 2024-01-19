@@ -117,6 +117,11 @@ _Grid_ concepts :
 - `<html>` is out of flow and creates BFC for document
 - `flow-root` gives container its new BFC
 
+##### Stacking Context
+- each HTML element has its own and decides how its children are stacked in z-axis within it
+- default `z-index : auto or 0`.  Always on top element : `<select>`
+- To change `z-index` of child, take it out of flow OR create a new **composite** layer with `opacity`, `will-change` , `transform` 
+
 ## Layout and Spacing
 
 ##### Logical Properties & Values
