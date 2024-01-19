@@ -20,6 +20,7 @@ https://www.udacity.com/course/browser-rendering-optimization--ud860
 	- Animate, Transition properties that <u>don't reflow</u> page to improve performance.
 	- place *reflow-repaint* properties on *separate* layer using for e.g. `will-change: color` 
 	- More layers -> more memory (so careful)
+	- Place animating element in high `z-index` or it will trigger repaint of its layer sharers
 
 Dev tools : 
 - `Performance tab` > `Record` while animation running
@@ -47,5 +48,4 @@ Events :
 Tips
 - use `setTimeout(12ms)` to set 'TO' property of appended or display:none elements
 - use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
-- [CSS Triggers cheatsheet](https://web.archive.org/web/20220727225220/https://csstriggers.com/)
 

@@ -290,7 +290,7 @@ set CSP of webpage
 
 `viewport` — helps site responsiveness ; else site scales on smaller screens.
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
 `author` — specify author. Used by CMS to provide visitors your info (if available).

@@ -117,14 +117,9 @@ _Grid_ concepts :
 - `<html>` is out of flow and creates BFC for document
 - `flow-root` gives container its new BFC
 
-##### Stacking Context
-- each HTML element has its own and decides how its children are stacked in z-axis within it
-- default `z-index : auto or 0`.  Always on top element : `<select>`
-- To change `z-index` of child, take it out of flow OR create a new **composite** layer with `opacity`, `will-change` , `transform` 
-
 ## Layout and Spacing
 
-##### Logical Properties & Values
+#### Logical Properties & Values
 - lets us control layout based on **writing** mode.
 - `-inline-` : dimension parallel to text flow 
 - `-block-` :  perpendicular to text flow 
@@ -140,3 +135,9 @@ Only applies in `normal flow` and to `block` margins that are `touching`
 - A positive B negative — A + B ; if -ve ; next overlaps previous
 - No collapse if `<br/> <hr/>` `overflow:` set
 - `display: flow-root`, child's margins expand container's *border box* and never leaks out
+
+#### Stacking Context
+- each HTML element has its own and decides how its children are stacked in z-axis within it
+- default `z-index : auto or 0`.  
+- To change `z-index` of child, take it out of flow OR place it on a new layer with `opacity`, `will-change` , `transform` 
+- Always on top element : `<select>`
