@@ -49,3 +49,7 @@ Tips
 - use `setTimeout(12ms)` to set 'TO' property of appended or display:none elements
 - use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
 
+## Animations
+
+Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
+
