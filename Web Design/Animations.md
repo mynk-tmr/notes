@@ -94,4 +94,6 @@ Care should be taken when using a transition immediately after:
 
 This is treated as if the initial state had never occurred and the element was always in its final state. The easy way to overcome this limitation is to apply a `setTimeout()` of a handful of milliseconds before changing the CSS property you intend to transition to.
 
+Consider providing a mechanism for pausing or disabling animation, as well as using the [Reduced Motion Media Query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) (or equivalent [User Agent client hint](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints#user-agent_client_hints) [`Sec-CH-Prefers-Reduced-Motion`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-Prefers-Reduced-Motion)) to create a complimentary experience for users who have expressed a preference for less animation.
+
 Meeting the 10 millisecond threshold is crucial for animations

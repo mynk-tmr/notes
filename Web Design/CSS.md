@@ -17,14 +17,8 @@ identifier -- like red
 string -- `hello`
 ```
 
-Absolute units : always same in any context
-Relative units : relative to something else
-##### Logical Properties
-- lets us control layout based on **writing** mode.
-- `-inline-` : dimension parallel to text flow 
-- `-block-` :  perpendicular to text flow 
-- `block-start, block-end` 
-- `inline-start, inline-end` 
+Absolute units : always same in any context, since they have fixed base
+Relative units : relative to something else, so base changes
 
 ## Cascade and Specificity
 
@@ -74,7 +68,6 @@ _Grid_ concepts :
    - explicit : when we define grid tracks with `grid-template`
    - implcit : when css define new grid tracks for placing extra content. Their size is set by `grid-auto-*`
 
-
 ## CSS Selectors
 
 ##### Common
@@ -99,8 +92,10 @@ _Grid_ concepts :
 ## Normal Flow & Box Model
 
 - CSS treats dom nodes as **boxes** and lay them out in normal flow by default. 
-- Boxes can be — **block** or **inline** ; and have an `outer & inner display.`
+- Boxes can be **block** or **inline**  (formatting context) and have **outer , inner display**  
 	- `display: block flex`
+	-  inner : how elements inside box are laid out e.g. `flex`, `grid`, `normal`
+	- outer : how box is laid out e.g.`block`, `inline`, `inline-block` (block with no-linebreak)
 - Standard Model — width and height pertain to **content** box.
 - Alternate Model — they pertain to `border box`. Set by `box-sizing: border-box`
 - Sub-boxes in box -- `Content` < `Padding` < `Border` < `Margin`
@@ -115,15 +110,28 @@ _Grid_ concepts :
     - their size = content. They can wrap around other elements.
     - Don’t respect WH
     - MBP will apply but only **Left and right** will **push** other elements and content.
-  - *Inner display*
-    - dictates how elements inside box are laid out e.g. `flex`, `grid`, `normal`
-  - *Outer display*
-    - dictates how box is laid out e.g.`block`, `inline`, `inline-block` (block with no-linebreak)
+
+##### Out of flow
+- when ele is not `display: block or inline` , is `fixed, absolute, float, multi-col, table-cell`
+- Creates a new **Block Formatting Context (BFC)** (inner layout) separate from rest of page. 
+- `<html>` is out of flow and creates BFC for document
+- `flow-root` gives container its new BFC
+
+## Layout and Spacing
+
+##### Logical Properties
+- lets us control layout based on **writing** mode.
+- `-inline-` : dimension parallel to text flow 
+- `-block-` :  perpendicular to text flow 
+- `block-start, block-end` 
+- `inline-start, inline-end` 
+
+![[Pasted image 20240119160145.png]]
 
 #### Margin Collapsing
-Only applies in `normal flow` and to `vertical` margins that are `touching`
-- 2 positive margins — use largest
-- 2 negative margins — next sibling overlaps previous by larger (absolute) of 2.
+Only applies in `normal flow` and to `block` margins that are `touching`
+- + margins — use largest
+- - margins — next sibling overlaps previous by larger (absolute) of 2.
 - A positive B negative — A + B ; if -ve ; next overlaps previous
-- No collapse if <br/> <hr/> `overflow:` set
+- No collapse if `<br/> <hr/>` `overflow:` set
 - `display: flow-root`, child's margins expand container's *border box* and never leaks out
