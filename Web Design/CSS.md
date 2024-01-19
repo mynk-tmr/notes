@@ -119,12 +119,12 @@ _Grid_ concepts :
 
 ## Layout and Spacing
 
-##### Logical Properties
+##### Logical Properties & Values
 - lets us control layout based on **writing** mode.
 - `-inline-` : dimension parallel to text flow 
 - `-block-` :  perpendicular to text flow 
-- `block-start, block-end` 
-- `inline-start, inline-end` 
+- `start` : instead of *left*, `end` : instead of *right* like in `text-align`
+- `inset` : shorthand of `top, right, bottom, left`  OR `inset-block` `inset-inline`
 
 ![[Pasted image 20240119160145.png]]
 
