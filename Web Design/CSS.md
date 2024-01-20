@@ -61,10 +61,9 @@ _Flexbox_ concepts :
 
 _Grid_ concepts :
  - grid tracks : rows or columns defined using `grid-template` 
- - grid lines (start and end) that delimete a grid track.
- - grid gutter/alley (gap b/w rows & columns)
+ - grid lines,  grid gutter
  - grid cell & grid area (collection of adjacent grid cells)
- - explicit v/s implicit grid
+ - ==explicit v/s implicit grid==
    - explicit : when we define grid tracks with `grid-template`
    - implcit : when css define new grid tracks for placing extra content. Their size is set by `grid-auto-*`
 
