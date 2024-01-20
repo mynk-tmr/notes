@@ -1,10 +1,3 @@
-
-https://www.smashingmagazine.com/search/?q=react
-[Update state from props](https://www.robinwieruch.de/react-derive-state-props/)
-https://www.robinwieruch.de/react-styled-components/
-https://www.robinwieruch.de/react-state/
-
-
 api `act(...)` guarantees 2 things for any code run inside its scope:
 - any state updates will be executed
 - any enqueued effects will be executed

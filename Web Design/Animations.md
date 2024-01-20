@@ -36,7 +36,7 @@ Layer creations happen for
 
 ## Transitions
 
-**CSS transitions** provide a way to control animation speed when changing CSS properties.
+**CSS transitions** provide a way to control animation when changing CSS properties.
 Events : 
 - `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
 - `transitionend` event is fired in both directions (to & back)
@@ -46,7 +46,7 @@ Events :
 [discrete animation type](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties#discrete) : properties will flip between two values 50% into run
 
 Tips
-- use `setTimeout(12ms)` to set 'TO' property of appended or display:none elements
+- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
 - use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
 
 ## Animations

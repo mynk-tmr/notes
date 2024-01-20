@@ -68,24 +68,19 @@ MIME Types : specify content types in `Accept` field, consist of a `type` an
 
 ##### Cross Origin Resource Sharing
 - allows client-side script to communicate with a server *different* from the one that loaded it.
-- Client sends a cors request to cross server `OPTIONS` verb with `Origin` header
+- Client sends a cors request to cross server  : `OPTIONS` verb with `Origin` header
 - server responds with a header `Access-Control-Allow-Origin : <domains>` 
 - If origin is part of allowed domains, cors proceeds
 
 ## API
 
-**API —** interface or standard of communication between softwares.
-
-How do APIs Work?
-- client initiates request via API’s URI
-- API makes a call to the server (after authorisation checks)
-- Server responds to API which sends it to client
+**API —** interface or standard of communication between softwares
 
 Types of API
 - **Remote APIs** : interact via network and manipulate resources on network.
 - **Web APIs** : remote API based on http protocol. It can be built using Java, .NET
 - **Local APIs** : to get local middleware services e.g. TAPI and .NET
-- **Program APIs** : makes a remote program appear to be local by making use of RPCs (Remote Procedural Calls). e.g. **SOAP** (SIMPLE OBJECT ACCESS PROTOCOL
+- **Program APIs** : makes a remote program appear to be local by making use of RPCs (Remote Procedural Calls). 
 
 Server-side APIs
 - **REST**
@@ -97,7 +92,7 @@ Server-side APIs
 
 ## REST
 
-Create, Read, Update, Delete *resources* are 4 basic functions of an API model. In a *REST* environment, CRUD refers to `POST, GET, PUT, DELETE` . Read is a `pure` operation. 
+Create, Read, Update, Delete *resources* are 4 basic functions of an API. In a *REST* environment, CRUD refers to `POST, GET, PUT, DELETE` . Read is a `pure` operation. 
 
 To design RESTful API/system
 1. create data schema of resources (key-values, types, classes etc.)
@@ -116,7 +111,7 @@ To design RESTful API/system
 ##### Statelessness
 - client + server can work without knowing each other's state and content of previous msgs.
 ##### Cachebility
-- to reduce the load on database and handle large traffic. e,g, `Redis` to implement this
+- to reduce load on database and handle large traffic. e,g, `Redis` to implement this
 - It permits any data format
 ##### Layered system
 -  inherits security from underlying TCP layer

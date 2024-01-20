@@ -1,5 +1,3 @@
-*Middleware* : software that provides services to other apps beyond those available from OS
-
 *Network* : a group of inter-connected computers or other devices
 
 *Server* : A computer or software that processes requests and serve info to other computers on a network. A server using HTTP is called **web server.**
