@@ -27,8 +27,6 @@ beforeAll(() => {
 [Using matchers](http://jestjs.io/docs/en/using-matchers), [matchers docs](https://jestjs.io/docs/en/expect)
 
 ### Basic matchers
-
-
 ```js
 .toBe(val) // Object.is
 .toEqual(val) // if val is obj
