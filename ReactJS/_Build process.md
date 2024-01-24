@@ -2,9 +2,6 @@
 ##### Folder structure
 - `/public` : static assets like fonts, imgs, etc.
 - `/src` : codebase 
-	- `App.jsx` : top-level component, rendered on app startup.
-	- `index.css` : global styles for app
-	- `main.jsx` : displays app within a `root` element
 
 ```json
 //eslintrc.cjs -> add
