@@ -236,10 +236,9 @@ componentDidUpdate(prevProps, prevState, snapshot)
 	- this.state/props refer to new ones
 ```
 
-**NOTES**
-- When [Strict Mode](https://react.dev/reference/react/StrictMode) is on, in development React will call `componentDidMount`, then immediately call [`componentWillUnmount`,](https://react.dev/reference/react/Component#componentwillunmount) and then call `componentDidMount` again. This helps you notice if you forgot to implement `componentWillUnmount` or if its logic doesn’t fully “mirror” what `componentDidMount` does.
-- When [Strict Mode](https://react.dev/reference/react/StrictMode) is on, React will call `render` twice in development and then throw away one of the results. This helps you notice the accidental side effects
-
+**Strict mode**
+- call `DidMount` -> `WillUnmount` ->  `DidMount` to see if they are mirrors. 
+- calls `render` twice to check accidental side effects
 
 ## Hooks
 
@@ -314,6 +313,7 @@ const ref = useRef(null);
 ref.current ??= initialiser();
 
 //useEffect guards
+useEffectSkipMount
 ```
 
 *drill refs* from container to DOM-level nodes
