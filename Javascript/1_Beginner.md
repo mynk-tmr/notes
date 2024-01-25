@@ -384,13 +384,27 @@ User-defined Properties `myfun.prop = expr/func;`
 #### Closure
 - combination of a function and its lexical environment specification object
 - LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access outer variables around its *definition*
-- Each closure is created with **untouched new** version of variables (for encapsulation purpose)
+- When function(s) are created / returned, they have their own *fresh copy* of closure and can only modify it
 - Like plain objects, LEX isn't garbage collected till its referenced
 - Closures can capture variables in *block/module* scope too
 
 ```js
 //common mistake... using non-block variable in loops (var ; let from outer)
 //functions created in loop will refer to end value of variable
+```
+
+**Stale closures :** capture variables that have outdated values. Created when variables aren't updated by functions
+```jsx
+function add() {
+let a = 0;
+let msg = `a is ${a}`
+const inc = () => ++a; //inc called thrice
+const log = () => msg; //knows a is 3, but `a is 0` due to stale msg
+return [inc, log];
+}
+
+//to fix, make the stale dynamically evaluated
+const log = () => `a is ${a}`;
 ```
 
 #### Arrow Functions
