@@ -125,7 +125,7 @@ Servers can extend client's functionality by transferring executable code.
 
 ## Basic Backend
 
-Server runs a **web application** that contains logic about how to respond to requests based on `routes` (`http-verb+uri`). Each `route` can have one or many request `handler` functions. Server performs `routing` of requests. 
+Server runs a **web application** that contains logic about how to respond to requests based on `routes` (`http-verb+uri`). Each `route` can have one or many request `handler` functions.
 
 **Databases** provide an interface (abstract model) to manage data at backend. 
 
