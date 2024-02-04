@@ -101,9 +101,6 @@ var g = div.file = inputFilebtn.files[0];  // obj exposed
 g.name, g.type //file name, file mime string
 if(g.size > 75 * 1024)  //check if size > 75Kb
 
-//custom file btn ; hide inp
-cstm_btn.onclick = inp.onclick();
-
 //using drag & drop
 function drop(e) {
   e.stopPropagation(); e.preventDefault();
