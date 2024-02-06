@@ -5,7 +5,6 @@ Solve problems with constructors, emulate public and private members.
 
 ```js
 //factory function
-
 function createUser (name) {
 	let nitro = false;  //private member, possible due to closure
 	let discordName = '@' + name; //public member
