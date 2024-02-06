@@ -95,7 +95,7 @@ Keyed collections
 - data structures *ordered by key* not index. e.g. Map and set objects 
 - associative in nature and use *SameValueZero* check (NaN can be key).
 - **iterable in order of insertion**
-- Map is a collection of **unique** **keyed** items, of *any* type (even objects). Plain Object allows only `String` or `Symbol` keys
+- Map is a collection of **unique** **keyed** items, where key can be *any* type (even objects). Plain Object allows only `String` or `Symbol` keys
 - Set is a iterable collection of *unique* *values* of any type 
 
 Methods and properties in both
@@ -193,7 +193,7 @@ All errors are *serializable* object with props `name` , `message` , `stack`
 fn(), obj.x, new Box()
 ++x
 //rest of unary (same pre)
-//arithmetic (P> DM > AS)
+//arithmetic (Power > DM > AS)
 //bitwise shifts
 in instanceof <= etc.//compare 
 == != etc. //equality checks
@@ -217,7 +217,7 @@ in instanceof <= etc.//compare
 
 ```jsx
 null + 2 == 2  //0 coerced
-undefined / 3 == NaN //Number(undefined) = NaN
+undefined / 3 //NaN
 'hello'.toUppercase() //auto object coercion
 '3' > 2 //true ; on comparing diff types, they're number coerced
 
@@ -396,11 +396,11 @@ User-defined Properties `myfun.prop = expr/func;`
 **Stale closures :** capture variables that have outdated values. Created when variables aren't updated by functions
 ```jsx
 function add() {
-let a = 0;
-let msg = `a is ${a}`
-const inc = () => ++a; //inc called thrice
-const log = () => msg; //knows a is 3, but `a is 0` due to stale msg
-return [inc, log];
+	let a = 0;
+	let msg = `a is ${a}`
+	const inc = () => ++a; //inc called thrice
+	const log = () => msg; //knows a is 3, but `a is 0` due to stale msg
+	return [inc, log];
 }
 
 //to fix, make the stale dynamically evaluated
@@ -425,8 +425,7 @@ obj.show = function() {  //same as show() {..} in obj
 
 obj = {
   getThisGetter() {
-    const getter = () => this;
-    return getter;
+    return () => this;
   },
 };
 
