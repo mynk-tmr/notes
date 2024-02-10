@@ -226,7 +226,7 @@ Catch if iterable is empty
 ## Async / Await
 
 Async/Await simplify the process of working with chained promises. 
-`async` function return a Promise that will resolve to function's *actual return* value (when its available)
+`async` function return a *new Promise* that will resolve to function's *actual return* value 
 
 `await <promise>`
 - suspends function execution until promise settles
@@ -276,20 +276,6 @@ __CommonJS modules__
 
 Imports are _live_ bindings and importing module _cannot change it's value_
 
-```js
-export {myfunc as default} //named to default
-
-// combine import + export
-export {default as f, g} from './no.js' 
-export * from './nat.js'  // only re-export NAMED
-
-// 4 types of import
-import {f, g as google} from './dist.js' //named 
-import mydef from './hi.js' //default  => give name
-import * as tree from './test.js' // namespace
-import "./test.js";  // side-effect
-```
-
 More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
 #### Dependency evaluation
 ```js
@@ -301,7 +287,7 @@ export const a = 2;
 import { a } from "./a.js"; //a not declared yet, so ReferenceError if accessed
 export const b = 1;
 
-//CYCLICAL DEPENDECIES are errpr-prone
+//CYCLICAL DEPENDECIES are error-prone
 ```
 
 #### Top level await
@@ -318,7 +304,7 @@ export default await colors;
 
 ##### Isomorphic modules
 - runtime agnostic modules, achieved using dependency inversion
-- modules  `binding.js` responsible for communicating with runtime should perform checks and insert polyfills / change methods according
+- modules  `binding.js` responsible for communicating with runtime should perform checks and insert polyfills / change methods accordingly
 
 ---
 #### JavaScript

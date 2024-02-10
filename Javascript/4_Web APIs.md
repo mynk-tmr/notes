@@ -93,13 +93,13 @@ Inline validation -> listen events `input` `change` `focus` `blur`
 Html's `pattern` test with \\g \\m \\i flags disabled. So use JS.
 
 
-## Files API 
+## Uploading Files 
 
 
 ```js
-var g = div.file = inputFilebtn.files[0];  // obj exposed
-g.name, g.type //file name, file mime string
-if(g.size > 75 * 1024)  //check if size > 75Kb
+inputFilebtn.files
+//each has
+, .name, .type, .size (number-bits)
 
 //using drag & drop
 function drop(e) {
@@ -110,30 +110,32 @@ function drop(e) {
 // upload & play video
 inp.onchange = () => $('video').src = URL.createObjectURL(inp.files[0])
 $('video').onload = () => URL.revokeObjectURL(video.src) //memory management
-
 ```
 
 `FileReader` object lets webpage asynchronously read contents of files selected by user
 
 ```js
-//thumbnail preview of selected file
-const reader = new FileReader();
-reader.readAsDataURL(files[0]);   //start async reading
-reader.onload = (e) => img.src = reader.result
-
-//readonly props 
-x.error  // error_obj
-x.readyState // 0 1 2 ['', loading, loaded]
-x.result //loaded file
-
-//value of result depends on read function used
-.readAsArrayBuffer()	// binary data.
-.readAsBinaryString() //string.
-.readAsDataURL()	//URL string 
-.readAsText() //contents
-
-//events on filereader
+//event based interaction
 abort, error, loadstart, progress, load /*only if success*/ , loadend
+
+//readonly properties 
+reader.error  
+reader.readyState // 0 1 2
+reader.result //loaded file, and it's type is based on method used to read file
+
+reader.readAsDataURL(file) //important
+```
+
+##### Form Data
+```jsx
+const formData = new FormData(myform, submitter);
+formData.append("username", "abc123");
+
+//for mutiple files
+const {files} = $('input[type="file"]');
+for (const [i, photo] of [...files].entries()) {
+  formData.append(`photos_${i}`, photo);
+}
 ```
 
 ## Fetch API
@@ -146,7 +148,6 @@ const response = fetch(url, options);
 //using constructor to create Request, Headers object
 const heads = new Headers({ "Content-Type": "application/json"})
 const request = new Request(url, heads) //request.url ; request["Cont..]
-fetch(request)
 ```
 
 **Options object**
@@ -162,9 +163,8 @@ fetch(request)
 **Headers object**
 - have a _guard_ to prevent malicious changes
 - methods
-	- `.append(key,value)`, `.delete(key)`, `.forEach(cb)` , `.get(key)` `.set(key,value)` , `.has(key)`
+	- `.append(key,value)`, Map methods
 	- `.getSetCookie()` : only on nodejs
-	- `.entries()`, `.keys()`, `.values()`
 
 **Response objects**
 - returned when fetch promises are resolved
@@ -175,23 +175,6 @@ fetch(request)
 //methods on Request and Response to extract body [return Promise]
 // can only run once
 .arrayBuffer() .blob() .formData() .json() .text()
-```
-
-**Uploading Form data**  `body : formData` 
-
-```jsx
-const formData = new FormData();
-const fileField = $('input[type="file"]');
-
-formData.append("username", "abc123");
-formData.append("avatar", fileField.files[0]);
-
-//for mutiple files
-for (const [i, photo] of [...fileField.files].entries()) {
-  formData.append(`photos_${i}`, photo);
-}
-
-new FormData(form, submitter) //creates formData from form fields 'name':'value' and submit button's 'name':'value'
 ```
 
 ## Window
@@ -217,17 +200,16 @@ pathname // after host/
 search //search string [?...]
 hash   // #title
 
-assign(url) //navigate to URL, push in history stack, no reload for hashchange
-location.href=url ; //same as assign
-replace(url)  //navigate but no push in stack
-reload(/*true*/)   //reload from cache OR from server
+.assign(url) //goto
+.replace(url)  //navigate but no push in stack
+.reload(/*true*/)   //reload from cache OR from server
 ```
 
 ```jsx
-const urlParams = new URLSearchParams(location.search); //iterable
-for ([key, value] of urlParams) {  // [props are delimited by &]
+const urlParams = new URLSearchParams(location.search); 
+for ([key, value] of urlParams) {  //iterable
 }
-//keys(), values(), entries()
+
 urlParams.has('brand')  //true  ; parameter check
 ```
 
@@ -236,7 +218,7 @@ urlParams.has('brand')  //true  ; parameter check
 represents state and identity of user agent. "browser sniffing" and “fingerprinting” properties often return fake values.
 ```jsx
 userAgentData.brands[0]  // {brand: 'Google Chrome', version: '119'}
-userAgentData.mobile  //false
+userAgentData.mobile  //false//keys(), values(), entries()
 userAgentData.platform // 'Linux'
 connection.downlink  // 10   /mbps/
 deviceMemory  //8
@@ -284,26 +266,15 @@ These methods follow **same-origin** url policy.
 ## Cookies API
 
 A **cookie** is a small piece of **data** exchanged between server and browser to create **statefulness** in requests and responses.
-
 Main uses — session management, personalisation, tracking user.
-
-HTTP headers
-- server (multiple `Set-cookie`) and browser (single semi-colon joined `Cookie` )
-- `Set-Cookie: id=a3fWa; Secure; HttpOnly` ⇒ send only over https and make invisible to javascript
-
 Cookie types — **permanent** (have expiry date) and **session** **(no expiry; lasts 1 session)
 
-#### Client-side cookie manipulation
-
-`document.cookie` — accessor property to create, read, and delete cookies.
+`document.cookie` — accessor property to CRUD cookies.
 
 ```jsx
 //can only set 1 cookie at time; sets name & id
 document.cookie = "name=John; max-age=100;"
 document.cookie = "id=3233; max-age=100;"
-
-//name=John; id=3233;
-console.log(document.cookie) 
 
 //decode URI (%20 -> ' ')
 let cookies = decodeURIComponent(document.cookie)
@@ -321,7 +292,7 @@ cookies.find(coo => coo.startsWith("name="))?.split("=")[1];
 Parameters
 ```js
 `expires=${dateobj.toUTCString()}` //default session
-`max-age=100` //seconds after session end; set to -ve expire
+`max-age=100` //seconds after session end; if set to -ve, will expire
 `domain=example.com` //domain to which cookie will be sent (same-origin)
 `path=/path/to/host` //on domain
 ```
@@ -331,7 +302,7 @@ Parameters
 
 **Local storage vs. Cookies**
 - Cookies are for client-server, Local storage are for client only
-- Cookies are sent in every HTTP headers and can be disabled
+- Cookies are sent in *every HTTP headers* and can be disabled
 - Cookie has a size limit of 4 Kb. Local Storage can be any.
 - Cookie has a expiration date.
 
