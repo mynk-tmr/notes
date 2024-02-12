@@ -2,8 +2,6 @@
 
 *Server* : A computer or software that processes requests and serve info to other computers on a network. A server using HTTP is called **web server.**
 
-*Internet* : global system of **interconnected networks**; the technical infrastructure. Web is a **service** built on top of the infrastructure.
-
 *Website* - a collection of linked web pages with a unique **domain** name
 
 *Packet* - A small unit of data that is transmitted over internet. **Latency** (ms) is time taken to reach its destination. **Bandwith** (bps) is the amount of data transfered per second

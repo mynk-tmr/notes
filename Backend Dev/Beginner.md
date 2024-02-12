@@ -78,8 +78,8 @@ MIME Types : specify content types in `Accept` field, consist of a `type` an
 
 Types of API
 - **Remote APIs** : interact via network and manipulate resources on network.
-- **Web APIs** : remote API based on http protocol. It can be built using Java, .NET
-- **Local APIs** : to get local middleware services e.g. TAPI and .NET
+- **Web APIs** : remote API based on http protocol. 
+- **Local APIs** : to get local middleware services
 - **Program APIs** : makes a remote program appear to be local by making use of RPCs (Remote Procedural Calls). 
 
 Server-side APIs

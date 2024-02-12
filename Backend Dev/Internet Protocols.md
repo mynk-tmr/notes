@@ -7,7 +7,7 @@ Domain name heirarchy — [www.google.co.in](http://www.google.co.in)
 - A domain name consists of **labels**, separated by dots.
 - root domain ("."), TLD (in), 2nd LD (co), domain (google), subdomain (www)
 - Domain names are managed by domain registries.
-##### DNS process
+##### DNS lookup process
 - First client searches its cache and local files. If not found, it issues a DNS request/ lookup, providing a hostname such as “[example.com](http://example.com)”.
 - this request is received by **recursive DNS resolver,** which searches for IP address with a series of recursive queries.
     - it queries root DNS server, then TLD server (“.com”) and so on.. down to master sever (or authoritative name server)
@@ -45,7 +45,7 @@ At source, data travels **down** the layer — each layer adds routing data and 
 #### Transmission Control Protocol : TCP
 - Features
     - **connection-oriented** — opens a connection to transmit data, then closes it
-    - **reliable** — for each packet received, an *acknowledgement* is sent to sender to confirm the delivery. TCP also includes a *checksum* in it's header for error-checking
+    - **reliable** — for each packet received, an *acknowledgement* is sent to sender to confirm the delivery. TCP also includes a *checksum* in headers for error-checking
     - transmits data as **stream of bytes** so they reach application layer in same order
 - Each TCP connection begins with a 3 way handshake
     - During this, various parameters like _maximum segment size & window size_ are negotiated.
@@ -137,5 +137,5 @@ SSH vs. HTTPS — https only verifies the server identity, never blocked by fire
 
 ### Webhooks
 - **HTTP-based callback function** that allows lightweight, event-driven communication between 2 APIs. An application must have an API to use a webhook.
-- Webhooks can be used to r**eceive small amounts of data** from other apps or to **trigger automation workflows** in GitOps environments.
+- Webhooks can be used to r**eceive small amounts of data** from other apps
 - Webhooks are **reverse APIs or push APIs**, because they put the responsibility of communication on server. Server sends the client a single POST request as soon as the data is available.

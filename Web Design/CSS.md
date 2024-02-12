@@ -139,4 +139,4 @@ Only applies in `normal flow` and to `block` margins that are `touching`
 - each HTML element has its own and decides how its children are stacked in z-axis within it
 - default `z-index : auto or 0`.  
 - To change `z-index` of child, take it out of flow OR place it on a new layer with `opacity`, `will-change` , `transform` 
-- Always on top element : `<select>`
+- `<select>` is always at top
