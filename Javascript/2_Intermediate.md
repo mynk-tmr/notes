@@ -88,7 +88,7 @@ Lambda calculus
 
 ## Generator Functions
 
-functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own iterator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run ever
+functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own generator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run ever
 
 ```jsx
 function* f() {
@@ -106,6 +106,15 @@ keygen.throw('error') //throw error in *f
 [...keygen] //0,1,2....
 ```
 
+##### Iterators
+- objects that abide by iteration protocol ie., 
+	- have `next()` , optionally `throw()`,  `return()`
+	- Each takes atmost 1 arg & return `{value, done}`  (IteratorResult interface)
+- they can iterate over *iterable objects* 
+	- implement `[Symbol.iterator]` 
+	- a iterator can become iterable (return `this` in `Symbol..`) e.g. generator object
+- Arraylike have index and length but aren't always iterable
+
 ##### Generator composition
 `yeild*` can be used for it. It “embeds” one generator into another by delegating execution to another generator function
 ```jsx
@@ -117,16 +126,11 @@ function* outerGenerator() {
 }
 ```
 
-##### Iterators
-- objects that abide by iteration protocol ie., a `next()` that return `{value, done}` schema
-- they can iterate over *iterable objects* that implement `[Symbol.iterator]` Such objects support `for of` and `...spread`
-- Arraylike have index and length but aren't always iterable
-
 ```js
 Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 ```
 
-|                   | Iterators                   | Async iterators        |
+|                   | Iterable                   | Async iterable        |
 | ----------------- | --------------------------- | ---------------------- |
 | Object implements | `Symbol.iterator`           | `Symbol.asyncIterator` |
 | `next()` returns  | {value, done}                   | `Promise` that resolves to {value, done}              |
@@ -361,7 +365,7 @@ JS engine apply many optimizations to speed it up
 `const` : can’t be bound to another reference during runtime
 ##### Scope Chain
 - Each scope can access values in all its enclosing scopes but not vice-versa. This approach is called **lexical scoping** 
-- names in inner scope **overshadow** outer ones. Using var to overshadow let/const is `illegal`
+- names in inner scope **overshadow** outer ones. (Err! block var trying to overshadow let/const)
 ##### Hoisting
 - process where, before code execution, interpreter relocates _func/class/variable/import_ declarations to `top` of their scope. 
 - Only functions are hoisted with their values. 

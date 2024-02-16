@@ -383,10 +383,10 @@ User-defined Properties `myfun.prop = expr/func;`
 
 #### Closure
 - combination of a function and its lexical environment specification object
-- LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access outer variables around its *definition*
-- When function(s) are created / returned, they have their own *fresh copy* of closure and can only modify it
+- LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access all variables in chain of  scope
+- When function(s) are created, they capture variables in their outer scope during creation
+	- functions created in **same run** share the closure, but in different runs do not. e.g. `useToggle` returns
 - Like plain objects, LEX isn't garbage collected till its referenced
-- Closures can capture variables in *block/module* scope too
 
 ```js
 //common mistake... using non-block variable in loops (var ; let from outer)
