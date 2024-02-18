@@ -88,10 +88,8 @@ Object.isFrozen(obj)
 Object.groupBy(arr_of_obj, cb) //return sync with original
 
 Object.entries(obj) //2D array, with a entry as [own_enum_prop, value]
-Object.fromEntries(array_2d)
+Object.fromEntries(iterable)
 
-// create object with given prototype
-child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
 
 //inherit
 Object.getPrototypeOf(dog) // Function : animal
@@ -107,10 +105,18 @@ Object.getOwnPropertyDescriptor(obj, 'name')
 Object.getOwnPropertyDescriptors(obj)
 
 //flag aware cloning -- include all symbols, properties, flags
-let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj))
+```
 
-//no-flag aware
-Object.assign(target, obj1, obj2) //exclude prototype
+```js
+Object.assign(target, obj1, obj2) 
+//copies enum own properties only, calls [get] on sources, [set] on target
+//can't copy accessor props
+//in errors, target upto error is modified
+
+// create object with given prototype
+child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
+
 structuredClone(obj) //deep copy of nested objects & circular references
 ```
 
@@ -260,7 +266,7 @@ regex3.exec("foo bar foo").indices  // [[8,11]] ; stateful
 
 //group capture & replace
 str.replace(/(-)(\w)/g, "$2$1")
-str.replace(regex, (current_match, ...groups) => 
+str.replace(regex, (full_match, ...groups) => 
   groups[1].toUpperCase())  //on hit, curr replaced with returned val
 ```
 

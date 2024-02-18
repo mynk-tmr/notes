@@ -4,7 +4,7 @@
 - Object-to-Object inheritance model using prototypes (a special internal property of each object).
 - Objects link their `.prototype` to share properties and form a *chain*. Each object inherits all properties present **up** the prototype chain
 - At runtime, property lookup starts at object and goes up the chain, until a match is found.
-- Object's own props **shadow** properties available in chain. 
+- Object's *own* props **shadow** properties available in chain. 
 - Cons
 	- no multiple inhertiance ⇒ allows only 1 parent prototype
 	- changing prototype of a constructor breaks chain
