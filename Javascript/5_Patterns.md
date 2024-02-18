@@ -2,19 +2,6 @@
 
 These functions create objects and return them. 
 Solve problems with constructors, emulate public and private members.
-
-```js
-//factory function
-function createUser (name) {
-	let nitro = false;  //private member, possible due to closure
-	let discordName = '@' + name; //public member
-	let buyNitro = () => nitro = true; //privileged method that access private data.
-  return {discordName, showNitro = () => nitro}; //exposing members by return
-}
-
-olive = createUser('olive') //no new syntax
-```
-
 ### Implementing Inheritance
 
 ```js
