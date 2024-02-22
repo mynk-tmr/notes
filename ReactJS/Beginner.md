@@ -87,8 +87,6 @@ For nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 - Rules
 	- siblings must have *unique* keys
 	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
-- not sent in props
-- if list never -/+/reorder, you can `key={index}` (default react)
 
 ### EXAMPLES
 
@@ -256,9 +254,8 @@ const [state, setState] = useState(0); //init value used only on mount
 //a[0] current state
 //a[1] setter to update state & schedule re-rendering
 
-useState(initializer) //its return serves as init, runs only on mount
-setState(updater) //uses previous state to return next state (safer)
-//both must be PURE FUNCTIONS
+useState(initializer) 
+setState(updater)  //both must be PURE FUNCTIONS
 ```
 
 ##### How state updates (batching)
