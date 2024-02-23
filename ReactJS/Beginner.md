@@ -88,18 +88,6 @@ For nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 	- siblings must have *unique* keys
 	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
 
-### EXAMPLES
-
-To render **lists**, use `iterative` methods and keys.
-```jsx
-//inline
-return <ul>{msg.map((txt,i) => <li key={i}>{txt}</li>)}</ul>
-
-//using variable
-msgList = msg.map((txt,i) => <li key={i}>{txt}</li>);
-return <ul>{msgList}</ul>
-```
-
 
 ## Components
 

@@ -7,7 +7,7 @@ A *stateless* method of securely transmitting info as JSON. Stateless means each
 - A *Signature* :  to verify token’s integrity (output of `jwt.sign`)
 ##### JWT authentication working
 - *Token Generation*: server generates a JSON token identifying user and auth session (like expiry date)
-- *Token Storage:*  client stores that as cookie (or in local storage)
+- *Token Storage:*  client stores that as `http only` cookie
 - *User Verification*: In a request, client sends **stored jwt** in headers (`credentials: include`) to server to get access to protected resources
 - *Token Expiration:* now re-login to obtain new JWT
 ##### Best practices
