@@ -1,10 +1,10 @@
 ## Emmet
 
-| **CSS** |  |
-| ---- | ---- |
+| **CSS**                                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-prop` - suggest vendors<br>`bg+` - shorthand autofill<br>`bxsh` : box-shadow autofill<br>`tac` - text-align:center;<br>`pos:s` - position: static;<br>`bdtc:t` - border-top-color: transparent;<br>`prop:no` - prop: none;<br>`@f+` - @font-face { src...}<br>`anim-` - shorthand animation | `m20` : px<br>`m20p` : 20%<br>`m20p-40` : 20% 40px<br>`m0-a` : 0 auto;<br>`fz2e` : font-size: 2em;<br>`fz.8r`: 0.8rem;<br>`cr` : color: rgb(0, 0, 0) [_tabs_ to jump edit ]<br>`animdur:30ms`<br>`p2r+fz16` : multiple styles |
-| **HTML** |  |
-| Number<br>`$` replaced by no.  \|  `$@-` reverse no.  <br>`$$$` 001 002...     \|  `$@5`  start from 5<br><br>`c` : comment<br>`select+` `pic+` : add + to autofill required children | ^ climb up<br>text {hello $} |
+| **HTML**                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                               |
+| Number<br>`$` replaced by no.  \|  `$@-` reverse no.  <br>`$$$` 001 002...     \|  `$@5`  start from 5<br><br>`c` : comment<br>`select+` `pic+` : add + to autofill required children                                                                                                         | ^ climb up<br>text {hello $}                                                                                                                                                                                                  |
 
 ## Linux Commands
 

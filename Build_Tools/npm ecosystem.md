@@ -22,7 +22,6 @@ nvm use --lts
 npm docs lodash #open doc website
 npm i npm@latest -g #upgrade
 
-npm create vite@latest #vite
 npm get init-license #default value
 npm set init-license 'MIT' #default value
 npm config edit #open editor
@@ -82,7 +81,7 @@ pretest test postest
 
 ## package.json
 
-`package.json` contains metadata about the project and its  dependencies. It helps npm to handle project
+`package.json` contains metadata about the project and its dependencies. It helps npm to handle project
 
 `package-lock.json` records exact version of each installed package & dependencies -- to build identical dependency tree in every dEV environment. PUSH this.
 
