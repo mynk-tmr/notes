@@ -27,7 +27,7 @@
 
 Right clicking an Element let you do much more stuff, like setting DOM breakpoints.
 
-### Styles Sidebar
+### Styles subpanel
 
 |                                  | Windows / Linux                                                       |
 | -------------------------------- | --------------------------------------------------------------------- |
@@ -72,28 +72,3 @@ Right clicking an Element let you do much more stuff, like setting DOM breakpoin
 | Clear History     | Ctrl + L                |
 | Multiline entry   | Shift + Enter           |
 | Preserve Log      | Right click > select it |
-
-## Other Chrome tools
-
-### Flags
-
-| Feature                 | Description                          |
-| ----------------------- | ------------------------------------ |
-| -disable-javascript     | Disable JavaScript from command line |
-| -disable-images         | Disable images                       |
-| -disable-plugins        | Disable plugins                      |
-| -disable-popup-blocking | Disable popup blocking               |
-| -start-maximized        | Start Chrome fullscreen              |
-
-### about:pages
-
-| Feature          | Description                                                |
-| ---------------- | ---------------------------------------------------------- |
-| about:stats      | Display page statistics.                                   |
-| about:memory     | Display memory usage                                       |
-| about:dns        | Display DNS information.                                   |
-| about:cache      | Display cached web pages.                                  |
-| about:network    | Display a menu for various network monitoring and testing. |
-| view-cache:stats | Display cached documents.                                  |
-
----

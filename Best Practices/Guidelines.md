@@ -1,5 +1,4 @@
 ##### Github
-- Never *hardcode* 'API key' in code, bad bots can see them
 - Caution
     1. never `git amend/reset` commits pushed to remote.
     2. never `git rebase` a branch, others are working on
@@ -8,9 +7,7 @@
 ##### Javascript
 - breakpoints over console.log 
 - log only *stringified* object in complex apps
-- comment only purpose ; not what's happening
 - comment on complex *regex*
-- follow TDD --> write tests for code, before actual code.
 - avoid callback hell
 	- avoid deep nesting & anon-funcs
 	- define functions at *top*-level in code
