@@ -367,6 +367,7 @@ _translations_ with `hreflang`
 <link rel="alternate stylesheet" title="Dark Mode" href="darkmode.css" />
 ```
 
+
 ---
 ### Script loading
 
@@ -499,3 +500,21 @@ all coords : `x, y` etc..  [svg2.0]   | `font-*` `text-decoration`
 `fill` : bgcol                                 | `overflow`
 `stroke-width` : border-width       | `direction`
 `display, opacity, visibility, mask`  |  _clip-path ,transition, animation_
+
+
+## Viewport
+
+##### Virtual viewport
+- visible area `<body>` of a webpage. It is split into
+	- *layout* viewport : contains all elements which may or not appear on screen
+	- *visual* viewport : part of page currently shown (excludes user-widgets, url bars ie., things we can't scale)
+- `viewport` meta : sets *virtual* viewport explicitly and disable default *shrink-to-fit* behavior
+- content values : (none can be -ve)
+	- `width,height` : set viewport W/H. => `device-width, 600`
+	- `initial-scale`: zoom level on load (0.1 to 10)
+	- `minimum-scale or maximum-scale` : max/min range 
+	- `user-scalable` : 1 or 0
+	- `interactive-widget` : set how UI widgets affect viewport
+		- `=resizes-visual` : default; widget resizes only *visual* viewport
+		- `=resizes-content`: viewport resizes *entire* viewport
+		- `=overlays-content`: no resizing
