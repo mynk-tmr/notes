@@ -51,7 +51,7 @@ alert('hello') // log 'hello'
 ```jsx
 let p = Promise.reject('why');
 setTimeout(
-	() => promise.catch(() => alert('caught')), //new task
+	() => p.catch(() => alert('caught')), //new task
 	1000);
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 
