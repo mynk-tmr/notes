@@ -89,9 +89,9 @@ function findSolution(num) {
 function cleanProps(input) {
 	let newObj = {};
 	void function normal(obj = input, name = '') {
-	for (key in obj)
-	if (typeof obj[key] == 'object') normal(obj[key], name + key + '_');
-	else newObj[name + key] = obj[key];
+		for (key in obj)
+			if (typeof obj[key] == 'object') normal(obj[key], name + key + '_');
+			else newObj[name + key] = obj[key];
 	}();
 	return newObj;
 }
