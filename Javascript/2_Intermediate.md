@@ -111,7 +111,7 @@ keygen.throw('error') //throw error in *f
 	- have `next()` , optionally `throw()`,  `return()`
 	- Each takes atmost 1 arg & return `{value, done}`  (IteratorResult interface)
 - they can iterate over *iterable objects* 
-	- implement `[Symbol.iterator]` 
+	- implement `[Symbol.iterator]` and return iterator
 	- a iterator can become iterable (return `this` in `Symbol..`) e.g. generator object
 - Arraylike have index and length but aren't always iterable
 
