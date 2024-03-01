@@ -35,7 +35,6 @@ for(key in obj1) dothis();  //O(n)
 for(key2 in obj2) dothat(); //O(n) -> O(2n) -> O(n)
 ```
 
-
 **Memory**
 - cache -> primary -> secondary (speeds)
 - program+state exist in secondary (RAM) ; had to be loaded to primary so CPU can access
@@ -113,7 +112,6 @@ Recursively-defined data structure can be defined using itself like *linked lis
 
 ![[Pasted image 20231215004401.png]]
 
-
 ### Greedy Algorithm
 
 Selecting the best option available at the moment, without considering future.
@@ -135,11 +133,5 @@ Examples
 
 - [Selection Sort](https://www.programiz.com/dsa/selection-sort)
 - [Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem)
-- [Minimum Spanning Tree](https://www.programiz.com/dsa/spanning-tree-and-minimum-spanning-tree)
-- [Single-Source Shortest Path Problem](https://en.wikipedia.org/wiki/Shortest_path_problem)
-- Job Scheduling Problem
-- [Prim's Minimal Spanning Tree Algorithm](https://www.programiz.com/dsa/prim-algorithm)
-- [Kruskal's Minimal Spanning Tree Algorithm](https://www.programiz.com/dsa/kruskal-algorithm)
-- [Dijkstra's Minimal Spanning Tree Algorithm](https://www.programiz.com/dsa/dijkstra-algorithm)
 - [Huffman Coding](https://www.programiz.com/dsa/huffman-coding)
 - [Ford-Fulkerson Algorithm](https://www.programiz.com/dsa/ford-fulkerson-algorithm)

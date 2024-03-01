@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Design/CSS.md",
+                "file": "Interview/DS-Algorithms.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Web Design/CSS.md",
+                "file": "Interview/DS-Algorithms.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Web Design/CSS.md",
+                "file": "Interview/DS-Algorithms.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Web Design/CSS.md"
+                "file": "Interview/DS-Algorithms.md"
               }
             }
           }
@@ -149,8 +149,10 @@
   },
   "active": "888e79cef77450bf",
   "lastOpenFiles": [
-    "Web Design/Animations.md",
+    "Interview/Interview_Topics.md",
+    "Interview/DS-Algorithms.md",
     "Web Design/CSS.md",
+    "Web Design/Animations.md",
     "Web Design/HTML.md",
     "Web Design/webforms.md",
     "Web Design/Patterns.md",
@@ -172,7 +174,6 @@
     "Backend Dev/Internet Protocols.md",
     "Backend Dev/Express.md",
     "Backend Dev/Beginner.md",
-    "Backend Dev/Authentication.md",
-    "Javascript/2_Intermediate.md"
+    "Backend Dev/Authentication.md"
   ]
 }
