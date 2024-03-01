@@ -1,0 +1,178 @@
+{
+  "main": {
+    "id": "d23c348b10834215",
+    "type": "split",
+    "children": [
+      {
+        "id": "13cbff587dbb7e4d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "888e79cef77450bf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Web Design/CSS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "172a113fd3db167c",
+    "type": "split",
+    "children": [
+      {
+        "id": "261e971aeaa33987",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "79734d9ecf56138d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bf33ba1737d6461e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "47817da78e5fd994",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 204.5
+  },
+  "right": {
+    "id": "405b630c95c62d76",
+    "type": "split",
+    "children": [
+      {
+        "id": "d6d57ea6d50f0d01",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "902a468129695f76",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Web Design/CSS.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "05a64c87da138984",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Web Design/CSS.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c3f6dee5cfd1fb37",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "a4fe406f381ad6d1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Web Design/CSS.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "888e79cef77450bf",
+  "lastOpenFiles": [
+    "Web Design/Animations.md",
+    "Web Design/CSS.md",
+    "Web Design/HTML.md",
+    "Web Design/webforms.md",
+    "Web Design/Patterns.md",
+    "Web Design/Accessiblity.md",
+    "ReactJS/Tests and Lints.md",
+    "ReactJS/React Ecosystem.md",
+    "ReactJS/Beginner.md",
+    "Javascript/Built-in Methods.md",
+    "Javascript/5_Patterns.md",
+    "Javascript/4_Web APIs.md",
+    "Javascript/3_DOM.md",
+    "Javascript/1_Beginner.md",
+    "Build_Tools/Testing.md",
+    "Build_Tools/Git.md",
+    "Build_Tools/ChromeDev.md",
+    "Build_Tools/_Notations.md",
+    "Best Practices/Guidelines.md",
+    "Backend Dev/Terms.md",
+    "Backend Dev/Internet Protocols.md",
+    "Backend Dev/Express.md",
+    "Backend Dev/Beginner.md",
+    "Backend Dev/Authentication.md",
+    "Javascript/2_Intermediate.md"
+  ]
+}

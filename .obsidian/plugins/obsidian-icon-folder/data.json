@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "migrated": 4,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "none",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "LiRemoveFormatting",
+      "LiTv",
+      "LiLandmark",
+      "LiScissors",
+      "LiFan"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": false,
+    "iconInTitleEnabled": false,
+    "iconInFrontmatterEnabled": false,
+    "iconsBackgroundCheckEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconIdentifier": ":"
+  },
+  "Backend Dev/Authentication.md": "LiLock",
+  "Backend Dev/Beginner.md": "LiPersonStanding",
+  "Backend Dev/Express.md": "LiWebhook",
+  "Backend Dev/Internet Protocols.md": "LiRepeat",
+  "Backend Dev/Terms.md": "LiMoreVertical",
+  "Best Practices/Guidelines.md": "LiCircleEllipsis",
+  "Javascript/1_Beginner.md": "LiPersonStanding",
+  "Javascript/2_Intermediate.md": "LiGitlab",
+  "Javascript/3_DOM.md": "LiListFilter",
+  "Javascript/4_Web APIs.md": "LiMessageCircleCode",
+  "Javascript/5_Patterns.md": "LiZap",
+  "Javascript/Built-in Methods.md": "LiCheck",
+  "ReactJS/Beginner.md": "LiPersonStanding",
+  "ReactJS/React Ecosystem.md": "LiAlignCenterHorizontal",
+  "ReactJS/Tests and Lints.md": "LiTestTube",
+  "Web Design/Accessiblity.md": "LiAccessibility",
+  "Web Design/Animations.md": "LiFan",
+  "Web Design/CSS.md": "LiScissors",
+  "Web Design/HTML.md": "LiLandmark",
+  "Web Design/Patterns.md": "LiTv"
+}

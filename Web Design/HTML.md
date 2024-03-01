@@ -518,3 +518,72 @@ all coords : `x, y` etc..  [svg2.0]   | `font-*` `text-decoration`
 		- `=resizes-visual` : default; widget resizes only *visual* viewport
 		- `=resizes-content`: viewport resizes *entire* viewport
 		- `=overlays-content`: no resizing
+
+
+## Forms
+
+```html
+<output>
+<textarea rows='8' cols='10' resize='none'> Placeholder</textarea>
+
+<!-- drop-down -->
+<select multiple> 
+  <optgroup label='subheading'>
+    <option value='1'>Banana</option>
+
+<!-- track bars ; they are inline elements -->
+<progress value="32" max="100">32%</progress> <!-- fallback child -->
+<meter min max low optimum high > <!-- divide range & color codes it -->
+
+<!-- range -->
+<input type='range' min max step style="appearance: slider-vertical"> 
+
+<!-- single fields -->
+<input type='url| text | password | email | hidden | search | tel'> 
+<input type='image' src='pp.jpg' alt='click'> // sends coords in img
+<input type='file' accept='audio/*, .json' capture='user'> //if 'environment' uses plugged in
+
+<!-- supported attrs -->
+<input multiple spellcheck='true' inputmode='tel' maxlength='30' minlength pattern >
+
+<!-- numeric input types -->
+<input type='number' min max step='2 | any'> <!-- any enable float -->
+
+<!-- date -->
+<input type='date | time | datetime-local | month | year'/>
+
+```
+
+##### Other attributes
+`autocomplete` `autofocus`
+`disabled` : disable the control (NOT validated or submitted)
+`readonly`: validated and submitted
+`form='form_id'` : associate with a form
+`formaction` : URL for submission on submit and image buttons
+
+## Psuedo-selectors 
+
+```css
+:enabled :disabled :read-only :read-write :placeholder-shown 
+:auto-fill :required :optional :blank
+
+:valid :invalid :indeterminate :user-invalid /* ignore browser invalid */
+
+:in-range :out-of-range :checked :default
+
+input::placeholder
+input[type='file']::-webkit-file-upload-button
+```
+
+## Good UI / UX
+
+- Aim for inline validations and show errors near field
+- Avoid tooltips 
+- Don't disable the submit button
+- Show positive feedback too (green checks)
+- Add Iconography to feedbacks
+- Don't use Modals
+- Show allowed values pattern right away
+
+Common Regex : https://www.html5pattern.com/Names
+Regex tutorial : https://www.sitepoint.com/demystifying-regex-with-practical-examples/

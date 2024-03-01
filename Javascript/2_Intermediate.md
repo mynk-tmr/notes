@@ -130,12 +130,12 @@ function* outerGenerator() {
 Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 ```
 
-|                   | Iterable                   | Async iterable        |
-| ----------------- | --------------------------- | ---------------------- |
-| Object implements | `Symbol.iterator`           | `Symbol.asyncIterator` |
-| `next()` returns  | {value, done}                   | `Promise` that resolves to {value, done}              |
-| to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`        |
-| features          | can be `...spread`          | NO                     |
+|                   | Iterable                                         | Async iterable                           |
+| ----------------- | ------------------------------------------------ | ---------------------------------------- |
+| Object implements | `Symbol.iterator`                                | `Symbol.asyncIterator`                   |
+| `next()` returns  | {value, done}                                    | `Promise` that resolves to {value, done} |
+| to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`                          |
+| features          | can be `...spread`                               | NO                                       |
 ```jsx
 async function* f(urls) {
   for (let i = 0; i <= 5; i++) {
@@ -345,13 +345,11 @@ Execution : takes place for each execution context,
 - If object is *weakly referenced*, it can be garbage collection if it is unreachable via hard link
 
 **“mark-and-sweep”** : basic garbage collection algorithm
-```go
-1- “mark” (remember) roots
-2- mark all references from them
-3- visit marked objects and mark their references. 
-4- repeat 3rd step until no objects can be marked.
-5- remove all 'unmarked' objects
-```
+1. “mark” (remember) roots
+2. mark all references from them
+3. visit marked objects and mark their references. 
+4. repeat 3rd step until no objects can be marked.
+5. remove all 'unmarked' objects
 
 JS engine apply many optimizations to speed it up
  - **Generational collection** – objects are split into two sets: “new ones” and “old ones”. Objects which remain in memory for long are considered old and examined less often.
@@ -397,7 +395,7 @@ alert("code");
 // "code promise timeout" because macro -> micro -> macro
 ```
 
-**Scheduling Execution**
+##### Scheduling Execution
 - Browser starts enforcing **atleast 4ms** delay if same callback has been scheduled **5 or more** times.
 - Timer may slow down
     - on tabs that are inactive or streaming or loading page
@@ -405,8 +403,7 @@ alert("code");
 - timer continues “ticking” while showing alert/confirm/prompt.
 - **Zero delay scheduling** is used to execute code immediately after current task
 
-**Web Workers**
-
+##### Web Workers
 Run code in different parallel thread. Can exchange messages with the main process, but they have their own variables, and their own event loop.  JS never shares data across threads
 
 Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
