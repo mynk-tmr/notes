@@ -113,15 +113,6 @@ Recursively-defined data structure can be defined using itself like *linked lis
 ![[Pasted image 20231215004401.png]]
 
 ### Greedy Algorithm
-
-Selecting the best option available at the moment, without considering future.
-
-We can greedify, if any one holds
-1. best local step at any moment -> global optimal solution
-2. optimal overall solution is sum of optimal solution to its subproblems 
-
-Cons
-- never reverses the earlier decision. 
  
 Premise 
 1. let N = empty solution set

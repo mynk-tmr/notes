@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Interview/Dynamic Programming.md",
+                "file": "Interview/DS-Algorithms.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Interview/Dynamic Programming.md",
+                "file": "Interview/DS-Algorithms.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Interview/Dynamic Programming.md",
+                "file": "Interview/DS-Algorithms.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Interview/Dynamic Programming.md"
+                "file": "Interview/DS-Algorithms.md"
               }
             }
           }
@@ -149,8 +149,8 @@
   },
   "active": "b419f9e2377e111b",
   "lastOpenFiles": [
-    "Interview/DS-Algorithms.md",
     "Interview/Dynamic Programming.md",
+    "Interview/DS-Algorithms.md",
     "Interview/Interview_Topics.md",
     "Web Design/CSS.md",
     "Web Design/Animations.md",
