@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiCandyCane",
       "LiRemoveFormatting",
       "LiTv",
       "LiLandmark",
-      "LiScissors",
-      "LiFan"
+      "LiScissors"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -46,5 +46,6 @@
   "Web Design/Animations.md": "LiFan",
   "Web Design/CSS.md": "LiScissors",
   "Web Design/HTML.md": "LiLandmark",
-  "Web Design/Patterns.md": "LiTv"
+  "Web Design/Patterns.md": "LiTv",
+  "Interview/Dynamic Programming.md": "LiCandyCane"
 }

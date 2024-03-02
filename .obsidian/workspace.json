@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "888e79cef77450bf",
+            "id": "b419f9e2377e111b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Interview/Dynamic Programming.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Interview/Dynamic Programming.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Interview/Dynamic Programming.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Interview/DS-Algorithms.md"
+                "file": "Interview/Dynamic Programming.md"
               }
             }
           }
@@ -147,10 +147,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "888e79cef77450bf",
+  "active": "b419f9e2377e111b",
   "lastOpenFiles": [
-    "Interview/Interview_Topics.md",
     "Interview/DS-Algorithms.md",
+    "Interview/Dynamic Programming.md",
+    "Interview/Interview_Topics.md",
     "Web Design/CSS.md",
     "Web Design/Animations.md",
     "Web Design/HTML.md",
@@ -173,7 +174,6 @@
     "Backend Dev/Terms.md",
     "Backend Dev/Internet Protocols.md",
     "Backend Dev/Express.md",
-    "Backend Dev/Beginner.md",
-    "Backend Dev/Authentication.md"
+    "Backend Dev/Beginner.md"
   ]
 }
