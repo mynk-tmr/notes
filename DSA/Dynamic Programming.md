@@ -7,6 +7,8 @@
 	- all possible ways --> sum them
 	- min/max/or/and --> apply these to them
 
+`Memoize --> Tabulate --> Space Optimise`
+
 ##### Pick & Ignore method
 
 ```js
