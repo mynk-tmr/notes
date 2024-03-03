@@ -121,8 +121,6 @@ Premise
 4. repeat 2-3 until a solution is reached.
 
 Examples
-
-- [Selection Sort](https://www.programiz.com/dsa/selection-sort)
 - [Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem)
 - [Huffman Coding](https://www.programiz.com/dsa/huffman-coding)
 - [Ford-Fulkerson Algorithm](https://www.programiz.com/dsa/ford-fulkerson-algorithm)

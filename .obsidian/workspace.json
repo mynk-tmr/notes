@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Web Design/CSS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Web Design/CSS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Interview/DS-Algorithms.md",
+                "file": "Web Design/CSS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Interview/DS-Algorithms.md"
+                "file": "Web Design/CSS.md"
               }
             }
           }
@@ -149,15 +149,15 @@
   },
   "active": "b419f9e2377e111b",
   "lastOpenFiles": [
-    "Interview/Dynamic Programming.md",
+    "Web Design/Accessiblity.md",
+    "Web Design/Animations.md",
+    "Web Design/Patterns.md",
+    "Web Design/HTML.md",
+    "Web Design/CSS.md",
     "Interview/DS-Algorithms.md",
     "Interview/Interview_Topics.md",
-    "Web Design/CSS.md",
-    "Web Design/Animations.md",
-    "Web Design/HTML.md",
+    "Interview/Dynamic Programming.md",
     "Web Design/webforms.md",
-    "Web Design/Patterns.md",
-    "Web Design/Accessiblity.md",
     "ReactJS/Tests and Lints.md",
     "ReactJS/React Ecosystem.md",
     "ReactJS/Beginner.md",
