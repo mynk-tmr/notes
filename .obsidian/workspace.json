@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Dynamic Programming.md",
+                "file": "DSA/DS-Algorithms.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Dynamic Programming.md",
+                "file": "DSA/DS-Algorithms.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Dynamic Programming.md",
+                "file": "DSA/DS-Algorithms.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Dynamic Programming.md"
+                "file": "DSA/DS-Algorithms.md"
               }
             }
           }
@@ -147,18 +147,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "24a5a5b12f6f044e",
+  "active": "79734d9ecf56138d",
   "lastOpenFiles": [
+    "DSA/Dynamic Programming.md",
     "Untitled.md",
     "Interview/Interview_Topics.md",
     "DSA",
-    "Interview/DS-Algorithms.md",
+    "DSA/DS-Algorithms.md",
     "Web Design/CSS.md",
     "Web Design/Accessiblity.md",
     "Web Design/Animations.md",
     "Web Design/Patterns.md",
     "Web Design/HTML.md",
-    "DSA/Dynamic Programming.md",
     "Web Design/webforms.md",
     "ReactJS/Tests and Lints.md",
     "ReactJS/React Ecosystem.md",
