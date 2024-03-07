@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 204.5
+    "width": 204.5,
+    "collapsed": true
   },
   "right": {
     "id": "405b630c95c62d76",
@@ -144,16 +145,20 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "24a5a5b12f6f044e",
   "lastOpenFiles": [
-    "DSA/Dynamic Programming.md",
+    "Excalidraw/Drawing 2024-03-07 01.12.18.excalidraw.md",
+    "DSA/DS-Algorithms.md",
+    "Excalidraw",
     "Untitled.md",
+    "Untitled.canvas",
+    "DSA/Dynamic Programming.md",
     "Interview/Interview_Topics.md",
     "DSA",
-    "DSA/DS-Algorithms.md",
     "Web Design/CSS.md",
     "Web Design/Accessiblity.md",
     "Web Design/Animations.md",
@@ -174,7 +179,6 @@
     "Build_Tools/_Notations.md",
     "Best Practices/Guidelines.md",
     "Backend Dev/Terms.md",
-    "Backend Dev/Internet Protocols.md",
-    "Backend Dev/Express.md"
+    "Backend Dev/Internet Protocols.md"
   ]
 }
