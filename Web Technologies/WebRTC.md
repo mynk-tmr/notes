@@ -4,9 +4,26 @@
 - Websocket connections begin with a **handshake** to upgrade to bidirectional mode. 
 
 ##### WebRTC
-- real time communication between browsers. Data never touches server.
-- uses *UDP*. (speed, but unreliable). Has no built-in signalling 
-- websockets use server (& can signal)
+- a set of technologies for peer to peer duplex real-time communication between browsers. Data never touches server.
+- uses *UDP*. (speed, but unreliable).
 - **Signalling** : both peers share 
 	- a *session description protocol* -> an object with metadata about session connection like codec, media type, etc
-	- *ICE candidates* -> endpoint (IP+socket) to receive data. Peer obtains it from a *stun* server and relays it to other
+	- *ICE candidates* -> endpoint (public IP+socket) to receive data. Peer obtains it from a *stun* server and relays it to other
+- websocket server performs signalling, then webrtc proceeds
+
+### Architecures
+
+**Mesh:**
+- devices connect directly, acting as peers. Each participant sends their media stream directly to every other participant.
+    - No central server required
+    - Low latency for small groups.
+- But
+    - High bandwidth usage, CPU usage, doesn't scale
+
+**Selective Forwarding Unit:**
+- central server (SFU) is involved which acts as forwarder
+- Pros
+    - solve mesh issues
+    - Allows for features like *simulcasting* (sending streams at different qualities) and recording.
+
+Mesh is ideal for small, private calls where minimizing latency is crucial. SFU is better suited for larger audience
