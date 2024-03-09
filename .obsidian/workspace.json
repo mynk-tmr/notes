@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "24a5a5b12f6f044e",
+            "id": "35f45e4e499de59e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/DS-Algorithms.md",
+                "file": "Web Technologies/WebRTC.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 204.5,
-    "collapsed": true
+    "width": 204.5
   },
   "right": {
     "id": "405b630c95c62d76",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/DS-Algorithms.md",
+                "file": "Web Technologies/WebRTC.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/DS-Algorithms.md",
+                "file": "Web Technologies/WebRTC.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/DS-Algorithms.md"
+                "file": "Web Technologies/WebRTC.md"
               }
             }
           }
@@ -149,36 +148,36 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "35f45e4e499de59e",
   "lastOpenFiles": [
-    "Excalidraw/Drawing 2024-03-07 01.12.18.excalidraw.md",
-    "DSA/DS-Algorithms.md",
-    "Excalidraw",
-    "Untitled.md",
-    "Untitled.canvas",
-    "DSA/Dynamic Programming.md",
-    "Interview/Interview_Topics.md",
-    "DSA",
-    "Web Design/CSS.md",
+    "Backend Dev/Internet Protocols.md",
     "Web Design/Accessiblity.md",
-    "Web Design/Animations.md",
-    "Web Design/Patterns.md",
+    "Web Design/CSS.md",
     "Web Design/HTML.md",
-    "Web Design/webforms.md",
-    "ReactJS/Tests and Lints.md",
-    "ReactJS/React Ecosystem.md",
-    "ReactJS/Beginner.md",
+    "Web Design/Patterns.md",
+    "Web Technologies/WebRTC.md",
+    "Backend Dev/Terms.md",
+    "Backend Dev/Express.md",
+    "Backend Dev/Beginner.md",
+    "Backend Dev/Authentication.md",
+    "Web Technologies/Project Ideas.md",
     "Javascript/Built-in Methods.md",
+    "Interview/Tricky-Questions.md",
+    "Interview/Interview_Topics.md",
+    "DSA/DS-Algorithms.md",
+    "Build_Tools/Git.md",
+    "Build_Tools/ChromeDev.md",
+    "Build_Tools/Testing.md",
+    "Build_Tools/QoL.md",
     "Javascript/5_Patterns.md",
     "Javascript/4_Web APIs.md",
     "Javascript/3_DOM.md",
+    "Javascript/2_Intermediate.md",
     "Javascript/1_Beginner.md",
-    "Build_Tools/Testing.md",
-    "Build_Tools/Git.md",
-    "Build_Tools/ChromeDev.md",
-    "Build_Tools/_Notations.md",
-    "Best Practices/Guidelines.md",
-    "Backend Dev/Terms.md",
-    "Backend Dev/Internet Protocols.md"
+    "Excalidraw/Drawing 2024-03-07 01.12.18.excalidraw.md",
+    "DSA/Dynamic Programming.md",
+    "Excalidraw",
+    "Untitled.canvas",
+    "DSA"
   ]
 }

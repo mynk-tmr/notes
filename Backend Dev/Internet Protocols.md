@@ -126,12 +126,6 @@ SSH vs. HTTPS — https only verifies the server identity, never blocked by fire
 **Managed File Transfer** support protocols like SFTP and FTPS. Used in banking industry, MFT provides additional encryption.
 
 ## Trending
-
-### WebSockets
-- provides full-duplex channels(=bidirectional) over a single TCP connection. 
-- differs from HTTP — gives a **persistent connection** that **both parties can use** to send data at any time.
-- Websocket connections begin with a **handshake.** Once the connection is established, communication switches to a bidirectional protocol. 
-- HTTP for sending web pages and websockets to update them.
 ### Server-sent events
 - allows a server to send events to client. Browser converts http stream into Event objects
 
