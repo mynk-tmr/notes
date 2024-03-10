@@ -13,12 +13,13 @@
 
 ### Architecures
 
+**P2P**: private 2 peer communication
+
 **Mesh:**
-- devices connect directly, acting as peers. Each participant sends their media stream directly to every other participant.
-    - No central server required
-    - Low latency for small groups.
-- But
-    - High bandwidth usage, CPU usage, doesn't scale
+- Each peer sends their media stream directly to every other peer.
+- No central server required
+- Low latency for small groups.
+- But High bandwidth usage, CPU usage, doesn't scale
 
 **Selective Forwarding Unit:**
 - central server (SFU) is involved which acts as forwarder
