@@ -329,22 +329,10 @@ listRef.current.lastChild.scrollIntoView();
 	- case where all components between container and descendant must forward props
 	- causes re-render of every forwarding component
 - enable components to render differently based on context
-- To override a context, wrap children with different context value
+- To **override** a context, wrap children with different context value
 - Use cases : theming, current user data, routing 
 - Cons
 	- can cause all consumer components to re-render on updates
-
-```jsx
-export const Ctx = createContext(null); //create context object
-
-//provide context value to entire component tree
-<Ctx.Provider value={props}> 
-	<Tree/>
-</Ctx.Provider>
-
-//get CLOSEST Ctx.Provider value
-const {prop1, prop2} = useContext(Ctx); 
-```
 
 ### useReducer hook
 - adds a *reducer* function to manage complex state transitions. It must be *pure* and map old state and *action* object to a new state
@@ -359,21 +347,8 @@ const {prop1, prop2} = useContext(Ctx);
 - returns a **snapshot** of data
 
 ```jsx
-//custom hook to see online status
-export const useOnlineStatus = () => useSyncExternalStore(subscribe, getSnapshot)
-
-//get immutable snapshot of data at a point
-const getSnapshot = () => navigator.onLine ;
-
-//subscribe to events/changes ; return a function that unsuscribes
-function subscribe(getter) {
-	window.addEventListener('online', getter)
-	window.addEventListener('offline', getter)
-	return function() {
-		window.removeEventListener('online', getter)
-		window.removeEventListener('offline', getter)	
-	} 
-}
+useSyncExternalStore(subscribe, getter)
+//subscribe(getter) {..} -> to sub & unsub (return) getter from event
 ```
 
 
