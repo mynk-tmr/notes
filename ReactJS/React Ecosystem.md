@@ -54,19 +54,15 @@ Implementing redux store
 - `dispatch(actionfn)` for sending action objects
 - `subscribe(listener)` to register and its return to unsuscribe
 
-##### Boilerplate
+##### Old way
 ```tsx
 const store = createStore(combineReducers(R1, R2))
 const R1 = function(state=initMoney, action) {..}
 const R2 = function(state=initCakes, action) {..}
 
 const unsub = store.subscribe(() => {..})
-```
 
-##### Middleware
-to extend redux's functionality
-```tsx
-const logger = createrLogger()
-store = createStore(R, applyMiddleware(logger, ..))
+//to extend redux's functionality, we use Middlewares
+createStore(R, applyMiddleware(logger, asyncThunk,...))
 ```
 
