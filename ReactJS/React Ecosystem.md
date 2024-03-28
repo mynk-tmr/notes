@@ -1,19 +1,72 @@
-## Thinking in React 
+## React proptypes
 
-1. Break UI into smallest components 
-2. code each state (test all) 
-	- a data should be *state* if it isn't prop, can't be computed from other data and changes over time. 
-3. Create heirarchy tree of components
-4. Build a static version of page
-5. Decide minimum **state data** that app needs
-6. Refactor state into props and contexts when needed
+PropTypes is React’s *internal mechanism* for adding type checking to component props. Components expose `propTypes` property to use this.
 
-https://www.smashingmagazine.com/search/?q=react
-[Update state from props](https://www.robinwieruch.de/react-derive-state-props/)
-https://www.robinwieruch.de/react-styled-components/
-https://www.robinwieruch.de/react-state/
-[2024 React Libaries](https://www.robinwieruch.de/react-libraries/)
-[https://storybook.js.org/tutorials/ui-testing-handbook/](https://storybook.js.org/tutorials/ui-testing-handbook/ "https://storybook.js.org/tutorials/ui-testing-handbook/")
-[https://atomicdesign.bradfrost.com/table-of-contents/](https://atomicdesign.bradfrost.com/table-of-contents/ "https://atomicdesign.bradfrost.com/table-of-contents/") - Atomic design a book which is a must read for all frontend devs
-[https://youtu.be/W-h1FtNYim4?si=1CIEYUPtYVknioq6](https://youtu.be/W-h1FtNYim4?si=1CIEYUPtYVknioq6 "https://youtu.be/W-h1FtNYim4?si=1CIEYUPtYVknioq6") - Quick summary of atomic design
+```jsx
+import {string, array} from 'prop-types';
+
+Hello.propTypes = {
+  name: string, //& other primitives , any
+  items: array, //& object, func
+  renderable: node.isRequired, 
+  Relement: elementType,
+  slot: instanceOf(Avatar), //
+  enum : oneOf(['Red', 'Green', 'Blue']),
+  word: oneOfType([string, number]),
+  specialarray : arrayOf(number),
+  specialobject: objectOf(string),
+  prototype : shape({ active: bool , font: string }),
+  equal : exact({ active: bool , font: string }),
+  // custom validator. It should return an Error
+  hexcode: (props, hxc, componentName) => {
+	  if(!props[hxc].startsWith('#')) return new Error('invalid hexcode')
+  }
+};
+```
+You can compose methods together
+
+Composing custom validators
+```jsx
+MyComp.propTypes = {
+  label: string.isRequired,
+  total: validate(isNumeric, isNonZero)
+}
+
+function validate(...validators) { //each take 1 value & return bool
+	return function(props, name, Cname) {
+		validators.every(check => {
+			return	check(prop[name])) || new Error(`${prop[name]} is invalid`)
+	}
+}
+```
+
+ Typescript validates types at _compile time_, whereas PropTypes are checked at _runtime_. Use `typescript-to-proptypes` library for conversions
+
+## Redux Toolkit
+
+3 principles of redux
+- a single *store* (object) holds app state
+- dispatch *actions* to update state, when something happens in app. Created by factories
+- define pure *reducers* for updating state based on actions
+
+Implementing redux store
+- `getState()` to access state
+- `dispatch(actionfn)` for sending action objects
+- `subscribe(listener)` to register and its return to unsuscribe
+
+##### Boilerplate
+```tsx
+const store = createStore(combineReducers(R1, R2))
+const R1 = function(state=initMoney, action) {..}
+const R2 = function(state=initCakes, action) {..}
+
+const unsub = store.subscribe(() => {..})
+```
+
+##### Middleware
+to extend redux's functionality
+```tsx
+const logger = createrLogger()
+store = createStore(R, applyMiddleware(logger, ..))
+```
 

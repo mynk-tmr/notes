@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiExternalLink",
+      "LiType",
+      "LiPartyPopper",
       "LiCandyCane",
-      "LiRemoveFormatting",
-      "LiTv",
-      "LiLandmark",
-      "LiScissors"
+      "LiRemoveFormatting"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -29,7 +29,6 @@
   },
   "Backend Dev/Authentication.md": "LiLock",
   "Backend Dev/Beginner.md": "LiPersonStanding",
-  "Backend Dev/Express.md": "LiWebhook",
   "Backend Dev/Internet Protocols.md": "LiRepeat",
   "Backend Dev/Terms.md": "LiMoreVertical",
   "Best Practices/Guidelines.md": "LiCircleEllipsis",
@@ -41,10 +40,11 @@
   "Javascript/Built-in Methods.md": "LiCheck",
   "ReactJS/Beginner.md": "LiPersonStanding",
   "ReactJS/React Ecosystem.md": "LiAlignCenterHorizontal",
-  "ReactJS/Tests and Lints.md": "LiTestTube",
   "Web Design/Accessiblity.md": "LiAccessibility",
   "Web Design/CSS.md": "LiScissors",
   "Web Design/HTML.md": "LiLandmark",
-  "Web Design/Patterns.md": "LiTv",
-  "DSA/Dynamic Programming.md": "LiCandyCane"
+  "Web Design/Patterns.md": "LiPartyPopper",
+  "Web Design/WebRTC.md": "LiTv",
+  "TypeScript.md": "LiType",
+  "ReactJS/Links.md": "LiExternalLink"
 }

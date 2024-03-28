@@ -1,7 +1,3 @@
-> https://www.developerway.com/posts
->  https://www.robinwieruch.de/
->  https://www.meje.dev/blog
-
 ##### Reactjs
 - A JS library to build web and native UI.
 - Has rich ecosystem which enables us to build full fledged production apps

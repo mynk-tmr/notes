@@ -17,11 +17,14 @@ Features of Client-side web APIs
 
 JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
 
-2 methods
-- `JSON.stringify` to convert object/array into JSON (_serialization_)
-- `JSON.parse` to convert JSON back into object/array (_deserialization_)
+2 methods [json -> array/object]
+- `JSON.stringify` (_serialization_)
+- `JSON.parse`  (_deserialization_)
 
-JSON can be a single primitive or array. JSON keys requires double-quotes. Skips keys for `function, symbol, undefined`
+Notes
+- JSON can be a single primitive
+- JSON keys requires double-quotes.
+- values that are `function, symbol, undefined` are skipped
 
 ```jsx
 JSON.parse('{"name":"John"}'); 
@@ -29,14 +32,9 @@ arr = JSON.parse('["name":"John"]'); //arr[0]
 JSON.parse(data, (key,val) => {
 	//code
 	return newValue; // transform values including nested
-} ) 
+}) 
 
-localStorage.setItem("cook", json); //store
-localStorage.getItem("cook");
-
-//date fields
-JSON.stringify({dt : date_obj}) // auto-evaluated
-parsedObj.age = new Date(parsedObj.age)
+//date fields are auto evaluated
 ```
 
 ```jsx
@@ -45,7 +43,7 @@ JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be
 //skip values
 JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
 	return key == 'under' ? undefined : value
-	})
+})
 
 //object's toJSON auto-invoked by stringify
 let room = {
@@ -92,66 +90,40 @@ Inline validation -> listen events `input` `change` `focus` `blur`
 
 Html's `pattern` test with \\g \\m \\i flags disabled. So use JS.
 
+## Sending Files
 
-## Uploading Files 
+##### Files
+```ts
+x = ele.files //x -> name, type size
+x = e.dataTransfer.files //prevent default, stop propagation prior
 
-
-```js
-inputFilebtn.files
-//each has
-, .name, .type, .size (number-bits)
-
-//using drag & drop
-function drop(e) {
-  e.stopPropagation(); e.preventDefault();
-  dealwithit(e.dataTransfer.files);
-}
-
-// upload & play video
-inp.onchange = () => $('video').src = URL.createObjectURL(inp.files[0])
-$('video').onload = () => URL.revokeObjectURL(video.src) //memory management
-```
-
-`FileReader` object lets webpage asynchronously read contents of files selected by user
-
-```js
-//event based interaction
-abort, error, loadstart, progress, load /*only if success*/ , loadend
-
-//readonly properties 
+//using filereader
 reader.error  
 reader.readyState // 0 1 2
-reader.result //loaded file, and it's type is based on method used to read file
+reader.result //depends on reading method
 
-reader.readAsDataURL(file) //important
+//filereader events
+abort, error, loadstart, progress, load /*only if success*/ , loadend
+
+//URL interface
+URL.createObjectURL(x : File)
+URL.revokeObjectURL(x) //memory management, do it upon onload on img, video
 ```
 
-##### Form Data
-```jsx
-const formData = new FormData(myform, submitter);
-formData.append("username", "abc123");
-
-//for mutiple files
-const {files} = $('input[type="file"]');
-for (const [i, photo] of [...files].entries()) {
-  formData.append(`photos_${i}`, photo);
-}
-```
-
-## Fetch API
+## Fetch
 
 A *promise* based API to send/get network resources using http headers
 
 ```jsx
 const response = fetch(url, options);
 
-//using constructor to create Request, Headers object
+//using constructor
 const heads = new Headers({ "Content-Type": "application/json"})
 const request = new Request(url, heads) //request.url ; request["Cont..]
 ```
 
 **Options object**
-- `body: JSON.stringify(data)` : to POST data
+- `body: JSON.stringify(data)` 
 - `headers: JSON.stringify(obj)` : set HTTP headers
 - `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
 - `referrerPolicy` : 
@@ -297,7 +269,6 @@ Parameters
 `path=/path/to/host` //on domain
 ```
 
-
 ## LocalStorage and IndexDB
 
 **Local storage vs. Cookies**
@@ -305,9 +276,6 @@ Parameters
 - Cookies are sent in *every HTTP headers* and can be disabled
 - Cookie has a size limit of 4 Kb. Local Storage can be any.
 - Cookie has a expiration date.
-
-
-
 
 ## Console and Dialog
 
@@ -355,3 +323,4 @@ To create download for canvas as PNG
 ```js
 $("a").$add("click", e => e.target.href = canvas.toDataURL());
 ```
+
