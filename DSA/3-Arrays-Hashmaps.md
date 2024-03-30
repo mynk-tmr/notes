@@ -142,6 +142,32 @@ for(let i in nums) {
 }
 ```
 
+##### Max Subarray sum to K
+```js
+//hash sum upto an index in map {sum, index}, and then assert
+//since arr can have -ve ele, an ele can lower exceeded sum to target
+
+sum=0, mlen = -inf
+for(i in arr)
+	sum+=arr[i] ; map.set(sum, i)
+	if(sum == k) mlen = MAX(mlen, i+1)
+	prev = map.get(sum-k) //
+	if(prev) mlen = MAX(mlen, prev) 
+```
+
+
+##### Array product except self
+```js
+ans = [], prod = 1
+for(i : 0 to n-1)
+	ans[i] = prod; 
+    prod *= nums[i] //take prefix product, for 0th, it's 1
+prod=1
+for(i: n-1 to 0)
+	ans[i] *= prod; //multiply suffprod
+    prod *= nums[i]; //take suffix product
+```
+
 ##### Two sum problem (find pairs)
 ```js
 map = {} // {ele, index}
@@ -197,8 +223,8 @@ class LFUCache {
     this.cap = cap;
   }
 
- //every time itm is already there, +1 its freq
- //So, remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
+ //each time item is already present, +1 its freq
+ //Remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
 
   #adjustFqGroup(key, itm) {
     const hash = this.fqGroup;
