@@ -18,21 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "05cac0776ae2b4e8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DSA/3-Arrays-Hashmaps.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -161,13 +148,13 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "05cac0776ae2b4e8",
+  "active": "c67c206cd461b9f0",
   "lastOpenFiles": [
-    "DSA/2-Recursion.md",
     "DSA/1-Concepts.md",
+    "DSA/3-Arrays-Hashmaps.md",
+    "DSA/2-Recursion.md",
     "Cache.md",
     "DSA/6-Backtracking.md",
-    "DSA/3-Arrays-Hashmaps.md",
     "TypeScript.md",
     "Interview/Topics.md",
     "DSA",

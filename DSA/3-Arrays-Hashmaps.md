@@ -44,11 +44,10 @@
 
 ##### Hash Set
 - stores a collection of unique elements, where element acts as **both** key & value
-- Often uses a hash table internally
 - Operations: `add, remove, contains, size =>(ele_count)`
 - Use Cases: store unique ID, membership (dict), set operations like union
 ##### Hash Map
-- store collection of elements as key-value pairs. Internally uses hashtable
+- store collection of elements as key-value pairs.
 - supports operations - `put, get, remove, contains, size`
 - Use Cases:
     - Associating data with unique ID (e.g. account name -> ID).
@@ -150,3 +149,26 @@ while( i < j) {
 }
 ```
 
+##### Implement LRU Cache
+- map store keys in order, so on get/put delete key and re-insert. Then, LRU item will bubble to first index of map. To get it, use iterator's `{value : item}`
+- without built in ? create `map` with *(doubly linked list hashmap*)
+	- on get, put -> delete & prepend item
+	- on cap breach, remove tail
+
+```js
+class LRUCache {
+  //ctr --> map, capacity
+  get(key) {
+	  if (!map.has(key)) return -1
+	  //delete key; set key,val; return val
+	}
+  put(key, v) {
+	//delete key ; set k,v ; 
+	if(this.cap < this.map.size) {
+      const lru_item = map.keys().next().value;
+      map.delete(lru_item);
+    }
+}
+```
+
+##### Implement LFU Cache
