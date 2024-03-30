@@ -8,24 +8,26 @@
         "type": "tabs",
         "children": [
           {
-            "id": "946cf5c79e18ca21",
+            "id": "1b1f0c2e3bf8edbb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ReactJS/React Ecosystem.md",
+                "file": "DSA/1-Concepts.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "897a00ed38724ee0",
+            "id": "c67c206cd461b9f0",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.5.11"
+                "file": "DSA/3-Arrays-Hashmaps.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -96,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ReactJS/React Ecosystem.md",
+                "file": "DSA/3-Arrays-Hashmaps.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "ReactJS/React Ecosystem.md",
+                "file": "DSA/3-Arrays-Hashmaps.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ReactJS/React Ecosystem.md"
+                "file": "DSA/3-Arrays-Hashmaps.md"
               }
             }
           }
@@ -159,13 +161,18 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "897a00ed38724ee0",
+  "active": "c67c206cd461b9f0",
   "lastOpenFiles": [
+    "DSA/2-Recursion.md",
+    "DSA/3-Arrays-Hashmaps.md",
+    "DSA/1-Concepts.md",
+    "DSA/6-Backtracking.md",
     "TypeScript.md",
+    "DSA",
+    "ReactJS/React Ecosystem.md",
     "ReactJS/Links.md",
     "Javascript/1_Beginner.md",
     "ReactJS/Beginner.md",
-    "ReactJS/React Ecosystem.md",
     "Web Design/WebRTC.md",
     "Javascript/Built-in Methods.md",
     "Javascript/4_Web APIs.md",
@@ -182,11 +189,7 @@
     "Build_Tools/Git.md",
     "Build_Tools/_Notations.md",
     "Build_Tools/ChromeDev.md",
-    "Interview/DS-Algorithms.md",
     "Interview/Topics.md",
-    "Interview/Tricky-Questions.md",
-    "Javascript/5_Patterns.md",
-    "Web Design/HTML.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
