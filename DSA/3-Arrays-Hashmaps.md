@@ -131,6 +131,17 @@ class HashSet {
 ##### Find duplicate in array 
 use `Set` , `has`, `add`
 
+##### Find pivot index (leftsum = rightsum)
+```js
+lsum = 0, rsum=0;
+nums.forEach(v => rsum+=v)
+for(let i in nums) {
+	rsum-= nums[i];
+    if(lsum === rsum) return i;
+    lsum+=nums[i]
+}
+```
+
 ##### Two sum problem (find pairs)
 ```js
 map = {} // {ele, index}
@@ -227,4 +238,3 @@ class LFUCache {
   }
 }
 ```
-
