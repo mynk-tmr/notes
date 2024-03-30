@@ -8,18 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "1b1f0c2e3bf8edbb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DSA/1-Concepts.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "c67c206cd461b9f0",
             "type": "leaf",
             "state": {
@@ -31,8 +19,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"

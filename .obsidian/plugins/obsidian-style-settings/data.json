@@ -10,7 +10,11 @@
   "Editor@@h2-divider-on": true,
   "Editor@@h2-accent-color@@dark": "#419EF8",
   "Editor@@h3-accent-color@@dark": "#419EF8",
-  "things-style@@strong-color": "#EDE023",
+  "things-style@@strong-color": "#E0654E",
   "things-style@@h6-color": "#F32A6C",
-  "things-style@@h5-color": "#2AF3A8"
+  "things-style@@h5-color": "#07915E",
+  "things-style@@default-font-color": false,
+  "things-style@@mobile-black-background": false,
+  "things-style@@fancy-highlight": false,
+  "things-style@@em-color": "#FF82B2"
 }
