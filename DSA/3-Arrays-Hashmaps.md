@@ -53,6 +53,8 @@
     - Associating data with unique ID (e.g. account name -> ID).
     - Caching data, building configuration files
 
+JS map & set are doubly linked hashmap & hashset
+
 |              | HashSet                 | HashMap                                       |
 | ------------ | ----------------------- | --------------------------------------------- |
 | Duplicates   | No                      | No dup keys                                   |
