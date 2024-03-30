@@ -16,5 +16,6 @@
   "things-style@@default-font-color": false,
   "things-style@@mobile-black-background": false,
   "things-style@@fancy-highlight": false,
-  "things-style@@em-color": "#FF82B2"
+  "things-style@@em-color": "#AB3E9C",
+  "things-style@@h4-color": "#C27D0C"
 }

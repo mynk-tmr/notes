@@ -7,7 +7,7 @@
 | Flexibility       | Less flexible                     | More flexible                    |
 ## Hashtable
 
-- Hashing is a technique for storing and retrieving data elements using a key-value structure.
+- Hashing is a technique to store / retrieve data elements using a key-value structure.
 - keys are computed via *hash-function* and it generates a fixed-size value called a `hash value (or code/digest).`
 - Collisions occur when multiple keys map to same index
 - *load factor* : `ele_count / table_size`. As it increases, collisions become more likely
@@ -29,9 +29,8 @@
 	- more need of *resizing* for optimisations
 - Schemes used in this,
 	- **Linear Probing:** linear search in bucket for retrieval
-	- **Quadratic Probing:** 
-
-##### Double HashingTypes
+	- **Quadratic Probing:** if slot is occupied, use `hash(val) + i^2 where i=1.. is attempt no.` to find an empty slot
+##### Double Hashing
 - combines the benefits of both open addressing and separate chaining. It uses two hash functions:
 	- *primary* : computes initial index for ele
 	- *secondary* : used for probing if a collision occurs. It generates a fixed-size offset to be add to primary hash value in a specific pattern (e.g., multiplying by a prime number).
@@ -39,7 +38,115 @@
 
 ##### Rehashing
 - dynamically resizing table when load factor exceeds a certain threshold
-- It involves
-	- making a new larger table
-	- re-insert elements with **same** hashfn
+- It involves making a new larger table and re-insert elements with **same** hashfn
+
+## HashSet and HashMap
+
+##### Hash Set
+- stores a collection of unique elements, where element acts as **both** key & value
+- Often uses a hash table internally
+- Operations: `add, remove, contains, size =>(ele_count)`
+- Use Cases: store unique ID, membership (dict), set operations like union
+##### Hash Map
+- store collection of elements as key-value pairs. Internally uses hashtable
+- supports operations - `put, get, remove, contains, size`
+- Use Cases:
+    - Associating data with unique ID (e.g. account name -> ID).
+    - Caching data, building configuration files
+
+|              | HashSet                 | HashMap                                       |
+| ------------ | ----------------------- | --------------------------------------------- |
+| Duplicates   | No                      | No dup keys                                   |
+| Dummy values | Yes                     | No                                            |
+| Speed        | slower                  | faster                                        |
+| Null         | store single null value | Single null key and any number of null values |
+| Data storage | as objects              | as key-value pair.                            |
+### Implement hashmap
+
+```js
+class HashMap {
+  constructor(maxsize) {
+    this.table = {};
+    this.maxsize = maxsize;
+    this.size = 0;
+  }
+  #hash(key) {
+    let sum = 0;
+    for (let i in key) sum += key.charCodeAt(i);
+    return sum % this.maxsize; //% is important
+  }
+  put(key, value) {
+	if(this.size === this.maxsize) return;
+    let i = this.#hash(key);
+    let bucket = this.table[i]; 
+    if (!bucket) bucket = [[key, value]];
+    else {
+      let dup_pair = bucket.find(pair => pair[0] === key);
+      if (!dup_pair) bucket.push([key, value]);
+      else dup_pair[1] = value;
+    }
+    this.table[i] = bucket; //take back new bucket
+    this.size++;
+  }
+  get(key) {
+    let bucket = this.table[this.#hash(key)];
+    return bucket?.find(pair => pair[0] === key)[1];
+  }
+  remove(key) {
+    let bucket = this.table[this.#hash(key)];
+    if (!bucket) return false;
+    let i = bucket.findIndex(pair => pair[0] === key);
+    bucket.splice(i, 1);
+    return --this.size;
+  }
+}
+```
+
+### Implement hashset
+```js
+class HashSet {
+  //same constructor
+  //same #hash(key)
+  add(value) {
+	if(this.size === this.maxsize) return;
+    this.table[this.#hash(key)] = value;
+    this.size++;
+  }
+  contains(value) {
+    const res = this.table[this.#hash(key)];
+    return Boolean(res)
+  }
+  remove(value) {
+    const i = this.#hash(key);
+    if(this.table[i] === undefined) return false;
+    delete this.table[i]
+    return --this.size;
+  }
+```
+
+
+## Leetcode
+
+Find duplicate in array -> use `Set` , `has`, `add`
+
+Two sum problem (find pairs)
+```js
+map = {} // {ele, index}
+for(i in arr) {
+	val= arr[i]
+	map.set(val, i)
+	need = sum - val;
+	if(map.has(need)) return [map.get(need), i];
+}
+```
+
+Two sum problem (only check in `O(1) space`)
+```js
+//sort arr
+i= 0, j = n-1
+while( i < j) {
+	if(ar[i] + ar[j] == sum) return true
+	++i; --j
+}
+```
 

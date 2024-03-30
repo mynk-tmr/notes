@@ -1,5 +1,4 @@
-> Check if a number can be reached from 1 by adding 5 or multiplying with 3 
-
+Check if a number can be reached from 1 by adding 5 or multiplying with 3 
 ```ts
 fn solve(path=1) {
 	//evaluate possiblities
@@ -8,8 +7,7 @@ fn solve(path=1) {
 }
 ```
 
-> Flatten an object
-
+Flatten an object
 ```ts
 js = {}
 fn solve(obj, name='') {
@@ -21,5 +19,4 @@ fn solve(obj, name='') {
 	return js;
 }
 ```
-
 

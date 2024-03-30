@@ -41,3 +41,34 @@ Strategies for optimisation
 - *DP* : divide into overlapping subproblems and memoize the results to solve
 - *branch and bound*
 - *backtracking*: generate sub-solution, check who satisfy constraints, then proceed it with to generate further solutions
+
+## Caches
+
+Average time to access memory
+```text
+T = (m * Tm) + Th + E, where
+m = miss ratio 
+Tm = time to access main-memory upon miss
+Th = latency ; time to retrieve from cache
+E = secondary time (internals)
+```
+
+Cache performance depends on *latency* and *hit ratio*. Each replacement strategy is a compromise between them. LRU allow streaming data to fill the cache. Algorithms also maintain [cache coherence](https://en.wikipedia.org/wiki/Cache_coherence "Cache coherence") when several caches are used for the same data
+
+**Belady's Algorithm** : discard info that's not needed for the longest time. Not practical but most optimal.
+
+**Queue-based invalidation** : LIFO, FIFO
+
+**Recency-based invalidation :** 
+- LRU, Time-aware LRU (has expiry)
+- MRU (works where older items, more likely to be accessed), 
+- Segmented LRU
+	- divided into 2 segments: probationary and protected. Each is ordered from most-to-least recently-accessed
+	- on *hit*, add item at start of *protected* line. On *miss*, add at start of *probationary*
+	- protected is finite, so extra items are moved to *probatinory*
+
+**Frequency-based invalidation :** 
+- LFU
+- LFRU -> good for networks
+	- cache is divided into two partitions: *privileged* (LRU)  and *unprivileged*. (LFU)
+	- If content is popular, it is pushed into privileged. If unpopular, it is moved to *unpriviliged* by replacing entries therein
