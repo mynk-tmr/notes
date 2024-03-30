@@ -128,9 +128,10 @@ class HashSet {
 
 ## Leetcode
 
-Find duplicate in array -> use `Set` , `has`, `add`
+##### Find duplicate in array 
+use `Set` , `has`, `add`
 
-Two sum problem (find pairs)
+##### Two sum problem (find pairs)
 ```js
 map = {} // {ele, index}
 for(i in arr) {
@@ -141,7 +142,7 @@ for(i in arr) {
 }
 ```
 
-Two sum problem (only check in `O(1) space`)
+##### Two sum problem (only check in `O(1) space`)
 ```js
 //sort arr
 i= 0, j = n-1
@@ -174,4 +175,56 @@ class LRUCache {
 ```
 
 ##### Implement LFU Cache
+
+```js
+class LFUCache {
+  map = new Map(); //stores itm = {value, frequency}
+  fqGroup = {}; //stores { i : Set of itms with freq=i}
+  minfq = 0;
+
+  constructor(cap) {
+    this.cap = cap;
+  }
+
+ //every time itm is already there, +1 its freq
+ //So, remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
+
+  #adjustFqGroup(key, itm) {
+    const hash = this.fqGroup;
+    hash[itm.freq++].delete(key);
+    hash[itm.freq] ??= new Set();
+    hash[itm.freq].add(key);
+    if (hash[this.minfq].size === 0) ++this.minfq
+  }
+
+  get(key) {
+    const map = this.map
+    if (!map.has(key)) return -1
+    const itm = map.get(key)
+    this.#adjustFqGroup(key, itm)
+    return itm.value
+  }
+
+  put(key, value) {
+    const map = this.map, hash = this.fqGroup;
+    if (map.has(key)) {
+      const itm = map.get(key)
+      this.#adjustFqGroup(key, itm)
+      itm.value = value;
+    }
+    else { //invalidate
+      if (map.size === this.cap) {
+        const rmkey = hash[this.minfq].keys().next().value;
+        hash[this.minfq].delete(rmkey);
+        map.delete(rmkey)
+      }
+      const itm = { value, freq: 0 };
+      map.set(key, itm);
+      hash[itm.freq] ??= new Set();
+      hash[itm.freq].add(key);
+      this.minfq = 0;
+    }
+  }
+}
+```
 
