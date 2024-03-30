@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "897a00ed38724ee0",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.5.11"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -148,7 +159,7 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "946cf5c79e18ca21",
+  "active": "897a00ed38724ee0",
   "lastOpenFiles": [
     "TypeScript.md",
     "ReactJS/Links.md",
