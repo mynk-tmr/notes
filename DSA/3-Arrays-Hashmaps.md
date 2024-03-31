@@ -320,5 +320,33 @@ class LFUCache {
 ##### Find lexical next permutation of array
 `O(n) time & O(1) space`
 ```js
+pivot, swapi 
+if(n == 1) return nums;
+//find first i,i+1 that are sorted
+for(i: n-2..0)
+	if (nums[i+1] > nums[i]) pivot = i; break;
 
+//if no pivot, array is last permute, so reverse it
+if(pivot is undef) return nums.reverse()
+
+//swap ele after pivot that's closest bigger 
+for(i: n-1 > pivot)
+	if (nums[i] > nums[pivot]) swapi = i; break;
+swap(swapi, pivot)
+
+//reverse from pivot+1
+while(++pivot < --n) {
+    swap(n, pivot)
+  }
 ```
+
+##### Find ele who are larger than all their right ele(s)
+```js
+rmax = -Infinity
+for(i : n-1..0)
+	if(a[i] > rmax)
+		ans.push(a[i])
+		rmax = a[i]
+return ans.reverse()
+```
+
