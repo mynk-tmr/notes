@@ -317,3 +317,8 @@ class LFUCache {
 }
 ```
 
+##### Find lexical next permutation of array
+`O(n) time & O(1) space`
+```js
+
+```
