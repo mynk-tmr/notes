@@ -419,3 +419,40 @@ matrix.forEach((row, i) => {
 matrix.forEach(row => row.reverse())
 ```
 
+##### Spiral Matrix Traversal 1
+```js
+ans = []
+const obj = {
+	col0: 0,
+	row0: 0,
+	col1: mat[0].length - 1,
+	row1: mat.length - 1,
+	hasCol() {
+	  return this.col0 <= this.col1;
+	},
+	hasRow() {
+	  return this.row0 <= this.row1;
+	}
+}
+  
+while (obj.hasCol() && obj.hasRow())
+	for (i : col0...col1)
+	  ans.push(mat[row0][i])
+	obj.row0++;
+	
+	for (i : row0...row1)
+	  ans.push(mat[i][col1])
+	obj.col1--;
+	
+	if (obj.hasRow()) {
+	  for (i : col1...col0)
+		ans.push(mat[row1][i])
+	  obj.row1--;
+	}
+	if (obj.hasCol()) {
+	  for (i : row1...row0)
+		ans.push(mat[i][col0])
+	  obj.col0++;
+	}
+```
+
