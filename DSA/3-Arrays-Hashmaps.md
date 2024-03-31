@@ -402,3 +402,20 @@ if (col0 === 0)
 	for(i : 0..r) matrix[i][0] = 0;
 ```
 
+##### Rotate matrix/image by 90deg
+```js
+//swap
+swap = (i, j) => [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+
+//transpose the matrix
+matrix.forEach((row, i) => {
+	if (row == matrix.at(-1)) return;
+	//i+1, so we don't swap them to orginal pos
+	for (let j = i + 1; j < row.length; j++) { 
+	  if (i != j) swap(i,j)
+	}
+})
+//reverse each row
+matrix.forEach(row => row.reverse())
+```
+
