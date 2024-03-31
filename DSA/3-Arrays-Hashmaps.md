@@ -125,11 +125,25 @@ class HashSet {
   }
 ```
 
-
 ## Leetcode
 
-##### Find duplicate in array 
+##### Check if duplicate in array 
 use `Set` , `has`, `add`
+
+##### Remove duplicate in-place from array/LL
+```js
+//array
+uniq = 0
+for(i: 0..n-1)
+	if(a[i] !== a[uniq]) a[++uniq] = a[i]
+a.splice(0,uniq+1)
+
+//linked list -> traverse unique only, remove dups
+node = head
+while(node?.next)
+	if(node.next.val == node.val) node.next = node.next.next
+	else node = node.next
+```
 
 ##### Find pivot index (leftsum = rightsum)
 ```js
@@ -142,25 +156,47 @@ for(let i in nums) {
 }
 ```
 
-##### Max Subarray sum to K
+##### Count no. of subarray sum to K
 ```js
-//hash sum upto an index in map {sum, index}, and then assert
-//since arr can have -ve ele, an ele can lower exceeded sum to target
+//hash prefix sum 
+map, sum=0, ct=0 
+map.set(0, 1)
+for(val : arr) 
+	sum+=val;
+    sub = map.get(sum - k); //does a subarray ending at curri with sum=k exist?
+    full = map.get(sum) ?? 0;
+    if(sub) ct+=sub;
+    map.set(sum, full + 1)
+```
 
-sum=0, mlen = -inf
-for(i in arr)
-	sum+=arr[i] ; map.set(sum, i)
+##### Longest subarray that sum to K
+```js
+//for no -ve elements, 2 pointers i,j
+//calc prefixsum, check length, if sum exceeds K, move i forward until sum < k
+sum = a[0]  i=0,j=0, mlen=0
+while(++j < n)
+	sum+=a[j]; 
+	if(sum == k) mlen= MAX(mlen, j - i + 1)
+	else if(sum > k) while(sum > k) sum-=a[i++]
+
+if(mlen == 0) return a[-1] == k ? 1 : 0
+return mlen
+
+//if -ve exist, use hashmap & prefixsum
+for(i: 0 to n-1)
+	sum+=a[i]
+	if(!map.has(sum)) map.set(sum, i) //always consider leftmost subarray
 	if(sum == k) mlen = MAX(mlen, i+1)
-	prev = map.get(sum-k) //
-	if(prev) mlen = MAX(mlen, prev) 
+	sub = map.get(sum - k)
+	if(sub) mlen = MAX(mlen, i - sub)
 ```
 
 ##### Array product except self
 ```js
 ans = [], prod = 1
 for(i : 0 to n-1)
-	ans[i] = prod; 
-    prod *= nums[i] //take prefix product, for 0th, it's 1
+	ans[i] = prod; //take prefix product, for 0th, it's 1
+    prod *= nums[i] 
 prod=1
 for(i: n-1 to 0)
 	ans[i] *= prod; //multiply suffprod
