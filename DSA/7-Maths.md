@@ -83,10 +83,25 @@ while (obj.hasCol() && obj.hasRow())
 - where each ele = nCr `n! / r!(n-r)!. 
 ```js
 //find ele, given n & r ; fn(n-1, r-1)
-res = 1
+prev = 1
 for(i : 0 < r)
 	res *= n-i ; res /= i + 1
 return res
 
+//get nth row
+ans.push(1)
+for(i..1 < n) // ele = prev * (row - col) / col
+	prev* = n - i; prev/= i; ans.push(prev)
+return ans;
 
+//print entire triangle of n rows in O(n^2)
+ans = []
+for(i : 0 to n-1)
+	row = []
+	for(j : 0 to i) //i-th row has i+1 ele
+		if (j == 0 || j == i) row.push(1)
+		else
+	        preRow = ans[i - 1];
+	        row.push(preRow[j - 1] + preRow[j])
+	ans.push(row)
 ```
