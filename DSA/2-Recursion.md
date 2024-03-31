@@ -23,7 +23,7 @@ fn solve(obj, name='') {
 ##### Generate Permutations of Array in lexical order
 `time : O(n * n!) & space: O(1)`
 ```js
- ans = []; solve(0); return ans;
+ans = []; solve(0); return ans;
 solve(curri)
 	 if(curri === n)
         return ans.push([...nums]) //copy by value

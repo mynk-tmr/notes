@@ -350,11 +350,10 @@ for(i : n-1..0)
 return ans.reverse()
 ```
 
-##### Find longest consecutive sequence
+##### Find longest consecutive sequence `O(nlogN)`
+- sort array, traverse, track largest ele encountered so far
+- +1 len if new largest is in sequence, else reset it
 ```js
-//O(NlogN)
-//sort array, traverse, track largest ele encountered so far
-//+1 len if new largest is in sequence, else reset it
 if (!nums.length) return 0;
 nums.sort((a, b) => a - b)
 let last = nums[0], len = 1, mxlen = 1;
@@ -363,10 +362,12 @@ for (let val of nums)
 	  len = (val - last == 1) ? len + 1 : 1;
 	  mxlen = Math.max(len, mxlen)
 	  last = val; //at end
+```
 
-//O(N) with Set
-//if set has val-1, val cannot be start of a seq, 
-//otherwise it is, so keep deleting ele sequentially from it
+##### Find longest consecutive sequence `O(N) with Set`
+- if set has val-1, val cannot be start of a seq, 
+- otherwise it is, so keep deleting ele sequentially from it
+```js
 len = 0, mxlen = 0; set = new Set(nums);
 for(val of set.values())
 	if(!set.has(val-1))
@@ -374,5 +375,30 @@ for(val of set.values())
 	  while(set.delete(it++)) len++;
 	  mxlen = Math.max(mxlen, len);
 	  len = 0;
+```
+
+##### Fill zeros in matrix in 0(1) space
+```js
+r = matrix.length
+c = matrix[0].length;
+col0 = 1;
+
+//because 0,0 overlap, use col0 for 1st col's[0] and [0][0] for 1st row's [0]
+//mark 1st row & 1st col based on presence of 0
+for(i : 0..r)
+	for(j : 0..c) 
+		if (matrix[i][j] === 0) {
+        matrix[i][0] = 0;
+        if (j == 0) col0 = 0;
+        else matrix[0][j] = 0;
+        
+//fill 0 based on first row & col
+for(i : 1..r)
+	for(j : 1..c) 
+	    matrix[i][j] = matrix[i][0] && matrix[0][j] && matrix[i][j];
+
+if (matrix[0][0] === 0) matrix[0].fill(0)
+if (col0 === 0) 
+	for(i : 0..r) matrix[i][0] = 0;
 ```
 
