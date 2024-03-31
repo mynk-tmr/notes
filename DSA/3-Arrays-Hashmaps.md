@@ -350,3 +350,29 @@ for(i : n-1..0)
 return ans.reverse()
 ```
 
+##### Find longest consecutive sequence
+```js
+//O(NlogN)
+//sort array, traverse, track largest ele encountered so far
+//+1 len if new largest is in sequence, else reset it
+if (!nums.length) return 0;
+nums.sort((a, b) => a - b)
+let last = nums[0], len = 1, mxlen = 1;
+for (let val of nums)
+	if (val > last)
+	  len = (val - last == 1) ? len + 1 : 1;
+	  mxlen = Math.max(len, mxlen)
+	  last = val; //at end
+
+//O(N) with Set
+//if set has val-1, val cannot be start of a seq, 
+//otherwise it is, so keep deleting ele sequentially from it
+len = 0, mxlen = 0; set = new Set(nums);
+for(val of set.values())
+	if(!set.has(val-1))
+	  let it = val;
+	  while(set.delete(it++)) len++;
+	  mxlen = Math.max(mxlen, len);
+	  len = 0;
+```
+
