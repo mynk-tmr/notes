@@ -4,36 +4,38 @@
 | Size              | Fixed, determined at compile time | Variable, changes during runtime |
 | Memory allocation | Stack                             | Heap                             |
 | Access speed      | Fast                              | Slow                             |
-| Flexibility       | Less flexible                     | More flexible                    |
+| Flexibility       | Less                              | More                             |
 ## Hashtable
 
 - Hashing is a technique to store / retrieve data elements using a key-value structure.
-- keys are computed via *hash-function* and it generates a fixed-size value called a `hash value (or code/digest).`
+- keys are computed via *hash-function* and it generates a fixed-size `hash value (or code/digest).`
 - Collisions occur when multiple keys map to same index
 - *load factor* : `ele_count / table_size`. As it increases, collisions become more likely
 - Runtime
 	- average : `O(1) time, O(N) space`
 	- worst: `O(n) when load balance is breached`
-- Note : **Hash Tables suffer from bad cache performance**. For large collection - the access time might take longer, since relevant part of table needs to be reloaded from into cache.
-
-**Index Mapping (or Trivial Hashing)** : hashfn directly maps the key to an index in table.
+- Hash Tables suffer from bad cache performance. Relevant part of table needs to be reloaded into cache.
+##### Index Mapping (or Trivial Hashing): 
+- hashfn directly maps the key to an index in table.
 ##### Separate Chaining
 - an entry in hash table can hold a *linked list* of key-value pairs. On collision, append to list. On retrieval, traverse list at given hash value
 - Pros : no need to resize table frequently
-- cons: overhead, inefficient if lists are long
+- cons: overhead costs, inefficient if lists are long
 ##### Open Addressing
-- each entry can have a *bucket* with slots for colliding elements. 
+- each entry has a *bucket* which store key-value pairs 
+- Schemes used in this
+	- **Linear Probing:** on collison, use `i` closest to hashed index. 
+		- tends to create *primary* clustering, ie., large occupied slots near hashed indices
+	- **Quadratic Probing:** on collision, use `hash(val) + i^2 where i=1.. is attempt no.` to find an empty slot
+		- creates *secondary* clusters , ie. away from hashed indicies. Less severe
 - Pros : faster retrievals (especially for sparse tables).
 - Cons: 
-	- *clustering* :  create many slots in bucket as load factor increases 
 	- more need of *resizing* for optimisations
-- Schemes used in this,
-	- **Linear Probing:** linear search in bucket for retrieval
-	- **Quadratic Probing:** if slot is occupied, use `hash(val) + i^2 where i=1.. is attempt no.` to find an empty slot
+	- *clustering*
 ##### Double Hashing
-- combines the benefits of both open addressing and separate chaining. It uses two hash functions:
+- combines benefits of both open addressing and separate chaining. It uses two hash functions:
 	- *primary* : computes initial index for ele
-	- *secondary* : used for probing if a collision occurs. It generates a fixed-size offset to be add to primary hash value in a specific pattern (e.g., multiplying by a prime number).
+	- *secondary* : used for probing if a collision occurs. It generates a fixed-size offset to  add to primary hash value in a specific pattern (e.g., multiplying by a prime number).
 - Pros : lower level of clustering and better than quadratic probing
 
 ##### Rehashing
@@ -65,63 +67,82 @@ JS map & set are doubly linked hashmap & hashset
 ### Implement hashmap
 
 ```js
-class HashMap {
-  constructor(maxsize) {
-    this.table = {};
-    this.maxsize = maxsize;
-    this.size = 0;
+class DLL {
+  head = null; tail=null
+  append(key, val) {
+      const node = {key, val, prev: null, next: null}
+      if(!head) head=tail=node;
+      else {
+          tail.next = node; node.prev = tail; tail = node;
+      }
   }
+  remove(node) {
+      if(!node.next && !node.prev) // if there's only 1 node
+          head=tail=null
+	  else if(!node.next) { // if node is tail node
+          tail = node.prev; tail.next = null;
+    } else if(!node.prev) { // if node is head node
+          head = node.next; head.prev = null;
+      } else { 
+          prev = node.prev; next = node.next;
+          prev.next = next; next.prev = prev;
+      }
+  }
+  find(key) {
+	  node = tail;
+	  while(node) {
+		  if(node.key === key) return node;
+		  else node = node.prev
+	  }
+  }
+}
+
+class HashMap {
+	table = {}; size=0; 
+	//ctr -> maxsize
   #hash(key) {
     let sum = 0;
     for (let i in key) sum += key.charCodeAt(i);
     return sum % this.maxsize; //% is important
   }
   put(key, value) {
-	if(this.size === this.maxsize) return;
-    let i = this.#hash(key);
-    let bucket = this.table[i]; 
-    if (!bucket) bucket = [[key, value]];
-    else {
-      let dup_pair = bucket.find(pair => pair[0] === key);
-      if (!dup_pair) bucket.push([key, value]);
-      else dup_pair[1] = value;
-    }
-    this.table[i] = bucket; //take back new bucket
-    this.size++;
+	if(size == mxsize) return;
+	let i = #hash(key)
+    let list = table[i] ?? new DLL()
+    list.remove(list.find(key))
+	list.append(key, value)
+    table[i] = list;
+    size++;
   }
   get(key) {
-    let bucket = this.table[this.#hash(key)];
-    return bucket?.find(pair => pair[0] === key)[1];
+    let list = table[#hash(key)];
+    return list?.find(key).val;
   }
   remove(key) {
-    let bucket = this.table[this.#hash(key)];
-    if (!bucket) return false;
-    let i = bucket.findIndex(pair => pair[0] === key);
-    bucket.splice(i, 1);
-    return --this.size;
+    list.remove(list.find(key))
+    return --size;
   }
 }
 ```
 
-### Implement hashset
+### Implement hashset (no DLL)
 ```js
 class HashSet {
-  //same constructor
+  //same constructor, fields
   //same #hash(key)
-  add(value) {
-	if(this.size === this.maxsize) return;
-    this.table[this.#hash(key)] = value;
-    this.size++;
+  add(v) {
+	if(size === maxsize) return;
+    table[#hash(key)] = v;
+    size++;
   }
-  contains(value) {
-    const res = this.table[this.#hash(key)];
-    return Boolean(res)
+  contains(v) {
+    return table[#hash(v)] !== undefined
   }
-  remove(value) {
-    const i = this.#hash(key);
-    if(this.table[i] === undefined) return false;
-    delete this.table[i]
-    return --this.size;
+  remove(v) {
+    i = #hash(v);
+    if(table[i] === undefined) return false;
+    delete table[i]
+    return --size;
   }
 ```
 
@@ -158,15 +179,15 @@ for(let i in nums) {
 
 ##### Count no. of subarray sum to K
 ```js
-//hash prefix sum 
+//hash frequency of prefix sums 
 map, sum=0, ct=0 
 map.set(0, 1)
 for(val : arr) 
 	sum+=val;
-    sub = map.get(sum - k); //does a subarray ending at curri with sum=k exist?
-    full = map.get(sum) ?? 0;
+    subfrq = map.get(sum - k); //how many subarrays upto i with sum=k exist?
+    fullfrq = map.get(sum) ?? 0;
     if(sub) ct+=sub;
-    map.set(sum, full + 1)
+    map.set(sum, fullfrq + 1)
 ```
 
 ##### Longest subarray that sum to K
@@ -178,17 +199,16 @@ while(++j < n)
 	sum+=a[j]; 
 	if(sum == k) mlen= MAX(mlen, j - i + 1)
 	else if(sum > k) while(sum > k) sum-=a[i++]
-
 if(mlen == 0) return a[-1] == k ? 1 : 0
 return mlen
 
-//if -ve exist, use hashmap & prefixsum
+//if -ve exist, hash prefixsum indices
 for(i: 0 to n-1)
 	sum+=a[i]
 	if(!map.has(sum)) map.set(sum, i) //always consider leftmost subarray
 	if(sum == k) mlen = MAX(mlen, i+1)
-	sub = map.get(sum - k)
-	if(sub) mlen = MAX(mlen, i - sub)
+	sub = map.get(sum - k) //longest subarray (sum=k) that ends at i
+	if(sub) mlen = MAX(mlen, i - sub) // i - (sub + 1) +1
 ```
 
 ##### Array product except self
@@ -239,7 +259,7 @@ class LRUCache {
 	}
   put(key, v) {
 	//delete key ; set k,v ; 
-	if(this.cap < this.map.size) {
+	if(map.size > cap) {
       const lru_item = map.keys().next().value;
       map.delete(lru_item);
     }
@@ -251,7 +271,7 @@ class LRUCache {
 ```js
 class LFUCache {
   map = new Map(); //stores itm = {value, frequency}
-  fqGroup = {}; //stores { i : Set of itms with freq=i}
+  hash = {}; //stores { i : Set of itms with freq=i}
   minfq = 0;
 
   constructor(cap) {
@@ -262,7 +282,6 @@ class LFUCache {
  //Remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
 
   #adjustFqGroup(key, itm) {
-    const hash = this.fqGroup;
     hash[itm.freq++].delete(key);
     hash[itm.freq] ??= new Set();
     hash[itm.freq].add(key);
@@ -270,7 +289,6 @@ class LFUCache {
   }
 
   get(key) {
-    const map = this.map
     if (!map.has(key)) return -1
     const itm = map.get(key)
     this.#adjustFqGroup(key, itm)
@@ -278,7 +296,6 @@ class LFUCache {
   }
 
   put(key, value) {
-    const map = this.map, hash = this.fqGroup;
     if (map.has(key)) {
       const itm = map.get(key)
       this.#adjustFqGroup(key, itm)
@@ -292,10 +309,11 @@ class LFUCache {
       }
       const itm = { value, freq: 0 };
       map.set(key, itm);
-      hash[itm.freq] ??= new Set();
-      hash[itm.freq].add(key);
+      hash[0] ??= new Set();
+      hash[0].add(key);
       this.minfq = 0;
     }
   }
 }
 ```
+

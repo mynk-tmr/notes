@@ -4,6 +4,7 @@ Links
 
 Algo-efficiency is measured in terms of its *input size (N)* to keep it machine-independent
 - **Time complexity** : time taken to run, as a function of N
+	- sum big-O of all individual operations
 - **Space complexity** : 
 	- memory required (for input size + auxillary space), as as a function of N
 	-  most data structures are `O(N)`, primitives and pass by ref. are `O(1)`
@@ -22,13 +23,6 @@ Algo-efficiency is measured in terms of its *input size (N)* to keep it machine-
 	- `O(n³)` - *Cubic* (3 loops; all i=i+C)
 	- `O(2ⁿ)` - *Exponential* (for each N+1, step double).
 	- `O(N!)` - *Factorial* (checking permutations & combinations). e.g. travelling salesman
-- How to calc ?
-	- sum big-O of all individual operations
-
-```jsx
-for(key in obj1) dothis();  //O(n)
-for(key2 in obj2) dothat(); //O(n) -> O(2n) -> O(n)
-```
 
 **Memory**
 - cache -> primary -> secondary (speeds)
@@ -53,22 +47,23 @@ Th = latency ; time to retrieve from cache
 E = secondary time (internals)
 ```
 
-Cache performance depends on *latency* and *hit ratio*. Each replacement strategy is a compromise between them. LRU allow streaming data to fill the cache. Algorithms also maintain [cache coherence](https://en.wikipedia.org/wiki/Cache_coherence "Cache coherence") when several caches are used for the same data
+Cache performance depends on *latency* and *hit ratio*. Each replacement strategy is a compromise between them. Algorithms also maintain [cache coherence](https://en.wikipedia.org/wiki/Cache_coherence "Cache coherence") when several caches are used for the same data
 
-**Belady's Algorithm** : discard info that's not needed for the longest time. Not practical but most optimal.
+**Belady's Algorithm** : discard info that's willn't needed for the longest time. Not practical but most optimal.
 
 **Queue-based invalidation** : LIFO, FIFO
 
 **Recency-based invalidation :** 
 - LRU, Time-aware LRU (has expiry)
+	-  LRU allow streaming data to fill the cache
 - MRU (works where older items, more likely to be accessed), 
 - Segmented LRU
-	- divided into 2 segments: probationary and protected. Each is ordered from most-to-least recently-accessed
+	- divided into 2 segments: *probationary* and *protected*. Each is ordered from most-to-least recently-used
 	- on *hit*, add item at start of *protected* line. On *miss*, add at start of *probationary*
 	- protected is finite, so extra items are moved to *probatinory*
 
 **Frequency-based invalidation :** 
 - LFU
 - LFRU -> good for networks
-	- cache is divided into two partitions: *privileged* (LRU)  and *unprivileged*. (LFU)
+	- cache is divided into two partitions: *privileged* (LRU)  and *unprivileged* (LFU)
 	- If content is popular, it is pushed into privileged. If unpopular, it is moved to *unpriviliged* by replacing entries therein
