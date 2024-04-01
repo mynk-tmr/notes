@@ -398,3 +398,31 @@ for(str of strs)
 return Array.from(Object.values(group))
 ```
 
+##### Top K(=3) Frequent Elements 
+```js
+freqMap; freqGroup; result
+for(val : nums)
+	//set freqMap {val, freq}
+
+for ([val, freq] of freqMap)
+    freqGroup[freq] ??= new Set()
+    freqGroup[freq].add(val)
+
+for(i : n..1 && res.length < k) //all same or all diff
+	if (freqGroup[i]) result.push(...freqGroup[i])
+```
+
+##### Find Nth largest element e.g. 3rd
+```js
+sld = [-Infinity, -Infinity, a[0]] //size 3
+for(i : 1 to n-1)
+	j = 0
+	while(a[i] > sld[j] && j<3) {
+		sld[j] = sld[j+1]
+		++j;
+	}
+	sld[j-1] = a[i]	
+
+return sld[0]
+```
+
