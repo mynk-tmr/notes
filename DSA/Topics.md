@@ -371,3 +371,43 @@ for(val of nums)
 return res.filter(v => isOK(nums, v))
 ```
 
+## Pointers
+
+### N Sum problems
+
+Requires SORTING array first and using res[ ] to store pairs
+
+**2-sum `O(NlogN + N)`** 
+```js
+left=0, right = n-1
+while(left < right) 
+	s = a[left] + a[right];
+	if(s < T) left++
+	else if(s > T) right--
+	else 
+		res.push([a[left], a[right]])
+		while (left < right && a[left] == a[++left]);
+	    while (left < right && a[right] == a[--right]);
+```
+
+**3-sum `O(NlogN + N^2)`**
+```js
+for(i : 0..n-2)
+	if (i > 0 && a[i] === a[i - 1]) continue;
+    left = i + 1; right = n - 1;
+    while (left < right)
+	    s = a[i] + a[left] + a[right];
+	    //same as above, push a[i] too
+```
+
+**4-sum `O(NlogN + N^3)`**
+```js
+for(i : 0..n-3)
+	if (i > 0 && a[i] === a[i - 1]) continue;
+	for(j: i+1..n-2)
+		if (j > i+1 && a[j] === a[j - 1]) continue;
+	    left = j + 1; right = n - 1;
+	    while (left < right)
+		    //same as above
+```
+

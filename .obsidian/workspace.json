@@ -151,8 +151,9 @@
   "active": "d84148d1176ff986",
   "lastOpenFiles": [
     "DSA/Maths-Geometry.md",
-    "DSA/Topics.md",
     "DSA/Concepts.md",
+    "DSA/Topics.md",
+    "Untitled.md",
     "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/6-Backtracking.md",
     "DSA/3-Hashing-Prefix.md",
@@ -176,7 +177,6 @@
     "Best Practices/Guidelines.md",
     "Testing/Jest (JS).md",
     "Build_Tools/QoL.md",
-    "Build_Tools/npm ecosystem.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
