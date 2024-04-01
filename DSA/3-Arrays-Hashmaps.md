@@ -426,3 +426,30 @@ for(i : 1 to n-1)
 return sld[0]
 ```
 
+##### Validate Sudoku
+```js
+hasVal(set, val) {
+  if (val == ".") return false;
+  if (set.has(val)) return true;
+  set.add(val);
+}
+
+get3x3(i, j, board) {
+	let r = 3 * Math.floor(i / 3) + Math.floor(j / 3);
+    let c = 3 * (i % 3) + (j % 3)
+    return board[r][c]
+}
+
+//main function
+for(i: 0 < 9)
+	//define row, col, box as Set()
+	for(j: 0 < 9)
+		rowi = board[i][j]
+		coli = board[j][i]
+		boxi = get3x3(i, j, board)
+		if(hasVal(row, rowi) || hasVal(col, coli) || hasVal(box, boxi))
+			return false;
+
+return true;
+```
+

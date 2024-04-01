@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "bb98348f3f98468e",
+            "id": "d84148d1176ff986",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -148,10 +148,11 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "bb98348f3f98468e",
+  "active": "d84148d1176ff986",
   "lastOpenFiles": [
-    "DSA/7-Maths-Geometry.md",
+    "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/3-Arrays-Hashmaps.md",
+    "DSA/7-Maths-Geometry.md",
     "DSA/2-Recursion.md",
     "DSA/6-Backtracking.md",
     "DSA/1-Concepts.md",
@@ -176,7 +177,6 @@
     "Testing/Jest (JS).md",
     "Build_Tools/QoL.md",
     "Build_Tools/npm ecosystem.md",
-    "Build_Tools/Git.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
