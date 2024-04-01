@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/7-Maths.md",
+                "file": "DSA/3-Arrays-Hashmaps.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/7-Maths.md",
+                "file": "DSA/3-Arrays-Hashmaps.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/7-Maths.md",
+                "file": "DSA/3-Arrays-Hashmaps.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/7-Maths.md"
+                "file": "DSA/3-Arrays-Hashmaps.md"
               }
             }
           }
@@ -150,11 +150,11 @@
   },
   "active": "bb98348f3f98468e",
   "lastOpenFiles": [
+    "DSA/2-Recursion.md",
+    "DSA/1-Concepts.md",
     "DSA/3-Arrays-Hashmaps.md",
     "DSA/7-Maths.md",
-    "DSA/2-Recursion.md",
     "DSA/6-Backtracking.md",
-    "DSA/1-Concepts.md",
     "Javascript/3_DOM.md",
     "Javascript/1_Beginner.md",
     "Cache.md",

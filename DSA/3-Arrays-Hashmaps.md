@@ -119,7 +119,9 @@ class HashMap {
     return list?.find(key).val;
   }
   remove(key) {
-    list.remove(list.find(key))
+    node = list.find(key))
+    if(!node) return false;
+    list.remove(node)
     return --size;
   }
 }
@@ -132,8 +134,9 @@ class HashSet {
   //same #hash(key)
   add(v) {
 	if(size === maxsize) return;
-    table[#hash(key)] = v;
-    size++;
+	i = #hash(v)
+	if(table[i] === undefined) size++;
+    table[i] = v;
   }
   contains(v) {
     return table[#hash(v)] !== undefined
@@ -151,7 +154,7 @@ class HashSet {
 ##### Check if duplicate in array 
 use `Set` , `has`, `add`
 
-##### Remove duplicate in-place from array/LL
+##### Remove duplicate in-place from sorted array/LL
 ```js
 //array
 uniq = 0
@@ -196,7 +199,7 @@ for(val : arr)
 //calc prefixsum, check length, if sum exceeds K, move i forward until sum < k
 sum = a[0]  i=0,j=0, mlen=0
 while(++j < n)
-	sum+=a[j]; 
+	sum+=a[j];
 	if(sum == k) mlen= MAX(mlen, j - i + 1)
 	else if(sum > k) while(sum > k) sum-=a[i++]
 if(mlen == 0) return a[-1] == k ? 1 : 0
@@ -376,3 +379,4 @@ for(val of set.values())
 	  mxlen = Math.max(mxlen, len);
 	  len = 0;
 ```
+
