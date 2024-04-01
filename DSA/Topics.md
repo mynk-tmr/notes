@@ -332,3 +332,42 @@ while(node?.next)
 	else node = node.next
 ```
 
+## Moore's Voting
+
+Find elements that are majority e.g. appear >n/2 or >n/3 & so on...
+For `n/i` problem, solution contains atmost `i-1` ele
+
+**Find >n/2 ele**
+```js
+isOK(arr, candidate)
+  f=0;
+  for(val of arr) 
+    if(val === candidate) f++
+  return f > arr.length / 2; //based on stmt
+
+a, cta=0;
+for(val of nums)
+	if(val === a) cta++;
+	else if(cta === 0)
+		cta = 1; a = val;
+	else cta-- ;
+
+return isOK(nums, a)? a : null
+```
+
+
+**Find >n/3 ele**
+```js
+res[2], cta = 0, ctb=0;
+for(val of nums)
+	if(val === res[0]) cta++;
+	else if(val === res[1]) ctb++;
+	else if(cta === 0)
+		cta = 1; res[0] = val;
+	else if(ctb === 0)
+		ctb = 1; res[1] = val;
+	else 
+		cta-- ; ctb--;
+return res.filter(v => isOK(nums, v))
+```
+
