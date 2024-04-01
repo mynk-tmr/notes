@@ -271,7 +271,7 @@ for(str of strs)
     group[sorted] ??= [];
     group[sorted].push(str) //the unsorted
 
-return Array.from(Object.values(group))
+return Object.values(group)
 ```
 
 ##### Top K(=3) Frequent Elements 
