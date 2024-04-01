@@ -1,16 +1,17 @@
 ## Matrices
 
-##### Fill zeros in matrix in 0(1) space
+##### Set zeros in matrix in 0(1) space
+- use first row & column to store meta info about who to set as zero
+- set zero in a(i)(j), if frow(i) or fcol(j) is 0,
 ```js
 r = matrix.length
 c = matrix[0].length;
-col0 = 1;
+col0 = 1; //1st col 0th ; [0][0] already used by 1st row
 
-//because 0,0 overlap, use col0 for 1st col's[0] and [0][0] for 1st row's [0]
 //mark 1st row & 1st col based on presence of 0
 for(i : 0..r)
 	for(j : 0..c) 
-		if (matrix[i][j] === 0) {
+		if (matrix[i][j] === 0)
         matrix[i][0] = 0;
         if (j == 0) col0 = 0;
         else matrix[0][j] = 0;
@@ -34,7 +35,7 @@ swap = (i, j) => [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
 matrix.forEach((row, i) => {
 	if (row == matrix.at(-1)) return;
 	//i+1, so we don't swap them to orginal pos
-	for (let j = i + 1; j < row.length; j++) { 
+	for (j : i+1..row.length) { 
 	  if (i != j) swap(i,j)
 	}
 })
@@ -85,12 +86,12 @@ while (obj.hasCol() && obj.hasRow())
 //find ele, given n & r ; fn(n-1, r-1)
 prev = 1
 for(i : 0 < r)
-	res *= n-i ; res /= i + 1
-return res
+	prev *= n-i ; prev /= i + 1
+return prev
 
-//get nth row
+//get rth row
 ans.push(1)
-for(i..1 < n) // ele = prev * (row - col) / col
+for(i..1 < r) // ele = prev * (row - col) / col
 	prev* = n - i; prev/= i; ans.push(prev)
 return ans;
 
@@ -105,3 +106,4 @@ for(i : 0 to n-1)
 	        row.push(preRow[j - 1] + preRow[j])
 	ans.push(row)
 ```
+

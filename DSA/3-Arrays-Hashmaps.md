@@ -324,17 +324,17 @@ class LFUCache {
 `O(n) time & O(1) space`
 ```js
 pivot, swapi 
-if(n == 1) return nums;
+if(n == 1) return ar;
 //find first i,i+1 that are sorted
 for(i: n-2..0)
-	if (nums[i+1] > nums[i]) pivot = i; break;
+	if (a[i+1] > a[i]) pivot = i; break;
 
 //if no pivot, array is last permute, so reverse it
-if(pivot is undef) return nums.reverse()
+if(pivot is undef) return ar.reverse()
 
 //swap ele after pivot that's closest bigger 
 for(i: n-1 > pivot)
-	if (nums[i] > nums[pivot]) swapi = i; break;
+	if (a[i] > a[pivot]) swapi = i; break;
 swap(swapi, pivot)
 
 //reverse from pivot+1
@@ -357,9 +357,8 @@ return ans.reverse()
 - sort array, traverse, track largest ele encountered so far
 - +1 len if new largest is in sequence, else reset it
 ```js
-if (!nums.length) return 0;
-nums.sort((a, b) => a - b)
-let last = nums[0], len = 1, mxlen = 1;
+nums.sort()
+last = nums[0], len = 1, mxlen = 1;
 for (let val of nums)
 	if (val > last)
 	  len = (val - last == 1) ? len + 1 : 1;
@@ -376,7 +375,7 @@ for(val of set.values())
 	if(!set.has(val-1))
 	  let it = val;
 	  while(set.delete(it++)) len++;
-	  mxlen = Math.max(mxlen, len);
+	  mxlen = MAX(mxlen, len);
 	  len = 0;
 ```
 
