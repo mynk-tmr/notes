@@ -379,3 +379,11 @@ for(val of set.values())
 	  len = 0;
 ```
 
+##### Check Valid Anagram s, t
+- store {char, freq} of s in map. Then, for each char of t
+```js
+ct = map[ch] ?? 0
+if(ct == 0) return false;
+--map[ch]
+```
+
