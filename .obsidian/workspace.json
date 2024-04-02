@@ -8,29 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "d84148d1176ff986",
+            "id": "44145f4a0572729a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Topics.md",
+                "file": "DSA/Trees-Graphs.md",
                 "mode": "source",
                 "source": false
               }
             }
-          },
-          {
-            "id": "3e9a03c51cd1b720",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.5.12"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -96,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Topics.md",
+                "file": "DSA/Trees-Graphs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Topics.md",
+                "file": "DSA/Trees-Graphs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Topics.md"
+                "file": "DSA/Trees-Graphs.md"
               }
             }
           }
@@ -159,11 +148,12 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "3e9a03c51cd1b720",
+  "active": "44145f4a0572729a",
   "lastOpenFiles": [
+    "DSA/Basic.md",
     "DSA/Maths-Geometry.md",
-    "DSA/Concepts.md",
-    "DSA/Topics.md",
+    "DSA/Theory.md",
+    "DSA/Trees-Graphs.md",
     "Untitled.md",
     "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/6-Backtracking.md",
@@ -187,7 +177,6 @@
     "Backend Dev/Authentication.md",
     "Best Practices/Guidelines.md",
     "Testing/Jest (JS).md",
-    "Build_Tools/QoL.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
