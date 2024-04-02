@@ -485,14 +485,16 @@ for(i : 0 < len1)
 if(count.every( i => i === 0)) return true;
   
 //sliding window for leftover string
-for(i: len1 < len2)
-	idxLf = getIdx(s2, i - len1); //left will leave window
-	idxRt = getIdx(s2, i) //right will enter window
+for(r: len1 < len2)
+	idxLf = getIdx(s2, r - len1); //left will leave window
+	idxRt = getIdx(s2, r) //right will enter window
 	count[idxLf]--; count[idxRt]++
 	if(count.every( i => i === 0)) return true;
 
 return false
 ```
+
+
 
 
 
