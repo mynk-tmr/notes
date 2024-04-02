@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Trees-Graphs.md",
+                "file": "DSA/Basic.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Trees-Graphs.md",
+                "file": "DSA/Basic.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Trees-Graphs.md",
+                "file": "DSA/Basic.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Trees-Graphs.md"
+                "file": "DSA/Basic.md"
               }
             }
           }
@@ -150,10 +150,10 @@
   },
   "active": "44145f4a0572729a",
   "lastOpenFiles": [
+    "DSA/Trees-Graphs.md",
     "DSA/Basic.md",
     "DSA/Maths-Geometry.md",
     "DSA/Theory.md",
-    "DSA/Trees-Graphs.md",
     "Untitled.md",
     "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/6-Backtracking.md",

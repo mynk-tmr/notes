@@ -61,19 +61,9 @@ for(val : arr)
     map.set(sum, fullfrq + 1)
 ```
 
-##### Longest subarray that sum to K
+##### Longest subarray that sum to K ( has -ve values)
 ```js
-//for no -ve elements, 2 pointers i,j
-//calc prefixsum, check length, if sum exceeds K, move i forward until sum < k
-sum = a[0]  i=0,j=0, mlen=0
-while(++j < n)
-	sum+=a[j];
-	if(sum == k) mlen= MAX(mlen, j - i + 1)
-	else if(sum > k) while(sum > k) sum-=a[i++]
-if(mlen == 0) return a[-1] == k ? 1 : 0
-return mlen
-
-//if -ve exist, hash prefixsum indices
+//hash prefixsum indices
 for(i: 0 to n-1)
 	sum+=a[i]
 	if(!map.has(sum)) map.set(sum, i) //always consider leftmost subarray
@@ -127,6 +117,17 @@ for(i : n-1..0)
 		ans.push(a[i])
 		rmax = a[i]
 return ans.reverse()
+```
+
+##### Best time to buy, sell stock
+Find max difference between 2 numbers
+```js
+rmax=a[-1], diff=0; //0 since problem stmt
+	for(i : n-2..0)
+		profit = rmax - a[i]
+		diff = Math.max(diff, a);
+	    rmax = Math.max(rmax, a[i])
+return diff
 ```
 
 ##### Find longest consecutive sequence `O(nlogN)`
@@ -315,23 +316,6 @@ for(i: 0 < 9)
 return true;
 ```
 
-## Two pointers
-
-Assert Palindrome
-##### Remove duplicate from Sorted in O(1)
-```js
-uniq = 0
-for(i: 0..n-1)
-	if(a[i] !== a[uniq]) a[++uniq] = a[i]
-a.splice(0,uniq+1)
-
-//linked list -> traverse unique only, remove dups
-node = head
-while(node?.next)
-	if(node.next.val == node.val) node.next = node.next.next
-	else node = node.next
-```
-
 ## Moore's Voting
 
 Find elements that are majority e.g. appear >n/2 or >n/3 & so on...
@@ -371,7 +355,22 @@ for(val of nums)
 return res.filter(v => isOK(nums, v))
 ```
 
-## Pointers
+## Two pointers
+
+Assert Palindrome
+##### Remove duplicate from Sorted in O(1)
+```js
+uniq = 0
+for(i: 0..n-1)
+	if(a[i] !== a[uniq]) a[++uniq] = a[i]
+a.splice(0,uniq+1)
+
+//linked list -> traverse unique only, remove dups
+node = head
+while(node?.next)
+	if(node.next.val == node.val) node.next = node.next.next
+	else node = node.next
+```
 
 ### N Sum problems
 
@@ -409,5 +408,24 @@ for(i : 0..n-3)
 	    left = j + 1; right = n - 1;
 	    while (left < right)
 		    //same as above
+```
+
+## Sliding Window
+
+**Patterns**
+- Find `n` size subset that <conditon/>  => constant window
+- Find `max/min` subset that <condition/> => dynamic window
+- Count subsets where <condition/> => ans(supercondition) - ans(subcondition)
+- shortest valid window => find largest valid, then shrink to get more valids
+##### Longest subarray sum=K (no -ve ele)
+```js
+sum = a[0]  l=0,r=0, mlen=0
+while(++r < n)
+	sum+=a[r];
+	if(sum == k) mlen= MAX(mlen, r - l + 1)
+	else if(sum > k) while(sum > k) sum-=a[l++]
+	
+if(mlen == 0) return a[-1] == k ? 1 : 0
+return mlen
 ```
 
