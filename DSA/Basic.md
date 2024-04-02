@@ -470,3 +470,29 @@ while (r !== -1)
     max = Math.max(max, sum);
 ```
 
+##### Permutation substring in string
+```js
+len1, len2 //lengths of pattern, string
+if(len1 > len2) return false;
+count = Array(26).fill(0)
+getIdx = (str, i) => str.charCodeAt(i) - 97;
+
+// string will populate count, pattern will cancel chars
+// Don't switch their roles
+for(i : 0 < len1)
+	count[ getIdx(s1, i) ]--
+	count[ getIdx(s2, i) ]++
+if(count.every( i => i === 0)) return true;
+  
+//sliding window for leftover string
+for(i: len1 < len2)
+	idxLf = getIdx(s2, i - len1); //left will leave window
+	idxRt = getIdx(s2, i) //right will enter window
+	count[idxLf]--; count[idxRt]++
+	if(count.every( i => i === 0)) return true;
+
+return false
+```
+
+
+
