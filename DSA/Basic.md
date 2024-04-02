@@ -429,6 +429,18 @@ if(mlen == 0) return a[-1] == k ? 1 : 0
 return mlen
 ```
 
+##### Longest Substring Without Repeating Characters
+```js
+if (n < 2) return n
+set={a[0]}
+while(++rt < n)
+	while (set.has(s[rt])) 
+      set.delete(s[lf]) //reduce window from left till dup char
+      lf++
+    set.add(s[rt])
+    max = Math.max(max, rt - lf + 1)
+```
+
 ##### Max points from K Cards
 Max sum where l or r should stick to array edge
 ```js
@@ -438,7 +450,4 @@ while (r !== -1)
     sum -= cardPoints.at(r--);
     sum += cardPoints.at(--l);
     max = Math.max(max, sum);
-return max;
 ```
-
-##### Longest Substring Without Repeating Characters
