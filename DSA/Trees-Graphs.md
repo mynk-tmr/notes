@@ -5,12 +5,12 @@ BFS, Hashmap, Sorting
 q = [[root , 0]] //0 => x-coord [root at origin] 
 while(!q.empty)
 	node, x = deque
-	hash[x] ??= node //for BOTTOM view, remove ??
+	if(!hash{x}) hash.set(x, node) //for BOTTOM view, remove has check
 	if(node.left) enque [node, x-1]
 	if(node.right) enque [node, x+1]
 
 //sort based on keys, then return values
-return Object.keys(hash).sort().map(k => hash[k])
+return [...hash.keys()].sort().map(k => hash{k})
 ```
 
 ##### RIGHT/LEFT view of Binary tree
@@ -30,7 +30,8 @@ dfs(level, node=root)
 ```
 
 ##### Same, Symmetrical, Subtree of given tree
-`Time-space : O(n) , Avg logN`
+`Same/Symm : O(n) ,  A(logN)  for both space-time`
+`Subtree : O(mn) & O(n)`
 ```js
 //isSame(P, Q)
 if(!p || !q) return p===q
@@ -42,6 +43,8 @@ fn(p, q)
     if(!p || !q) return p===q
     return p.val === q.val && fn(p.left, q.right) && fn(p.right, q.left)
 
-//isSubtree(big, small)
-
+//isSub(root, sub)
+if (!root) return !sub;
+return isSame(root, sub) || isSub(root.left, sub) || isSub(root.right, sub) 
 ```
+
