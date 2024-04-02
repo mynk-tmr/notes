@@ -441,6 +441,24 @@ while(++rt < n)
     max = Math.max(max, rt - lf + 1)
 ```
 
+##### Longest repeating character replacement
+```js
+freqMap={}, maxfreq, maxlen
+//window is valid when non-maxfreq chars in window are atmost k
+
+while(r < n)
+	char = s[r], len = r - l + 1;
+    freqMap[char] ??= 0;
+    maxfreq = MAX(maxfreq, ++freqMap[char])
+    while (len - maxfreq > k) { 
+      --freqMap[s[l]];
+      --len;
+      ++l;
+    }
+    maxlen = Math.max(maxlen, len);
+    r++;
+```
+
 ##### Max points from K Cards
 Max sum where l or r should stick to array edge
 ```js
@@ -451,3 +469,4 @@ while (r !== -1)
     sum += cardPoints.at(--l);
     max = Math.max(max, sum);
 ```
+
