@@ -30,7 +30,7 @@ dfs(level, node=root)
 ```
 
 ##### Same, Symmetrical, Subtree of given tree
-
+`Time-space : O(n) , Avg logN`
 ```js
 //isSame(P, Q)
 if(!p || !q) return p===q
