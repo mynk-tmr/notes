@@ -471,6 +471,7 @@ while (r !== -1)
 ```
 
 ##### Permutation substring in string
+Does a permute of pattern in string exist?
 ```js
 len1, len2 //lengths of pattern, string
 if(len1 > len2) return false;
@@ -495,58 +496,29 @@ return false
 ```
 
 ##### Minimum window substring 
+Min window where chars of pattern (t) exist
 ```js
-var minWindow = function(s, t) {
-    // Create an array to store the frequency of characters using their ASCII codes
-    const tFreq = new Array(128).fill(0);
-    
-    // Calculate the frequency of characters in 't'
-    for (let char of t) {
-        tFreq[char.charCodeAt()]++;
-    }
-    
-    // Initialize pointers and variables
-    let left = 0;
-    let right = 0;
-    let minWindow = "";
-    let minWindowLength = Infinity;
-    let count = t.length;
-    
-    // Expand the window to the right
-    while (right < s.length) {
-        // If the current character in 's' is present in 't', decrease the count
-        if (tFreq[s[right].charCodeAt()] > 0) {
-            count--;
-        }
-        
-        // Decrease the frequency of the current character in 'tFreq'
-        tFreq[s[right].charCodeAt()]--;
-        right++;
-        
-        // Contract the window from the left
-        while (count === 0) {
-            // If the current window is smaller than the minimum window found so far, update the minimum window
-            if (right - left < minWindowLength) {
-                minWindowLength = right - left;
-                minWindow = s.substring(left, right);
-            }
-            
-            // Increase the frequency of the character at 'left' in 'tFreq'
-            tFreq[s[left].charCodeAt()]++;
-            
-            // If the frequency of the character at 'left' becomes positive, increase the count
-            if (tFreq[s[left].charCodeAt()] > 0) {
-                count++;
-            }
-            
-            left++;
-        }
-    }
-    
-    return minWindow;
-};
+tFreq = Array(128).fill(0) //all english chars
+for (ch of t) tFreq[ch.charCodeAt()]++
 
+lf = 0, rt = 0, minwd = "", rem = t.length //how much pattern left to match
+while (rt < s.length) {
+    idx = s[rt].charCodeAt();
+    if (tFreq[idx] > 0) leftover--; //cross out match
+    tFreq[idx]--;
+    rt++;
+
+    while (rem === 0) { //all crossed
+      if (rt - lf < (minwd.length || Infinity))
+        minwd = s.substring(lf, rt);
+        
+      idx = s[lf].charCodeAt();
+      tFreq[idx]++; //left is leaving, so reverse earlier -- 
+      if (tFreq[idx] > 0) leftover++;
+      lf++;
+    }
+  }
+  return minwd;
+}
 ```
-
-
 
