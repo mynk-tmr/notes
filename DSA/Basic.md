@@ -522,3 +522,22 @@ while (rt < s.length) {
 }
 ```
 
+##### Sliding Window Maximum
+- Each time window of k size slides, find max in window
+- uses *monotonic deque* -> where ele are in decreasing order
+	- each time ele is enqued, we deque all smaller first
+
+```js
+q = [], res = [];
+nums.forEach((val, rt) => {
+	while (q.length && q.at(-1) < val)
+	  q.pop();
+
+	q.push(val);
+	if (rt >= k - 1) //arranged k ele, now time to calc maxes
+	  res.push(q[0])
+	  lf = rt + 1 - k; //lf -- 0
+	  if (q[0] === nums[lf]) q.shift()
+})
+```
+
