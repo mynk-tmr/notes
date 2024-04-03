@@ -436,7 +436,7 @@ set={a[0]}
 while(++rt < n)
 	while (set.has(s[rt])) 
       set.delete(s[lf]) //reduce window from left till dup char
-      lf++
+      lf++ 
     set.add(s[rt])
     max = Math.max(max, rt - lf + 1)
 ```

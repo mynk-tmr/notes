@@ -22,6 +22,7 @@ ans = [];
 dfs(0)
 return ans;
 
+//push to ans when level is visited for 1st time
 dfs(level, node=root)
   if(!node) return;
   if(level === ans.length) ans.push(node.val)
