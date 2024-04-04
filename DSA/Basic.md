@@ -568,12 +568,12 @@ class MinStack {
 }
 ```
 
-##### Next Greater Element
+##### Next Greater Element (all distinct)
 Monotonic stack {top -> bottom , decreasing}. Elements left in stack have no NGE
 ```js
 map = {}
 for (val of arr)
-    while (stack.length && stack.at(-1) < val)
+    while (stack.length && stack.at(-1) <= val)
       map[stack.pop()] = val;
     stack.push(val)
 ```
@@ -602,6 +602,25 @@ for (car of cars)
 return stack.length
 ```
 
+##### Largest area in histogram of bar width=1
+- stack bars as long as height is improving. When not, remove bar. A rectangle can be formed with 
+	- height = height of smaller removed bar 
+	- width= index of current bar - index of removed bar 
+- put earliest possible position of current bar in stack
+```js
+stack = [] , max = 0;
+heights.push(0) //to evaluate last height
+heights.forEach((ht, i) => {
+	let earliest = i;
+	while (stack.length && stack.at(-1)[1] > ht) {
+	  let [pos, height] = stack.pop()
+	  max = Math.max(max, (i - pos) * height);
+	  earliest = pos;
+	}
+	stack.push([earliest, ht])
+})
+```
+
 ##### Evaluate postfix expression
 ```js
 stack = []
@@ -620,8 +639,7 @@ return stack.at(-1);
 ## Queue
 ##### Generate Valid Parantheses for given N
 ```js
-lf = 1, rt = 0; //count of left & right paras
-q = [[lf, rt, '(']], ans = [];
+q = [[1, 0, '(']] //count of left & right paras
 while (q.length)
 	[lf, rt, s] = q.pop()
 	if (s.length === 2 * n) ans.push(s)
