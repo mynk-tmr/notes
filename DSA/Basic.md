@@ -569,8 +569,12 @@ class MinStack {
 ```
 
 ##### Next Greater Element of array index
+Monotonic stack {top -> bottom , decreasing}
 ```js
-
+for (val of arr)
+    while (stack.length && stack.at(-1) < val)
+      map[stack.pop()] = val;
+    stack.push(val)
 ```
 
 
