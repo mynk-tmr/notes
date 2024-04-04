@@ -583,3 +583,15 @@ for (token of tokens) {
 return stack.at(-1);
 ```
 
+## Queue
+##### Generate Valid Parantheses for given N
+```js
+lf = 1, rt = 0; //count of left & right paras
+q = [[lf, rt, '(']], ans = [];
+while (q.length)
+	[lf, rt, s] = q.pop()
+	if (s.length === 2 * n) ans.push(s)
+	if (lf < n) q.push([lf + 1, rt, s + '('])
+	if (rt < lf) q.push([lf, rt + 1, s + ')'])
+```
+
