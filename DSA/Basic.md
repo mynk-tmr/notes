@@ -568,6 +568,12 @@ class MinStack {
 }
 ```
 
+##### Next Greater Element of array index
+```js
+
+```
+
+
 ##### Evaluate postfix expression
 ```js
 stack = []
