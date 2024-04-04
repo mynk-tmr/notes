@@ -554,4 +554,18 @@ for (ch of s)
 
 return stack.length === 0;
 ```
+##### Implement minstack
+Get min ele in stack in `O(1)`. On push, store current MIN (min ele so far)
+```js
+class MinStack {
+  push(val) {
+    push({ val, min: Math.min(val, this.getMin()) })
+  }
+  getMin() {
+    if (stack.length === 0) return Infinity
+    return at(-1).min
+  }
+}
+```
 
+##### 
