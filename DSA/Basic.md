@@ -568,15 +568,26 @@ class MinStack {
 }
 ```
 
-##### Next Greater Element of array index
+##### Next Greater Element
 Monotonic stack {top -> bottom , decreasing}
 ```js
+map = {}
 for (val of arr)
     while (stack.length && stack.at(-1) < val)
       map[stack.pop()] = val;
     stack.push(val)
 ```
 
+##### Next greater Element distance
+```js
+stack = [], map = Array(n).fill(0) //0 coz problem stmt
+for(i : n-1...0)
+	while (stack.length && a[stack.at(-1)] <= a[i])
+      stack.pop()
+    if (stack.length)
+      map[i] = stack.at(-1) - i;
+    stack.push(i)
+```
 
 ##### Evaluate postfix expression
 ```js
