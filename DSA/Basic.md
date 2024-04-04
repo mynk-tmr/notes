@@ -542,4 +542,16 @@ nums.forEach((val, rt) => {
 ```
 
 ## Stack
+##### Valid Paranthesis
+```js
+stack = [];
+pairs = { '(' : ')', '{' : '}', '[' : ']'}
+for (ch of s)
+	if (ch in pairs)
+      stack.push(pairs[ch])
+    else if(ch !== stack.pop())
+      return false;
+
+return stack.length === 0;
+```
 
