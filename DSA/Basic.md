@@ -569,7 +569,7 @@ class MinStack {
 ```
 
 ##### Next Greater Element
-Monotonic stack {top -> bottom , decreasing}
+Monotonic stack {top -> bottom , decreasing}. Elements left in stack have no NGE
 ```js
 map = {}
 for (val of arr)
@@ -587,6 +587,19 @@ for(i : n-1...0)
     if (stack.length)
       map[i] = stack.at(-1) - i;
     stack.push(i)
+```
+
+##### Car Fleet
+Each slower car will swallow faster cars behind it's position to become a fleet. 
+```js
+//create cars array => car = {time, pos}
+cars.sort((A, B) => A.pos - B.pos)
+stack = []
+for (car of cars) 
+	while (stack.length && stack.at(-1).time <= car.time)
+	  stack.pop()
+	stack.push(car)
+return stack.length
 ```
 
 ##### Evaluate postfix expression
