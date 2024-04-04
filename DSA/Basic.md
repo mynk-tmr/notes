@@ -568,4 +568,18 @@ class MinStack {
 }
 ```
 
-##### 
+##### Evaluate postfix expression
+```js
+stack = []
+calc = ['+', '-', '*', '/']
+for (token of tokens) {
+    if (!calc.includes(token)) stack.push(token)
+    else
+      let B = stack.pop(), A = stack.pop()
+      let ans = eval('(' + A + ')' + token + '(' + B + ')');
+      ans = Number.parseInt(ans)
+      stack.push(ans)
+    
+return stack.at(-1);
+```
+
