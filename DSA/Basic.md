@@ -504,8 +504,8 @@ for (ch of t) tFreq[ch.charCodeAt()]++
 lf = 0, rt = 0, minwd = "", rem = t.length //how much pattern left to match
 while (rt < s.length) {
     idx = s[rt].charCodeAt();
-    if (tFreq[idx] > 0) leftover--; //cross out match
-    tFreq[idx]--;
+    tFreq[idx]--; //trying to cross out pattern
+    if (tFreq[idx] == 0) rem--; 
     rt++;
 
     while (rem === 0) { //all crossed
@@ -514,7 +514,7 @@ while (rt < s.length) {
         
       idx = s[lf].charCodeAt();
       tFreq[idx]++; //left is leaving, so reverse earlier -- 
-      if (tFreq[idx] > 0) leftover++;
+      if (tFreq[idx] > 0) rem++;
       lf++;
     }
   }
@@ -540,4 +540,6 @@ nums.forEach((val, rt) => {
 	  if (q[0] === nums[lf]) q.shift()
 })
 ```
+
+## Stack
 
