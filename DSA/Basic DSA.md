@@ -163,3 +163,18 @@ seek(low = 0, high = n - 1)
     if (nums[mid] === target) return mid;
     return nums[mid] > target ? seek(low, mid - 1) : seek(mid + 1, high)
 ```
+
+2-D binary search
+```js
+m = matrix.length, n = matrix[0].length
+l = 0, r = m * n - 1
+while (l <= r)
+    mid = (l + r + 1) >> 1
+    val = matrix[Math.floor(mid / n)][mid % n]
+    if (val === target) return true;
+    else if (target < val) r = mid - 1
+    else l = mid + 1
+
+return false;
+```
+

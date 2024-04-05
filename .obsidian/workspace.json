@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Leetcode.md",
+                "file": "DSA/Basic DSA.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Leetcode.md",
+                "file": "DSA/Basic DSA.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Leetcode.md",
+                "file": "DSA/Basic DSA.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Leetcode.md"
+                "file": "DSA/Basic DSA.md"
               }
             }
           }
@@ -150,12 +150,12 @@
   },
   "active": "8ed457bc643754b5",
   "lastOpenFiles": [
+    "DSA/Maths-Geometry.md",
+    "DSA/Leetcode.md",
     "DSA/Basic DSA.md",
     "DSA/Theory.md",
     "Untitled.md",
     "DSA/Trees-Graphs.md",
-    "DSA/Leetcode.md",
-    "DSA/Maths-Geometry.md",
     "ReactJS/Beginner.md",
     "ReactJS/Links.md",
     "ReactJS/React Ecosystem.md",
