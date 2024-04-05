@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Basic DSA.md",
+                "file": "DSA/Leetcode.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Basic DSA.md",
+                "file": "DSA/Leetcode.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Basic DSA.md",
+                "file": "DSA/Leetcode.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Basic DSA.md"
+                "file": "DSA/Leetcode.md"
               }
             }
           }
@@ -150,8 +150,8 @@
   },
   "active": "8ed457bc643754b5",
   "lastOpenFiles": [
-    "DSA/Theory.md",
     "DSA/Basic DSA.md",
+    "DSA/Theory.md",
     "Untitled.md",
     "DSA/Trees-Graphs.md",
     "DSA/Leetcode.md",

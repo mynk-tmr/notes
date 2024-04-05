@@ -1,3 +1,24 @@
+## Binary Search
+
+#### Problems
+- Guess Number -> define `search(low=0, high=num)`. 
+- Find first bad product -> define `search(low=1,high=n)`
+
+##### Koko Eating Bananas
+```js
+low = 1, high = Math.max(...piles) //speeds
+hoursTaken = (speed) => piles.reduce((acc, pile) =>
+    acc + Math.ceil(pile / speed), 0)
+
+ans = high;
+while (low <= high)
+    //get mid
+    if (hoursTaken(mid) > h) low = mid + 1
+    else 
+	    ans = mid; high = mid - 1
+return ans;
+```
+
 ## Recursion
 
 ##### Check if a number can be reached from 1 by adding 5 or multiplying with 3 

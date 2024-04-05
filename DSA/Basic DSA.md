@@ -163,8 +163,3 @@ seek(low = 0, high = n - 1)
     if (nums[mid] === target) return mid;
     return nums[mid] > target ? seek(low, mid - 1) : seek(mid + 1, high)
 ```
-
-#### Problems
-- Guess Number -> define `search(low=0, high=num)`. 
-- Find first bad product -> define `search(low=1,high=n)`
-- 
