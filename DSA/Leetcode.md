@@ -647,3 +647,5 @@ while (q.length)
 	if (rt < lf) q.push([lf, rt + 1, s + ')'])
 ```
 
+## Binary Search
+

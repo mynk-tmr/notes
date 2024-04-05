@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "44145f4a0572729a",
+            "id": "8ed457bc643754b5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/Basic.md",
+                "file": "DSA/Basic DSA.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/Basic.md",
+                "file": "DSA/Basic DSA.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/Basic.md",
+                "file": "DSA/Basic DSA.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/Basic.md"
+                "file": "DSA/Basic DSA.md"
               }
             }
           }
@@ -148,16 +148,17 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "44145f4a0572729a",
+  "active": "8ed457bc643754b5",
   "lastOpenFiles": [
+    "DSA/Theory.md",
+    "DSA/Basic DSA.md",
+    "Untitled.md",
+    "DSA/Trees-Graphs.md",
+    "DSA/Leetcode.md",
+    "DSA/Maths-Geometry.md",
     "ReactJS/Beginner.md",
     "ReactJS/Links.md",
     "ReactJS/React Ecosystem.md",
-    "DSA/Theory.md",
-    "DSA/Basic.md",
-    "DSA/Trees-Graphs.md",
-    "DSA/Maths-Geometry.md",
-    "Untitled.md",
     "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/6-Backtracking.md",
     "DSA/3-Hashing-Prefix.md",
@@ -176,7 +177,6 @@
     "Backend Dev/Beginner.md",
     "Backend Dev/Authentication.md",
     "Best Practices/Guidelines.md",
-    "Testing/Jest (JS).md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
