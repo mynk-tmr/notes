@@ -19,7 +19,7 @@ while (low <= high)
 return ans;
 ```
 
-##### Sorted rotated array search
+##### Minimum item of sorted rotated array
 ```js
 l = 0, r = n - 1;
 while (l < r)
@@ -30,7 +30,21 @@ while (l < r)
 return nums[l]
 ```
 
-
+##### Search in sorted rotated array
+Find which half is sorted, if target lies that in sorted, proceed with this half, else other half
+```js
+//usual binary l,r, while, ===
+    if (nums[l] <= nums[m]) { //left half is sorted
+      if (nums[l] === target) return l;
+      if (nums[l] < target && target < nums[m]) r = m - 1;
+      else l = m + 1
+    }
+    else {
+      if (nums[r] === target) return r;
+      if (nums[m] < target && target < nums[r]) l = m + 1;
+      else r = m - 1
+    }
+```
 
 
 ## Recursion
