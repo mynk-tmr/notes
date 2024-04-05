@@ -171,10 +171,9 @@ return ans.reverse()
 ##### Best time to buy, sell stock
 Find max difference between 2 numbers
 ```js
-rmax=a[-1], diff=0; //0 since problem stmt
+rmax=a[-1], maxdiff=0; //0 since problem stmt
 	for(i : n-2..0)
-		profit = rmax - a[i]
-		diff = Math.max(diff, a);
+		maxdiff = Math.max(diff, rmax - a[i]);
 	    rmax = Math.max(rmax, a[i])
 return diff
 ```
