@@ -19,6 +19,20 @@ while (low <= high)
 return ans;
 ```
 
+##### Sorted rotated array search
+```js
+l = 0, r = n - 1;
+while (l < r)
+	m = Math.floor((l + r) / 2)
+    if (nums[m] > nums[r]) l = m + 1;
+    else r = m
+
+return nums[l]
+```
+
+
+
+
 ## Recursion
 
 ##### Check if a number can be reached from 1 by adding 5 or multiplying with 3 
