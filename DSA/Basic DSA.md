@@ -143,7 +143,7 @@ for(i : n-2)
 
 ## Binary Search
 
-Iterative
+Iterative (prefer this)
 ```js
 low = 0, high = n - 1;
 while (low <= high)
@@ -164,4 +164,7 @@ seek(low = 0, high = n - 1)
     return nums[mid] > target ? seek(low, mid - 1) : seek(mid + 1, high)
 ```
 
-
+#### Problems
+- Guess Number -> define `search(low=0, high=num)`. 
+- Find first bad product -> define `search(low=1,high=n)`
+- 
