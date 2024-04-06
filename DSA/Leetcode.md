@@ -34,18 +34,16 @@ return nums[l]
 Find which half is sorted, if target lies that in sorted, proceed with this half, else other half
 ```js
 //usual binary l,r, while, ===
-    if (nums[l] <= nums[m]) { //left half is sorted
+    if (nums[l] <= nums[m])  //left half is sorted
       if (nums[l] === target) return l;
       if (nums[l] < target && target < nums[m]) r = m - 1;
       else l = m + 1
-    }
-    else {
+      
+    else 
       if (nums[r] === target) return r;
       if (nums[m] < target && target < nums[r]) l = m + 1;
       else r = m - 1
-    }
 ```
-
 
 ## Recursion
 
