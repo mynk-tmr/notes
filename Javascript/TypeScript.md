@@ -173,7 +173,7 @@ type MyProp = { children? : never}
 type ButtonProp = {variant : 'red' | 'blue' } & React.ComponentProps<'button'>
 
 //extracting props of a type
-props : React.ComponentProps<typeof FormFields>
+props : React.ComponentProps<typeof Suspense>
 
 //generic props
 const List = <T extends {},>(props : ListProps<T>) => {...};

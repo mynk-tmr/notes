@@ -407,7 +407,7 @@ Assert Palindrome
 ##### Remove duplicate from Sorted in O(1)
 ```js
 uniq = 0
-for(i: 0..n-1)
+for(i: 1..n-1)
 	if(a[i] !== a[uniq]) a[++uniq] = a[i]
 a.splice(0,uniq+1)
 
