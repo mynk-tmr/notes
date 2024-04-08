@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Design/Accessiblity.md",
+                "file": "Web Design/HTML.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Web Design/Accessiblity.md",
+                "file": "Web Design/HTML.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Web Design/Accessiblity.md",
+                "file": "Web Design/HTML.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Web Design/Accessiblity.md"
+                "file": "Web Design/HTML.md"
               }
             }
           }
@@ -148,8 +148,9 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "8ed457bc643754b5",
   "lastOpenFiles": [
+    "Web Design/Accessiblity.md",
     "Web Design/CSS.md",
     "Web Design/HTML.md",
     "Web Design/Patterns.md",
@@ -176,7 +177,6 @@
     "Javascript/Built-in Methods.md",
     "Javascript/4_Web APIs.md",
     "Backend Dev/Terms.md",
-    "Backend Dev/Internet Protocols.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
