@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "13cbff587dbb7e4d",
+        "id": "3752406b44428218",
         "type": "tabs",
         "children": [
           {
-            "id": "8ed457bc643754b5",
+            "id": "40a33252356e0425",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ReactJS/Links.md",
+                "file": "Backend Dev/Authentication.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ReactJS/Links.md",
+                "file": "Backend Dev/Authentication.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "ReactJS/Links.md",
+                "file": "Backend Dev/Authentication.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ReactJS/Links.md"
+                "file": "Backend Dev/Authentication.md"
               }
             }
           }
@@ -148,15 +148,19 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "8ed457bc643754b5",
+  "active": "79734d9ecf56138d",
   "lastOpenFiles": [
-    "ReactJS/Beginner.md",
+    "Backend Dev/Beginner.md",
+    "Backend Dev/Authentication.md",
+    "Best Practices/Guidelines.md",
+    "Testing/Jest (JS).md",
     "Web Design/HTML.md",
-    "Web Design/Accessiblity.md",
-    "Web Design/CSS.md",
     "Web Design/Patterns.md",
     "Web Design/WebRTC.md",
-    "Testing/Jest (JS).md",
+    "Web Design/Accessiblity.md",
+    "Web Design/CSS.md",
+    "ReactJS/Links.md",
+    "ReactJS/Beginner.md",
     "Javascript/TypeScript.md",
     "DSA/Leetcode.md",
     "DSA/Basic DSA.md",
@@ -164,7 +168,6 @@
     "DSA/Theory.md",
     "Untitled.md",
     "DSA/Trees-Graphs.md",
-    "ReactJS/Links.md",
     "ReactJS/React Ecosystem.md",
     "DSA/4-Two-Pointers-Sliding-Window.md",
     "DSA/6-Backtracking.md",
@@ -174,9 +177,6 @@
     "Cache.md",
     "Interview/Topics.md",
     "DSA",
-    "Javascript/Built-in Methods.md",
-    "Javascript/4_Web APIs.md",
-    "Backend Dev/Terms.md",
     "Excalidraw",
     "Untitled.canvas",
     "DSA"
