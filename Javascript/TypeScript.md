@@ -13,7 +13,7 @@ function log(fn: any, context: ClassMethodDecoratorContext) {
 
 //usage, runs before any other field initialisation, greet --> replaced by return of @log
 @log
-    greet() {  /* code */ }
+greet() {  /* code */ }
 ```
 
 Binding methods ..
@@ -28,7 +28,7 @@ function bound(fn: any, context: ClassMethodDecoratorContext) {
 
  2 decorators – `@bound` and `@log` can be stacked. Decorators can _return_ decorator functions.
 ```less
-    @bound @log greet() { } //log runs first
+@bound @log greet() { } //log runs first
 ```
 
 
@@ -37,8 +37,6 @@ function bound(fn: any, context: ClassMethodDecoratorContext) {
 @register export default class Foo {
     // ...
 }
-
-// ✅ also allowed
 export default @register class Bar {
     // ...
 }

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Backend Dev/Authentication.md",
+                "file": "Javascript/TypeScript.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Backend Dev/Authentication.md",
+                "file": "Javascript/TypeScript.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Backend Dev/Authentication.md",
+                "file": "Javascript/TypeScript.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Backend Dev/Authentication.md"
+                "file": "Javascript/TypeScript.md"
               }
             }
           }
@@ -148,34 +148,34 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "40a33252356e0425",
   "lastOpenFiles": [
-    "Backend Dev/Beginner.md",
-    "Backend Dev/Authentication.md",
-    "Best Practices/Guidelines.md",
-    "Testing/Jest (JS).md",
-    "Web Design/HTML.md",
-    "Web Design/Patterns.md",
-    "Web Design/WebRTC.md",
-    "Web Design/Accessiblity.md",
-    "Web Design/CSS.md",
-    "ReactJS/Links.md",
-    "ReactJS/Beginner.md",
+    "Javascript/Built-in Methods.md",
+    "Javascript/4_Web APIs.md",
     "Javascript/TypeScript.md",
+    "Web Design/Patterns.md",
+    "Javascript/5_Patterns.md",
+    "Web Design/Internet Protocols.md",
+    "Web Design/HTTP, REST, MVC.md",
+    "Web Design/HTML.md",
+    "Web Design/CSS.md",
+    "Build_Tools/Git.md",
+    "Web Design/Accessiblity.md",
+    "Build_Tools/_Notations.md",
+    "ReactJS/Beginner.md",
+    "ReactJS/Links.md",
+    "ReactJS/Jest.md",
+    "ReactJS/React Ecosystem.md",
+    "Web Design/Technologies.md",
+    "Topics/Terms.md",
+    "Topics/Authentication.md",
+    "Best Practices/Guidelines.md",
     "DSA/Leetcode.md",
     "DSA/Basic DSA.md",
     "DSA/Maths-Geometry.md",
     "DSA/Theory.md",
     "Untitled.md",
     "DSA/Trees-Graphs.md",
-    "ReactJS/React Ecosystem.md",
-    "DSA/4-Two-Pointers-Sliding-Window.md",
-    "DSA/6-Backtracking.md",
-    "DSA/3-Hashing-Prefix.md",
-    "Javascript/3_DOM.md",
-    "Javascript/1_Beginner.md",
-    "Cache.md",
-    "Interview/Topics.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",

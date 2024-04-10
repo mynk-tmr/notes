@@ -1,3 +1,4 @@
+A server using HTTP is called **web server.**
 ## HTTP
 
 `http` and `https` are *Applayer* protocols for data exchange on WWW. They use port 80 & 443.

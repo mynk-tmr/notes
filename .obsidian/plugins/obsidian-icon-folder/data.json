@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiStethoscope",
       "LiExternalLink",
       "LiType",
       "LiPartyPopper",
-      "LiCandyCane",
-      "LiRemoveFormatting"
+      "LiCandyCane"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -27,24 +27,21 @@
     "iconsInNotesEnabled": true,
     "iconIdentifier": ":"
   },
-  "Backend Dev/Authentication.md": "LiLock",
-  "Backend Dev/Beginner.md": "LiPersonStanding",
-  "Backend Dev/Internet Protocols.md": "LiRepeat",
-  "Backend Dev/Terms.md": "LiMoreVertical",
   "Best Practices/Guidelines.md": "LiCircleEllipsis",
   "Javascript/1_Beginner.md": "LiPersonStanding",
   "Javascript/2_Intermediate.md": "LiGitlab",
   "Javascript/3_DOM.md": "LiListFilter",
   "Javascript/4_Web APIs.md": "LiMessageCircleCode",
-  "Javascript/5_Patterns.md": "LiZap",
   "Javascript/Built-in Methods.md": "LiCheck",
   "ReactJS/Beginner.md": "LiPersonStanding",
   "ReactJS/React Ecosystem.md": "LiAlignCenterHorizontal",
-  "Web Design/Accessiblity.md": "LiAccessibility",
   "Web Design/CSS.md": "LiScissors",
   "Web Design/HTML.md": "LiLandmark",
   "Web Design/Patterns.md": "LiPartyPopper",
-  "Web Design/WebRTC.md": "LiTv",
   "ReactJS/Links.md": "LiExternalLink",
-  "Javascript/TypeScript.md": "LiType"
+  "Javascript/TypeScript.md": "LiType",
+  "Web Design/Technologies.md": "LiTv",
+  "Web Design/Internet Protocols.md": "LiRepeat",
+  "Web Design/HTTP, REST, MVC.md": "LiPersonStanding",
+  "ReactJS/Jest.md": "LiStethoscope"
 }
