@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "3752406b44428218",
+        "id": "d4bc05d37a1302dd",
         "type": "tabs",
         "children": [
           {
-            "id": "40a33252356e0425",
+            "id": "359e1727d6bddd07",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Javascript/TypeScript.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Javascript/TypeScript.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Javascript/TypeScript.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Javascript/TypeScript.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,11 +140,19 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "40a33252356e0425",
+  "active": "359e1727d6bddd07",
   "lastOpenFiles": [
+    "PHP/Core.md",
+    "PHP/Untitled.md",
+    "PHP",
+    "DSA/Trees-Graphs.md",
+    "DSA/Theory.md",
+    "DSA/Basic DSA.md",
+    "DSA/Leetcode.md",
+    "DSA/Maths-Geometry.md",
+    "Javascript/TypeScript.md",
     "Javascript/Built-in Methods.md",
     "Javascript/4_Web APIs.md",
-    "Javascript/TypeScript.md",
     "Web Design/Patterns.md",
     "Javascript/5_Patterns.md",
     "Web Design/Internet Protocols.md",
@@ -169,13 +169,6 @@
     "Web Design/Technologies.md",
     "Topics/Terms.md",
     "Topics/Authentication.md",
-    "Best Practices/Guidelines.md",
-    "DSA/Leetcode.md",
-    "DSA/Basic DSA.md",
-    "DSA/Maths-Geometry.md",
-    "DSA/Theory.md",
-    "Untitled.md",
-    "DSA/Trees-Graphs.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",
