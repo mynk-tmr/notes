@@ -11,8 +11,12 @@
             "id": "359e1727d6bddd07",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Angular.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Angular.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Angular.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Angular.md"
+              }
             }
           }
         ],
@@ -142,6 +150,7 @@
   },
   "active": "359e1727d6bddd07",
   "lastOpenFiles": [
+    "Angular.md",
     "PHP/Core.md",
     "PHP/Untitled.md",
     "PHP",
@@ -168,7 +177,6 @@
     "ReactJS/React Ecosystem.md",
     "Web Design/Technologies.md",
     "Topics/Terms.md",
-    "Topics/Authentication.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",
