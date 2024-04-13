@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Angular.md",
+                "file": "Shopify.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Angular.md",
+                "file": "Shopify.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Angular.md",
+                "file": "Shopify.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Angular.md"
+                "file": "Shopify.md"
               }
             }
           }
@@ -150,7 +150,7 @@
   },
   "active": "359e1727d6bddd07",
   "lastOpenFiles": [
-    "Angular.md",
+    "Shopify.md",
     "PHP/Core.md",
     "PHP/Untitled.md",
     "PHP",
