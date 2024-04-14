@@ -9,10 +9,14 @@ for(i : n-1 to 0)
         ans = [ans]
         continue;
     if(key.at(-1) === '"')
-        key = keys[i-1].slice(1) + "." + keys[i].slice(0, -1)
-        --i
+	    key = keys[i].slice(0, -1)
+	    while(keys[--i][0] !== '"')
+		    key = keys[i][0] + "." + key
+		key = key[i].slice(1) + "." + key
     ans = { [key] : ans ?? finalValue }
     
-return ans;   
+return ans;
 ```
+
+
 

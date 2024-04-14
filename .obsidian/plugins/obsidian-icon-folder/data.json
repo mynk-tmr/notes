@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiWand",
       "LiBadge",
       "LiStethoscope",
       "LiExternalLink",
-      "LiType",
-      "LiPartyPopper"
+      "LiType"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -43,5 +43,6 @@
   "Web Design/Technologies.md": "LiTv",
   "Web Design/Internet Protocols.md": "LiRepeat",
   "Web Design/HTTP, REST, MVC.md": "LiPersonStanding",
-  "ReactJS/Jest.md": "LiStethoscope"
+  "ReactJS/Jest.md": "LiStethoscope",
+  "GSAP.md": "LiWand"
 }

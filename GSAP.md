@@ -71,9 +71,26 @@ const moveShape = g.contextSafe((e) => {
 }
 ```
 
-## Tweens
+## Controls
+
 A single animation is called a 'tween'. Four types -> `to, from, fromTo, set`
-### Animatables
+
+```js
+let tween = gsap.to("#logo", {duration: 1, x: 100});
+tween.pause();
+tween.resume();
+tween.reverse();
+tween.seek(0.5); //jump to 50%
+tween.progress(0.25) //jump to 25% of so far
+tween.timeScale(0.5) //halves speed, really good for complex animations
+tween.kill() //stop and make it garbaged
+
+//enter-leave animations
+$on('#box', "mouseenter", () => tl.timeScale(1).play());
+$on('#box', "mouseleave", () => tl.timeScale(3).reverse());
+```
+
+## Animatables
 ##### CSS properties
 - `x`
 - `scale rotation skew opacity`
@@ -109,11 +126,11 @@ rotation: 360 // deg
 rotation: "1.25rad" 
 ```
 
-### Easing
-power1 power2 power3 power4 expoScale
-back bounce circ elastic expo rough
-sine steps slow
-CustomEase
+## Easing
+`power1 power2 power3 power4 expoScale
+`back bounce circ elastic expo rough`
+`sine steps slow`
+`CustomEase`
 
 Can use `in out inOut` for most e.g. `bounce.out`
 ```js
@@ -123,7 +140,7 @@ ease: "power1.out" // start fast and end slower, BEST for UI transtion
 ease: "power1.inOut" // start slow and end slow, like a car accelerating and decelerating
 ```
 
-### Staggers
+## Staggers
 If a tween has multiple targets, you can add delay between start of each animation
 ```js
 gsap.to(".box", { //querySelectorAll
@@ -168,18 +185,43 @@ gsap.to(".box", {
 });
 ```
 
-### Timelines
+## Timelines
 To chain animations
 ```js
-const tl = gsap.timeline()
+const tl = gsap.timeline({defaults : defaultConfigforAll })
 tl.to(".green", config1).to(".purple", config2).to(".orange", config3)
 
 //position param
 tl.to(sel, config, position)
 5 //5s after timeline begins
-"<" //alongside previous in timeline
+"<" //at start of previous
+"<25%" ">-75%" //25% into prev's start
 "+=4" "+=50%" //after previous
 "-=3" "-=37%" //overlap previous from end
 
-
+// += / -= is relative to inserted anime's duration
+// < / > is relative to prev's
 ```
+
+##### Labels
+```js
+tl.to("#green", co1)
+  //add blueGreenSpin label
+  .add("blueGreenSpin", "+=1")
+  .to("#blue", co2, "blueGreenSpin")
+  .to("#orange", co3, "blueGreenSpin+=0.5") //0.5s after label
+```
+
+## Callbacks
+
+All tweens and timelines have these callbacks:
+- **onComplete**: 
+- **onStart**: 
+- **onUpdate**: every frame while the animation is active
+- **onRepeat**: each time the animation repeats.
+- **onReverseComplete**: reached its beginning again when reversed.
+
+```js
+gsap.timeline({onComplete: tlComplete})
+```
+
