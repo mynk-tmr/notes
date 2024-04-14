@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/JS-Interview.md",
+                "file": "GSAP.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/JS-Interview.md",
+                "file": "GSAP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/JS-Interview.md",
+                "file": "GSAP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/JS-Interview.md"
+                "file": "GSAP.md"
               }
             }
           }
@@ -150,9 +150,15 @@
   },
   "active": "dc5205e0ecb61541",
   "lastOpenFiles": [
-    "Interview/Tricky-Questions.md",
+    "Web Design/Technologies.md",
+    "Web Design/Patterns.md",
+    "Web Design/Internet Protocols.md",
+    "Web Design/HTTP, REST, MVC.md",
+    "Web Design/HTML.md",
+    "Web Design/CSS.md",
+    "GSAP.md",
     "DSA/JS-Interview.md",
-    "Shopify.md",
+    "Interview/Tricky-Questions.md",
     "PHP/Core.md",
     "PHP/Untitled.md",
     "PHP",
@@ -164,19 +170,13 @@
     "Javascript/TypeScript.md",
     "Javascript/Built-in Methods.md",
     "Javascript/4_Web APIs.md",
-    "Web Design/Patterns.md",
     "Javascript/5_Patterns.md",
-    "Web Design/Internet Protocols.md",
-    "Web Design/HTTP, REST, MVC.md",
-    "Web Design/HTML.md",
-    "Web Design/CSS.md",
     "Build_Tools/Git.md",
     "Web Design/Accessiblity.md",
     "Build_Tools/_Notations.md",
     "ReactJS/Beginner.md",
     "ReactJS/Links.md",
     "ReactJS/Jest.md",
-    "ReactJS/React Ecosystem.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",
