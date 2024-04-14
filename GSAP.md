@@ -146,11 +146,40 @@ stagger can be number, object, fn
 gsap.to(".box", {
   //props
   stagger: {
-    grid: [3,6], //row, cols num
+    grid: [3,6], //[row, col] or 'auto' (responsive)
     from: "center", //"start", "edges", "random", "end", 4 (5th ele)
     ease: "power3.inOut",
     amount: 1, //if 100 ele, start time between each is 1/100 s
     each: 0.01, //OR explicit amount of each
+    axis: 'x' //default both
+    // Repeat / Yoyo / Callbacks to fire them for each ele
   }
 });
+```
+If elements aren't arranged in a uniform grid, use [distributeByPosition()](https://codepen.io/GreenSock/pen/gyWrPO?editors=0010)
+`grid: "auto"` doesn't adapt if layout change while animating
+
+```js
+gsap.to(".box", {
+  y: 100,
+  stagger: function (index, node, nodeList) {
+    return index * 0.1; //delay of node from start of animation
+  },
+});
+```
+
+### Timelines
+To chain animations
+```js
+const tl = gsap.timeline()
+tl.to(".green", config1).to(".purple", config2).to(".orange", config3)
+
+//position param
+tl.to(sel, config, position)
+5 //5s after timeline begins
+"<" //alongside previous in timeline
+"+=4" "+=50%" //after previous
+"-=3" "-=37%" //overlap previous from end
+
+
 ```
