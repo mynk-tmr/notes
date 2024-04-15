@@ -346,10 +346,12 @@ useSyncExternalStore(subscribe, getter)
 
 ### useTransition
 - used to update state(s) without blocking UI
-- If you want to start a Transition in response to some prop or a custom Hook value, try `useDeferredValue`.
-- use cases
+- uses
 	- some Tab renders for long & blocks UI ? --> `useTransition`
-	- 
+	- Building a Suspense-enabled router (see docs)
+- `useDeferredValue` instead when
+	- transition depends on some prop or a custom Hook value
+	- for controlled inputs 
 
 ```js
 const [isPending, startTransition] = useTransition();
@@ -360,6 +362,10 @@ const update = (tab) =>  {
 	}) 
 }
 ```
+
+Notes
+- function you pass to `startTransition` executes immediately and must be synchronous (no setTimeout etc)
+- To call `startTransition` asyncly, place it inside `setTimeout` or `await` before it
 
 ## Class components
 
