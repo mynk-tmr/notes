@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiFrame",
+      "LiGlasses",
+      "LiBlocks",
       "LiWand",
-      "LiBadge",
-      "LiStethoscope",
-      "LiExternalLink",
-      "LiType"
+      "LiBadge"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -40,9 +40,12 @@
   "Web Design/Patterns.md": "LiPartyPopper",
   "ReactJS/Links.md": "LiExternalLink",
   "Javascript/TypeScript.md": "LiType",
-  "Web Design/Technologies.md": "LiTv",
-  "Web Design/Internet Protocols.md": "LiRepeat",
-  "Web Design/HTTP, REST, MVC.md": "LiPersonStanding",
   "ReactJS/Jest.md": "LiStethoscope",
-  "GSAP.md": "LiWand"
+  "Web Design/Animations/GSAP.md": "LiWand",
+  "Web Design/Animations/Basics.md": "LiBlocks",
+  "NestJS/HTTP, REST, MVC.md": "LiPersonStanding",
+  "NestJS/Internet Protocols.md": "LiRepeat",
+  "NestJS/Sockets, RTC.md": "LiTv",
+  "NestJS/Security.md": "LiGlasses",
+  "Web Design/Animations/Framer Motion.md": "LiFrame"
 }

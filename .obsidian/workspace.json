@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "dc5205e0ecb61541",
+            "id": "9abe10aa5d213c0c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GSAP.md",
+                "file": "Web Design/Animations/GSAP.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "GSAP.md",
+                "file": "Web Design/Animations/GSAP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "GSAP.md",
+                "file": "Web Design/Animations/GSAP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GSAP.md"
+                "file": "Web Design/Animations/GSAP.md"
               }
             }
           }
@@ -148,17 +148,25 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "dc5205e0ecb61541",
+  "active": "9abe10aa5d213c0c",
   "lastOpenFiles": [
+    "Web Design/Patterns.md",
+    "Web Design/Animations/GSAP.md",
+    "Web Design/Animations/Framer Motion.md",
+    "Web Design/Animations/Basics.md",
+    "Web Design/CSS.md",
+    "NestJS/HTTP, REST, MVC.md",
+    "NestJS/Internet Protocols.md",
+    "NestJS/Sockets, RTC.md",
+    "NestJS/Security.md",
+    "NestJS",
+    "ReactJS/React Ecosystem.md",
+    "ReactJS/Links.md",
     "Web Design/HTML.md",
-    "GSAP.md",
+    "Javascript/3_DOM.md",
+    "Web Design/Animations",
     "DSA/JS-Interview.md",
     "Interview/Topics.md",
-    "Web Design/CSS.md",
-    "Web Design/Technologies.md",
-    "Web Design/Patterns.md",
-    "Web Design/Internet Protocols.md",
-    "Web Design/HTTP, REST, MVC.md",
     "Interview/Tricky-Questions.md",
     "PHP/Core.md",
     "PHP/Untitled.md",
@@ -171,12 +179,6 @@
     "Javascript/TypeScript.md",
     "Javascript/Built-in Methods.md",
     "Javascript/4_Web APIs.md",
-    "Javascript/5_Patterns.md",
-    "Build_Tools/Git.md",
-    "Web Design/Accessiblity.md",
-    "Build_Tools/_Notations.md",
-    "ReactJS/Beginner.md",
-    "ReactJS/Links.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",

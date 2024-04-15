@@ -27,8 +27,8 @@ Relative units : relative to something else, so base changes
 Perform these steps, stop if 1 rule is decided.
 - `@media` is true 
 - comes from `transition > !important > animation` 
-- If !imp : `agent > user > author` AND ... `inline` > `layer 1-N` > `unlayered`
-- If NO !imp : `author > user > agent` AND ... `inline` > `unlayered` > `layer N-1`
+- If !imp : `agent > user > author` AND ... `inline` > `layer 1 to N` > `unlayered`
+- If NOT !imp : `author > user > agent` AND ... `inline` > `unlayered` > `layer N to 1`
 - pick `most specific` rule
 - pick `later` defined one
 
@@ -91,14 +91,14 @@ _Grid_ concepts :
 ## Normal Flow & Box Model
 
 - CSS treats dom nodes as **boxes** and lay them out in normal flow by default. 
-- Boxes can be **block** or **inline**  (formatting context) and have **outer , inner display**  
+- Elements are laid out in order they appear in markup
+- Boxes have **outer & inner displays**  
 	- `display: block flex`
 	-  inner : how elements inside box are laid out e.g. `flex`, `grid`, `normal`
 	- outer : how box is laid out e.g.`block`, `inline`, `inline-block` (block with no-linebreak)
 - Standard Model — width and height pertain to **content** box.
 - Alternate Model — they pertain to `border box`. Set by `box-sizing: border-box`
 - Sub-boxes in box -- `Content` < `Padding` < `Border` < `Margin`
-- Elements are laid out in order they appear in markup
 - *Block elements*
     - force line-breaks before and after
     - Take up full width of their container.
@@ -123,7 +123,7 @@ _Grid_ concepts :
 - `-inline-` : dimension parallel to text flow 
 - `-block-` :  perpendicular to text flow 
 - `start` : instead of *left*, `end` : instead of *right* like in `text-align`
-- `inset` : shorthand of `top, right, bottom, left`  OR `inset-block` `inset-inline`
+- `inset` , `inset-block`, `inset-inline`
 
 ![[Pasted image 20240119160145.png]]
 
@@ -141,58 +141,283 @@ Only applies in `normal flow` and to `block` margins that are `touching`
 - To change `z-index` of child, take it out of flow OR place it on a new layer with `opacity`, `will-change` , `transform` 
 - `<select>` is always at top
 
-## Rendering
+## Reference
 
-https://www.udacity.com/course/browser-rendering-optimization--ud860
+```css
+.LENGTHS {
+	width: 
+		cm mm pt /*print*/ 
+		em /* % of parent fsz (for font* props only)*/
+		rem /* % of root's fsz */
+		vh, vw, vmin  /* % of viewport's dim */
+		min-content /* = widest child/word */
+		max-content /* = enough to hold children/words */
+		fit-content /* = clamp b/w min & max */
+}
+```
 
-- Web browsers perform two main tasks: **parsing** and **rendering**.
-- During **parsing**, it converts `bytes → characters → tokens → nodes`, and organise them in tree-like *data structure* DOM
-- After making DOM, it **renders** DOM, ie. each node is displayed on screen
+```css
+.INHERITANCE {
+	all: inherit;  /* all props */
+	color : 
+		inherit /* turn on inheritance */
+		initial /* reset to spec default */
+		revert /* reset to user/browser style */
+		unset /* reset to natural value (init or inh) */
+		revert-layer /* to previous layer */
 
-![[Pasted image 20231228224715.png]]
+		/*props skipped in shorthand & set to bad variables are unset*/
+}
+```
 
-#### Rendering Waterfall
-- **style calculation**: CSS rules are applied to DOM node to form CSSOM. It only contains presentational elements
-- **layout creation**: calculate geometry of elements (vector boxes) and positions.
-- **paint**: vector boxes are *rasterized* (to pixels) and put onto *layers* . This is done to improve repaints of elements likely to change by isolating changes to specific layer only
-- **composition** : layers are placed in correct order. By default, 1 layer exists. 
-##### When visual changes happen
-- `Reflow` : changes in properties that trigger *layout* re-creation. **Expensive** process. 
-- `Repaint` : no change in layout, but new pixels are needed. 
-- `Recompose` : seperate layer is changed. e.g. `opacity`, `transform`. Cheapest, uses GPU and run in seperate thread from main
-- Tips
-	- Animate, Transition properties that <u>don't reflow</u> page to improve performance.
-	- place *reflow-repaint* properties on *separate* layer using for e.g. `will-change: color` 
-	- More layers -> more memory (so careful)
-	- Place animating element in high `z-index` or it will trigger repaint of its layer sharers
+```css
+.FUNCTIONS_CSS {
+	content : 
+		attr(title) /* value */
+		path()  /*svg related*/
+		calc(10% + 2px)
+		min(5vw, 100px, 7%) /*& max */
+		clamp(30px, 12%, 100px)  
+		url('path/to'); /* cursor, filter, *-image, *-path  */	
 
-Dev tools : 
-- `Performance tab` > `Record` while animation running
-- Run commands like `Enable FPS`, `Paint flash`  , `Show layers`
-- `Performance tab > Enable advanced paint ....` . Then interact with page and check `Paint Profiler` section in that tab
+	width: env(title-area-bar); /* user-agent vars 
+		requires <meta name="viewport" content="viewport-fit=cover" />
+	*/
+}
+```
 
-Layer creations happen for
-- container whose child has layer ; new stacking contexts
-- `3D` stuff
-- `<video>` with accelerated video decoding
-- `<canvas>` with 3D (WebGL)
-- accelerated CSS `filters`
+```css
+/*PSUEDO CLASSES & ELEMENTS */
+:root
+div:only-child
+div:only-of-type
+div:empty /* (whitespace allowed) */
+div:nth-child(3n+2) /*every 3rd child starting from 2*/
+div:fullscreen
+div:modal
+div:picture-in-picture
+div:playing
+div:paused
+div:hover 
+div:active 
+div:focus-visible 
+div:focus-within /* even if any child is focused */
+div:lang(en)
+div:dir(ltr)
+a:visited 
+a:link 
+p:target  /* select p when <a> directs user to p */
+p:target-within  /* even if directed to any child in it */
 
-## Transitions & Animations
+div::before,
+div::after {
+  content: url() / 'error'; /* img with alt */
+  display: block;   /* to add w/h */
+}
 
-**CSS transitions** provide a way to control animation when changing CSS properties.
-Events : 
-- `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
-- `transitionend` event is fired in both directions (to & back)
-- Properties `propertyName`, `elapsedTime` (from start) and `pseudoElement` e.g. '::before'
-- Using animations with `auto` may lead to unpredictable results
+video::backdrop
+div::first-letter
+div::first-line /* only on block */
+span::selection /* selected span */
+li::marker {
+  content: '%'; /* can be animated */
+}
+```
 
-[discrete animation type](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties#discrete) : properties will flip between two values 50% into run
+```css
+/* COUNTERS */
+div::after {
+  counter-reset: popo; /* create/reset popo */
+  counter-increment: popo; /* +1 */
+  content: counter(popo); /* 1 */
+  content: counters(popo, '.');   /* 1. */
+}
+```
 
-Tips
-- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
-- use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
-##### Animations
-- Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
-- `@keyframes` provides transition states and browser does interpolation.
-- Events : just like `transition`
+```css
+.POSITIONS {
+  position: static; /* normal flow; no top-left support*/
+  position: relative; /* normal flow ; re-position wrt itself */
+  position: fixed; /* removed from flow; position fixed at viewport */
+  position: absolute; /*like fixed but fixed inside non-static ancestor container*/
+  position: sticky; /*static, until touches edge, then becomes absolute, requires top be set */
+  will-change: transform; /* improves sticky/absolute repaint */
+}
+```
+
+```css
+.FLEX_LAYOUT {
+	flex-direction: column-reverse; /* set main axis */
+	flex-wrap: wrap;
+	justify-content: start; 
+	align-items: stretch; /* items in row */
+	align-content: end; /* ROWS */
+	place-content: end center;  /*AC JC*/
+}
+
+.CHILD_PROPS {
+	flex-basis: 100px; /* init main-size; Growth/shrink will be next. */
+	flex-grow: 1.2; /*growth factor, ratio of empty space to add  */
+	flex-shrink: 0; /* shrink factor, ratio of -ve space subtracted */
+	order: 2;
+	flex: auto; /* 1 1 auto */
+	flex: initial;  /* 0 1 auto default */
+}
+```
+
+```css
+.GRID_CONTAINER {
+  grid-template-rows: 1fr auto fit-content(100px) clamp();  /*1fr 1fr = 50%:50% of free space */
+  grid-template-columns: [first] 10px [second] 20px [last];
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    /* make 100px cols w/o overflowing ; fill them with children  */
+    /* if auto-fit, remove unused cols, then add free-space to each child equally*/
+  
+  place-items: center end; /* within CELL in block & inline */
+  place-content: space-evenly center;  /* distribute row & col tracks */
+
+  /* implicit tracks */
+  grid-auto-columns: 60px; /* def: 100% */
+  grid-auto-flow: dense; /* backtrack to fill empty holes */
+}
+
+.GRID_CHILD {
+  grid-row: 1/-1; /*start, end*/
+  grid-row: first / last;
+  grid-column: 1 / span 3; /* from line-1, span 3 cols ; also = span 3 / 4 */
+
+  place-self: end center; 
+  justify-self: end; /* inline */
+  align-self: first baseline; /* block ; use baseline from first/last line */
+
+  order: -1; /* place at 1st cell (default is 0 for all) */
+}
+
+.USING_TEMPLATE_AREAS {
+  grid-template-areas:
+    '.      top top' 
+    'aside main main' 
+    'footer ' ; 
+  .CHILD {
+    grid-area: top; /*identifier*/
+  }
+}
+```
+
+```css
+/* 5 generic fonts: serif, sans-serif, monospace, cursive, fantasy */
+
+.TYPOGRAPHY { 
+  font-family: system-ui, "Roboto", sans-serif, "Apple Color Emoji"; 
+  font-size-adjust: 0.5; /* make font-swap better if fallback */
+  font-variant: small-caps;
+  text-align: right;
+  font-stretch: semi-expanded;
+  letter-spacing: .5rem; 
+  word-spacing: .3rem; 
+  line-height: .5rem; /* space b/w text lines */
+  text-transform: capitalize; 
+  text-indent: 2rem each-line;  /*2rem tab*/
+  writing-mode: vertical-lr; /* vertical letters, LtoR newlines */
+  text-orientation: upright;
+
+  /* decorate  */
+  text-decoration: line-through red wavy, overline blue dotted; 
+  text-decoration-thickness: 3px;
+  text-underline-position: under; /* underline appears below subscripts */
+  text-underline-offset: .5rem; /* margin */
+  text-emphasis: '*' blue;
+  text-emphasis-position: under; 
+} 
+
+.SCROLLBAR {
+  scrollbar-color: red cyan; /* thumb ,  track */
+  scrollbar-width: thin; /* none (hide but still scrollable) */
+  scrollbar-gutter: stable both-edges; /* no layout shift on overflow */
+  scroll-snap-type: both mandatory; /*or x promixity ; requires 'smooth' scroll*/
+  scroll-padding: 2rem; /*2rem gap b/w edge and snapped child */
+
+  /*for children*/
+  scroll-snap-align: center; /* snap to start/center/end egde */
+  scroll-margin: 10px;  /*gap from edge */
+  scroll-snap-stop: always; /* child can't bypass scroll-snap */
+}
+
+div::-webkit-scrollbar-*
+div::-webkit-resizer /* resize arrows */
+
+.SHADOW_FILTERS {
+  box-shadow: 3px 3px red inset ; /* shadow at (0,0) ; box at (3,3) */
+  box-shadow: 0 0 0 2em red, 0 0 0 4em yellow; /* nested borders */
+  filter: blur(5px); /*apply filter to ele*/
+  backdrop-filter: blur(5px); /* only to bg */
+  filter: drop-shadow(3px 3px 2px cyan); /*shadow in image's shape*/
+}
+```
+
+```css
+.OVERFLOW_CONTENT {
+  /* must be block; have set height or max-height or white-space nowrap. */
+  /* use tabindex=0 and aria-label for a11y */
+  overflow: auto; /* scrollbar only if needed ; JS can scroll hidden  */
+  text-overflow: ellipsis;  /* ... */
+  word-break: break-all;   /* break long words to nextline */
+}
+```
+
+```css
+.GRADIENTS {
+  background-image:
+    linear-gradient(blue, red 40%, orange) /* be blue at 0%, red at 40%, orange at 100% */
+    linear-gradient(red 30px, green) /* hard red from 0-30px */
+    linear-gradient(red , 30% , blue) /* use 30% as midpoint */
+    repeating-linear-gradient(blue, red 20px) /* repeat till box is covered. */
+
+    radial-gradient(ellipse at 0% 30%, red, yellow) /* default: circle at 50% 50% */
+    repeating-radial-gradient(black 5px,white 5px 10px); /* hard repeats */
+}
+```
+
+```css
+.BACKGROUNDS {
+  background-image: url(), url(); /* top to bottom, */
+  background-size: 300px , 50px; /* for img1, img2 ; use position too */
+  background-size: cover; /* clip/stretch img to fit */ 
+  background-position: center 100px ; /* (x,y) box-relative */
+  background-origin: border-box;
+  background-clip: text; /* only behind text */
+  background-blend-mode : overlay;
+  background-repeat: space;  /* space-between */
+  background: url('') center / cover no-repeat;
+  background-attachment : scroll; 
+  /*
+    fixed -> to viewport ie., will never scroll.
+    scroll -> to element, scroll only if page scrolls.
+    local -> to element ; scroll with element's content
+  */
+}
+
+```
+
+```css
+.LAYOUTING_STYLES {
+  display: none;
+  content-visibility: auto; /* render only when element is about to be scrolled to */
+  float: inline-start; /* text-wrap around it */
+  display: flow-root; /* on container to clearfloat */
+  column-count: 2; /* list items in 2 cols */
+  column-width: 200px; /* autocreate cols */
+  column-gap: 2rem;
+  column-rule: 5px solid red; /* divider */
+}
+```
+
+```css
+.ADVANCED {
+  border-radius: 15px 30px 15px 30px;  /*set clockwise*/
+  background-position: -75px 0; /* multiple imgs from a sprite, by changing X pos  */
+  border-image: url(border.png) 30 round; /*https://www.w3schools.com/css/css3_border_images.asp*/
+}
+```
+
+

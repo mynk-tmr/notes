@@ -30,7 +30,7 @@ const onClick = contextSafe(() => {
 useGSAP((context, contextSafe) => {
   const handler = contextSafe( /* fn */ );
   ref.current.addEventListener("click", handler);
-  return () => { // <-- cleanup
+  return () => { 
     ref.current.removeEventListener("click", handler);
   }
 })
@@ -90,29 +90,33 @@ $on('#box', "mouseenter", () => tl.timeScale(1).play());
 $on('#box', "mouseleave", () => tl.timeScale(3).reverse());
 ```
 
+## Callbacks
+
+All tweens and timelines have these callbacks:
+- **onComplete**: 
+- **onStart**: 
+- **onUpdate**: every frame while the animation is active
+- **onRepeat**: each time the animation repeats.
+- **onReverseComplete**: reached its beginning again when reversed.
+
 ## Animatables
-##### CSS properties
-- `x`
-- `scale rotation skew opacity`
-- `autoAlpha (for opacity & visibility)`
-- `backgroundColor`
+##### CSS & SVG properties -- any  + 
+- `x rotation autoAlpha (for opacity & visibility)`
+- viewBox via `attr` object
+
 ! filter and boxShadow are CPU-intensive
 ##### Special Properties
 - `duration ease stagger`
-- `repeatDelay delay`
-- `repeat yoyo`
-- `onComplete onUpdate`
-##### SVG 
-width, height, fill, stroke, cx, opacity, viewBox via `attr` object
+- `repeatDelay delay repeat yoyo`
 ##### Objects / Canvas
 ```js
-const position = { x: 0, y: 0 };
+const pos = { x: 0, y: 0 };
 function draw() {
   ctx.clearRect(0, 0, 300, 300); //ctx = $('#canvax').getContext('2d')
-  ctx.fillRect(position.x, position.y, 100, 100);
+  ctx.fillRect(pos.x, pos.y, 100, 100);
 }
 //animate rect on canvas
-gsap.to(position, { 
+gsap.to(pos, { 
   x: 200, y: 200, duration: 4, onUpdate: draw 
 });
 ```
@@ -134,10 +138,10 @@ rotation: "1.25rad"
 
 Can use `in out inOut` for most e.g. `bounce.out`
 ```js
-ease: "power1.in" // start slow and end faster, like a heavy object falling
-ease: "power1.out" // start fast and end slower, BEST for UI transtion
+ease: "power1.in" // start slow, end faster, like a heavy object falling
+ease: "power1.out" // start fast, end slower, BEST for UI transtion
 
-ease: "power1.inOut" // start slow and end slow, like a car accelerating and decelerating
+ease: "power1.inOut" // start slow, end slow
 ```
 
 ## Staggers
@@ -148,16 +152,7 @@ gsap.to(".box", { //querySelectorAll
   ease: "sine.out", 
   force3D: true
 });
-
-$all(".box").forEach(box => { 
-	box.onclick =  () => gsap.to(".box", {
-      duration: 0.5, opacity: 0, y: -100, stagger: 0.1,
-      ease: "back.in"
-    })
-});
 ```
-
-stagger can be number, object, fn
 ##### Grid staggers
 ```js
 gsap.to(".box", {
@@ -188,7 +183,11 @@ gsap.to(".box", {
 ## Timelines
 To chain animations
 ```js
-const tl = gsap.timeline({defaults : defaultConfigforAll })
+const tl = gsap.timeline({
+	defaults : defaultConfigforAll,
+	onComplete: fn //callbacks
+})
+
 tl.to(".green", config1).to(".purple", config2).to(".orange", config3)
 
 //position param
@@ -212,16 +211,16 @@ tl.to("#green", co1)
   .to("#orange", co3, "blueGreenSpin+=0.5") //0.5s after label
 ```
 
-## Callbacks
+## ScrollTrigger
 
-All tweens and timelines have these callbacks:
-- **onComplete**: 
-- **onStart**: 
-- **onUpdate**: every frame while the animation is active
-- **onRepeat**: each time the animation repeats.
-- **onReverseComplete**: reached its beginning again when reversed.
-
-```js
-gsap.timeline({onComplete: tlComplete})
-```
+##### Avoid mistakes
+- don't put ScrollTriggers on nested animations in timeline
+- use `immediateRender: true` for chaining later tweens with scrollTrigger
+- `trigger : '.box' ❌    trigger : box <-- forEach ✅`
+- ScrollTrigger refreshes on window resizing. To make reactive values
+	- `end: () => +=${elem.offsetHeight}`  use functions
+	- `invalidateOnRefresh: true` ; if updating animation values
+- Start animation in-viewport, but reset it offscreen
+	- use 2 ScrollTriggers for each box
+- If AJAX changes layout, update `start, end` with `ScrollTrigger.refresh()`
 
