@@ -264,14 +264,11 @@ test? <Tag key={1}>:<Tag key={2}>
 ```jsx
 useEffect( () => {
 	//sync logic
-	
 	return () => { 
 	//cleanup & stop previous sync
 	//also run on unmount 
 	}
-}, []) //dep array (when any dep changes)
-
-//[] only 1st mount, no [] -> every re-render
+}, []) //dep array
 ```
 
 - used to 
@@ -339,7 +336,7 @@ listRef.current.lastChild.scrollIntoView();
 ![[Pasted image 20240104064255.png]]
 
 ### useSyncExternalStore
-- use to update component when **external** data (like server data or browser API object) changes value
+- use to update component when **external** data/event changes value
 - returns a **snapshot** of data
 
 ```jsx
@@ -347,6 +344,22 @@ useSyncExternalStore(subscribe, getter)
 //subscribe(getter) {..} -> to sub & unsub (return) getter from event
 ```
 
+### useTransition
+- used to update state(s) without blocking UI
+- If you want to start a Transition in response to some prop or a custom Hook value, try `useDeferredValue`.
+- use cases
+	- some Tab renders for long & blocks UI ? --> `useTransition`
+	- 
+
+```js
+const [isPending, startTransition] = useTransition();
+//isPending : T/F 
+const update = (tab) =>  {
+	startTransition(() => { //mark as non-blocking
+		setActiveTab(tab) //can be interrupted by other state updates
+	}) 
+}
+```
 
 ## Class components
 
