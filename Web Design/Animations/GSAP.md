@@ -211,7 +211,7 @@ tl.to("#green", co1)
   .to("#orange", co3, "blueGreenSpin+=0.5") //0.5s after label
 ```
 
-## ScrollTrigger
+## ScrollTrigger Plugin
 
 ##### Avoid mistakes
 - don't put ScrollTriggers on nested animations in timeline
@@ -223,4 +223,30 @@ tl.to("#green", co1)
 - Start animation in-viewport, but reset it offscreen
 	- use 2 ScrollTriggers for each box
 - If AJAX changes layout, update `start, end` with `ScrollTrigger.refresh()`
+
+
+## SVGs
+
+Tips
+- `smoothOrigin:true` , otherwise svg transformOrigin changes w.r.t untransformed state while in timeline
+- `transformOrigin vs svgOrigin` : relative to ele's (0,0) vs. relative to viewbox's
+- % based transforms willn't work correctly if width/height is changed after tween is setup 
+
+`attr` : use to animate svg numeric props. 
+```js
+gsap.to("#rect", { 
+	attr: {x: 100, y: 50, width: 100, height: 100}
+});
+```
+
+## Draggable Plugin
+
+```js
+Draggable.create("#box", {
+  type:"x,y", //"rotation"
+  bounds:"#container",
+  overshootTolerance:0,
+  inertia:true //requires "InertiaPlugin"
+})
+```
 
