@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "React/NextJS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "React/NextJS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "React/NextJS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Javascript/TypeScript.md"
+                "file": "React/NextJS.md"
               }
             }
           }
@@ -150,6 +150,7 @@
   },
   "active": "a8526e9ef896fc92",
   "lastOpenFiles": [
+    "Javascript/TypeScript.md",
     "Web Design/CSS.md",
     "React/NextJS.md",
     "React/Beginner.md",
@@ -178,7 +179,6 @@
     "DSA/Basic DSA.md",
     "DSA/Leetcode.md",
     "DSA/Maths-Geometry.md",
-    "Javascript/TypeScript.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",
