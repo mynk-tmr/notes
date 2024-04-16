@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "Javascript/TypeScript.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "Javascript/TypeScript.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "Javascript/TypeScript.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/NextJS.md"
+                "file": "Javascript/TypeScript.md"
               }
             }
           }
@@ -150,8 +150,9 @@
   },
   "active": "a8526e9ef896fc92",
   "lastOpenFiles": [
-    "React/Beginner.md",
+    "Web Design/CSS.md",
     "React/NextJS.md",
+    "React/Beginner.md",
     "React/React Ecosystem.md",
     "React/Links.md",
     "NestJS/HTTP, REST, MVC.md",
@@ -162,7 +163,6 @@
     "Web Design/Animations/GSAP.md",
     "Web Design/Patterns.md",
     "Web Design/Animations/Basics.md",
-    "Web Design/CSS.md",
     "NestJS",
     "Web Design/HTML.md",
     "Javascript/3_DOM.md",

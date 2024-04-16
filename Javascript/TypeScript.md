@@ -26,7 +26,7 @@ function bound(fn: any, context: ClassMethodDecoratorContext) {
 }
 ```
 
- 2 decorators – `@bound` and `@log` can be stacked. Decorators can _return_ decorator functions.
+ 2 decorators can be stacked. Decorators can _return_ decorator functions.
 ```less
 @bound @log greet() { } //log runs first
 ```
@@ -99,8 +99,8 @@ Readonly<Todo> //good for Object.freeze()
 
 //to define object type of specific Keys and their values
 Record<Keys, Type>;
-interface CatInfo { age: number;    breed: string;  }  
-type CatName = "miffy" | "boris" | "mordred";  
+type CatName = "miffy" | "boris" | "mordred"; 
+type CatInfo = { age: number;    breed: string;  }  
 const cats: Record<CatName, CatInfo> = {    
 	miffy: { age: 10, breed: "Persian" }
 }
