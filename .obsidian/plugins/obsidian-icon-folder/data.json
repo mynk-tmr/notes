@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "LiVegan",
-      "LiFrame",
-      "LiGlasses",
-      "LiBlocks",
-      "LiWand"
+      "LiPalette",
+      "LiFileType2",
+      "LiRoute",
+      "LiRedo",
+      "LiVegan"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -45,8 +45,11 @@
   "NestJS/Security.md": "LiGlasses",
   "Web Design/Animations/Framer Motion.md": "LiFrame",
   "React/Beginner.md": "LiPersonStanding",
-  "React/Jest.md": "LiStethoscope",
   "React/Links.md": "LiExternalLink",
-  "React/React Ecosystem.md": "LiAlignCenterHorizontal",
-  "React/NextJS.md": "LiVegan"
+  "React/NextJS.md": "LiVegan",
+  "React/Libraries/Jest.md": "LiStethoscope",
+  "React/Libraries/Redux Toolkit.md": "LiRedo",
+  "React/Libraries/React-Router.md": "LiRoute",
+  "React/Libraries/Proptypes.md": "LiFileType2",
+  "React/Patterns.md": "LiPalette"
 }

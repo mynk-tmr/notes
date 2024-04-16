@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "a8526e9ef896fc92",
+            "id": "1505f1fa0c7a791e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "React/Patterns.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "React/Patterns.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/NextJS.md",
+                "file": "React/Patterns.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/NextJS.md"
+                "file": "React/Patterns.md"
               }
             }
           }
@@ -148,14 +148,20 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "a8526e9ef896fc92",
+  "active": "1505f1fa0c7a791e",
   "lastOpenFiles": [
+    "React/NextJS.md",
+    "React/Patterns.md",
+    "React/Links.md",
+    "React/Libraries/Proptypes.md",
+    "React/Libraries/React-Router.md",
+    "React/Libraries/Redux Toolkit.md",
+    "React/React Ecosystem.md",
+    "React/Libraries/Jest.md",
+    "React/Libraries",
     "Javascript/TypeScript.md",
     "Web Design/CSS.md",
-    "React/NextJS.md",
     "React/Beginner.md",
-    "React/React Ecosystem.md",
-    "React/Links.md",
     "NestJS/HTTP, REST, MVC.md",
     "NestJS/Security.md",
     "NestJS/Internet Protocols.md",
@@ -174,11 +180,6 @@
     "PHP/Core.md",
     "PHP/Untitled.md",
     "PHP",
-    "DSA/Trees-Graphs.md",
-    "DSA/Theory.md",
-    "DSA/Basic DSA.md",
-    "DSA/Leetcode.md",
-    "DSA/Maths-Geometry.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",
