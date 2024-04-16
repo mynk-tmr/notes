@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "d4bc05d37a1302dd",
+        "id": "0a481bd2ce59215b",
         "type": "tabs",
         "children": [
           {
-            "id": "9abe10aa5d213c0c",
+            "id": "a8526e9ef896fc92",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "NestJS/HTTP, REST, MVC.md",
+                "file": "React/NextJS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NestJS/HTTP, REST, MVC.md",
+                "file": "React/NextJS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NestJS/HTTP, REST, MVC.md",
+                "file": "React/NextJS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "NestJS/HTTP, REST, MVC.md"
+                "file": "React/NextJS.md"
               }
             }
           }
@@ -148,21 +148,22 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "9abe10aa5d213c0c",
+  "active": "a8526e9ef896fc92",
   "lastOpenFiles": [
-    "NestJS/Internet Protocols.md",
+    "React/Beginner.md",
+    "React/NextJS.md",
+    "React/React Ecosystem.md",
+    "React/Links.md",
+    "NestJS/HTTP, REST, MVC.md",
     "NestJS/Security.md",
+    "NestJS/Internet Protocols.md",
     "NestJS/Sockets, RTC.md",
-    "ReactJS/Beginner.md",
     "Web Design/Animations/Framer Motion.md",
     "Web Design/Animations/GSAP.md",
     "Web Design/Patterns.md",
     "Web Design/Animations/Basics.md",
     "Web Design/CSS.md",
-    "NestJS/HTTP, REST, MVC.md",
     "NestJS",
-    "ReactJS/React Ecosystem.md",
-    "ReactJS/Links.md",
     "Web Design/HTML.md",
     "Javascript/3_DOM.md",
     "Web Design/Animations",
@@ -178,7 +179,6 @@
     "DSA/Leetcode.md",
     "DSA/Maths-Geometry.md",
     "Javascript/TypeScript.md",
-    "Javascript/Built-in Methods.md",
     "DSA",
     "Excalidraw",
     "Untitled.canvas",

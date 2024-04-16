@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiVegan",
       "LiFrame",
       "LiGlasses",
       "LiBlocks",
-      "LiWand",
-      "LiBadge"
+      "LiWand"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -33,19 +33,20 @@
   "Javascript/3_DOM.md": "LiListFilter",
   "Javascript/4_Web APIs.md": "LiMessageCircleCode",
   "Javascript/Built-in Methods.md": "LiCheck",
-  "ReactJS/Beginner.md": "LiPersonStanding",
-  "ReactJS/React Ecosystem.md": "LiAlignCenterHorizontal",
   "Web Design/CSS.md": "LiScissors",
   "Web Design/HTML.md": "LiLandmark",
   "Web Design/Patterns.md": "LiPartyPopper",
-  "ReactJS/Links.md": "LiExternalLink",
   "Javascript/TypeScript.md": "LiType",
-  "ReactJS/Jest.md": "LiStethoscope",
   "Web Design/Animations/GSAP.md": "LiWand",
   "Web Design/Animations/Basics.md": "LiBlocks",
   "NestJS/HTTP, REST, MVC.md": "LiPersonStanding",
   "NestJS/Internet Protocols.md": "LiRepeat",
   "NestJS/Sockets, RTC.md": "LiTv",
   "NestJS/Security.md": "LiGlasses",
-  "Web Design/Animations/Framer Motion.md": "LiFrame"
+  "Web Design/Animations/Framer Motion.md": "LiFrame",
+  "React/Beginner.md": "LiPersonStanding",
+  "React/Jest.md": "LiStethoscope",
+  "React/Links.md": "LiExternalLink",
+  "React/React Ecosystem.md": "LiAlignCenterHorizontal",
+  "React/NextJS.md": "LiVegan"
 }
