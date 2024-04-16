@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "React/Patterns.md",
+                "file": "React/NextJS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/Patterns.md",
+                "file": "React/NextJS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/Patterns.md",
+                "file": "React/NextJS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/Patterns.md"
+                "file": "React/NextJS.md"
               }
             }
           }
@@ -150,8 +150,8 @@
   },
   "active": "1505f1fa0c7a791e",
   "lastOpenFiles": [
-    "React/NextJS.md",
     "React/Patterns.md",
+    "React/NextJS.md",
     "React/Links.md",
     "React/Libraries/Proptypes.md",
     "React/Libraries/React-Router.md",
