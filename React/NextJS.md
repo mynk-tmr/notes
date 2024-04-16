@@ -59,3 +59,15 @@ Handled by Nextjs, we only choose when to cache/revalidate specific data
 - allows the user to see parts of the page earlier
 - built into app router
 
+## Pages and Layout
+
+- `page` is UI that is unique to a route. 
+- `layout` is UI that is shared between multiple routes. 
+	- On navigation, layouts preserve state, remain interactive, and do not re-render.
+	- `children` required (will be nested `layout.js`, else `page.js`)
+- `template` are like layouts but they are re-mounted upon navigation, ie, state is **not** preserved, and effects are re-synchronized.
+	- useful for logging page views
+	- rendered between a layout and its children
+
+
+
