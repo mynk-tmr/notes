@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiSnail",
       "LiPalette",
       "LiFileType2",
       "LiRoute",
-      "LiRedo",
-      "LiVegan"
+      "LiRedo"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -50,5 +50,6 @@
   "React/Libraries/Redux Toolkit.md": "LiRedo",
   "React/Libraries/React-Router.md": "LiRoute",
   "React/Libraries/Proptypes.md": "LiFileType2",
-  "React/Patterns.md": "LiPalette"
+  "React/Patterns.md": "LiPalette",
+  "Python/Beginner.md": "LiSnail"
 }

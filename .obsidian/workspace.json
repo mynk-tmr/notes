@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "1505f1fa0c7a791e",
+            "id": "077aaf651c3ec06e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "Python/Beginner.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "Python/Beginner.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Javascript/TypeScript.md",
+                "file": "Python/Beginner.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Javascript/TypeScript.md"
+                "file": "Python/Beginner.md"
               }
             }
           }
@@ -148,8 +148,11 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "1505f1fa0c7a791e",
+  "active": "79734d9ecf56138d",
   "lastOpenFiles": [
+    "Javascript/TypeScript.md",
+    "Python/Beginner.md",
+    "Python",
     "React/NextJS.md",
     "React/Links.md",
     "React/Patterns.md",
@@ -159,7 +162,6 @@
     "React/React Ecosystem.md",
     "React/Libraries/Jest.md",
     "React/Libraries",
-    "Javascript/TypeScript.md",
     "Web Design/CSS.md",
     "React/Beginner.md",
     "NestJS/HTTP, REST, MVC.md",
@@ -178,7 +180,6 @@
     "Interview/Topics.md",
     "Interview/Tricky-Questions.md",
     "PHP/Core.md",
-    "PHP/Untitled.md",
     "PHP",
     "DSA",
     "Excalidraw",
