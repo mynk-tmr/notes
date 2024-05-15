@@ -190,93 +190,19 @@ mostly same as JS
 | `and`                                                            |
 | `or`                                                             |
 
-In Python, a decorator is a design pattern that allows you to modify the functionality of a [function](https://www.programiz.com/python-programming/function) by wrapping it in another function.
+## Decorators
 
-The outer function is called the decorator, which takes the original function as an argument and returns a modified version of it.
+A decorator is a HOF that add features to a function
+##### Nested Function
 
----
-
-## Prerequisites for learning decorators
-
-Before we learn about decorators, we need to understand a few important concepts related to Python functions. Also, remember that everything in Python is an [object](https://www.programiz.com/python-programming/class#objects), even functions are objects.
-
-### Nested Function
-
-We can include one function inside another, known as a nested function. For example,
-
-```
+```python
 def outer(x):
     def inner(y):
         return x + y
     return inner
-
-add_five = outer(5)
-result = add_five(6)
-print(result)  # prints 11
-
-# Output: 11
 ```
 
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-Here, we have created the `inner()` function inside the `outer()` function.
-
-### Pass Function as Argument
-
-We can pass a function as an argument to another function in Python. For Example,
-
-```
-def add(x, y):
-    return x + y
-
-def calculate(func, x, y):
-    return func(x, y)
-
-result = calculate(add, 4, 6)
-print(result)  # prints 10
-```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-**Output**
-
-10
-
-In the above example, the `calculate()` function takes a function as its argument. While calling `calculate()`, we are passing the `add()` function as the argument.
-
-In the `calculate()` function, arguments: `func`, `x`, `y` become `add`, `4`, and `6` respectively.
-
-And hence, `func(x, y)` becomes `add(4, 6)` which returns **10**.
-
-### Return a Function as a Value
-
-In Python, we can also return a function as a return value. For example,
-
-```
-def greeting(name):
-    def hello():
-        return "Hello, " + name + "!"
-    return hello
-
-greet = greeting("Atlantis")
-print(greet())  # prints "Hello, Atlantis!"
-
-# Output: Hello, Atlantis!
-```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-In the above example, the `return hello` statement returns the inner `hello()` function. This function is now assigned to the greet variable.
-
-That's why, when we call `greet()` as a function, we get the output.
-
-## Python Decorators
-
-As mentioned earlier, A Python decorator is a function that takes in a function and returns it by adding some functionality.
-
-In fact, any object which implements the special `__call__()` method is termed callable. So, in the most basic sense, a decorator is a callable that returns a callable.
-
-Basically, a decorator takes in a function, adds some functionality and returns it.
+Any object which implements `__call__()` is callable. Decorator is a callable that returns a callable.
 
 ```
 def make_pretty(func):
