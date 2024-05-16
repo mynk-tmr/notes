@@ -187,8 +187,21 @@ mostly same as JS
 | `and`                  |
 | `or`                   |
 
-## Decorators
+## Functions
 
+### Variadic
+
+Unpacking operator
+```python
+def fn(*args) # ... args is tuple, for postional args
+	return args/args.length
+
+def fn(**kwargs) # ...args is dict, for named args
+
+# can send iterable / dict too
+```
+
+### Decorators
 - HOF that add features to a function by taking it as input.
 - implements `__call__()`  (callable) and returns a callable.
 - can be chained (inner --> outer)
@@ -208,144 +221,7 @@ logsum = decor(sum)
 		return x+y
 ```
 
-Sometimes, when you look at a function definition in Python, you might see that it takes two strange arguments: **`*args`** and **`**kwargs`**. If you’ve ever wondered what these peculiar [variables](https://realpython.com/python-variables/) are, or why your IDE defines them in [`main()`](https://realpython.com/python-main-function/), then this article is for you. You’ll learn how to use args and kwargs in Python to add more flexibility to your functions.
-
-**By the end of the article, you’ll know:**
-
-- What `*args` and `**kwargs` actually mean
-- How to use `*args` and `**kwargs` in function definitions
-- How to use a single asterisk (`*`) to unpack iterables
-- How to use two asterisks (`**`) to unpack dictionaries
-
-This article assumes that you already know how to [define Python functions](https://realpython.com/defining-your-own-python-function/) and work with [lists and dictionaries](https://realpython.com/lessons/mutable-data-structures-lists-dictionaries/).
-
-**Free Bonus:** [Click here to get a Python Cheat Sheet](https://realpython.com/python-kwargs-and-args/) and learn the basics of Python 3, like working with data types, dictionaries, lists, and Python functions.
-
- ==**Take the Quiz:**== Test your knowledge with our interactive “Python args and kwargs: Demystified” quiz. You’ll receive a score upon completion to help you track your learning progress:
-
----
-
-[
-
-![Python args and kwargs: Demystified](https://files.realpython.com/media/args-and-kwargs-in-Python_Watermarked.508ab9494cb5.jpg)
-
-
-
-](https://realpython.com/quizzes/python-args-and-kwargs/)
-
-**Interactive Quiz**
-
-[Python args and kwargs: Demystified](https://realpython.com/quizzes/python-args-and-kwargs/)
-
-In this quiz, you'll test your understanding of how to use *args and **kwargs in Python. With this knowledge, you'll be able to add more flexibility to your functions.
-
-## Passing Multiple Arguments to a Function[](https://realpython.com/python-kwargs-and-args/#passing-multiple-arguments-to-a-function "Permanent link")
-
-**`*args`** and **`**kwargs`** allow you to pass multiple arguments or keyword arguments to a function. Consider the following example. This is a simple function that takes two arguments and returns their sum:
-
-Python
-
-`def my_sum(a, b):     return a + b`
-
-This function works fine, but it’s limited to only two arguments. What if you need to sum a varying number of arguments, where the specific number of arguments passed is only determined at runtime? Wouldn’t it be great to create a function that could sum _all_ the integers passed to it, no matter how many there are?
-
-[Remove ads](https://realpython.com/account/join/)
-
-## Using the Python args Variable in Function Definitions[](https://realpython.com/python-kwargs-and-args/#using-the-python-args-variable-in-function-definitions "Permanent link")
-
-There are a few ways you can pass a varying number of arguments to a function. The first way is often the most intuitive for people that have experience with collections. You simply pass a list or a [set](https://realpython.com/python-sets/) of all the arguments to your function. So for `my_sum()`, you could pass a list of all the integers you need to add:
-
-Python`sum_integers_list.py`
-
-`def my_sum(my_integers):     result = 0     for x in my_integers:         result += x     return result  list_of_integers = [1, 2, 3] print(my_sum(list_of_integers))`
-
-This implementation works, but whenever you call this function you’ll also need to create a list of arguments to pass to it. This can be inconvenient, especially if you don’t know up front all the values that should go into the list.
-
-This is where `*args` can be really useful, because it allows you to pass a varying number of positional arguments. Take the following example:
-
-Python`sum_integers_args.py`
-
-`def my_sum(*args):     result = 0     # Iterating over the Python args tuple     for x in args:         result += x     return result  print(my_sum(1, 2, 3))`
-
-In this example, you’re no longer passing a list to `my_sum()`. Instead, you’re passing three different positional arguments. `my_sum()` takes all the parameters that are provided in the input and packs them all into a single iterable object named `args`.
-
-Note that **`args` is just a name.** You’re not required to use the name `args`. You can choose any name that you prefer, such as `integers`:
-
-Python`sum_integers_args_2.py`
-
-`def my_sum(*integers):     result = 0     for x in integers:         result += x     return result  print(my_sum(1, 2, 3))`
-
-The function still works, even if you pass the iterable object as `integers` instead of `args`. All that matters here is that you use the **unpacking operator** (`*`).
-
-Bear in mind that the iterable object you’ll get using the unpacking operator `*` is not a [`list`](https://realpython.com/python-list/) but a [`tuple`](https://realpython.com/python-lists-tuples/). A `tuple` is similar to a `list` in that they both support slicing and iteration. However, tuples are very different in at least one aspect: lists are [mutable](https://realpython.com/python-mutable-vs-immutable-types/), while tuples are not. To test this, run the following code. This script tries to change a value of a list:
-
-Python`change_list.py`
-
-`my_list = [1, 2, 3] my_list[0] = 9 print(my_list)`
-
-The value located at the very first index of the list should be updated to `9`. If you execute this script, you will see that the list indeed gets modified:
-
-Shell
-
-`$ python change_list.py [9, 2, 3]`
-
-The first value is no longer `0`, but the updated value `9`. Now, try to do the same with a tuple:
-
-Python`change_tuple.py`
-
-`my_tuple = (1, 2, 3) my_tuple[0] = 9 print(my_tuple)`
-
-Here, you see the same values, except they’re held together as a tuple. If you try to execute this script, you will see that the Python interpreter returns an [error](https://realpython.com/python-exceptions/):
-
-Shell
-
-`$ python change_tuple.py Traceback (most recent call last):   File "change_tuple.py", line 3, in <module>     my_tuple[0] = 9 TypeError: 'tuple' object does not support item assignment`
-
-This is because a tuple is an immutable object, and its values cannot be changed after assignment. Keep this in mind when you’re working with tuples and `*args`.
-
-## Using the Python kwargs Variable in Function Definitions[](https://realpython.com/python-kwargs-and-args/#using-the-python-kwargs-variable-in-function-definitions "Permanent link")
-
-Okay, now you’ve understood what `*args` is for, but what about `**kwargs`? `**kwargs` works just like `*args`, but instead of accepting positional arguments it accepts keyword (or **named**) arguments. Take the following example:
-
-Python`concatenate.py`
-
-`def concatenate(**kwargs):     result = ""     # Iterating over the Python kwargs dictionary     for arg in kwargs.values():         result += arg     return result  print(concatenate(a="Real", b="Python", c="Is", d="Great", e="!"))`
-
-When you execute the script above, `concatenate()` will iterate through the Python kwargs [dictionary](https://realpython.com/python-dicts/) and concatenate all the values it finds:
-
-Shell
-
-`$ python concatenate.py RealPythonIsGreat!`
-
-Like `args`, `kwargs` is just a name that can be changed to whatever you want. Again, what is important here is the use of the **unpacking operator** (`**`).
-
-So, the previous example could be written like this:
-
-Python`concatenate_2.py`
-
-`def concatenate(**words):     result = ""     for arg in words.values():         result += arg     return result  print(concatenate(a="Real", b="Python", c="Is", d="Great", e="!"))`
-
-Note that in the example above the iterable object is a standard `dict`. If you [iterate over the dictionary](https://realpython.com/iterate-through-dictionary-python/) and want to return its values, like in the example shown, then you must use `.values()`.
-
-In fact, if you forget to use this method, you will find yourself iterating through the **keys** of your Python kwargs dictionary instead, like in the following example:
-
-Python`concatenate_keys.py`
-
-`def concatenate(**kwargs):     result = ""     # Iterating over the keys of the Python kwargs dictionary     for arg in kwargs:         result += arg     return result  print(concatenate(a="Real", b="Python", c="Is", d="Great", e="!"))`
-
-Now, if you try to execute this example, you’ll notice the following output:
-
-Shell
-
-`$ python concatenate_keys.py abcde`
-
-As you can see, if you don’t specify `.values()`, your function will iterate over the keys of your Python kwargs dictionary, returning the wrong result.
-
-[Remove ads](https://realpython.com/account/join/)
-
 ## Ordering Arguments in a Function[](https://realpython.com/python-kwargs-and-args/#ordering-arguments-in-a-function "Permanent link")
-
-Now that you have learned what `*args` and `**kwargs` are for, you are ready to start writing functions that take a varying number of input arguments. But what if you want to create a function that takes a changeable number of both positional _and_ named arguments?
 
 In this case, you have to bear in mind that **order counts**. Just as non-default arguments have to precede default arguments, so `*args` must come before `**kwargs`.
 
@@ -597,7 +473,7 @@ end = time.time() - start
 
 ### Tuples
 
-Tuples are like lists but denote ordered collection of **immutables**.
+Tuples are like lists but denote ordered collection of **immutables**. 
 Can be used as dictionary keys if all their elements are immutable.
 Cons
 - can't be copied; huge space
@@ -605,77 +481,7 @@ Cons
 ```python
 t1 = (1, 2, 3, 4)
 t2 = tuple([1, 2, 3, 4, 5])
-```
 
-```text
-Tuple t1: (1, 2, 3, 4)
-Tuple t2: (1, 2, 3, 4, 5)
-Tuple t3: (1, 2, 3, 4, 5, 6)
-```
-
-Is it possible to create tuples from other data structures (i.e., sets or dictionaries)? Try it for practice.
-
-Tuples are immutable; thus, we cannot change their elements once they are created. Let's see what happens if we try to do so:
-
-```python
-# Try to change the value at index 0 in tuple t1
-t1[0] = 1
-```
-
-```text
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: 'tuple' object does not support item assignment
-```
-
-It is a `TypeError`! Tuples do not support item assignments because they are immutable. To solve this problem, we can convert this tuple into a list.
-
-However, we can access elements in a tuple by their indices, like in lists:
-
-```python
-# Print out the value at index 1 in the tuple t2
-print(f"The value at index 1 in t2 is {t2[1]}.")
-```
-
-```text
-The value at index 1 in t2 is 2.
-```
-
-Tuples can also be used as dictionary keys. For example, we may store certain elements and their consecutive indices in a tuple and assign values to them:
-
-```python
 # Use tuples as dictionary keys
 working_hours = {("Rebecca", 1): 38, ("Thomas", 2): 40}
 ```
-
-If you use a tuple as a dictionary key, then the tuple must contain immutable objects:
-
-```python
-# Use tuples containing mutable objects as dictionary keys
-working_hours = {(["Rebecca", 1]): 38, (["Thomas", 2]): 40}
-```
-
-```
----------------------------------------------------------------------------
-
-TypeError                                 Traceback (most recent call last)
-
-Input In [20], in ()
-      1 # Use tuples containing mutable objects as dictionary keys
-----> 2 working_hours = {(["Rebecca", 1]): 38, (["Thomas", 2]): 40}
-
-TypeError: unhashable type: 'list'
-```
-
-We get a `TypeError` if our tuples/keys contain mutable objects (lists in this case).
-
-## Conclusions
-
-Let's wrap up what we have learned from this tutorial:
-
-- Data structure is a fundamental concept in programming, which is required for easily storing and retrieving data.
-- Python has four main data structures split between mutable (lists, dictionaries, and sets) and immutable (tuples) types.
-- Lists are useful to hold a heterogeneous collection of related objects.
-- We need dictionaries whenever we need to link a key to a value and to quickly access some data by a key, like in a real-world dictionary.
-- Sets allow us to perform operations, such as intersection or difference, on them; thus, they are useful for comparing two sets of data.
-- Tuples are similar to lists, but are immutable; they can be used as data containers that we do not want to modify by mistake.
