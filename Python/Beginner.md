@@ -192,165 +192,23 @@ mostly same as JS
 
 ## Decorators
 
-A decorator is a HOF that add features to a function
-##### Nested Function
+- HOF that add features to a function. 
+- implements `__call__()`  (callable) and returns a callable.
 
 ```python
-def outer(x):
-    def inner(y):
-        return x + y
-    return inner
-```
-
-Any object which implements `__call__()` is callable. Decorator is a callable that returns a callable.
-
-```
-def make_pretty(func):
+def decor(fn):
     def inner():
-        print("I got decorated")
-        func()
+        print(f"Output is {fn()}")
     return inner
 
+logsum = decor(sum)
 
-def ordinary():
-    print("I am ordinary")
+#@ provides decoration without having to store inner fn in a var
 
-# Output: I am ordinary
+@decor
+	def sum(x,y):
+		return x+y
 ```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-Here, we have created two functions:
-
-- `ordinary()` that prints `"I am ordinary"`
-- `make_pretty()` that takes a function as its argument and has a nested function named `inner()`, and returns the inner function.
-
-We are calling the `ordinary()` function normally, so we get the output `"I am ordinary"`. Now, let's call it using the decorator function.
-
-```
-def make_pretty(func):
-    # define the inner function 
-    def inner():
-        # add some additional behavior to decorated function
-        print("I got decorated")
-
-        # call original function
-        func()
-    # return the inner function
-    return inner
-
-# define ordinary function
-def ordinary():
-    print("I am ordinary")
-    
-# decorate the ordinary function
-decorated_func = make_pretty(ordinary)
-
-# call the decorated function
-decorated_func()
-```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-**Output**
-
-I got decorated
-I am ordinary
-
-In the example shown above, `make_pretty()` is a decorator. Notice the code,
-
-```
-decorated_func = make_pretty(ordinary)
-```
-
-- We are now passing the `ordinary()` function as the argument to the `make_pretty()`.
-- The `make_pretty()` function returns the inner function, and it is now assigned to the decorated_func variable.
-
-```
-decorated_func()
-```
-
-Here, we are actually calling the `inner()` function, where we are printing
-
-### @ Symbol With Decorator
-
-Instead of assigning the function call to a [variable](https://www.programiz.com/python-programming/variables-constants-literals), Python provides a much more elegant way to achieve this functionality using the `@` symbol. For example,
-
-```
-def make_pretty(func):
-
-    def inner():
-        print("I got decorated")
-        func()
-    return inner
-
-@make_pretty
-def ordinary():
-    print("I am ordinary")
-
-ordinary()  
-```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-**Output**
-
-I got decorated
-I am ordinary
-
-Here, the `ordinary()` function is decorated with the `make_pretty()` decorator using the `@make_pretty` syntax, which is equivalent to calling `ordinary = make_pretty(ordinary)`.
-
----
-
-## Decorating Functions with Parameters
-
-The above decorator was simple and it only worked with functions that did not have any parameters. What if we had functions that took in parameters like:
-
-```
-def divide(a, b):
-    return a/b
-```
-
-This function has two parameters, `a` and `b`. We know it will give an error if we pass in b as **0**.
-
-Now let's make a decorator to check for this case that will cause the error.
-
-```
-def smart_divide(func):
-    def inner(a, b):
-        print("I am going to divide", a, "and", b)
-        if b == 0:
-            print("Whoops! cannot divide")
-            return
-
-        return func(a, b)
-    return inner
-
-@smart_divide
-def divide(a, b):
-    print(a/b)
-
-divide(2,5)
-
-divide(2,0)
-```
-
-[Run Code](https://www.programiz.com/python-programming/online-compiler)
-
-**Output**
-
-I am going to divide 2 and 5
-0.4
-I am going to divide 2 and 0
-Whoops! cannot divide
-
-Here, when we call the `divide()` function with the arguments **(2,5)**, the `inner()` function defined in the `smart_divide()` decorator is called instead.
-
-This `inner()` function calls the original `divide()` function with the arguments **2** and **5** and returns the result, which is **0.4**.
-
-Similarly, When we call the `divide()` function with the arguments (**2,0)**, the `inner()` function checks that `b` is equal to **0** and prints an error message before returning `None`.
-
----
 
 ## Chaining Decorators in Python
 
