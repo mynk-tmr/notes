@@ -187,7 +187,6 @@ mostly same as JS
 | `and`                  |
 | `or`                   |
 
-
 ##### Unpacking operator
 ```python
 def fn(*args) # args is tuple, for postional args
@@ -252,7 +251,6 @@ l5 = l2[2:]
 l1.append(5)
 l1.remove(2) #remove 2 if present
 ```
-
 
 ### Dictionaries
 **mutable** data structures that contain a collection of unique **keys** and their mapped **values**.
