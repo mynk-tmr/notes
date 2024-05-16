@@ -534,7 +534,6 @@ A data structure is a way of organizing data in computer memory. Built-in data s
 Different Python third-party packages implement their own data structures, like [DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) and [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html?highlight=series#pandas.Series) in `pandas` or [arrays](https://numpy.org/doc/stable/reference/generated/numpy.array.html) in `NumPy`. 
 
 ### Lists
-
 **dynamic mutable arrays** which hold an **ordered** collection of items of any type. The order of insertion is retained.
 
 Pros
@@ -559,7 +558,6 @@ l1.remove(2) #remove 2 if present
 
 
 ### Dictionaries
-
 **mutable** data structures that contain a collection of unique **keys** and their mapped **values**.
 Later values override previous for a key. Remember insertion order for 3.6.0+
 
@@ -573,84 +571,11 @@ d4 = dict([["one", 1], ["two", 2]])
 Pros : O(1) time access
 Cons : Large space
 
-#### Examples
-
-Let's now take a look at a few examples. First, we can create a dictionary with curly brackets (`{}`) or the `dict()` constructor:
-
-```python
-# Create an empty dictionary using curly brackets
-d1 = {}
-
-# Create a two-element dictionary using curly brackets
-d2 = {"John": {"Age": 27, "Hometown": "Boston"}, "Rebecca": {"Age": 31, "Hometown": "Chicago"}}
-# Note that the above dictionary has a more complex structure as its values are dictionaries themselves!
-
-# Create an empty dictionary using the dict() constructor
-d3 = dict()
-
-# Create a two-element dictionary using the dict() constructor
-  # Note that we created the dictionary from a list of lists
-
-# Print out dictionaries
-print(f"Dictionary d1: {d1}")
-print(f"Dictionary d2: {d2}")
-print(f"Dictionary d3: {d3}")
-print(f"Dictionary d4: {d4}")
-```
-
-```text
-Dictionary d1: {}
-Dictionary d2: {'John': {'Age': 27, 'Hometown': 'Boston'}, 'Rebecca': {'Age': 31, 'Hometown': 'Chicago'}}
-Dictionary d3: {}
-Dictionary d4: {'one': 1, 'two': 2}
-```
-
-Now let's access an element in a dictionary. We can do this with the same method as lists:
-
-```python
-# Access the value associated with the key 'John'
-print("John's personal data is:")
-print(d2["John"])
-```
-
-```text
-John's personal data is:
-{'Age': 27, 'Hometown': 'Boston'}
-```
-
-Next, we can also modify dictionaries -- for example, by adding new `key:value` pairs:
-
-```python
-# Add another name to the dictionary d2
-d2["Violet"] = {"Age": 34, "Hometown": "Los Angeles"}
-
-# Print out the modified dictionary
-print(d2)
-```
-
-```text
-{'John': {'Age': 27, 'Hometown': 'Boston'}, 'Rebecca': {'Age': 31, 'Hometown': 'Chicago'}, 'Violet': {'Age': 34, 'Hometown': 'Los Angeles'}}
-```
-
-As we can see, a new key, "Violet", has been added.
-
-It's also possible to remove elements from a dictionary, so look for a way to do so by reading the [documentation](https://docs.python.org/3/library/stdtypes.html?highlight=update#mapping-types-dict). Furthermore, you can read a more [in-depth tutorial](https://www.dataquest.io/blog/python-dictionaries/) on Python dictionaries (with tons of examples) or have a look at [DataQuest's dictionary lesson](https://app.dataquest.io/c/126/m/643/python-dictionaries/1/storing-data).
-
 ### Sets
-
-Sets in Python can be defined as mutable dynamic collections of **immutable unique** elements. The elements contained in a set must be immutable. Sets may seem very similar to lists, but in reality, they are very different.
-
-First, they may **only contain unique elements**, so no duplicates are allowed. Thus, sets can be used to remove duplicates from a list. Next, like [sets in mathematics](https://en.wikipedia.org/wiki/Set_(mathematics)), they have unique operations which can be applied to them, such as set union, intersection, etc. Finally, they are very efficient in checking whether a specific element is contained in a set.
-
-Thus, the pros of sets are:
-
-- We can perform unique (but similar) operations on them.
-- They are significantly faster than lists if we want to check whether a certain element is contained in a set.
-
-But their cons are:
-
-- Sets are intrinsically unordered. If we care about keeping the insertion order, they are not our best choice.
-- We cannot change set elements by indexing as we can with lists.
+mutable dynamic collections of **immutable unique** elements.
+Pros
+- fast membership check
+Cons : no indexing, no order maintained
 
 #### Examples
 
