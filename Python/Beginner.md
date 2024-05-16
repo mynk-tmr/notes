@@ -600,28 +600,11 @@ end = time.time() - start
 Tuples are like lists but denote ordered collection of **immutables**.
 Can be used as dictionary keys if all their elements are immutable.
 Cons
-- We cannot use them when we have to work with modifiable objects; we have to resort to lists instead.
-- Tuples cannot be copied.
-- They occupy more memory than lists.
-
-#### Examples
-
-Let's take a look at some examples:
+- can't be copied; huge space
 
 ```python
-# Create a tuple using round brackets
 t1 = (1, 2, 3, 4)
-
-# Create a tuple from a list the tuple() constructor
 t2 = tuple([1, 2, 3, 4, 5])
-
-# Create a tuple using the tuple() constructor
-t3 = tuple([1, 2, 3, 4, 5, 6])
-
-# Print out tuples
-print(f"Tuple t1: {t1}")
-print(f"Tuple t2: {t2}")
-print(f"Tuple t3: {t3}")
 ```
 
 ```text
