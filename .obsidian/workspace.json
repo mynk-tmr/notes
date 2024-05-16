@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5
+    "width": 264.5,
+    "collapsed": true
   },
   "right": {
     "id": "405b630c95c62d76",
@@ -148,7 +149,7 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "077aaf651c3ec06e",
   "lastOpenFiles": [
     "Javascript/TypeScript.md",
     "Python/Beginner.md",
