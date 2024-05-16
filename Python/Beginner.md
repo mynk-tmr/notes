@@ -527,9 +527,9 @@ While this is a neat trick, many Pythonistas would not consider this code to be 
 
 [Remove ads](https://realpython.com/account/join/)
 
-## Python Mutable Data structures
+## Data structures
 
-A data structure is a way of organizing data in computer memory. Built-in data structures in Python can be divided into: **mutable** and **immutable**. Mutable can change their elements **lists**, **dictionaries**, and **sets**. Immutable cannot be modified after their creation ie. **tuple**.
+A data structure is a way of organizing data in computer memory. Mutable can change their elements **lists**, **dictionaries**, and **sets**. Immutable cannot be modified after their creation ie. **tuple**.
 
 Different Python third-party packages implement their own data structures, like [DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) and [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html?highlight=series#pandas.Series) in `pandas` or [arrays](https://numpy.org/doc/stable/reference/generated/numpy.array.html) in `NumPy`. 
 
@@ -546,7 +546,7 @@ Cons
 
 ```python
 l2 = [1, 2, "3", 4] 
-l3 = list(any_iter)
+l3 = list(any_tuple)
 
 # slice list from ith index
 l5 = l2[2:]
@@ -580,141 +580,26 @@ Cons : no indexing, no order maintained
 ```python
 s1 = {1,2,3}
 s2 = set([1, 2, 3, 4])
+
+# math operations
+s3 = s1.union(s2) or s1 | s2
+s4 = s1.intersection(s2) or s1 & s2
+s5 = s1.difference(s2) or s1 - s2
 ```
-
-#### Examples
-
-To create a set, we can use either curly brackets (`{}`) or the `set()` constructor. Do not confuse sets with dictionaries (which also use curly brackets), as sets do not contain `key:value` pairs. Note, though, that like with dictionary keys, only immutable data structures or types are allowed as set elements. This time, let's directly create populated sets:
 
 ```python
-# Create a set using curly brackets
-s1 = {1, 2, 3}
-
-# Create a set using the set() constructor
-
-
-# Print out sets
-print(f"Set s1: {s1}")
-print(f"Set s2: {s2}")
-```
-
-```text
-Set s1: {1, 2, 3}
-Set s2: {1, 2, 3, 4}
-```
-
-In the second example, we used an **iterable** (such as a list) to create a set. However, if we used lists as set elements, Python would throw an error. Why do you think it happens? **Tip**: read the definition of sets.
-
-To practice, you can try using other data structures to create a set.
-
-As with their math counterparts, we can perform certain operations on our sets. For example, we can create a **union** of sets, which basically means merging two sets together. However, if two sets have two or more identical values, the resulting set will contain only one of these values. There are two ways to create a union: either with the `union()` method or with the vertical bar (`|`) operator. Let's make an example:
-
-```python
-# Create two new sets
-names1 = set(["Glory", "Tony", "Joel", "Dennis"])
-names2 = set(["Morgan", "Joel", "Tony", "Emmanuel", "Diego"])
-
-# Create a union of two sets using the union() method
-names_union = names1.union(names2)
-
-# Create a union of two sets using the | operator
-names_union = names1 | names2
-
-# Print out the resulting union
-print(names_union)
-```
-
-```text
-{'Glory', 'Dennis', 'Diego', 'Joel', 'Emmanuel', 'Tony', 'Morgan'}
-```
-
-In the above union, we can see that `Tony` and `Joel` appear only once, even though we merged two sets.
-
-Next, we may also want to find out which names appear in both sets. This can be done with the `intersection()` method or the ampersand (`&`) operator.
-
-```python
-# Intersection of two sets using the intersection() method
-names_intersection = names1.intersection(names2)
-
-# Intersection of two sets using the & operator
-names_intersection = names1 & names2
-
-# Print out the resulting intersection
-print(names_intersection)
-```
-
-```text
-{'Joel', 'Tony'}
-```
-
-`Joel` and `Tony` appear in both sets; thus, they are returned by the set intersection.
-
-The last example of set operations is the difference between two sets. In other words, this operation will return all the elements that are present in the first set, but not in the second one. We can use either the `difference()` method or the minus sign (`-`):
-
-```python
-# Create a set of all the names present in names1 but absent in names2 with the difference() method
-names_difference = names1.difference(names2)
-
-# Create a set of all the names present in names1 but absent in names2 with the - operator
-names_difference = names1 - names2
-
-# Print out the resulting difference
-print(names_difference)
-```
-
-```text
-{'Dennis', 'Glory'}
-```
-
-What would happen if you swapped the positions of the sets? Try to predict the result before the attempt.
-
-There are other operations that can be used in sets. For more information, refer to [this tutorial](https://www.dataquest.io/blog/tutorial-everything-you-need-to-know-about-python-sets/), or [Python documentation](https://docs.python.org/3/library/stdtypes.html#set).
-
-Finally, as a bonus, let's compare how fast using sets is, when compared to lists, for checking the existence of an element within them.
-
-```python
+#benchmarking
 import time
-
-def find_element(iterable):
-    """Find an element in range 0-4999 (included) in an iterable and pass."""
-    for i in range(5000):
-        if i in iterable:
-            pass
-
-# Create a list and a set
-s = set(range(10000000))
-
-l = list(range(10000000))
-
-start_time = time.time()
-find_element(s) # Find elements in a set
-print(f"Finding an element in a set took {time.time() - start_time} seconds.")
-
-start_time = time.time()
-find_element(l) # Find elements in a list
-print(f"Finding an element in a list took {time.time() - start_time} seconds.")
+start = time.time()
+# do something
+end = time.time() - start
 ```
-
-```text
-Finding an element in a set took 0.00016832351684570312 seconds.
-Finding an element in a list took 0.04723954200744629 seconds.
-```
-
-It is obvious that using sets is considerably faster than using lists. This difference will increase for larger sets and lists.
 
 ### Tuples
 
-Tuples are almost identical to lists, so they contain an ordered collection of elements, except for one property: they are **immutable**. We would use tuples if we needed a data structure that, once created, cannot be modified anymore. Furthermore, tuples can be used as dictionary keys if all the elements are immutable.
-
-Other than that, tuples have the same properties as lists. To create a tuple, we can either use round brackets (`()`) or the `tuple()` constructor. We can easily transform lists into tuples and vice versa (recall that we created the list `l4` from a tuple).
-
-The **pros of tuples** are:
-
-- They are immutable, so once created, we can be sure that we won't change their contents by mistake.
-- They can be used as dictionary keys if all their elements are immutable.
-
-The **cons of tuples** are:
-
+Tuples are like lists but denote ordered collection of **immutables**.
+Can be used as dictionary keys if all their elements are immutable.
+Cons
 - We cannot use them when we have to work with modifiable objects; we have to resort to lists instead.
 - Tuples cannot be copied.
 - They occupy more memory than lists.
