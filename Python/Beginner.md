@@ -577,6 +577,11 @@ Pros
 - fast membership check
 Cons : no indexing, no order maintained
 
+```python
+s1 = {1,2,3}
+s2 = set([1, 2, 3, 4])
+```
+
 #### Examples
 
 To create a set, we can use either curly brackets (`{}`) or the `set()` constructor. Do not confuse sets with dictionaries (which also use curly brackets), as sets do not contain `key:value` pairs. Note, though, that like with dictionary keys, only immutable data structures or types are allowed as set elements. This time, let's directly create populated sets:
@@ -586,7 +591,7 @@ To create a set, we can use either curly brackets (`{}`) or the `set()` constr
 s1 = {1, 2, 3}
 
 # Create a set using the set() constructor
-s2 = set([1, 2, 3, 4])
+
 
 # Print out sets
 print(f"Set s1: {s1}")
