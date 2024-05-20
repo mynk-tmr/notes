@@ -36,6 +36,16 @@ Strategies for optimisation
 - *branch and bound*
 - *backtracking*: generate sub-solution, check who satisfy constraints, then proceed it with to generate further solutions
 
+## Heap Memory
+
+- large area of memory that a program can allocate and deallocate during its execution. 
+- stored in RAM and is global, meaning it can be accessed and modified from anywhere in the program
+- allocated during program execution and stores objects and data structures that last longer than stack memory
+- When an object is created, it's stored in heap space, while stack memory contains a reference to it. 
+- Heap memory is used by all parts of an application, while stack memory is only used by one thread of execution. 
+- heap manager is a library code that manages the heap for the program. The programmer makes requests to the heap manager, which then manages the internals of the heap. The allocation function reserves a block of memory of the requested size in the heap and returns a reference to it. 
+- Heap memory has a slower allocation of variables in comparison to variables on the stack. Heap memory can also have fragmentation when there are a lot of allocations and deallocations. 
+
 ## Caches
 
 Average time to access memory
@@ -136,4 +146,3 @@ JS map & set are doubly linked hashmap & hashset
 | Speed        | slower                  | faster                                        |
 | Null         | store single null value | Single null key and any number of null values |
 | Data storage | as objects              | as key-value pair.                            |
-

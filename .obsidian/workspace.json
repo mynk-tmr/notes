@@ -11,8 +11,12 @@
             "id": "e36e53246c7c1168",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "DSA/1-Theory.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Beginner.md",
+                "file": "DSA/1-Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Beginner.md",
+                "file": "DSA/1-Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -121,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Beginner.md"
+                "file": "DSA/1-Theory.md"
               }
             }
           }
@@ -144,36 +148,37 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "e36e53246c7c1168",
   "lastOpenFiles": [
+    "Backend/Notes.md",
+    "Patterns/Clean Code.md",
+    "Patterns/ReactJS.md",
+    "Patterns/Rendering.md",
+    "DSA/2-Basic DSA.md",
+    "DSA/3-Leetcode.md",
+    "DSA/1-Theory.md",
+    "DSA/6-Interview.md",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/Untitled",
+    "Python/Beginner.md",
     "Javascript/Tricky-Questions.md",
     "FrontEnd/React/Libraries/Redux Toolkit.md",
     "FrontEnd/React/Libraries/Jest.md",
     "FrontEnd/React/NextJS.md",
     "FrontEnd/React/Beginner.md",
-    "Patterns/Rendering.md",
     "Untitled",
-    "Patterns/Clean Code.md",
     "FrontEnd/Patterns.md",
     "Build_Tools/Git.md",
     "Patterns/Git Commits.md",
     "Build_Tools/npm ecosystem.md",
     "Build_Tools/QoL.md",
-    "Patterns/ReactJS.md",
-    "Backend/Notes.md",
     "Backend/Internet Protocols.md",
     "Backend/Sockets, RTC.md",
     "Backend/Security.md",
     "Backend/Topics",
     "Javascript/4_Web APIs.md",
     "Javascript/3_DOM.md",
-    "Javascript/1_Beginner.md",
-    "FrontEnd/Animations/Basics.md",
-    "FrontEnd/React/Libraries/React-Router.md",
-    "FrontEnd/React/Libraries/Proptypes.md",
-    "Python/Beginner.md",
-    "Javascript/TypeScript.md",
-    "Javascript/Built-in Methods.md",
     "Python",
     "FrontEnd/React/Libraries",
     "Backend",
@@ -181,7 +186,6 @@
     "PHP",
     "DSA",
     "Excalidraw",
-    "Untitled.canvas",
-    "DSA"
+    "Untitled.canvas"
   ]
 }
