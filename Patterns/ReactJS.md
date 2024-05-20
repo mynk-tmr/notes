@@ -14,11 +14,11 @@ Cons: No access to life-cycle methods ; wrapper hell
 
 ```jsx
 const Card = (props) => <>
-	{props.renderHead()}
-	{props.children()} </>
+	{props.renderHead('Title')}
+	{props.children('Body')} </>
 
-const Greet = (head, text) => 
-	<Card renderHead={() => <h1>{head}</h1> }>
+const Greet = () => 
+	<Card renderHead={head => <h1>{head}</h1> }>
 		{text => <p>{text}</p>}
 	</Card>
 ```
@@ -101,9 +101,6 @@ const Modal = () => modalNode && createPortal(<Ele/>, modalNode)
 - hooks communicate by passing reactive values
 - wrap handlers received by them into `useEffectEvent` for linter
 - extract logic using useEffect for future-proofing
-
-
-
 
 ## HOC pattern
 

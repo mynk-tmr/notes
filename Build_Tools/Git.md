@@ -274,3 +274,24 @@ git rebase -i <commit> # rolls back commits after <commit>
 git rebase -i --root #first commit
   --committer-date-is-author-date 
 ```
+
+##### Commiting Guide
+
+```shell
+feat(core): add "Blade3" in weapon.json #header -> type(scope): subject 
+
+add new weapon #body -> motivation of change, contrast with original
+
+BREAKING CHANGE: methods must implement CatchFatal() #footer -> closed issue or breaking change
+```
+
+- max 75 chars in a line ; only lowercase, no full-stop, present-tense
+- types -> *build, ci, docs, feat, fix, perf, refactor, style, test, revert, chore*
+
+**Revert**
+```shell
+revert: #header of reverted commit
+
+This reverts commit #sha
+```
+
