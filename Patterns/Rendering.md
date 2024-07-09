@@ -10,7 +10,9 @@
 
 [10 rendering patterns](https://www.youtube.com/watch?v=Dkx5ydvtpCA)
 
-
+##### Progressive web Apps
+- web apps built and improved with modern APIs to enhance UX.
+- Benefit : with a single codebase, we can utilise broad reach of web apps and rich capabilities of platform-specific apps
 
 ## Server Components
 

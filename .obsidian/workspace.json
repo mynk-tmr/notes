@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Patterns/Rendering.md",
+                "file": "Patterns/OOPs.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Patterns/Rendering.md",
+                "file": "Patterns/OOPs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Patterns/Rendering.md",
+                "file": "Patterns/OOPs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Patterns/Rendering.md"
+                "file": "Patterns/OOPs.md"
               }
             }
           }
@@ -148,9 +148,12 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "193000deafe875a9",
+  "active": "79734d9ecf56138d",
   "lastOpenFiles": [
+    "Patterns/ReactJS.md",
     "Javascript/TypeScript.md",
+    "Patterns/Clean Code.md",
+    "Patterns/Rendering.md",
     "Python/Beginner.md",
     "Javascript/1_Beginner.md",
     "Javascript/Tricky-Questions.md",
@@ -159,15 +162,12 @@
     "Javascript/3_DOM.md",
     "Javascript/2_Intermediate.md",
     "Backend/Notes.md",
-    "Backend/OOPs.md",
+    "Patterns/OOPs.md",
     "Backend/Internet Protocols.md",
     "Backend/DBMS.md",
-    "Patterns/Clean Code.md",
     "FrontEnd/Patterns.md",
     "FrontEnd/HTML.md",
     "FrontEnd/CSS.md",
-    "Patterns/Rendering.md",
-    "Patterns/ReactJS.md",
     "DSA/6-Interview.md",
     "DSA/1-Theory.md",
     "DSA/2-Basic DSA.md",

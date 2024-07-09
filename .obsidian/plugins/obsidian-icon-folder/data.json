@@ -52,6 +52,6 @@
   "FrontEnd/React/Libraries/React-Router.md": "LiRoute",
   "FrontEnd/React/Libraries/Redux Toolkit.md": "LiRedo",
   "Javascript/Tricky-Questions.md": "LiArrowUpLeftFromCircle",
-  "Backend/OOPs.md": "LiFootprints",
-  "Backend/DBMS.md": "LiDatabase"
+  "Backend/DBMS.md": "LiDatabase",
+  "Patterns/OOPs.md": "LiFootprints"
 }
