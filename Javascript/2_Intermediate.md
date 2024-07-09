@@ -44,12 +44,6 @@ NOTES
 - Functional Inheritance
     - using factory function, and then adding new properties using concatenative inheritance.
     - functional mixins : functions created for extending existing objects
-##### Comparison
-| Class inheritance | Object Composition |
-| :--- | ---- |
-| creates **is-a** relationships viz restrictive | allows **has-a, uses-a, or can-do** relationships. simpler, more expressive, and more flexible |
-| used when you decide types based on what they are | … based on what they do |
-| animal sees, dog is animal that barks, cat is animal that meow | animal is seer, dog is seer+barker, cat is seer+meower |
 
 ## Functional Programming
 #### Decorator Functions

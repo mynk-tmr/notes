@@ -9,4 +9,3 @@
 **Interface Segregation** => an entity shouldn’t be forced to implement or depend on methods it never uses. Violations -> very much like LSP ones. Solved via `object composition`
 
 **Dependency Inversion** => high-level modules (complex logic) should not import anything from low-level modules  and communicate via `abstract` interfaces (a wrapper around APIs).
-

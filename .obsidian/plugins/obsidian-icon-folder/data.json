@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiDatabase",
+      "LiFootprints",
       "LiArrowUpLeftFromCircle",
       "LiTrendingUp",
-      "LiWrench",
-      "LiCircle",
-      "LiSnail"
+      "LiWrench"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -51,5 +51,7 @@
   "FrontEnd/React/Libraries/Proptypes.md": "LiFileType2",
   "FrontEnd/React/Libraries/React-Router.md": "LiRoute",
   "FrontEnd/React/Libraries/Redux Toolkit.md": "LiRedo",
-  "Javascript/Tricky-Questions.md": "LiArrowUpLeftFromCircle"
+  "Javascript/Tricky-Questions.md": "LiArrowUpLeftFromCircle",
+  "Backend/OOPs.md": "LiFootprints",
+  "Backend/DBMS.md": "LiDatabase"
 }

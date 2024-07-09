@@ -10,6 +10,8 @@
 
 [10 rendering patterns](https://www.youtube.com/watch?v=Dkx5ydvtpCA)
 
+
+
 ## Server Components
 
 What 

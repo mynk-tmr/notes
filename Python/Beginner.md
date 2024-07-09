@@ -33,7 +33,6 @@ round(.1 + .1 + .1, 10) == round(.3, 10) #bcoz floats are stored as appx, so dir
 
 `str`
 - "" or ''
-- use `\` before newline to break strings
 - raw string `r'a\nb'` (no escape)
 - triple quoted strings `''' or """` (template literals)
 
