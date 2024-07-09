@@ -74,7 +74,7 @@ Data abstraction is accomplished with the help of [interfaces](https://www.geek
 
 In Java, entities with same name can be used in different ways using *overloading* or *overriding*.
 
-**Overloading** allows methods/operators with same name, but different parameters, to be defined for a single class. It enables *compile*-time or *static* binding because objects are linked to methods/operators at compile time.
+**Overloading** allows methods/operators with same name, but different parameters, to be defined for a single class. It enables *compile*-time or *static* binding.
 
 **Overriding** allows child classes to modify behavior of parent classes by redefining their methods. It enables *run*-time or *dynamic* binding.
 
