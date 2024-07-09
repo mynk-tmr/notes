@@ -692,6 +692,3 @@ while (q.length)
 	if (lf < n) q.push([lf + 1, rt, s + '('])
 	if (rt < lf) q.push([lf, rt + 1, s + ')'])
 ```
-
-## Binary Search
-
