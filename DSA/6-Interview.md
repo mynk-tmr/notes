@@ -12,7 +12,7 @@ for(i : n-1 to 0)
 	    key = keys[i].slice(0, -1)
 	    while(keys[--i][0] !== '"')
 		    key = keys[i][0] + "." + key
-		key = key[i].slice(1) + "." + key
+		key = keys[i].slice(1) + "." + key
     ans = { [key] : ans ?? finalValue }
     
 return ans;

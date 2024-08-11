@@ -608,8 +608,7 @@ class MinStack {
     push({ val, min: Math.min(val, this.getMin()) })
   }
   getMin() {
-    return (stack.length === 0) return Infinity
-    return at(-1).min
+    return stack.length === 0? Infinity : stack.at(-1).min
   }
 }
 ```
