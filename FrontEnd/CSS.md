@@ -419,5 +419,3 @@ div::-webkit-resizer /* resize arrows */
   border-image: url(border.png) 30 round; /*https://www.w3schools.com/css/css3_border_images.asp*/
 }
 ```
-
-
