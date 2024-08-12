@@ -1,7 +1,3 @@
-Links
-- [Coursera Algorithms](https://www.coursera.org/specializations/algorithms?action=enroll)
--  [Cheatsheet BigO space-time](https://www.bigocheatsheet.com/)
-
 Algo-efficiency is measured in terms of its *input size (N)* to keep it machine-independent
 - **Time complexity** : time taken to run, as a function of N
 	- sum big-O of all individual operations
@@ -79,7 +75,6 @@ Cache performance depends on *latency* and *hit ratio*. Each replacement strateg
 	- If content is popular, it is pushed into privileged. If unpopular, it is moved to *unpriviliged* by replacing entries therein
 
 ## Arrays
-
 
 | Feature           | Static Array                      | Dynamic Array                    |
 | ----------------- | --------------------------------- | -------------------------------- |

@@ -1,7 +1,5 @@
 ## Rendering
 
-https://www.udacity.com/course/browser-rendering-optimization--ud860
-
 - Web browsers perform two main tasks: **parsing** and **rendering**.
 - During **parsing**, it converts `bytes → characters → tokens → nodes`, and organise them in tree-like *data structure* DOM
 - After making DOM, it **renders** DOM, ie. each node is displayed on screen

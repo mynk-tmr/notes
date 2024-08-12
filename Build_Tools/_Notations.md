@@ -38,4 +38,3 @@
 - **Greybox tests**: combine both
 - **Alpha tests:** test in controlled environment
 - **Beta/UAT tests:** test in real environment by selected end users
-

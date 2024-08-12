@@ -371,12 +371,12 @@ For `n/i` problem, solution contains atmost `i-1` ele
 ```js
 isOK(arr, candidate)
   f=0;
-  for(val of arr) 
-    if(val === candidate) f++
+  for(it : arr) 
+    if(it === candidate) f++
   return f > arr.length / 2; //based on stmt
 
 a, cta=0;
-for(val of nums)
+for(val : nums)
 	if(val === a) cta++;
 	else if(cta === 0)
 		cta = 1; a = val;
