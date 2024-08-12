@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiPaintbrush",
       "LiDatabase",
       "LiFootprints",
       "LiArrowUpLeftFromCircle",
-      "LiTrendingUp",
-      "LiWrench"
+      "LiTrendingUp"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -36,7 +36,6 @@
   "Python/Beginner.md": "LiSnail",
   "FrontEnd/CSS.md": "LiScissors",
   "FrontEnd/HTML.md": "LiLandmark",
-  "FrontEnd/Patterns.md": "LiPartyPopper",
   "FrontEnd/Animations/Basics.md": "LiBlocks",
   "FrontEnd/Animations/Framer Motion.md": "LiFrame",
   "FrontEnd/Animations/GSAP.md": "LiWand",
@@ -53,5 +52,6 @@
   "FrontEnd/React/Libraries/Redux Toolkit.md": "LiRedo",
   "Javascript/Tricky-Questions.md": "LiArrowUpLeftFromCircle",
   "Backend/DBMS.md": "LiDatabase",
-  "Patterns/OOPs.md": "LiFootprints"
+  "Patterns/OOPs.md": "LiFootprints",
+  "FrontEnd/React/Patterns in React.md": "LiPaintbrush"
 }

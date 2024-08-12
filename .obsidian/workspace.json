@@ -4,33 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "3999829834b13200",
+        "id": "c4041d2861c8741b",
         "type": "tabs",
         "children": [
           {
-            "id": "193000deafe875a9",
+            "id": "f0086a5b07946339",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Javascript/4_Web APIs.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ede57f7cf908253b",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.6.7"
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -96,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Javascript/4_Web APIs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Javascript/4_Web APIs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Javascript/4_Web APIs.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -159,8 +140,23 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "ede57f7cf908253b",
+  "active": "f0086a5b07946339",
   "lastOpenFiles": [
+    "FrontEnd/React/Beginner.md",
+    "FrontEnd/React/Patterns in React.md",
+    "Patterns/ReactJS.md",
+    "Patterns/OOPs.md",
+    "FrontEnd/HTML.md",
+    "FrontEnd/React/Libraries/React-Router.md",
+    "FrontEnd/React/Libraries/Proptypes.md",
+    "FrontEnd/React/Libraries/Jest.md",
+    "FrontEnd/React/NextJS.md",
+    "FrontEnd/Patterns.md",
+    "FrontEnd/CSS.md",
+    "Backend/Notes.md",
+    "Backend/Internet Protocols.md",
+    "Backend/DBMS.md",
+    "Javascript/4_Web APIs.md",
     "Javascript/3_DOM.md",
     "Javascript/2_Intermediate.md",
     "Javascript/1_Beginner.md",
@@ -172,22 +168,7 @@
     "DSA/6-Interview.md",
     "DSA/4-Trees-Graphs.md",
     "DSA/3-Leetcode.md",
-    "DSA/2-Basic DSA.md",
-    "Patterns/OOPs.md",
-    "Patterns/ReactJS.md",
-    "Javascript/TypeScript.md",
-    "Javascript/Tricky-Questions.md",
-    "Javascript/Built-in Methods.md",
-    "Javascript/4_Web APIs.md",
-    "Backend/Notes.md",
-    "Backend/Internet Protocols.md",
-    "Backend/DBMS.md",
-    "FrontEnd/Patterns.md",
-    "FrontEnd/HTML.md",
-    "FrontEnd/CSS.md",
     "DSA/Untitled",
-    "FrontEnd/React/Libraries/Redux Toolkit.md",
-    "FrontEnd/React/Libraries/Jest.md",
     "Untitled",
     "Backend/Topics",
     "Python",
