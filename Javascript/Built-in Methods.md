@@ -34,7 +34,7 @@ ms = Date.parse("Aug 9, 1995") //parsed date for set* methods
 //month & sunday start from 0
 ```
 
-smart objects
+Smart objects
 ```jsx
 ti.setDate(feb_28.getDate() + 2) //mar 1 or mar 2 (auto-leap-check)
 why.setMinutes(why.getMinutes() + 25) //+25 minutes
