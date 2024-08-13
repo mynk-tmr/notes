@@ -1,3 +1,6 @@
+
+
+
 ## Decorators
 
 To customize classes and their members in a reusable way. Can be used on properties, getters, setters. Classes themselves can be decorated for things like subclassing and registration.

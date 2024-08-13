@@ -29,23 +29,6 @@ Domain name heirarchy — [www.google.co.in](http://www.google.co.in)
 - name server sends IP address to resolver which sends it to client
 - DNS queries use **UDP** and port 53
 
-##### Resource Records (DNS Records)
-- files written in DNS syntax and define a single resource associated with a domain name.
-- they are stored in *master/zone file* on master server
-- Fields
-    - **Name** — identifier of DNS record
-    - **TTL (time to live)** — how long the record should be kept in local cache
-    - **Record type** — A, CNAME, MX
-    - **Record data** contains the DNS values e.g. IP address
-
-##### Record Types
-- **Name Server records (NS)**—specifies the authoritative name server for a DNS zone
-- **Address records (A and AAAAA)**—a hostname and its IPv4 or IPv6 address
-- **Pointer record (PTR)** : used to reverse-lookup domain from IP address
-- **Canonical Name records (CNAME)**— provides the "canonical" domain for an alias domain.
-- **Mail eXchanger record (MX**)—specifies an SMTP email server for the domain. You can set priority to entry and **lower** values are preferred.
-- **Text Records (TXT**) — can store text content. Usually used in domain ownership verification (by cloud provider) or blocking spammers
-
 ## Internet protocol suite (TCP/IP)
 
 Most common framework for organizing internet protocols. It loosely defines a **4 layer model,** which is built into OS and hardware.
@@ -139,13 +122,3 @@ SSH vs. HTTPS — https only verifies the server identity, never blocked by fire
 - doesn’t have file mgmt features ; cannot resume file transfers.
 
 **Managed File Transfer** support protocols like SFTP and FTPS. Used in banking industry, MFT provides additional encryption.
-
-## Trending
-### Server-sent events
-- allows a server to send events to client. Browser converts http stream into Event objects
-
-### Webhooks
-- **HTTP-based callback function** that allows lightweight, event-driven communication between 2 APIs. An application must have an API to use a webhook.
-- Webhooks can be used to r**eceive small amounts of data** from other apps
-- Webhooks are **reverse APIs or push APIs**, because they put the responsibility of communication on server. Server sends the client a single POST request as soon as the data is available.
-

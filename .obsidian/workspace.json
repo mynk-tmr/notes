@@ -8,18 +8,31 @@
         "type": "tabs",
         "children": [
           {
-            "id": "f0086a5b07946339",
+            "id": "c23b51c8f5291cc6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Javascript/4_Web APIs.md",
+                "file": "Printed/REST-HTTP.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "bf9b88a46453db97",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "DSA/1-Theory.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Javascript/4_Web APIs.md",
+                "file": "DSA/1-Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Javascript/4_Web APIs.md",
+                "file": "DSA/1-Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Javascript/4_Web APIs.md"
+                "file": "DSA/1-Theory.md"
               }
             }
           }
@@ -148,36 +161,36 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "f0086a5b07946339",
+  "active": "bf9b88a46453db97",
   "lastOpenFiles": [
-    "Javascript/3_DOM.md",
-    "Javascript/2_Intermediate.md",
-    "Javascript/1_Beginner.md",
-    "Backend/Notes.md",
-    "Backend/Internet Protocols.md",
-    "FrontEnd/React/Libraries/Proptypes.md",
-    "Javascript/4_Web APIs.md",
-    "Javascript/Built-in Methods.md",
-    "Javascript/Tricky-Questions.md",
-    "Javascript/TypeScript.md",
-    "FrontEnd/CSS.md",
-    "FrontEnd/HTML.md",
-    "FrontEnd/React/Patterns in React.md",
-    "FrontEnd/React/NextJS.md",
-    "FrontEnd/React/Libraries/Redux Toolkit.md",
-    "FrontEnd/React/Libraries/React-Router.md",
-    "FrontEnd/Animations/GSAP.md",
-    "Patterns/Clean Code.md",
-    "DSA/1-Theory.md",
     "DSA/2-Basic DSA.md",
-    "Patterns/OOPs.md",
-    "Patterns/Rendering.md",
-    "Patterns/ReactJS.md",
-    "FrontEnd/Animations/Basics.md",
-    "FrontEnd/Animations/Framer Motion.md",
-    "FrontEnd/React/Beginner.md",
+    "OOPs with Typescript.md",
+    "NextJS.md",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/6-Interview.md",
+    "DSA/3-Leetcode.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/1-Theory.md",
+    "Printed/REST-HTTP.md",
+    "OOPs.md",
+    "Printed/Javascript.md",
+    "TypeScript.md",
+    "Internet Protocols.md",
+    "Tricky-Questions.md",
+    "Install guides.md",
+    "Python Notes.md",
+    "Patterns/Clean Code.md",
+    "Printed/Web Concepts.md",
+    "Testing.md",
+    "Redux Toolkit.md",
+    "Printed/Browser APIs.md",
+    "Javascript/Built-in Methods.md",
+    "Javascript/DOM.md",
+    "Printed/REACTJS.md",
+    "FrontEnd/React/Libraries/Jest.md",
+    "FrontEnd/React/Libraries/React-Router.md",
+    "Printed",
     "DSA/Untitled",
-    "Untitled",
     "Backend/Topics",
     "Python",
     "FrontEnd/React/Libraries",

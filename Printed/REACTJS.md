@@ -84,6 +84,18 @@ For nested conditions, either use *guard pattern* (`if(..) return`) or **HOCs**
 	- siblings must have *unique* keys
 	- keys mustn't change, ie., should be generated in *database*, and not in render logic.
 
+## Portals
+
+_Portals_ let your components render some of their children into a different place in the DOM. It is done via  `createPortal` function. It returns a React node.
+
+```jsx
+<div>  
+	<SomeComponent />  
+	{createPortal(renderable, domNode, key?)}
+</div>
+```
+
+A *portal* only changes the physical placement of the DOM node. It acts as child node of the React component that renders it (bubbling etc.)
 
 ## Components
 
@@ -461,3 +473,356 @@ const MemoList = useMemo(<List items={list}/>, [list]);
 1. using `{children}`; they aren't re-rendered
 2. localising state as much possible
 3. don't abuse sideeffects
+
+## Patterns
+
+**Slot** : places a component in a slot in another. Either `{children}` or `{custom}`
+
+**Render Props** : A function prop that render JSX using inputs. Implement the pattern "child as a function"
+- helps to move part of rendering logic to parent
+- avoids prop drilling
+- no name collisions like in HOC pattern
+
+Cons: No access to life-cycle methods ; wrapper hell
+
+```jsx
+const Card = (props) => 
+	<>
+	{props.renderHead('Title')}
+	{props.children('Body')} 
+	</>
+
+const Greet = () => 
+	<Card renderHead={head => <h1>{head}</h1> }>
+		{text => <p>{text}</p>}
+	</Card>
+```
+
+**Compound** : components are given explicit relationship and work together.
+Goal is to 
+- build cohesive components but with minimal coupling.
+- avoid prop drilling by implicit state sharing
+
+```jsx
+const Ctx = createContext()
+const FlyOut = ({ children }) => { //top level provides state and setter
+  const [open, setter] = useState(false);
+  return <Ctx.Provider value={{open, setter}}>{children}</Ctx.Provider>
+}
+
+const Toggle = () => { //toggle icon
+  const { open, setter } = useContext(Ctx);
+  return <div onClick={() => setter(!open)}>{open? '-' : '+'}</div>
+}
+
+const List = ({ children }) => {
+  const { open } = useContext(Ctx);
+  return open && <ul>{children}</ul>;
+}
+
+const Item = ({ children }) => <li>{children}</li>
+
+FlyOut.Toggle = Toggle; FlyOut.List = List; FlyOut.Item = Item;
+```
+
+```jsx
+<FlyOut>
+      <FlyOut.Toggle />
+      <FlyOut.List>
+      <FlyOut.Item>Edit</FlyOut.Item>
+      <FlyOut.Item>Delete</FlyOut.Item>
+      </FlyOut.List>
+</FlyOut>
+```
+
+ **Ref callback** : combines useRef+useEffect
+- a fn passed to `ref` attribute, viz called when 
+	- React attaches/detaches the node (`node/null`) 
+	- when fn object changes
+- wrap in `useCallback` to customise when to run
+- setters can be safely used as refcb, since setter is stable
+
+```jsx
+function scrollTo(node) {
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth" });
+}
+//in li
+<li ref={index+1 == list.length? scrollTo : null} ></li>
+```
+
+PORTALS
+```jsx
+const [mnode, set] = useState(null);
+return <div id="modal-dom-location" ref={set} />
+
+//use context/props to spread mnode to tree
+
+//create portals to location
+const Modal = () => mnode && createPortal(<Ele/>, mnode)
+```
+
+**Hooks**
+- make data flow explicit (avoid wrapper hell)
+- share stateful logic, but not state
+- rerun on each render
+- hooks communicate by passing reactive values
+- wrap handlers received by them into `useEffectEvent` for linter
+
+#### Higher Order Components
+
+Why?
+- cover edge cases in components
+- same conditional render logic for many
+- guard component from modifications by container
+
+Best Practices
+- HOC with higher priority/critical checks should enclose lower ones
+- HOC must always forward `props` / `refs`
+- newC = reduceRight(f,g,h)(OldC)
+- use a `config` object/value to customise -> hoc(config, comp)
+
+```jsx
+import {useState} from 'react'
+
+const withLoader = (url, Component) => (props) => {
+	const [data, setData] = useState(null);
+	const ref = (node) => {
+		if(node) fetch(url).then(res => res.json()).then(setData);
+	}
+	return data? <Component {...props} payload={data} /> : <p ref={ref}>Loading ....</p>
+}
+
+export const DogImg = withLoader('https://dog.ceo/api/breeds/image/random', 
+	function({payload, ...props}) { //from HOC
+		return <img {...props} src={payload.message}/>
+});
+
+export const Quote = withLoader('https://api.quotable.io/quotes/random', 
+	function({payload, ...props}) {
+	return <blockquote {...props}>{payload[0].content}</blockquote>
+})
+```
+
+## Fetching data
+
+3 states : `data`, `loading`, `error` are needed in fail safe api-calling component.
+
+__Form fetch__
+```jsx
+<form onSubmit={handler}>
+//don't forget preventDefault()
+```
+
+__Within useEffect of custom Hook__
+```jsx
+//pattern 1 (fetchall-then render)
+Promise.all(f1, f2, f3)
+.then( responses => responses.map(res => res.json()))
+.then( datas => x/* set states */);
+
+//pattern 2 (render-as-you-fetch)
+f1.then(set1); f2.then(set2); f3.then(set3) 
+
+//setting all at one place in top-level avoid waterfalls 
+//ie. when conditionally rendered child starts fetching only when parent returns it
+```
+
+__ContextProviders__
+```jsx
+export { f1provider, useF1 } //create for f2 and f3 too
+
+//wrap subtree with all 3 and get ctx values with use*
+```
+
+__Hidden Child__
+```jsx
+{isLoading && 'loading...'}
+<div style={{display : isLoading && "none"}}><Child /><div />
+```
+
+__Outside Reactroot__
+for critical resources only 
+
+## Proptypes
+
+PropTypes is React’s *internal mechanism* for adding type checking to component props. Components expose `propTypes` property to use this.
+
+```jsx
+import {string, array} from 'prop-types';
+
+Hello.propTypes = {
+  name: string, //& other primitives , any
+  items: array, //& object, func
+  renderable: node.isRequired, 
+  Relement: elementType,
+  slot: instanceOf(Avatar), //
+  enum : oneOf(['Red', 'Green', 'Blue']),
+  word: oneOfType([string, number]),
+  specialarray : arrayOf(number),
+  specialobject: objectOf(string),
+  prototype : shape({ active: bool , font: string }),
+  equal : exact({ active: bool , font: string }),
+  // custom validator. It should return an Error
+  hexcode: (props, hxc, componentName) => {
+	  if(!props[hxc].startsWith('#')) return new Error('invalid hexcode')
+  }
+};
+```
+You can compose methods together
+
+Composing custom validators
+```jsx
+MyComp.propTypes = {
+  label: string.isRequired,
+  total: validate(isNumeric, isNonZero)
+}
+
+function validate(...validators) { //each take 1 value & return bool
+	return function(props, name, Cname) {
+		validators.every(check => {
+			return	check(prop[name])) || new Error(`${prop[name]} is invalid`)
+	}
+}
+```
+
+ Typescript validates types at _compile time_, whereas PropTypes are checked at _runtime_. Use `typescript-to-proptypes` library for conversions
+
+## React Router
+
+3 main jobs of React Router:
+- Subscribing and manipulating the history stack
+- Matching the URL to your routes
+- Rendering a nested UI from route matches
+
+### Route
+
+Route couples URL segments to components, loaders and data mutations. A `route` is 1 object with keys to declare coupling info to React. A route array is `routes` or `<Routes>` container which best-matches a nested route from current location
+
+```jsx
+<Route
+  path='' //segment to match (:id dynamic , id? optional , id/* splat ( id/..)
+
+  index  //default outlet
+  element={<App/>} OR Component={App}  //coupled element
+  children={routes} //nested routes
+  caseSensitive 
+  id  //for react
+  loader={fn} action={fn}
+  errorElement={<Err/>} OR ErrorBoundary={Err}
+  handle={} //for match object
+
+  lazy={() => import("./props")} //import and spread non-route matcher props [ie. not index, path, children, caseSensitive]
+
+  shouldRevalidate={fn} //opt out of data revalidation upon action/useRevalidator/change in url or params for rendered route
+
+/>
+
+//getting splats
+let { org, "*": splat } = params;
+```
+
+### Loaders and Actions
+
+Route actions are the "writes" to route loader "reads". They provide a way for apps to perform data mutations via mutation submissions
+
+```js
+const store = { text: `Secret`, showText : false }
+
+function dataloader({params}) {
+	return store;
+}
+
+async function action({request, params}) {
+	let data = await request.formData();
+	store.showText = Boolean(data.get('show')); 
+	return {res : 'ok'}
+}
+//loader re-runs to validate after action returns
+```
+
+### Components
+
+```jsx
+<Link 
+	to='..'  //url path (relative, absolute (/) , search params)
+	relative='base' // to this
+	reloadDocument  //server request
+	preventScrollReset // on click, not back/forth
+	replace  //history.replaceState
+	state={{}}  //history.state  [accessed via useLocation()]
+
+```
+
+```jsx
+<NavLink //special link with state awareness ; extra props
+	caseSensitive
+	aria-current  //on active
+	className, style, children  /* can be a render prop like ({ isActive, isPending, isTransitioning }) => value */
+>
+```
+
+An `<Outlet/>` in parent route component renders matched child route or nothing
+
+```jsx
+<ScrollRestoration> <Root /> </ScrollRestoration>
+//restore scroll when navigated back to
+//create entries of key-value [5&8/3i, (x,y)]. For custom key creation, use 
+getKey={(location, matches) => location.pathname} //path based keys (properly works)
+```
+
+```jsx
+< Form 
+	action='..' //pathname , suffix ?index to submit to index route,
+	method='GET' //POST PUT PATCH DELETE ; GET is used to URLSearchParams
+	navigate={false} //don't navigate, but still revalidate
+	fetcherKey='my-key' //for react
+	>
+
+//has all `Link` props too
+```
+
+### HOOKS
+
+```jsx
+const {width, height} = useParams(); //extract dynamic segments
+
+const [params, setter] = useSearchParams(); // get & set ? params
+params.get('category') ; setter(newparams)
+
+useBeforeUnload(fn, dep_arr)
+useLocation() //get window.location
+useNavigate() //get history.go(), second arg takes config obj of keys -- replace, state, preventScrollReset, relative
+
+const errors = useActionData() //return of action fn
+const ctx = useOutletContext()  // <Outlet value={ctx} />
+const rev = useRevalidator()  //rev.revalidate() 
+```
+
+Show blocker UI to confirm navigation 
+```jsx
+const block = useBlocker(fn); //takes in {curr_Loc , next_Loc} and return T/F 
+{block.state === 'blocked' && <ConfirmUI />} //UI can call block.proceed() or block.reset() [for yes/no]
+```
+
+To make transitions, loading animations, optimistic UI
+```jsx
+const navigation = useNavigation();
+navigation.state; //idle, submitting (non-get), loading
+navigation.location; //to
+navigation.formData; //from non-GET submission, for get use location.search
+navigation.json; //if useSubmit json
+navigation.text; // "" text
+navigation.formEncType; // ""  
+navigation.formAction; // pathname where form was
+navigation.formMethod; // POST etc
+```
+
+To submit form via code
+```jsx
+const submit = useSubmit() // sumbit(value) can be FormData, URLSearchParams, [[key, value],] OR
+
+submit(value, { method: "post", encType: "text/plain" })
+//2nd arg is same as props of `<Form/>`
+```
+

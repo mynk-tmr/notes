@@ -1,16 +1,13 @@
 
-**HTML**: standard markup language of webpages ; *interpreted* & maintained by W3C and WHATWG
+**HTML**: standard markup language of webpages 
 
-## Basics
-
-Attributes define properties of an HTML element. They are _case-insensitive_
-
-Types of elements
+Types of html elements
 1. *non-replaced* — doesn’t replace content. Have open+close tags.
 2. *replaced* — replaced by non-text objects. Can be void or with content. e.g. `<input>` , `<hr>`
 3. *void* — self-closing elements.
 
-Types of attributes
+Attributes define properties of an HTML element. They are _case-insensitive_
+Types
 1. *Global*: can be applied to all elements
 2. *i8n*:  `lang` and `dir`.
 3. *Generic*: attach additional info to node. E.g. `data-*`
@@ -162,9 +159,8 @@ Embed alternative versions of image
 *Best practices + SEO*
 - properly name image files [dinosaur.jpg]
 - use relative urls or CDNs
-- always give width, height — prevents layout shifts
-- avoid wrapping directly with <a/>, use div first
-- maintain aspect ratio always
+- always give width, height — prevents layout shifts. 
+- don't wrap `<a>` around blocks
 
 **Image hitmaps**
 ```html
@@ -561,7 +557,7 @@ all coords : `x, y` etc..  [svg2.0]   | `font-*` `text-decoration`
 `form='form_id'` : associate with a form
 `formaction` : URL for submission on submit and image buttons
 
-## Psuedo-selectors 
+##### Psuedo-selectors 
 
 ```css
 :enabled :disabled :read-only :read-write :placeholder-shown 
@@ -574,16 +570,3 @@ all coords : `x, y` etc..  [svg2.0]   | `font-*` `text-decoration`
 input::placeholder
 input[type='file']::-webkit-file-upload-button
 ```
-
-## Good UI / UX
-
-- Aim for inline validations and show errors near field
-- Avoid tooltips 
-- Don't disable the submit button
-- Show positive feedback too (green checks)
-- Add Iconography to feedbacks
-- Don't use Modals
-- Show allowed values pattern right away
-
-Common Regex : https://www.html5pattern.com/Names
-Regex tutorial : https://www.sitepoint.com/demystifying-regex-with-practical-examples/

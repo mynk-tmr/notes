@@ -1,3 +1,38 @@
+## Rendering
+
+- Web browsers perform two main tasks: **parsing** and **rendering**.
+- During **parsing**, it converts `bytes → characters → tokens → nodes`, and organise them in tree-like *data structure* DOM
+- After making DOM, it **renders** DOM, ie. each node is displayed on screen
+
+![[Pasted image 20231228224715.png]]
+
+#### Rendering Waterfall
+- **style calculation**: CSS rules are applied to DOM node to form CSSOM. It only contains presentational elements
+- **layout creation**: calculate geometry of elements (vector boxes) and positions.
+- **paint**: vector boxes are *rasterized* (to pixels) and put onto *layers* . This is done to improve repaints of elements likely to change by isolating changes to specific layer only
+- **composition** : layers are placed in correct order. By default, 1 layer exists. 
+##### When visual changes happen
+- `Reflow` : changes in properties that trigger *layout* re-creation. **Expensive** process. 
+- `Repaint` : no change in layout, but new pixels are needed. 
+- `Recompose` : seperate layer is changed. e.g. `opacity`, `transform`. Cheapest, uses GPU and run in seperate thread from main
+- Tips
+	- Animate, Transition properties that <u>don't reflow</u> page to improve performance.
+	- place *reflow-repaint* properties on *separate* layer using for e.g. `will-change: color` 
+	- More layers -> more memory (so careful)
+	- Place animating element in high `z-index` or it will trigger repaint of its layer sharers
+
+Dev tools : 
+- `Performance tab` > `Record` while animation running
+- Run commands like `Enable FPS`, `Paint flash`  , `Show layers`
+- `Performance tab > Enable advanced paint ....` . Then interact with page and check `Paint Profiler` section in that tab
+
+Layer creations happen for
+- container whose child has layer ; new stacking contexts
+- `3D` stuff
+- `<video>` with accelerated video decoding
+- `<canvas>` with 3D (WebGL)
+- accelerated CSS `filters`
+
 
 ```css
 /* a css rule*/
@@ -109,7 +144,6 @@ _Grid_ concepts :
     - their size = content. They can wrap around other elements.
     - Don’t respect WH
     - MBP will apply but only **Left and right** will **push** other elements and content.
-
 ##### Out of flow
 - when ele is not `display: block or inline` , is `fixed, absolute, float, multi-col, table-cell`
 - Creates a new **Block Formatting Context (BFC)** (inner layout) separate from rest of page. 
@@ -124,8 +158,6 @@ _Grid_ concepts :
 - `-block-` :  perpendicular to text flow 
 - `start` : instead of *left*, `end` : instead of *right* like in `text-align`
 - `inset` , `inset-block`, `inset-inline`
-
-![[Pasted image 20240119160145.png]]
 
 #### Margin Collapsing
 Only applies in `normal flow` and to `block` margins that are `touching`
@@ -417,5 +449,83 @@ div::-webkit-resizer /* resize arrows */
   border-radius: 15px 30px 15px 30px;  /*set clockwise*/
   background-position: -75px 0; /* multiple imgs from a sprite, by changing X pos  */
   border-image: url(border.png) 30 round; /*https://www.w3schools.com/css/css3_border_images.asp*/
+}
+```
+
+## Animations and Transitions
+
+##### Animations
+- Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
+- `@keyframes` provides transition states and browser does interpolation.
+
+```css
+@keyframes example {  
+	from {background-color: red;}  
+	to {background-color: yellow;}
+	}
+
+div {  
+	animation: example 5s linear 2s infinite alternate;
+	/* duration, timing-function, delay, iter-count, direction */
+}
+
+div {
+	animation-direction: 
+		normal /* play forward */
+		reverse
+		alternate
+		alternate-reverse;
+
+	animation-timing-function : ease-in; /* specifies the speed curve */
+	animation-fill-mode: forwards; 
+		/* specifies a style when animation is not playing (before it starts, after it ends, or both).	
+	`forwards` - retain style set by last keyframe */
+}
+```
+
+##### 2D Transformations
+```css
+div {
+	transform : scale(1,0.3); /* applies2D or 3D transformation to element */
+	transform-origin : center;
+	transform:
+		matrix(n,n,n,n,n,n)	/* defines a 2D transformation */
+		translate(x,y) translateX(n) translateY(n)
+		scale(x,y) /* changes w,h */
+		rotate(angle)
+		skew(x-angle, y-angle)
+}
+```
+
+##### 3D transformations
+```css
+div {
+	transform-style: preserve-3d; /* child elements will preserve 3D position */
+	perspective: 100px ; /* defines how far child elements are away from user. lower value --> more intensive 3D effect */
+	perspective-origin: left; /* position from where user is looking */
+	backface-visibility: hidden; /* hide object when it's not facing user */
+	transform: 
+		matrix3d()
+		translate3d() scale3d() skew3d() rotate3d() perspective()
+}
+```
+
+##### Transitions
+- provide a way to control animation when changing CSS properties.
+- Events  (animations like): 
+	- `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
+	- `transitionend` event is fired in both directions (to & back)
+	- Properties `propertyName`, `elapsedTime` (from start) and `pseudoElement` e.g. '::before'
+	- Using animations with `auto` may lead to unpredictable results
+
+[discrete animation type](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties#discrete) : properties will flip between two values 50% into run
+
+Tips
+- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
+- use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
+```css
+div {  
+	transition: width 2s linear 1s; /* prop dur timing delay */
+	transition: width 5s, height 2s, transform 9s; 
 }
 ```

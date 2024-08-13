@@ -1,24 +1,3 @@
-## Common terms
-
-*package* : a directory with js modules or libraries. Must have `package.json` file. 
-
-*package manager* : automates managing packages & dependencies. **npm** is default manager of nodejs.
-
-*module bundler* : creates a single static file from multiple files. It builds a dependency graph from `entry` point(s) and then combine them into a single `output` file.
-
-*transpiler* : converts code from other languages to ones browser understands. e.g. **Babel**
-
-*task runner*: To automate different parts of the build process like testing, linting, compiling etc. Commonly **npm scripts** are used.
-
-*Git* : a distributed version control tool. It records changes in a project as **snapshots** in a database called *repository*
-
-*Test runners* : tools that execute a pre-defined test script and auto-generate results. e.g. Jest
-
-*Webpack*: a module bundler & compiler for JavaScript and other front end assets.
-
-## Testing
-### Common types
-
 - **Unit tests** : test small isolated parts of codebase. Interaction with other units is *mocked* eg. class, methods, etc.
 - **Integration tests**: test interaction across *real* unit-tested portions of code like modules, database, etc.
 - **Smoke test / sanity test**: done before deep tests. Checks critical software functionality using unit+integration tests
@@ -32,7 +11,6 @@
 - **Compatibility Testing**: ensuring that software works seamlessly on different platforms.
 
 ### Levels of tests
-
 - **Whitebox tests**: test logic of app
 - **Blackbox tests**: test behaviour of app, not logic
 - **Greybox tests**: combine both

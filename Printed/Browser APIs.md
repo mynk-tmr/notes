@@ -13,50 +13,6 @@ Features of Client-side web APIs
 - Use of **events** to handle changes in state
 - **Security mechanisms** where appropriate
 
-## JSON
-
-JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
-
-2 methods [json -> array/object]
-- `JSON.stringify` (_serialization_)
-- `JSON.parse`  (_deserialization_)
-
-Notes
-- JSON can be a single primitive
-- JSON keys requires double-quotes.
-- values that are `function, symbol, undefined` are skipped
-
-```jsx
-JSON.parse('{"name":"John"}'); 
-arr = JSON.parse('["name":"John"]'); //arr[0] 
-JSON.parse(data, (key,val) => {
-	//code
-	return newValue; // transform values including nested
-}) 
-
-//date fields are auto evaluated
-```
-
-```jsx
-JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
-
-//skip values
-JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
-	return key == 'under' ? undefined : value
-})
-
-//object's toJSON auto-invoked by stringify
-let room = {
-  number: 23,
-  toJSON() { return this.number }
-};
-
-//remove circular (self) references
-JSON.stringify(meetup, (key, value) => {
-  return (key !== "" && value == meetup) ? undefined : value;
-})
-```
-
 ## Constraint Validation API
 
 An `invalid` event (bubble:*false*) is triggered on every invalid field. API supports **button, fieldset, input, output, select, textarea & form**
@@ -108,45 +64,6 @@ abort, error, loadstart, progress, load /*only if success*/ , loadend
 //URL interface
 URL.createObjectURL(x : File)
 URL.revokeObjectURL(x) //memory management, do it upon onload on img, video
-```
-
-## Fetch
-
-A *promise* based API to send/get network resources using http headers
-
-```jsx
-const response = fetch(url, options);
-
-//using constructor
-const heads = new Headers({ "Content-Type": "application/json"})
-const request = new Request(url, heads) //request.url ; request["Cont..]
-```
-
-**Options object**
-- `body: JSON.stringify(data)` 
-- `headers: JSON.stringify(obj)` : set HTTP headers
-- `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
-- `referrerPolicy` : 
-- `method` : (GET, POST, PUT, DELETE, etc)
-- `cache` : use from cache? `no-cache` `force-cache` 
-- `credentials` : send/get cookies ? -> `omit` `same-origin**` `include` 
-- `signal : ctr.signal`: set abortcontroller
-
-**Headers object**
-- have a _guard_ to prevent malicious changes
-- methods
-	- `.append(key,value)`, Map methods
-	- `.getSetCookie()` : only on nodejs
-
-**Response objects**
-- returned when fetch promises are resolved
-- `res.ok` (t/f) `res.status` (404) `res.statusText` 
-- fetch rejects only when a network error or CORS is misconfigured
-
-```jsx
-//methods on Request and Response to extract body [return Promise]
-// can only run once
-.arrayBuffer() .blob() .formData() .json() .text()
 ```
 
 ## Window
@@ -205,7 +122,6 @@ subscribeBtn.onclick = () => {
   }
 //data can be any type (Blob, formData etc)
 ```
-
 
 ## History API
 
@@ -269,14 +185,6 @@ Parameters
 `path=/path/to/host` //on domain
 ```
 
-## LocalStorage and IndexDB
-
-**Local storage vs. Cookies**
-- Cookies are for client-server, Local storage are for client only
-- Cookies are sent in *every HTTP headers* and can be disabled
-- Cookie has a size limit of 4 Kb. Local Storage can be any.
-- Cookie has a expiration date.
-
 ## Console and Dialog
 
 ```jsx
@@ -316,6 +224,92 @@ console.groupEnd()
 console.profile('title for header') // Use JS profiler to print profile report
 console.profileEnd()
 ```
+
+## Fetch
+
+A *promise* based API to send/get network resources using http headers
+
+```jsx
+const response = fetch(url, options);
+
+//using constructor
+const heads = new Headers({ "Content-Type": "application/json"})
+const request = new Request(url, heads) //request.url ; request["Cont..]
+```
+
+**Options object**
+- `body: JSON.stringify(data)` 
+- `headers: JSON.stringify(obj)` : set HTTP headers
+- `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
+- `referrerPolicy` : 
+- `method` : (GET, POST, PUT, DELETE, etc)
+- `cache` : use from cache? `no-cache` `force-cache` 
+- `credentials` : send/get cookies ? -> `omit` `same-origin**` `include` 
+- `signal : ctr.signal`: set abortcontroller
+
+**Headers object**
+- have a _guard_ to prevent malicious changes
+- methods
+	- `.append(key,value)`, Map methods
+	- `.getSetCookie()` : only on nodejs
+
+**Response objects**
+- returned when fetch promises are resolved
+- `res.ok` (t/f) `res.status` (404) `res.statusText` 
+- fetch rejects only when a network error or CORS is misconfigured
+
+```jsx
+//methods on Request and Response to extract body [return Promise]
+// can only run once
+.arrayBuffer() .blob() .formData() .json() .text()
+```
+
+## LocalStorage, SessionStorage
+
+**Local storage vs. Cookies**
+- Cookies are for client-server, Local storage are for client only
+- Cookies are sent in *every HTTP headers* and can be disabled
+- Cookie has a size limit of 4 Kb. Local Storage is 5 MB for site.
+- Cookie has a expiration date.
+
+Web storage objects `localStorage` and `sessionStorage` allow to save key/value pairs in the browser.
+
+Data survives a page refresh (for `sessionStorage`) and browser restart (for `localStorage`). 
+Both have
+- `setItem(key, value)` – store key/value pair.
+- `getItem(key)` – get the value by key.
+- `removeItem(key)` – remove the key with its value.
+- `clear()` – delete everything.
+- `key(index)` – get the key on a given position.
+- `length` – the number of stored items.
+
+features of `localStorage` are:
+- Shared between all tabs and windows from the same origin.
+- does not expire (persist on drive)
+- Both keys and values must be string
+
+storage objects are not iterable. But
+```js
+key = Object.keys(localStorage)
+for(key in keys) 
+	localStorage.getItem(key)
+```
+
+`sessionStorage` exists only within the current browser tab.
+- shared between iframes in the same tab
+- data survives page refresh, but not closing/opening the tab.
+
+When the data gets updated in `localStorage` or `sessionStorage`, **storage events** happen
+- `key` – the key that was changed (`null` if `.clear()` is called).
+- `oldValue` – the old value (`null` if the key is newly added).
+- `newValue` – the new value (`null` if the key is removed).
+- `url` – the url of the document where the update happened.
+- `storageArea` – either `localStorage` or `sessionStorage` object where the update happened.
+
+Event triggers on all `window` objects where the storage is accessible, except the one that caused it. e/g : `window.onstorage` 
+**That allows different windows from the same origin to exchange messages.**
+
+Modern browsers also support [Broadcast channel API](https://developer.mozilla.org/en-US/docs/Web/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it’s more full featured, but less supported. 
 
 ## Canvas API
 

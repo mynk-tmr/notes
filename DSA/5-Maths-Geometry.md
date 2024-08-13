@@ -106,4 +106,3 @@ for(i : 0 to n-1)
 	        row.push(preRow[j - 1] + preRow[j])
 	ans.push(row)
 ```
-
