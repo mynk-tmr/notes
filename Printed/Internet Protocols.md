@@ -9,11 +9,6 @@ A **protocol** is a set of rules and standards for exchanging data. Most Interne
 *Port:* unique no. that identifies an app or service running on a device.
 
 *Socket:* combination of IP address and port number, representing a specific endpoint for communication.
-##### Router
-- A device that **directs** **packets** between different networks.
-	1. **Manages traffic** among networks by forwarding data packets to their intended IP addresses
-	2. Allows multiple devices to use the same **Internet connection.**
-- uses an **internal routing table** — a list of paths to various destinations. The router reads a packet's **header** to determine where it is going, then consults the routing table to figure out the most efficient path to that destination. It then forwards the packet to the next network in the path.
 
 ## DOMAIN NAME SYSTEM
 

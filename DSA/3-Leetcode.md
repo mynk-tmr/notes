@@ -171,7 +171,7 @@ Find max difference between 2 numbers
 ```js
 rmax=a[-1], maxdiff=0; //0 since problem stmt
 	for(i : n-2..0)
-		maxdiff = Math.max(diff, rmax - a[i]);
+		maxdiff = Math.max(maxdiff, rmax - a[i]);
 	    rmax = Math.max(rmax, a[i])
 return diff
 ```
@@ -255,8 +255,8 @@ class LFUCache {
  //Remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
 
   #adjustFqGroup(key, itm) {
-    hash[itm.freq++].delete(key);
-    hash[itm.freq] ??= new Set();
+    hash[itm.freq].delete(key);
+    hash[++itm.freq] ??= new Set();
     hash[itm.freq].add(key);
     if (hash[this.minfq].size === 0) ++this.minfq
   }

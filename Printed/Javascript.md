@@ -177,6 +177,8 @@ msg_obj[0][isRead] = true;
 ---
 ### Error Handling
 
+An *exception* is a undesirable event during runtime, that brings the execution to a halt. To handle them, we specify steps to follow for each such event.
+
 **Stack trace** : list of function calls that lead to an error -> latest to earliest
 
 `try {..}`

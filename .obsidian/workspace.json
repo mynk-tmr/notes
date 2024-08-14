@@ -8,31 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c23b51c8f5291cc6",
+            "id": "ca6f113c708cb1ae",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/REST-HTTP.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "bf9b88a46453db97",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "Testing.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "Testing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "Testing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/1-Theory.md"
+                "file": "Testing.md"
               }
             }
           }
@@ -161,34 +148,33 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "bf9b88a46453db97",
+  "active": "ca6f113c708cb1ae",
   "lastOpenFiles": [
-    "DSA/2-Basic DSA.md",
-    "OOPs with Typescript.md",
-    "NextJS.md",
-    "DSA/5-Maths-Geometry.md",
-    "DSA/6-Interview.md",
-    "DSA/3-Leetcode.md",
-    "DSA/4-Trees-Graphs.md",
-    "DSA/1-Theory.md",
-    "Printed/REST-HTTP.md",
-    "OOPs.md",
-    "Printed/Javascript.md",
-    "TypeScript.md",
-    "Internet Protocols.md",
     "Tricky-Questions.md",
-    "Install guides.md",
-    "Python Notes.md",
-    "Patterns/Clean Code.md",
-    "Printed/Web Concepts.md",
     "Testing.md",
     "Redux Toolkit.md",
+    "Python Notes.md",
+    "Printed/OOPs.md",
+    "Printed/TypeScript.md",
+    "Printed/Tools.md",
+    "Design Patterns.md",
+    "Printed/REACTJS.md",
+    "Printed/Javascript.md",
+    "NextJS.md",
+    "Printed/REST-HTTP.md",
+    "Printed/Internet Protocols.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/6-Interview.md",
+    "DSA/1-Theory.md",
+    "DSA/3-Leetcode.md",
+    "DSA/2-Basic DSA.md",
+    "Install guides.md",
+    "Patterns/Clean Code.md",
+    "Printed/Web Concepts.md",
     "Printed/Browser APIs.md",
     "Javascript/Built-in Methods.md",
     "Javascript/DOM.md",
-    "Printed/REACTJS.md",
-    "FrontEnd/React/Libraries/Jest.md",
-    "FrontEnd/React/Libraries/React-Router.md",
     "Printed",
     "DSA/Untitled",
     "Backend/Topics",
