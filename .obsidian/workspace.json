@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "0235687739e5df17",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "DBMS + SQL.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Testing.md",
+                "file": "DBMS + SQL.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Testing.md",
+                "file": "DBMS + SQL.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Testing.md"
+                "file": "DBMS + SQL.md"
               }
             }
           }
@@ -148,10 +161,11 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "ca6f113c708cb1ae",
+  "active": "0235687739e5df17",
   "lastOpenFiles": [
-    "Tricky-Questions.md",
     "Testing.md",
+    "DBMS + SQL.md",
+    "Tricky-Questions.md",
     "Redux Toolkit.md",
     "Python Notes.md",
     "Printed/OOPs.md",
