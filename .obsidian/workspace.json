@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "f13afdd3c7142736",
+        "id": "d52b148f127dd16d",
         "type": "tabs",
         "children": [
           {
-            "id": "73ca68385a286f34",
+            "id": "75cf21ab963cfd45",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DBMS.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DBMS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DBMS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "DBMS.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,11 +140,11 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "79734d9ecf56138d",
+  "active": "75cf21ab963cfd45",
   "lastOpenFiles": [
+    "DBMS.md",
     "-img/Pasted image 20240816204511.png",
     "Untitled.md",
-    "DBMS.md",
     "Printed/MongoDB.md",
     "Install guides.md",
     "Testing.md",
