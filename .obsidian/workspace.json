@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MongoDB.md",
+                "file": "DBMS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "MongoDB.md",
+                "file": "DBMS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "MongoDB.md",
+                "file": "DBMS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MongoDB.md"
+                "file": "DBMS.md"
               }
             }
           }
@@ -150,8 +150,9 @@
   },
   "active": "0f8c8842c5a6a917",
   "lastOpenFiles": [
+    "Printed/MongoDB.md",
     "DBMS.md",
-    "MongoDB.md",
+    "Install guides.md",
     "Testing.md",
     "Design Patterns.md",
     "Tricky-Questions.md",
@@ -171,7 +172,6 @@
     "DSA/1-Theory.md",
     "DSA/3-Leetcode.md",
     "DSA/2-Basic DSA.md",
-    "Install guides.md",
     "Patterns/Clean Code.md",
     "Printed/Web Concepts.md",
     "Printed/Browser APIs.md",

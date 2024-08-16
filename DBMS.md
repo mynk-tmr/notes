@@ -543,3 +543,11 @@ Ans. A database administrator (DBA) is responsible for managing and maintaining 
 
 Ans. OLTP (Online Transaction Processing) databases are optimized for transactional processing, supporting day-to-day operations with a focus on fast and concurrent data modifications. [](https://www.almabetter.com/bytes/articles/online-analytical-processing)OLAP (Online Analytical Processing) databases, on the other hand, are designed for analytical processing and reporting, providing complex querying capabilities and aggregations for decision-making and data analysis purposes.
 
+
+A storage engine is the part of a database that is used to manage how data is stored on disk.
+
+4 basic NoSQL types:
+1. Key value store 
+2. Document store
+3. Column store
+4. Graph base
