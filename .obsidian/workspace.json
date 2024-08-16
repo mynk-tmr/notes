@@ -8,31 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ca6f113c708cb1ae",
+            "id": "0f8c8842c5a6a917",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Testing.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0235687739e5df17",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DBMS + SQL.md",
+                "file": "MongoDB.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DBMS + SQL.md",
+                "file": "MongoDB.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DBMS + SQL.md",
+                "file": "MongoDB.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DBMS + SQL.md"
+                "file": "MongoDB.md"
               }
             }
           }
@@ -161,17 +148,18 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "0235687739e5df17",
+  "active": "0f8c8842c5a6a917",
   "lastOpenFiles": [
+    "DBMS.md",
+    "MongoDB.md",
     "Testing.md",
-    "DBMS + SQL.md",
+    "Design Patterns.md",
     "Tricky-Questions.md",
     "Redux Toolkit.md",
     "Python Notes.md",
     "Printed/OOPs.md",
     "Printed/TypeScript.md",
     "Printed/Tools.md",
-    "Design Patterns.md",
     "Printed/REACTJS.md",
     "Printed/Javascript.md",
     "NextJS.md",
@@ -188,7 +176,6 @@
     "Printed/Web Concepts.md",
     "Printed/Browser APIs.md",
     "Javascript/Built-in Methods.md",
-    "Javascript/DOM.md",
     "Printed",
     "DSA/Untitled",
     "Backend/Topics",
