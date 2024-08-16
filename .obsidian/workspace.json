@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "c4041d2861c8741b",
+        "id": "f13afdd3c7142736",
         "type": "tabs",
         "children": [
           {
-            "id": "0f8c8842c5a6a917",
+            "id": "73ca68385a286f34",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -148,10 +148,12 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "0f8c8842c5a6a917",
+  "active": "79734d9ecf56138d",
   "lastOpenFiles": [
-    "Printed/MongoDB.md",
+    "-img/Pasted image 20240816204511.png",
+    "Untitled.md",
     "DBMS.md",
+    "Printed/MongoDB.md",
     "Install guides.md",
     "Testing.md",
     "Design Patterns.md",
@@ -174,8 +176,6 @@
     "DSA/2-Basic DSA.md",
     "Patterns/Clean Code.md",
     "Printed/Web Concepts.md",
-    "Printed/Browser APIs.md",
-    "Javascript/Built-in Methods.md",
     "Printed",
     "DSA/Untitled",
     "Backend/Topics",
