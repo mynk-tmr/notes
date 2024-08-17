@@ -1,8 +1,4 @@
-A *DBMS* is a collection of tools that simplify the creation and maintenance of databases. It provides an interface for CRUD operations and improves security and organisation
 
-A *database* is a collection of data organized in a logical and consistent way. It is stored on secondary devices. Tables, comprised of records and fields, form the basis of a database. Fields contain details about specific attributes
-
-A *database system* is a combination of databases and DBMS software
 
 **data model** - a set of tools for describing data, semantics, and constraints. It helps in defining the relationship between data entities and their attributes. Some common data models include *hierarchical, network, ER models, and relational models.* 
 
