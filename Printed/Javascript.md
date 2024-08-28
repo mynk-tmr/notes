@@ -1,10 +1,12 @@
-#### JavaScript
+
+Main Features
 - object-oriented scripting language
-- runtime envr provides I/O ability to JS through objects
-- ECMAScript : Standardized JS
+- prototype based inheritance
 - interpreted and JIT compiled
 - single-threaded : Core JS has 1 call stack
-- *dynamic* : runtime type binding ; unlike compile time viz. fixed
+- dynamic/runtime type binding of variables
+- closures and hoistings
+
 
 ES6 fundamental datatypes of which 6 are Primitive
 1. **Number** : stored in 64 bit double precision.
