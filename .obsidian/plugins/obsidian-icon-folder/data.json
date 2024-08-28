@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiHexagon",
       "LiLeaf",
       "LiDatabase",
       "LiCookie",
-      "LiShieldMinus",
-      "LiRss"
+      "LiShieldMinus"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -47,5 +47,6 @@
   "Design Patterns.md": "LiShieldMinus",
   "Printed/TypeScript.md": "LiType",
   "Printed/MongoDB.md": "LiLeaf",
-  "SQL.md": "LiDatabase"
+  "SQL.md": "LiDatabase",
+  "ExpressJS.md": "LiHexagon"
 }

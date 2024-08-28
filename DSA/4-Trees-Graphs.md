@@ -48,4 +48,3 @@ fn(p, q)
 if (!root) return !sub;
 return isSame(root, sub) || isSub(root.left, sub) || isSub(root.right, sub) 
 ```
-
