@@ -125,19 +125,10 @@ let isRead = Symbol("isRead");
 messages[0][isRead] = true;
 ```
 
-**Immutability**
-* immutable value : cannot be changed once created.  e.g. PRIMITIVES
-* objects and arrays are mutable — their properties/values can be changed 
-* Why use immutability
-	* better performance
-	* reduce memory leaks (make object references instead of cloning)
-	* thread-safety (multiple threads can reference the same object without interfering)
-* Done by `Object.freeze()`
-
 **THIS keyword** 
 At function execution, a property `this` is assigned to function object which refers to current execution context. It depends on how function is called.
 * **object literals** : inhertied from enclosing context (scope)
-* **event handlers:** `currentTarget` ; if inline refers to element
+* **event handlers:** `currentTarget` ; if inline html refers to element
 
 **How to evaluate expressions ?**
 - decide order of operations -> by *precedence*
@@ -200,26 +191,19 @@ Date.prototype.nextDay = function() {
 }
 ```
 
----
-#### Short-Circuit Operators
-
-Operators which always evaluate *left* operand first, and then right only if needed. It only affects **evaluation order** of operands, not final result. These are — **&&, ||, ??, ?**  and their assigment counterparts
-
-If multiple short-circuits, they are **grouped** but circuits evaluates left to right only.
+**Short-Circuit Operators** — **&&, ||, ??, ? , &&= etc.**
+* always evaluate *left* operand first, and then right only if needed
+* Only affects **evaluation order** of operands, not final result  
+* If multiple short-circuits, they are **grouped** but circuits evaluates left to right only.
+* `&& || ??` returns **first** falsy/ truthy/ non-nullish operand 
+* `?.` short circuits expression to `undefined` if left operand is *nullish*
+* **falsy**: `0`, `''`, `NaN` , `null` `undefined` ; **truthy**: every other
 
 ```jsx
 let A, B, C return false, false, true
 C() || B() && A() // only C called
 A() && C() || B() // A & B called
 ```
-
-Notes
-- *falsy*: `[]`, `0`, '', `NaN` , `nullish` 
-- *truthy*: other values including `"0"` `" "`
-- `&&` returns first *falsy* operand 
-- `||` returns first *truthy* operand
-- `??` returns first *non-nullish* operand
-- `?.` short circuits expression to `undefined` if left operand is *nullish*
 
 ---
 ##### Bitwise Operators
@@ -349,7 +333,8 @@ User-defined Properties `myfun.prop = expr/func;`
 - To track calls and meta-data related to function
 
 #### Closure
-- combination of a function and its lexical environment specification object
+* combination of a function and the lexical environment within which it was declared.
+- LEX : lexical environment specification object
 - LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access all variables in chain of  scope
 - When function(s) are created, they capture variables in their outer scope during creation
 	- functions created in **same run** share the closure, but in different runs do not. e.g. `useToggle` returns
@@ -434,14 +419,9 @@ They avoid having to repeat some arg(s) again & again in calls.
 
 ```jsx
 double = multiply.bind(null, 2);
-
-// if context (this) can change, hof
-function partializer(original_func, ...bindUs) {
-  return function(...args) {  
-    return original_func.call(this, ...bindUs, ...args); 
-  }
-}
 ```
+
+
 
 ---
 #### Property Descriptors
@@ -516,6 +496,15 @@ NOTES
 	- generate single purpose functions that are easy to maintain and debug
 	- flexible invocations ⇒ sum(1,2)(3) or sum(1)(2)(3) etc…
 	- **function composition :** a technique to use a HOF to chain functions in particular order. It improves readability and reusability of code, since you can chain same set of functions in various ways to create distinct HOFs
+
+**Immutability**
+* immutable value : cannot be changed once created.  e.g. PRIMITIVES
+* objects and arrays are mutable — their properties/values can be changed 
+* Why use immutability
+	* better performance
+	* reduce memory leaks (make object references instead of cloning)
+	* thread-safety (multiple threads can reference the same object without interfering)
+* Done by `Object.freeze()`
 
 ## Generator Functions
 
@@ -598,7 +587,7 @@ Callbacks are *fundamental* async pattern in JS. It is a function that event loo
 All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
 - **Promises**, that use *split-callback* design
 - **Generators** let you 'pause' individual functions.
-- `async/await` wrap generators and promises in a higher level syntax.
+- `async/await` = generators + promises
 
 ## Promises
 
@@ -710,8 +699,6 @@ __CommonJS modules__
   - namespace object is a **sealed** object with null prototype
 
 Imports are _live_ bindings and importing module _cannot change it's value_
-
-More info : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await
 #### Dependency evaluation
 ```js
 // -- a.js (entry) --
@@ -1599,14 +1586,12 @@ logIt(); //undefined <-- value is not hoisted ; shadowing
 
 ### Closures
 ```js
-for(var i = 0; i < 10; i++) {
+for(var i = 0; i < 10; i++)
     setTimeout(function() { console.log(i) }, i); //immediately prints 10 times 10
-}
 
 //to fix
-for(var i = 0; i < 10; i++) {
+for(var i = 0; i < 10; i++)
     setTimeout(console.log.bind(console, i), i * 1000);
-}
 ```
 
 Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.

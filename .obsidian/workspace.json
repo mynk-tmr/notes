@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/6-Interview.md",
+                "file": "Printed/Javascript.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/6-Interview.md",
+                "file": "Printed/Javascript.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/6-Interview.md",
+                "file": "Printed/Javascript.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/6-Interview.md"
+                "file": "Printed/Javascript.md"
               }
             }
           }
@@ -150,13 +150,13 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "Printed/Javascript.md",
     "DSA/6-Interview.md",
+    "Printed/Javascript.md",
+    "Printed/OOPs.md",
     "Printed/REACTJS.md",
     "Printed/Browser APIs.md",
     "Printed/TypeScript.md",
     "Printed/Web Concepts.md",
-    "Printed/OOPs.md",
     "Tricky-Questions.md",
     "DSA/5-Maths-Geometry.md",
     "Testing.md",

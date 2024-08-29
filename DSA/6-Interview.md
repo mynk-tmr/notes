@@ -1,21 +1,38 @@
-##### String to Object (Razorpay)
+**String to Object (Razorpay)**
 ```js
 // a.b.c, 4 => { a : {b : { c : 4}}}
-keys = str.split('.'), n = keys.length;
-ans = null;
-for(i : n-1 to 0)
-    key = keys[i]
-    if(key.match(/\d+/))
-        ans = [ans]
-        continue;
-    if(key.at(-1) === '"')
-	    key = keys[i].slice(0, -1)
-	    while(keys[--i][0] !== '"')
-		    key = keys[i][0] + "." + key
-		key = keys[i].slice(1) + "." + key
-    ans = { [key] : ans ?? finalValue }
-    
-return ans;
+
+function ans(str, finalValue) {
+	keys = str.split('.'), n = keys.length, ans = null;
+	for(i : n-1 to 0)
+	    key = keys[i]
+	    
+	    if(key.match(/\d+/)) {
+			ans = [ans]
+	        continue;
+		}
+	        
+	    if(key.endsWith('"')) {
+		    temp = key.slice(0, -1)
+		    do {
+				temp = keys[--i] + '.' + temp
+		    } while(!key.startsWith('"'))
+			key = temp.slice(1);
+	    }
+	    ans = { [key] : ans ?? finalValue }
+	return ans;
+}
+```
+
+## Utils / Lib
+
+**Partialiser**
+```js
+function partializer(original_func, ...bindUs) {
+  return function(...args) {  
+    return original_func.call(this, ...bindUs, ...args); 
+  }
+}
 ```
 
 **Cache Decorator**
@@ -29,26 +46,23 @@ function addCache(orgFunc) {
 }
 ```
 
-
 ## Polyfills
 
 **Bind**
 ```js
 Function.prototype.bind = Function.prototype.bind || function(ctx){ 
-	var this_fn = this;
-	return function(){ 
-		return this_fn.apply(ctx, arguments)
-	}
+	return () => this.apply(ctx, arguments) //inherit this from outer
+}
 ```
 
 **Currying**
 ```js
 Function.prototype.curry = function(...args_outer) {
-	let outer_fn = this;
-	if (args_outer<1) return outer_fn
+	let t1 = this;
+	if (args_outer<1) return t1
 	return function(...args_inner) { 
-		let inner_fn = this;
-		return outer_fn.apply(this, args_outer.concat(args_inner)) 
+		let t2 = this;
+		return t1.apply(t2, args_outer.concat(args_inner)) 
 }}
 ```
 
