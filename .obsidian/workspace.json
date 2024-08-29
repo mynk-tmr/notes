@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/Javascript.md"
+                "file": "Printed/HTML.md"
               }
             }
           }
@@ -150,19 +150,21 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "DSA/6-Interview.md",
     "Printed/Javascript.md",
-    "Printed/Internet Protocols.md",
-    "Printed/CSS.md",
-    "Printed/Browser APIs.md",
     "Printed/OOPs.md",
-    "Printed/REACTJS.md",
+    "Printed/MongoDB.md",
+    "Untitled.md",
+    "DSA/6-Interview.md",
+    "Printed/CSS.md",
+    "Printed/HTML.md",
     "Printed/TypeScript.md",
-    "Printed/Web Concepts.md",
     "Tricky-Questions.md",
+    "Printed/Browser APIs.md",
+    "Printed/Internet Protocols.md",
+    "Printed/REACTJS.md",
+    "Printed/Web Concepts.md",
     "DSA/5-Maths-Geometry.md",
     "Testing.md",
-    "Printed/HTML.md",
     "SQL.md",
     "Install guides.md",
     "GSAP.md",
@@ -172,11 +174,9 @@
     "DSA/4-Trees-Graphs.md",
     "DSA/3-Leetcode.md",
     "-img/Pasted image 20240816204511.png",
-    "Printed/MongoDB.md",
     "Design Patterns.md",
     "Redux Toolkit.md",
     "Python Notes.md",
-    "Printed/Tools.md",
     "Printed",
     "DSA/Untitled",
     "Backend/Topics",

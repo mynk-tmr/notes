@@ -82,6 +82,16 @@ Function.prototype.curry = function(...args_outer) {
 function toArray(args) { return Array.prototype.slice.call(args); }
 ```
 
+**Promise.withresolvers**
+```js
+function() {
+	let resolve, reject;
+	const promise = new Promise((res, rej) => {
+	  resolve = res; reject = rej;
+	});
+	return {promise, resolve, reject}
+}
+```
 
 ## Currying
 

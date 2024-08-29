@@ -13,6 +13,50 @@ Features of Client-side web APIs
 - Use of **events** to handle changes in state
 - **Security mechanisms** where appropriate
 
+## JSON
+
+JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
+
+2 methods [json -> array/object]
+- `JSON.stringify` (_serialization_)
+- `JSON.parse`  (_deserialization_)
+
+Notes
+- JSON can be a single primitive
+- JSON keys requires double-quotes.
+- values that are `function, symbol, undefined` are skipped
+
+```jsx
+JSON.parse('{"name":"John"}'); 
+arr = JSON.parse('["name":"John"]'); //arr[0] 
+JSON.parse(data, (key,val) => {
+	//code
+	return newValue; // transform values including nested
+}) 
+
+//date fields are auto evaluated
+```
+
+```jsx
+JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
+
+//skip values
+JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
+	return key == 'under' ? undefined : value
+})
+
+//object's toJSON auto-invoked by stringify
+let room = {
+  number: 23,
+  toJSON() { return this.number }
+};
+
+//remove circular (self) references
+JSON.stringify(meetup, (key, value) => {
+  return (key !== "" && value == meetup) ? undefined : value;
+})
+```
+
 ## Constraint Validation API
 
 An `invalid` event (bubble:*false*) is triggered on every invalid field. API supports **button, fieldset, input, output, select, textarea & form**
@@ -310,3 +354,4 @@ Event triggers on all `window` objects where the storage is accessible, except
 **That allows different windows from the same origin to exchange messages.**
 
 Modern browsers also support [Broadcast channel API](https://developer.mozilla.org/en-US/docs/Web/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it’s more full featured, but less supported. 
+

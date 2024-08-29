@@ -357,7 +357,7 @@ setTimeOut(ob.func.bind(ob))
 	* return something
 	* composable
 * Benefits (same as FP)
-	* easy to extend, maintain, DRY, memory efficient, minimize side effects
+	* easy to extend, maintain, reuse, cache results, memory efficient, minimize side effects
 
 **Currying**
 * A technique that transforms a multi-arg function into several **single-arg functions**
@@ -463,14 +463,15 @@ Classes are based on prototype-based *constructor functions*, with enhancements
  - **extends** as syntactic sugar of `Object.setPrototypeOf()`
 
 NOTES
-- derived constructors have no initial `this` binding ; upon `super()` , this = new Base().
+- derived constructors have no initial `this` binding ; upon `super()` , `this = new Base().`
 - `super.func()` uses `this` around function call not super-class
 
 **Object Composition** : copying properties from one or more objects to another, without retaining a reference between them. It relies on `Object.assign()`
 
-## Generator Functions
-
-functions that can **pause** and don’t follow run to completion. Only `*f` can pause itself with `yeild` and only its **own generator object** can resume it with `next()`. It is a control + communication mechanism. `*f` once returns, is marked complete, and willn't run ever
+**Generator Functions**
+* can **pause** and don’t follow run to completion. 
+* Only `*f` can pause itself with `yeild` and only its **own generator object** can resume it with `next()`
+* It is a control + communication mechanism. `*f` once returns, is marked complete
 
 ```jsx
 function* f() {
@@ -479,26 +480,16 @@ function* f() {
 	return 3; // send {done: true} , no value
 }
 
-const keygen = f(); //create iterator object
-keygen.next() //start *f ; 1
-keygen.next('ok') //response = 'ok' ; 2
-keygen.return('quit') // {done: true, value: 'quit'}
-keygen.throw('error') //throw error in *f
+const it = f(); //create iterator object
+it.next() //start *f ; 1
+it.next('ok') //response = 'ok' ; 2
+it.return('quit') // {done: true, value: 'quit'}
+it.throw('error') //throw error in *f
 
 [...keygen] //0,1,2....
 ```
 
-##### Iterators
-- objects that abide by iteration protocol ie., 
-	- have `next()` , optionally `throw()`,  `return()`
-	- Each takes atmost 1 arg & return `{value, done}`  (IteratorResult interface)
-- they can iterate over *iterable objects* 
-	- implement `[Symbol.iterator]` and return iterator
-	- a iterator can become iterable (return `this` in `Symbol..`) e.g. generator object
-- Arraylike have index and length but aren't always iterable
-
-##### Generator composition
-`yeild*` can be used for it. It “embeds” one generator into another by delegating execution to another generator function
+**Generator composition** : `yeild*` can be used for it. It “embeds” one generator into another by delegating execution to another generator function
 ```jsx
 function* innerGenerator() {
 	yield 1; yield 2; yield 3;
@@ -507,6 +498,17 @@ function* outerGenerator() {
 	yield* innerGenerator(); //as if inner's body embeded here
 }
 ```
+
+**Iterators**
+- objects that abide by iteration protocol ie., 
+	- have `next()` , optionally `throw()`,  `return()`
+	- Each takes atmost 1 arg & return `{value, done}`  (IteratorResult interface)
+- async iterators allow us to process a stream of generating data chunk by chunk.
+
+**Iterables**
+- objects that iterators can iterate upon. They implement `[Symbol.iterator]` and return iterator
+- a iterator can become iterable (return `this` in `Symbol..`) e.g. generator object
+- Arraylike have index and length but aren't always iterable
 
 ```js
 Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
@@ -518,157 +520,121 @@ Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 | `next()` returns  | {value, done}                                    | `Promise` that resolves to {value, done} |
 | to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`                          |
 | features          | can be `...spread`                               | NO                                       |
-```jsx
-async function* f(urls) {
-  for (let i = 0; i <= 5; i++) {
-    let i = await fetch(urls[i]);
-    yeild i;
-  }
-}
-```
 
-Async iterators allow us to process a stream of generating data chunk by chunk.
 
-## Callbacks
+**Callbacks**
+* fundamental async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time.
+* Flaws
+	- **Inversion of Control** : they handover control flow to other api (unpredictable)
+	- **Non-linearity** : flow is hard to grasp
+	- **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
+	- **Race conditions** : when some async callback may finish synchronously
+- The flaws result in **Callback Hell** where code is unmaintable, unpredictable, buggy. Therefore, use
+	- **Promises** 
+	- **Generators** let you 'pause' individual functions.
+	- `async/await` = generators + promises
 
-Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
+**Promises**
+* An object that represents eventual completion of 1 async task
+* When settled, it executes a _callback handler_ asynchronously using **microtask** queue.
+* Solves callback hell
+	 - **Inv. of Control** :- we don't pass callback into 3rd party API, instead get a promise
+	 - **Race conditons** :- callback always run on mtqueue, even when errors
+ - How resolved ?
+	- non-promise: immediately fulfilled with value
+	- thenable: call `onFulfilled` recursively until a definite value is found
+	- promise:  create **new** promise that will *resolve* to original (hardlinked to eventual state)
+	- `Promise.resolve(x)` => return **original** promise (flattens promises)
+- How rejected ?
+	- thenable/promise :- call *onRejected* (no unwrapping)
+	- others :- create a **new** rejected promise that wraps reason
+- __Floating promise__ :- when a then handler *does not return*, there's no way to track promise anymore. Next `then` handler is called *early* with `undefined` value.
 
-- **Inversion of Control** : they handover control & flow of code to other api with minimal ways to tackle unpredicted behaviour
-- **Non-linearity** : flow is hard to grasp in non-linear way
-- **Pyramid of Doom** : deeply nested timers to perform a series of async operations. 
-- **Race conditions** : when some async callback may finish synchronously
+| `then(onF,onR)`                                                                                    | `catch(onR)`                              | `finally(cb)`                                                                                 |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------- |
+| handles both settlements; callback called with value/reason as argument                            | handles all errors in previous then chain | process something once promise is settled. `cb` takes No parameter                            |
+| returns **promise** fullfilled with onF/onR's return or rejected with error/rejection in callbacks | same as then                              | returns **pending** promise that settles with previous value or error / rejection in callback |
 
-All these result in **Callback Hell** where code is unmaintable, unpredictable, full of latent bugs and prone to edge-cases. To solve, we have
-- **Promises**, that use *split-callback* design
-- **Generators** let you 'pause' individual functions.
-- `async/await` = generators + promises
-
-## Promises
-
-An object that represents eventual completion of 1 async task ; when settled, it can execute _callback handler_ asynchronously using **microtask** queue.
-
-Solutions to callback hell
- - **Inv. of Control** :- we don't pass callback into 3rd party API, instead get a promise. To ensure we only get promise, use `Promise.resolve(api_call)`
- - **Race conditons** :- callback always run on mtqueue, even when errors
-
-> A promise is resolved/rejected once and fixed forerver
-##### Resolution
-- non-promise: immediately fulfilled with value
-- thenable: call onFulfilled recursively until a definite value is found
-- promise:  create **new** promise that will *resolve* to original (hardlinked to eventual state)
-- `Promise.resolve()` => return **original** promise (flattens promises)
-##### Rejection
-- thenable/promise :- call *onRejected* (no unwrapping)
-- others :- create a **new** rejected promise that wraps reason
-
-### Consuming Promises
-| `then(onF,onR)` | `catch(onR)` | `finally(cb)` |
-| ---- | ---- | ---- |
-| handles both settlements; callback consume value/reason | handles all errors in previous then chain  | process something once promise is settled |
-| returns `promise` fullfilled with onF/onR's *return* or rejected with onF/onR's *throw* | same as then | fulfilled value is *invoker* object ; cb takes `no param` |
-
-__Floating promise__ :- when a then handler *does not return*, there's no way to track promise anymore. Next `then` handler is called *early* with `undefined` value.
-
-### Error-handling
-
-When a promise is rejected, 2 events can fire on `window` 
-- each has `event.promise` and `event.reason` (the promise & its reason)
-- these are
-	- `rejectionhandled` : rejection was handled with a `.then()` or `.catch()` on promise. Used to see **intermediate errors** in a promise chain. !!! really useful.
-	- `unhandledrejection` : rejection was not handled by current macrotask & its microtasks. It **"bubbles"** to top of call stack and host throws an `error` 
+**Error-handling in Promise**
+* When a promise is rejected, 2 events can fire on `window` 
+- `rejectionhandled` : with a `.then()` or `.catch()` on promise. Used to see **intermediate errors** in a promise chain. !!! really useful.
+- `unhandledrejection` :  
+	- by current task & its microtasks. It **"bubbles"** to top of call stack and host throws an `error` 
+	- To handle bubbling, use `eventListener()`
+- properties of events : `promise` & `reason`
 - try-catch-finally blocks are sync, so can't work on Promise.
 
-TO PREVENT BUBBLING
-```jsx
-//in browser
-window.addEventListner('unhandledrejection' , dealwithit);
-```
-
-### Promise Concurrency
-
-4 static methods are available to run promises or operation in parallel. They take iterable of promises & return *1 promise* that will resolve based on how those promises are settled.
-Catch if iterable is empty
-```js
-`all() & allSettled()` => immediately fulfillled
-`any()`  => immediately rejected
-`race()` => forever pending
-```
-
+**Promise models / How to run async tasks in parallel ?**
+* 4 static methods are available for this. They take `iterable` of promises & return *1 promise* that will settle based on how those promises are settled.
+* `all():` all must fulfill. Return -> value array / rejection reason
+* `allSettled()`: all must settle. Return object array with `value/reason` and `status` ('fulfilled' / 'rejected')
+* `any()`: fulfills as soon as 1 fulfills. Returns -> value / `data.errors[]` containing rejection reasons 
+* `race()`: settles as soon as 1 settles. 
+* If iterable is empty
+	* `all() & allSettled()` => immediately fulfillled
+	* `any()`  => immediately rejected
+	* `race()` => forever pending
 
 **Drawbacks of Promises**
 - single value or reason => needs array/object wrapping to send >1
 - only way to pinpoint errors is 1 eventListener on window
 - handlers trigger only once, unlike in events
-- promisifying api takes effort => use a library
 
-## Async / Await
+**Async/Await**
+* simplify the process of working with chained promises
+* `async` function returns a *new Promise* that will resolve to function's *actual return* value or rejected with an exception uncaught.
+* they can have `await <promise>` expressions that suspend function execution until promise settles
+* Benefits
+	* `try/catch` support ; sync like async code
 
-Async/Await simplify the process of working with chained promises. 
-`async` function return a *new Promise* that will resolve to function's *actual return* value 
+**`await <promise>`**
+- await becomes `throw reason` when promise is rejected OR error occurs
+- it behaves like `Promise.resolve()` and evaluates to **definite value** 
+- await null :  rest of function will run later on mtqueue
+- always use `await Promise.all`, instead of `[await p1, await p2, ..]`. Later isn't caught by catch()
 
-`await <promise>`
-- suspends function execution until promise settles
-- await becomes 'throw reason' when promise is rejected OR error occurs
-- evaluates to *fulfillment* value of promise/thenable, ELSE to expr itself
-- resolution similar to `Promise.resolve()`
+**Modules**
+* self-contained pieces of code that encapsulates related functionality together. 
+* written in separate files and export / import values
+- expose and use only relevant data/functionality. Solves namespacing problems
 
-```jsx 
-await null; 
-/* code to run later on mtqueue (after this tick) */
+**IIFE Module pattern**
+* used earlier to emulate modules. Had problems 
+	* naming conflicts if you don't use const to declare module.
+	* dependency issues if scripts are placed in the wrong order
+
+```js
+const calculator = !function(w) {
+	const add = (a,b) => a+b;
+	const show = (x) => w.alert(x);
+	return {add, show}
+}(window)
+
+calculator.add(1,2)
 ```
-
-#### Error handling
-
-```jsx
-//always use 'await' to call functions for better tracing
-await dosometask()
-
-//use composers to chain Promises
-wrong = [await p1, /*pause */ await p2]; // not caught by .catch()
-right = Promise.all(p1,p2)
-```
-
-## ES6 Modules
-
-A self-contained piece of code that encapsulates related functionality together. Written in separate files and imported & exported to other modules. 
 
 __CommonJS modules__
-`modules.export= getHello` => export
+`modules.export = {}` => export
 `const myvar = require('url')` => import 
 
-##### Different imports
-- static : `import ..` that can't be called conditionally.
-- dynamic: `import()` or `require()` 
-	- return a promise that resolves into a *namespace* object with exported values
-	- called from any place
-	- no `type=module` requirement
-	- **not a function**, just a keyword
+**ES6 Modules**
+- doesn't pollute global scope  ; no `globalThis`
+- use strict mode, auto-defered 
+- if name conflicts, neither value is exported
+- Imports are **live** bindings and importing module cannot change it's value
+- To use in browser, add `<script type="module">`
+- **static** : `import ..` that can't be called conditionally.
+- **dynamic**: `import()` or `require()` that can be called from any place
+	- return a promise that resolves to a **namespace** object containing exports. It's a **sealed** object with null prototype
+	- not a function, just a keyword
 
-### ES6 modules
-  - organize code into logical units, easier to maintain and reuse.
-  - expose and use only relevant data/functionality
-  - doesn't pollute global scope  ; no `globalThis`
-  - use strict mode, auto-defered 
-  - if name conflicts, neither value is exported
-  - namespace object is a **sealed** object with null prototype
+**Import / Export types**
+* **default** : can be imported with any name
+* **named**: " " with same name
+* **namespace**: `import * as` 
+* **side-effect**: `import 'file.js'`
 
-Imports are _live_ bindings and importing module _cannot change it's value_
-#### Dependency evaluation
-```js
-// -- a.js (entry) --
-import { b } from "./b.js"; //evaluate dependency b first
-export const a = 2;
-
-// -- b.js --
-import { a } from "./a.js"; //a not declared yet, so ReferenceError if accessed
-export const b = 1;
-
-//CYCLICAL DEPENDECIES are error-prone
-```
-
-#### Top level await
-In modules, `await` can be used at top level
-Causes parent module to pause, until child finishes. In old browser, use IIFE async to simulate
+**Top-level await :** In modules, `await` can be used at top level. It causes parent module to pause, until child finishes.
 ```js
 // parent.js  
 import child from './child.js';
@@ -678,55 +644,21 @@ const colors = fetch("../data/colors.json").then(x => x.json());
 export default await colors;
 ```
 
-##### Isomorphic modules
+**Cyclical Dependencies** : error-prone
+```js
+// -- a.js (entry) --
+import { b } from "./b.js"; //evaluate dependency b first
+export const a = 2;
+
+// -- b.js --
+import { a } from "./a.js"; //a not declared yet, so ReferenceError if accessed
+export const b = 1;
+```
+
+**Isomorphic Modules**
 - runtime agnostic modules, achieved using dependency inversion
-- modules  `binding.js` responsible for communicating with runtime should perform checks and insert polyfills / change methods accordingly
+- How? create a module  `binding.js` to communicate with runtime. It must perform checks and insert polyfills / change methods accordingly
 
-## JSON
-
-JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
-
-2 methods [json -> array/object]
-- `JSON.stringify` (_serialization_)
-- `JSON.parse`  (_deserialization_)
-
-Notes
-- JSON can be a single primitive
-- JSON keys requires double-quotes.
-- values that are `function, symbol, undefined` are skipped
-
-```jsx
-JSON.parse('{"name":"John"}'); 
-arr = JSON.parse('["name":"John"]'); //arr[0] 
-JSON.parse(data, (key,val) => {
-	//code
-	return newValue; // transform values including nested
-}) 
-
-//date fields are auto evaluated
-```
-
-```jsx
-JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
-
-//skip values
-JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
-	return key == 'under' ? undefined : value
-})
-
-//object's toJSON auto-invoked by stringify
-let room = {
-  number: 23,
-  toJSON() { return this.number }
-};
-
-//remove circular (self) references
-JSON.stringify(meetup, (key, value) => {
-  return (key !== "" && value == meetup) ? undefined : value;
-})
-```
-
-## V8's JIT compiler
 
 At first execution, interpreter is used. On further executions, V8 compiles & optimise frequently executed code (Hot code) into **machine code** to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
 
@@ -743,29 +675,6 @@ Execution : takes place for each execution context,
  1. **Memory creation phase** allocate memory for variables and functions
  2. **Code execution phase** : values are computed and assigned to variables (wherever possible). 
 
-### Garbage Collection
-
-- performed automatically. We cannot force or prevent it.
-- garbage collector — a background process that monitors all objects and removes those that are _unreachable_ via chain of references from **root**
-- a root is a data which is never garbage collected — global bindings and local bindings of current chain of nested function calls.
-- To delete an object, we must delete all _incoming_ references to it. 
-- If object is *weakly referenced*, it can be garbage collection if it is unreachable via hard link
-
-**“mark-and-sweep”** : basic garbage collection algorithm
-1. “mark” (remember) roots
-2. mark all references from them
-3. visit marked objects and mark their references. 
-4. repeat 3rd step until no objects can be marked.
-5. remove all 'unmarked' objects
-
-JS engine apply many optimizations to speed it up
- - **Generational collection** – objects are split into two sets: “new ones” and “old ones”. Objects which remain in memory for long are considered old and examined less often.
- - **Incremental collection** – engine splits the whole set of existing objects into multiple parts. And then clear these parts one after another.
- - **Idle-time collection** – the garbage collector tries to run only while the CPU is idle
-
----
-### Scope
-
 `var` : no Block scope, no TDZ, redeclarable, creates a property on `window`
 `const` : can’t be bound to another reference during runtime
 ##### Scope Chain
@@ -781,6 +690,33 @@ JS engine apply many optimizations to speed it up
 	2. A reference to **outer LEX** object (or null)
 - ERec is populated with variables during allocation phase, but are uninitialised until declared. (why TDZ exist)
 - JS engine traverses LEX chain to find variables 
+
+**Garbage Collection**
+- performed automatically. We cannot force or prevent it.
+- garbage collector — a background process that monitors all objects and removes those that are _unreachable_ via chain of references from **root**
+- a root is a data which is never garbage collected — global bindings and local bindings of functions in call stack
+- To delete an object, we must delete all _incoming_ references to it. 
+- If object is *weakly referenced*, it can be garbage collection if it is unreachable via hard link
+
+**“mark-and-sweep”** : basic garbage collection algorithm
+1. “mark” (remember) roots
+2. mark all objects they refer to
+3. visit marked objects and mark their references. 
+4. repeat 3rd step until no objects can be marked
+5. remove all 'unmarked' objects
+
+JS engine apply many **optimizations** to speed it up
+ - **Generational collection** – objects are split into two sets: “new ones” and “old ones”. Objects which remain in memory for long are considered old and examined less often.
+ - **Incremental collection** – engine splits objects into multiple parts and then clear these parts one after another.
+ - **Idle-time collection** – garbage collector tries to run only while the CPU is idle
+
+**Memory Leaks**
+* when unused data on heap memory isn't garbage collected, leading to more memory usage over time. 
+* Effects -> poor performance, slow response times, crash
+* Causes
+	* undeclared / global variables
+	* forgotten timers  & callbacks : clear timers & don't capture objects in closure
+	* Multiple event listeners : they form closures and capture DOM elements even if removed from UI. Hence, use `removeListener()` or `{once : true}` flag
 
 **Concurrency Model of JS**
 * Based on an “event loop” to carry out non-blocking I/O operations. It offloads certain operations to the system kernel whenever possible.
@@ -1536,7 +1472,7 @@ NaN ** 0 === 1
 (1+2, 3+4) //7
 ```
 
-**TypeOf**
+### typeOf
 
 ```js
 typeof Date; // "function"
@@ -1592,17 +1528,6 @@ logIt(); //undefined <-- value is not hoisted ; shadowing
 ```
 
 ### Closures
-```js
-for(var i = 0; i < 10; i++)
-    setTimeout(function() { console.log(i) }, i); //immediately prints 10 times 10
-
-//to fix
-for(var i = 0; i < 10; i++)
-    setTimeout(console.log.bind(console, i), i * 1000);
-```
-
-Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.
-
 
 ```jsx
 obj = {
@@ -1636,3 +1561,56 @@ console.log(obj1);//{ value: "1" } ; x is variable ; not object
 console.log(obj2);// { value: "3"} ; pass by reference
 ```
 
+### Timers
+
+```js
+for(var i = 0; i < 10; i++)
+    setTimeout(function() { console.log(i) }, i); //immediately prints 10 times 10
+
+//to fix
+for(var i = 0; i < 10; i++)
+    setTimeout(console.log.bind(console, i), i * 1000);
+```
+
+Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.
+
+```js
+function printNumbers(from, to, delay = 1000) {
+  for (i = from; i <= to; i++)
+    setTimeout(console.log, delay, i);
+}
+
+printNumbers(1, 5); // 1sec delay --> immediately output 6 6 6 6 6 
+//var i is func scoped so callbacks refer 6 at end of script
+```
+
+### Promises
+
+```jsx
+var a = Promise.resolve(1), b = Promise.resolve(a), c  = Promise.reject(a);
+
+b.then(console.log)  //1
+c.catch(console.log)  //Promise {1} ; no unwrapping
+```
+
+```jsx
+// 1 step in resolution require 1 tick
+
+var a = Promise.resolve('a') // resolved
+var a2 = new Promise( rs => rs(a)); //not yet (on next tick)
+var a3 = Promise.resolve(a) // resolved ; returns a
+
+a2.then(() => alert('a2'))
+a3.then(() => alert('a3')) 
+// a3 a2
+```
+
+```jsx
+let p = Promise.reject('why');
+setTimeout(
+	() => p.catch(() => alert('caught')), //new task
+	1000);
+window.addEventListener('unhandledrejection', event => alert(event.reason));
+
+//why -> 1s -> caught
+```
