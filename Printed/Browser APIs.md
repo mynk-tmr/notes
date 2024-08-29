@@ -310,11 +310,3 @@ Event triggers on all `window` objects where the storage is accessible, except
 **That allows different windows from the same origin to exchange messages.**
 
 Modern browsers also support [Broadcast channel API](https://developer.mozilla.org/en-US/docs/Web/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it’s more full featured, but less supported. 
-
-## Canvas API
-
-To create download for canvas as PNG
-```js
-$("a").$add("click", e => e.target.href = canvas.toDataURL());
-```
-

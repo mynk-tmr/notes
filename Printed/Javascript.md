@@ -135,25 +135,23 @@ At function execution, a property `this` is assigned to function object which 
 - when same precedence -> *associativity* . Almost all are left-to-right
 
 ```js
-fn(), obj.x, new Box()
-++x
-//rest of unary (same precedence)
-//arithmetic (Power > DM > AS)
-//bitwise shifts
-in  instanceof  <=  >//compare 
-== != ===   //equality checks
-
-// logical ops (7-3) 
-& ^ | && || ?? 
-
-//assignments
-=>  x:'s'  +=  ...spread, yeild, return 
-
-// comma operator : evaluate all, compute to last expression's result
-(1+2, 3+4) //7
+`Method / Props` : fn(), obj.x, new Box()
+`Unary` ++x ; `Rest of them with same precedence`
+`Arithmetic Power > DM > AS`
+`Bitwise shifts`
+`Compare` : in  instanceof  <= 
+`Equality`: == != ===
+`Logical`: & ^ | && || ??
+`Assignment & Returns` : =>  x:'s'  +=  ...spread, yeild, return 
+`Comma operator` : evaluate all, compute to last expression's result
 ```
 
 `case: some_val ` tests for *strict* equality ; case can be enum values / string object
+
+```js
+delete obj[prop] //true except if prop is own non-configurable
+void op //evaluate op and return undefined
+```
 
 **Loops**
 - `for` evaluates step at end of current iteration
@@ -205,100 +203,61 @@ C() || B() && A() // only C called
 A() && C() || B() // A & B called
 ```
 
----
-##### Bitwise Operators
-
-operate on individual bits of operands. Treat them as signed int, but result is treated as signed `number`. 
--ve integer : 2's complement, invert bits; add 1.
-
-**and (&) or(|)  xor(^)** : return 1 for each bit positions where both 1 / atleast one is 1 /  both same.
-
-**x << 2** left shift bits, right is padded by 0
-**>>** right shift bits ; pad left by *sign* bit
-**>>>** unsigned right shift ; pad left 0
-
----
-##### Unary Operators
-
-```jsx
-delete obj[prop] //true except if prop is own non-configurable
-typeof op // string
-void op //evaluate op and return undefined
-```
-
-```jsx
-typeof null; //  "object"
-typeof Date; // "function" .. class
-typeof variable; // "undefined"
-typeof document.all // "undefined"
-```
+**Bitwise Operators**
+* operate on individual bits of operands. They treat them as signed int, but result as signed `number`.
+* -ve integer : 2's complement (invert bits; add 1)
+* **and (&) or(|)  xor(^)** : return 1 for each bit positions where both 1 / atleast one is 1 /  both same.
+* `<<` left-shit bits (pad right with 0) ; `>> or >>>` signed / unsigned right shift (pad left with sign bit / 0)
 
 **postfix/prefix**
 - evaluates to a value, not a reference (so no chaining)
 - In while & do while loops, *postfix* runs *1 extra* than prefix.
 
----
-##### Spread & Rest
+**Spread syntax** 
+* "expands" an *iterable* into its elements OR an object into its *own_enum_key : value* pairs
+* can be used anywhere.
+* falsy & non-iterables spread nothing. 
+* cannot mutate object, cannot trigger setters, cannot copy prototype, unlike `Object.assign()`
 
-Spread syntax "expands" an *iterable* into its elements OR an object into its *own_enum_key : value* pairs . It can be used anywhere. Falsy & non-iterables spread nothing. 
+**Rest syntax** 
+* collects multiple elements and "condenses" them into a single array. 
+* Allowed on only last parameter
 
-Rest syntax collects multiple elements and "condenses" them into a single array. Allowed on only last parameter.
-
-Spread syntax cannot mutate object or trigger setters or copy prototype, unlike `Object.assign()`
-
----
-#### Destructuring Assignment
-
-Unpacks values from *objects & iterables* into distinct variables. Default values apply only for strictly `undefined` and are lazily evaluated.
+**Destructuring Assignment**
+* unpacks values from *objects & iterables* into distinct variables. 
+* Default values apply only for `undefined` and are lazily evaluated.
 
 ```js
 let [a, ...r] = 'hey'; // a= 'h' ; r = ['e', 'y']
 //swap
 [arr[1], arr[0]] = [arr[0], arr[1]]
 
-func({id=211} = {}) {..} //to allow call with func(), else error
-```
-
-objects : imitate pattern
-```jsx
 let {
-	id,
-	foo : x, 
-	bar = '0', //default 
+	x : prop, 
 	[f()] : var3, //f() returns some prop_name
-	fullName: { 
-		lastName : [a,b,c]
-	} 
+	fullName: { lastName : [a,b,c] } 
 }  = myOBJECT;
 ```
 
----
-##### Strict mode `‘use strict’;` 
+**Property Descriptors**
+* describes property of object via a flag object
+* data property :- *no getter, no setter*
+* accessor property :- 
+	* *no value*, no writable ; use when value is dynamic like date-dependent
+	* getter & setter are automatically called
 
-Semantic changes
-1. silent errors may *throw* e.g. invalid assignments, invalid deletion
-2. run *faster* than identical sloppy code
-3. Prohibits some syntax for *future-proofing*
-4. Easier to write *‘secure’* Javascript e.g. can't access `callee` , `caller` and `arguments` in strict fn
+```js
+flags  = {
+  value : 'Mayank', // for property 
+  writable : true, // value editable ; if config-false, can be set to false, but not to true
+  enumberable : true, //seen by loops
+  configurable : true, // deletable, attr modifiable
+  get() {},
+  set() {}, 
+}
+```
 
-Notable changes
-- no `globalThis` substitution (now `undefined` ). Can’t skip `var`
-- **block-scoped function declarations** (emulate private methods)
-- strict functions don't allow rest, default, or destructuring
-- use `delete window.x`
-- No duplicate parameters or object properties
-- Non-leaking eval : `eval("var x;")` ⇒ variables are scoped to eval only
-- Non-updating immutable `arguments` : stores original parameters
-
----
-### Functions
-
-- *first class* : treated like variables. Functions are **executable objects**
-- *Callback* : a function passed into another as an argument and then invoked inside it
-- _pure_ *function* : always produces same value for same args. No side-effects and not read global values. Helps us avoid action-at-distance anti-pattern.
-- _higher-order functions :_ consume and/or return functions. They abstract actions, and are used in data processing and function composing
-
-#### Function Creation
+**Function types**
 
 ```jsx
 function add(a,b) { a+b } //Function Declaration [separate stmt]
@@ -307,197 +266,133 @@ bar = function foo() {..} //NFE : named func expr
 mk = new Function('...args' , '<body>');  //the New Syntax
 ```
 
-In NFE, name is visible only within function's body. It can be used in recursive calls. We can safely assign bar to other variables without breaking code.
+Note
+* **Why NFE?** Can be used in recursive calls. We can safely assign bar to other variable
+* Function expressions aren't hoisted.
+* **new syntax** function is always created in **global** **scope** and can only refer to global values. `eval(str)` can refer to local variables and change them. Avoid using both
 
-Function expressions aren't hoisted.
-
-**new syntax** parses string args into a function object. It is always created in **global** **scope** and can only refer to global values. `eval(str)` can refer to local variables and change them. Avoid using both [highly risky].
-
-#### Function Keywords
-
-Pre-defined properties
+**Properties available in function scope**
 - `arguments`
 - `length` : no. of args, _excluding_ …rest params.
 - `new.target` : **true** if function was called with new, otherwise false.
 - `name` : function name, same as provided in declaration / assignment
 
-Parameters
+**Function Parameters**
 - _default_ : for `undefined` ; lazy
 - …_rest_ parameter collects **indefinite** no. of args into 1 **array**
     - `arguments` is array-like, while rest parameter is real
     - `arguments` maintains all parameters, rest only uncollected ones
     - In some cases, `arguments` syncs with parameter changes. Rest never updates on changes.
 
-User-defined Properties `myfun.prop = expr/func;`
+**User-defined Properties** `myfun.prop = expr/func;`
 - To lessen pollution of global space or to avoid name conflicts.
 - To track calls and meta-data related to function
 
-#### Closure
-* combination of a function and the lexical environment within which it was declared.
-- LEX : lexical environment specification object
-- LEX is referred by function's `[[Environment]]` property, and through LEX, a function can access all variables in chain of  scope
-- When function(s) are created, they capture variables in their outer scope during creation
-	- functions created in **same run** share the closure, but in different runs do not. e.g. `useToggle` returns
-- Like plain objects, LEX isn't garbage collected till its referenced
+**Arrow Functions**
+* anonymous functions that inherit `this` from outer scope ie., they are **statically** bound to the **enclosing** context where it is **defined.**
+* Pros : 
+	- predictable behaviour w.r.t closures / `this`. 
+	- `this` : when in object (bound to it) ; when `static` bound to class
+	- don't lose `this` when passed as callbacks
+	- In non-arrows ,  `this` is runtime bound; either invoker object OR globalThis 
+- Limits :
+	- don’t have `arguments` , `new.target` or `super`
+	- context can’t be changed (`call,bind,apply, thisArg`) and is silently ignored. Hence, **can’t be shared** via prototypal inheritance
+	- can’t be used as constructors
 
-```js
-//common mistake... using non-block variable in loops (var ; let from outer)
-//functions created in loop will refer to end value of variable
-```
+**Strict mode `‘use strict’;`** 
+- silent errors may *throw* e.g. invalid assignments, invalid deletion
+- no `globalThis` substitution (now `undefined` ). Can’t skip `var`
+- **block-scoped function declarations** (emulate private methods)
+- strict functions don't allow rest, default, or destructuring
+- use `delete window.x` for global variables
+- Non-leaking eval : `eval("var x;")` ⇒ variables are scoped to eval only
+- Immutable `arguments` : stores original parameters
+-  run *faster* than identical sloppy code
+- Prohibits some syntax for *future-proofing*
+- Easier to write *‘secure’* Javascript e.g. can't access `callee` , `caller` and `arguments` in strict fn
 
-**Stale closures :** capture variables that have outdated values. Created when variables aren't updated by functions
-```jsx
-function add() {
-	let a = 0;
-	let msg = `a is ${a}`
-	const inc = () => ++a; //inc called thrice
-	const log = () => msg; //knows a is 3, but `a is 0` due to stale msg
-	return [inc, log];
-}
-
-//to fix, make the stale dynamically evaluated
-const log = () => `a is ${a}`;
-```
-
-#### Arrow Functions
-
-Special anon F.Ex. that inherit `this` from outer scope ie., they are **statically** bound to the **enclosing** context where it is **defined.**
-
-Pros : 
-- predictable behaviour w.r.t closures / this. 
-- bound to instance as instance fields and to class as static fields.
-In non-arrows , 
-- `this` is runtime bound; either invoker object OR globalThis ; 
-- they lose `this` when passed as callbacks
+**Call, Apply & Bind**
+* allows changing the context of functions (`this` object inside them) 
+* `fn.call(ctx, ...args)` : invokes function with given `this` value and arguments
+* `fn.apply(ctx, array-like)` (faster, more optimised)
+* `fn.bind(ctx, ...args)` : copies the function but with given bindings. The binding is immutable and call, apply, bind won’t work later.
+* Function properties aren't passed on.
+* Supports
+	* **Call forwarding** : a technique that allows a function to pass on its context & args to another.
+	* **Method borrowing** : calling a method from an object in context of another object.
 
 ```jsx
-obj.show = function() {  //same as show() {..} in obj
-	this.arr.forEach(arrowcb) //this -> obj and arrowcb will not lose it
-} 
+let f = function (x,y,z) { g.apply(this, arguments) } //call forward
+Array.prototype.forEach.call('Hello World', cb); //borrow
 
-obj = {
-  getThisGetter() {
-    return () => this;
-  },
-};
-
-fn = obj.getThisGetter(); // fn is arrow, fn() == obj
-hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
+//binding `this` of non-arrows
+setTimeOut(ob.func.bind(ob))
 ```
 
-Limits :
-- don’t have `arguments` , `new.target` or `super`
-- context can’t be changed (`call,bind,apply, thisArg`) and is silently ignored. Hence, **can’t be shared** via prototypal inheritance
-- can’t be used as constructors
-- Never return arrow functions if it will be invoked by objects
+**Functional Programming**
+* a declarative programming style where one applies pure functions in sequence to solve complex problems
+* Concepts
+	* **first class** : functions treated like variables
+	* **callback** : a function passed into another as an argument and then invoked inside it
+	- **higher-order functions** : consume and/or return functions. They abstract actions and used in composition
+	- **decorators** : take another function and adds “features” to it without affecting function’s body. 
+	- **referential transparency** : ability to replace function with result without breaking code
+	- **arity**: more parameters -> harder to break apart functions
+- v/s OOP
+	- uses pure functions and immutability of data ; instead of shared state in OOP
+	- complete separation between data & behaviors of a program. 
+	- FP is more declarative and OOP is more imperative
+- Problems in Inheritance (Why use Composition)
+	- **tight coupling**
+	- **fragile base class problem** : Changing one small thing in either of the class or subclasses could break code
+	- **duplication** : need to create a subclass to do 1 extra thing, but get everything passed down to it.
 
-#### Call, Apply and Bind
+**Pure functions** 
+* where return values are identical for identical arguments
+* Features
+	* **idempotent** : can be executed several times without changing the result beyond its first iteration
+	* no-side effects or global state mutation
+	* no shared state 
+	* return something
+	* composable
+* Benefits (same as FP)
+	* easy to extend, maintain, DRY, memory efficient, minimize side effects
 
-`call(thisArg, ...args)`
-`apply(thisArg, arrayish)` (faster, more optimised)
-`bind(thisArg, ...args)` : returns a **bound** function with same body as invoker, but this bound to obj and args bound to parameters. This binding is immutable and call, apply, bind won’t work later.
+**Currying**
+* A technique that transforms a multi-arg function into several **single-arg functions**
+* possible because of **closures
+* Uses
+	- generate single purpose functions that are easy to maintain and debug
+	- flexible invocations ⇒ sum(1,2)(3) or sum(1)(2)(3) etc…
+	- Composition / Piping
 
-Note : Function properties aren't passed on.
-
-```jsx
-// Call forwarding : a technique that allows a function to pass on its context & args to another.
-let f = function (x,y,z) { g.apply(this, arguments) }
-
-// Method borrowing : calling a method from an object in context of another object.
-Array.prototype.forEach.call('Hello World', cb); 
-
-// Primitive to object e.g. Number
-show.call(1); 
-
-//fixing `this` of non-arrows
-function outer() { inner.call(this); } 
-setTimeOut(ob.func.bind(ob)); 
-```
-
-**Partial application:** transforming functions from higher to lower arity. Such functions are *partial functions.* Just *fix some args* of function and return it.
-They avoid having to repeat some arg(s) again & again in calls.
+**Partial application** 
+*  function which has been applied to some, but not all of its args (some args are fixed in closure)
+* transforming functions from higher to lower arity through currying with `bind()` 
+* helps to avoid having to repeat some args in calls.
 
 ```jsx
 double = multiply.bind(null, 2);
 ```
 
-
-
----
-#### Property Descriptors
-
-Data property :- *no getter, no setter*
-Accessor property :- *no value*, no writable ; use when value is dynamic like date-dependent
-Getter & setter are automatically called when working with **accessor** property
+**Composition / Piping** 
+* a technique to use a HOF to chain functions in particular order
+* Why
+	* improves readability and reusability of code, 
+	* can chain same set of functions in various ways to solve different problems
+* composition : chain RTL ; pipe : chain LTR
 
 ```js
-flags  = {
-  value : 'Mayank', // for property 
-  writable : true, // value editable ; if config-false, can be set to false, but not to true
-  enumberable : true, //seen by loops
-  configurable : true, // deletable, attr modifiable
-  get() {}, // or get : getter 
-  set() {}, 
-}
+const pipe = (...fns) => (input) => fns.reduce( (res, fn) => fn(res), input);
+// pipe(mult3, add2, sub5)(9)
+
+const pipeAsync = (...fns) => (input) =>
+    fns.reduce((chain, fn) => chain.then(fn), Promise.resolve(input));
 ```
-
-## Prototypal Inheritance
-
-##### What ?
-- Object-to-Object inheritance model using prototypes (a special internal property of each object).
-- Objects link their `.prototype` to share properties and form a *chain*. Each object inherits all properties present **up** the prototype chain
-- At runtime, property lookup starts at object and goes up the chain, until a match is found.
-- Object's *own* props **shadow** properties available in chain. 
-- Cons
-	- no multiple inhertiance ⇒ allows only 1 parent prototype
-	- changing prototype of a constructor breaks chain
-
-```jsx
-Object.prototype === null //no prototype ;default of objects
-```
-##### How ?
-- Each non-arrow function has a
-	- internal `[[Construct]]` method
-	- `.prototype` : an object used by constructor to create other objects.
-- when `new func()` evaluates, constructor creates an empty object, set its prototype to `func.prototype` , then function executes with `this` set to object created
-- If no return, returns `this` OR our explicit object
-
-Classes are based on prototype-based *constructor functions*, with enhancements
- - `constructor()` is explictly defined & requires **new** to be called
- - class methods are **non-enumerable**
- - have **strict-mode** and **TDZ** like let
- - **super** keyword is used to *access* *public* props in superclass, or invoke its constructor
- - have *private* fields that aren't inherited and only accessible in Class definition
- - **extends** as syntactic sugar of `Object.setPrototypeOf`
-
-NOTES
-- Bound functions and Proxy can be constructed, but non-inhertiable ( No `prototype` )
-- derived constructors have no initial `this` binding ; upon `super()` , this = new Base().
-- `super.func()` uses `this` around function call not super-class
-
-##### 3 types of inheritance in Javascript
-- Differential Inheritance
-    - a **delegate prototype** is used to serve as base for other objects. 
-    - Object acquire some or all of its properties from *prototype* rather than from class definitions.
-    - Cons : not good for storing state, any mutation to proto’s member by any instance, changes it for all other instances.
-- Concatinative Inheritance / Mixins / Object composition
-    - **copying properties** from one or more objects to another, without retaining a reference between them. It relies on JavaScript’s runtime object extension feature ie. `Object.assign()`
-- Functional Inheritance
-    - using factory function, and then adding new properties using concatenative inheritance.
-    - functional mixins : functions created for extending existing objects
-
-
-**Decorator Functions** : take another function and adds “features” to it without affecting function’s body.  
-
-**Function Currying**
-* A technique that transforms a function of multiple arguments into several functions of a single argument in sequence `f(a,b,c) === f(a)(b)(c)`
-* Currying is possible because of **closures
-* Uses
-	- generate single purpose functions that are easy to maintain and debug
-	- flexible invocations ⇒ sum(1,2)(3) or sum(1)(2)(3) etc…
-	- **function composition :** a technique to use a HOF to chain functions in particular order. It improves readability and reusability of code, since you can chain same set of functions in various ways to create distinct HOFs
 
 **Immutability**
+* one of the building blocks of FP. It allows you to write safer and cleaner code
 * immutable value : cannot be changed once created.  e.g. PRIMITIVES
 * objects and arrays are mutable — their properties/values can be changed 
 * Why use immutability
@@ -505,6 +400,73 @@ NOTES
 	* reduce memory leaks (make object references instead of cloning)
 	* thread-safety (multiple threads can reference the same object without interfering)
 * Done by `Object.freeze()`
+
+**Closure**
+* What
+	* combination of a function and the lexical environment within which it was declared.
+	* when functions are created, they **capture** variables in their outer scope
+	* functions created in **same run** share the closure, but in different runs do not
+- LEX : specification object referred by function's `[[Environment]]` property, and through LEX, a function can access all variables in chain of scope
+- Uses :  **FP + Encapsulation**
+
+```js
+const usePeople = () =>
+	let people = [] //private property
+	const add = name => people.push(name)
+	const getAt = idx => people[idx]
+	return { add, getAt }
+```
+
+**Mistakes**
+* using `var` or outer `let/const` as iterator : Functions created in loop will refer to end value of variable
+
+**Stale closures :** capture variables that have outdated values. Created when variables aren't updated by functions
+```jsx
+function add() {
+	let a = 0, msg = `a is ${a}`
+	const inc = () => ++a; //inc() inc() 
+	const log = () => msg; //knows a is 2, but `a is 0` due to stale msg
+	return [inc, log];
+}
+
+//to fix, make the stale dynamically evaluated
+const log = () => `a is ${a}`;
+```
+
+**Prototypal Inheritance**
+* model where objects inherit from other objects, instead of classes. Done via using linking `.prototype` property of objects
+* Features
+	* Objects inherit all properties **up the chain**, but can **shadow** them with **own** properties
+	* at runtime, property lookup starts at object and goes up the chain, until a match is found.
+- Cons
+	- no multiple inhertiance ⇒ allows only 1 parent prototype
+	- changing prototype of a constructor breaks chain
+- Note
+	- `prototype` : object that an object inherits or descends from.
+	- `[[Prototype]]` : hidden internal property that references prototype.
+	- `__proto__` : accessor property that exposes `[[Prototype]]` and allows you to modify it. Modern method is `getPrototypeOf, setPrototypeOf`
+- Constructor Functions
+	- have an internal `[[Construct]]` method and `.prototype` property (to serve as instance prototype)
+	- When `new func()` evaluates, constructor creates an empty object, set its prototype to `func.prototype` , then function executes with `this` set to object created
+	- If no return, returns `this` OR our explicit object
+
+```jsx
+Object.prototype.__proto__ === null //this has no prototype
+```
+
+Classes are based on prototype-based *constructor functions*, with enhancements
+ - `constructor()` is explictly defined & requires **new** to be called
+ - class methods are **non-enumerable**
+ - have **strict-mode** and **TDZ** 
+ - **super** keyword is used to *access* *public* props in superclass, or invoke its constructor
+ - have *private* fields that aren't inherited and only accessible in Class definition
+ - **extends** as syntactic sugar of `Object.setPrototypeOf()`
+
+NOTES
+- derived constructors have no initial `this` binding ; upon `super()` , this = new Base().
+- `super.func()` uses `this` around function call not super-class
+
+**Object Composition** : copying properties from one or more objects to another, without retaining a reference between them. It relies on `Object.assign()`
 
 ## Generator Functions
 
@@ -568,14 +530,6 @@ async function* f(urls) {
 Async iterators allow us to process a stream of generating data chunk by chunk.
 
 ## Callbacks
-
-Core JS is **synchronous**, code is executed line by line and there's no 'wait' feature
-
-**Async != Parellism** :- happens later vs. happening simultaneously. EL doesn't support parallelism ; webworkers do.
-
-**Concurrency** :- when 2 or more "processes" happen in same window of time (rapid context switches) which gives illusion of parallelism. Event loop supports concurrency.
-
-**Run to completion** :- JS code is broken up into two or more chunks (e.g `functions`) , where the first chunk runs completely _now_ and the next chunk runs _later_, in response to an *event*. <u>Macro-tasks peform modification on top of previous state, micro-tasks run within same state</u>
 
 Callbacks are *fundamental* async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time. This pattern has many flaws.
 
@@ -828,38 +782,82 @@ JS engine apply many optimizations to speed it up
 - ERec is populated with variables during allocation phase, but are uninitialised until declared. (why TDZ exist)
 - JS engine traverses LEX chain to find variables 
 
----
-### Event Loop, Macrotask, Microtasks
+**Concurrency Model of JS**
+* Based on an “event loop” to carry out non-blocking I/O operations. It offloads certain operations to the system kernel whenever possible.
+* Core JS is **synchronous**, code is executed line by line and there's no 'wait' feature
+* Concepts
+	* **Parellism:** happens simultaneously. e.g. Web Workers
+	* **Concurrency :** when processes happen in same window of time (via rapid context switches) which gives illusion of parallelism
+	* **Asynchronous:** code that runs later. Not same as Parellism. 
+* **Run to completion** :- JS code is broken up into chunks (e.g `functions`) , where 1st chunk runs completely _now_ and the next chunk runs _later_, in response to an *event*.
+* **Queues**
+	* **Job / Microtask queue** :- `promise` handling, `await` calls, `queueMicrotask(func)` 
+	* **Callback / Task queue** :- `script` execution, `event` handlers, callbacks in  `setTimeout ,setInterval`
+	* **Animation queue** :- callbacks put by `requestAnimationFrame()`
+* Tasks peform modification on top of previous state, micro-tasks run within same state
 
-JavaScript execution flow is based on an *event loop*. General algorithm of event loop :- 
-1. If call stack is empty and **task queue** has a *macrotask*, deque and execute it
-2. execute all *microtasks* placed in **microtask queue** by macrotask (same fashion as above)
-3. paint DOM, do network requests etc
-4. Go to step 1
+**Event Loop Working**
+* If call stack is empty, pop first task in **task queue** into stack for execution
+* execute all **microtasks** created by task (empty the job queue)
+* execute all callbacks in **animation** task queue
+* repaint the UI
+* do network requests / play audio etc
+* Repeat step 1
 
-Microtasks :- `promise` handling, `await` calls, `queueMicrotask(func)` 
-Macrotasks :- `script` execution, `event` handlers, callbacks in  `setTimeout ,setInterval`
-
-```js
-setTimeout(() => alert("timeout")); 
-Promise.resolve().then(() => alert("promise"));
-alert("code");
-
-// "code promise timeout" because macro -> micro -> macro
-```
-
-##### Scheduling Execution
-- Browser starts enforcing **atleast 4ms** delay if same callback has been scheduled **5 or more** times.
+**setTimeout Web API**
+* browser starts enforcing **atleast 4ms** delay if same callback has been scheduled **5 or more** times.
 - Timer may slow down
     - on tabs that are inactive or streaming or loading page
     - OS power saving settings
 - timer continues “ticking” while showing alert/confirm/prompt.
 - **Zero delay scheduling** is used to execute code immediately after current task
 
-##### Web Workers
-Run code in different parallel thread. Can exchange messages with the main process, but they have their own variables, and their own event loop.  JS never shares data across threads
 
-Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
+**Web Workers API**
+* feature that allows for multi-threading in JavaScript 
+* **main thread** : where browser runs all JS, processes user events, painting, garbage collection. Long running function -> blocks page
+* **worker threads**: where a web worker runs code in parallel to thread that spawned it in background.
+	* data is only copied among threads (not shared for thread safety)
+	* have own event loops
+	* limits : no DOM access, no access to `window`, not all web APIs are available
+	* uses `self` to access worker scope, not `window`
+* Use cases : 
+	* complex computations like maths ; network requests
+	* indirect DOM using **message pipeline**
+
+```js
+let worker = new Worker("worker.js") //file run on worker thread
+worker.postMessage('hello worker')
+worker.addEventListener("message", ({data}) => { // data : "Hello"
+	worker.terminate()
+})
+
+//worker.js
+addEventListener("message", () => { postMessage("Hello")})
+```
+
+**Shared Workers**
+* a `Worker` can only be accessed from script that created it, a `SharedWorker` can be accessed by any script that comes from the same domain (different windows, iframes, workers.)
+* uses an explicit `port` object to communicate 
+
+```js
+const worker = new SharedWorker("worker.js");
+worker.port.start()
+worker.port.postMessage({ x : 3, y : 2});
+
+//worker.js
+addEventListener("connect", (e) => {
+  const port = e.ports[0];
+  port.start()
+  port.onmessage = (e) => console.log(e.data)
+})
+```
+
+
+**Service Workers**
+* act as proxy servers between webapp, browser and network (when available)
+* used to create **offline** webapps, executing code based on if network is available. 
+* allow access to **push** notifications and background **sync** APIs
 
 ## DOM
 
@@ -1535,8 +1533,18 @@ NaN ** 0 === 1
 -'34'+10 // -24
 +'dude' //NaN
 
-var y = 1, x = y = typeof x // 'undefined' ; = is evaluated RtL
+(1+2, 3+4) //7
+```
 
+**TypeOf**
+
+```js
+typeof Date; // "function"
+typeof variable; // "undefined"
+typeof document.all // "undefined"
+typeof NaN // 'number'
+
+var y = 1, x = y = typeof x // 'undefined' ; = is evaluated RtL
 typeof [] // 'object' ; to check array use Array.isArray([])
 
 //truthy objects
@@ -1547,7 +1555,6 @@ new Boolean(false) ; new String('')
 (2+undefined) == NaN //false NaN != NaN
 isNaN(undefined) //true ; coerce to numbe
 Number.isNaN(undefined) //false ; No coercion
-typeof NaN // 'number'
 ```
 
 ```js
@@ -1595,6 +1602,17 @@ for(var i = 0; i < 10; i++)
 ```
 
 Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.
+
+
+```jsx
+obj = {
+  getThisGetter() {
+    return () => this;
+  },
+};
+fn = obj.getThisGetter(); // fn is arrow, fn() == obj
+hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
+```
 
 ### OOPs
 

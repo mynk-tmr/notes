@@ -46,6 +46,18 @@ function addCache(orgFunc) {
 }
 ```
 
+**Curry**
+```js
+function curry(func) {
+    return curried;
+    function curried(...args) {
+        if(args.length >= func.length)
+            return func(...args);
+        else
+            return function(...more) {
+                return curried(...args,...more);
+```
+
 ## Polyfills
 
 **Bind**
@@ -58,11 +70,10 @@ Function.prototype.bind = Function.prototype.bind || function(ctx){
 **Currying**
 ```js
 Function.prototype.curry = function(...args_outer) {
-	let t1 = this;
-	if (args_outer<1) return t1
+	let fn_outer = this;
+	if (args_outer<1) return fn_outer
 	return function(...args_inner) { 
-		let t2 = this;
-		return t1.apply(t2, args_outer.concat(args_inner)) 
+		return fn_outer.apply(this, args_outer.concat(args_inner)) 
 }}
 ```
 
@@ -71,15 +82,15 @@ Function.prototype.curry = function(...args_outer) {
 function toArray(args) { return Array.prototype.slice.call(args); }
 ```
 
-## DOM
 
+## Currying
+
+**sum(1)(3)(6)**
 ```js
-//animate moving element
-function moveLeft(elem, dist, ms) { 
-	let src = 0, timeId = setInterval(frame, ms); 
-	function frame() { 
-		elem.style.left += ++src + 'px'; 
-		if (src == dist) clearInterval(timeId) 
-	} 
+function sum(...args) {
+    let inner = (...more) => sum(...args,...more)
+    inner.toString = () => args.reduce((a, b) => a+b) //total 
+    return inner;
 }
 ```
+
