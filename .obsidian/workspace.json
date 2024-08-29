@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "DSA/6-Interview.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "DSA/6-Interview.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "DSA/6-Interview.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/Javascript.md"
+                "file": "DSA/6-Interview.md"
               }
             }
           }
@@ -150,19 +150,23 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "Printed/REACTJS.md",
     "Printed/Javascript.md",
+    "DSA/6-Interview.md",
+    "Printed/REACTJS.md",
+    "Printed/Browser APIs.md",
+    "Printed/TypeScript.md",
+    "Printed/Web Concepts.md",
+    "Printed/OOPs.md",
+    "Tricky-Questions.md",
+    "DSA/5-Maths-Geometry.md",
+    "Testing.md",
     "Printed/HTML.md",
     "SQL.md",
-    "Testing.md",
-    "Tricky-Questions.md",
     "Install guides.md",
     "GSAP.md",
     "ExpressJS.md",
     "DSA/1-Theory.md",
     "DSA/2-Basic DSA.md",
-    "DSA/6-Interview.md",
-    "DSA/5-Maths-Geometry.md",
     "DSA/4-Trees-Graphs.md",
     "DSA/3-Leetcode.md",
     "-img/Pasted image 20240816204511.png",
@@ -170,13 +174,9 @@
     "Design Patterns.md",
     "Redux Toolkit.md",
     "Python Notes.md",
-    "Printed/OOPs.md",
-    "Printed/TypeScript.md",
     "Printed/Tools.md",
     "NextJS.md",
     "Printed/REST-HTTP.md",
-    "Printed/Internet Protocols.md",
-    "Patterns/Clean Code.md",
     "Printed",
     "DSA/Untitled",
     "Backend/Topics",

@@ -1,92 +1,75 @@
-
-Main Features
+**Main Features**
 - object-oriented scripting language
 - prototype based inheritance
 - interpreted and JIT compiled
 - single-threaded : Core JS has 1 call stack
 - dynamic/runtime type binding of variables
-- closures and hoistings
 
-
-ES6 fundamental datatypes of which 6 are Primitive
+**Primitive datatypes** 
 1. **Number** : stored in 64 bit double precision.
-2. **Bigint:** stored in arbitrary precision. For Integers larger than 2^53 -1 (15 digits)
+2. **Bigint:** stored in arbitrary precision. For Integers larger than `2^53 -1 (15 digits)`
 3. **Boolean**: Represent a _logical entity_ and can be true /false.
-4. **Null**: Shows something that does not exist. Has only one value: _null._
-5. **Undefined**: initial value of unassigned variables, non-existant properties
+4. **Null**: Shows something that does not exist. Has only one value: _null._ It's Primitive even if `typeof null == 'Object'`
+5. **Undefined**: initial value of unassigned variables, params, non-existant properties
 6. **String**: a set of UTF-16 characters (16-bit unsigned integer (0-65536)). They are *immutable* array-like objects.
-7. **Symbol:** a primitive type for unique *identifiers*. Unlike others, it does not have any literal form.
-8. **Object**: represent a single entity having **state** (data) and **behaviour** (methods). It is structured as a list of _property-value_ pairs.
+7. **Symbol:** a primitive type for unique *identifiers*. Unlike others, it does not have any literal form. Allow us to create **“hidden” properties** of an object, that no other part of code can accidentally access or overwrite. 
 
----
-##### Numeric literals
+**Non-Primitives**
+1. **Object**: structured as a list of _key-value_ pairs.
+2. **Array**: ordered list of values
+3. **Map**: a collection of *unique keyed* items, where key can be *any* type. Plain Object allows only `String` or `Symbol` keys
+4. **Set**: a iterable collection of *unique* *values* of any type 
+5. **WeakMap & WeakSet**: use weak references to `Object` keys, so they can be garbage collected. They only have `get` `set` `delete` `has` methods and no `size` and aren't iterables
 
-```jsx
-//Each base letter can be capitalised
-0o33 // OCTAL , not allowed in strict mode
-0xff; //HEX
-0b11 //BINARY
-0.255e3; or 25500e-2  // EXPONENT FORM
+**Numeric literals**
+```js
+0o33; 0xff; 0b11; 0.255e3
 
-// pre-defined
 -Infinity +Infinity //uncomputable numbers like 0 division
-
-NaN //a special number that represents failed conversion, imaginary or indeterminate no.s (Infinity operations)
-
 ```
 
----
-##### BigInt Literals `let a = 33n;`
+Floating point math is inaccurate because numbers are stored as approximations
+
+**NaN** : a special number that represents failed conversion, imaginary or indeterminate number (`Infinity  or undefined` involving maths). `NaN =/= NaN`
+
+**BigInts**
 - Uses **64 bits**, where 63rd is signed, 62-52 store coefficient and rest store power (fraction)
-- cannot represent decimals or Octals. BigInts can’t use >>> , since they don’t have fixed width, or highest bit.
-- can be **compared** to numbers and **parsed to int, float**.
+- cannot represent decimals. BigInts can’t use `>>>` , since they don’t have fixed width, or highest bit.
+- can be **compared** to numbers and parsed to int, float.
 
-`a = 1n + 2; // TypeError: **Cannot mix BigInt and Number**`
-`isNaN(3n) // TypeError, forced 3n to number`
-`5n / 2n; // 2n`
-
----
-**Template literals** — special strings that allow embedded expressions and preserve indentations. ${} return expr result as string
-
-**Tagged templates** :- allow you to **parse** template literals with a function. Output is tag function’s return.
-
-```jsx
-let size='';
-console.log(test`burger is ${size} big`);
-
-function test(substr_array, placeholder1, ph2, ...) {
-	return string[0]+ 'very' + string[1] //burger is very big
-}
+```js
+a = 1n + 2; // TypeError: Cannot mix BigInt and Number
+isNaN(3n) // TypeError, forced 3n to number
+5n / 2n; // 2n
 ```
 
----
-### Symbols
+**Template literals**: special strings that allow embedded expressions `${}` and preserve indentations
+**Tagged templates**: allow you to **parse** template literals with a function. Evaluates to function's return
 
 ```jsx
-let id = Symbol("id")  // create symbol with optional name/description
-let id2 = Symbol("id") // different symbol
+function f(st_array, ...tags) {}
+```
 
-//use Symbols to safely add properties
-Obj[id] = 'fbi' //no-overwritings
-Obj[id2] = 'cia'
+**Symbols**
+* skipped by almost every method except `Object.assign` and `structuredClone`
+* don’t auto-convert to string. Explicitly use `.toString()` or `symbol.description`
+* **“system” symbols** — that JavaScript uses internally,  accessible as `Symbol.**`. Can be used to modify built-in behavior and fine-tune objects. 
+
+```jsx
+let id = Symbol("id")  // create symbol with optional description/name
+usa[id] = 'fbi' //doesn't override 'id'
 
 // If you want same-named symbols to be equal, use the global registry.
 let sym1 = Symbol.for('monkey') //creates global symbol
 let sym2 = Symbol.for('monkey') //returns it, No new symbol
-Symbol.keyFor(sym1)  //monkey ; for non-global -- undefined
+
+Symbol.keyFor(sym1)  //monkey ; for non-global -> undefined
 
 //Get Symbols
 Object.getOwnPropertySymbols(obj) //get all symbols
 Reflect.ownKeys(obj) //return all keys including symbolic ones.
 ```
 
-Symbols don’t auto-convert to string. Explicitly use `.toString()` or `symbol.description`
-
-Symbols allow us to create **“hidden” properties** of an object, that no other part of code can accidentally access or overwrite. They are skipped by almost every method except `Object.assign` and `structuredClone`
-
-**“system” symbols** — that JavaScript uses internally,  accessible as `Symbol.*`. Can be used to modify built-in behavior and fine-tune objects. 
-
-[Well-known symbols](https://tc39.github.io/ecma262/#sec-well-known-symbols)
 ```js
 const obj = {
 	[Symbol.toPrimitive](hint) { //'string'/'number'/'default'
@@ -98,44 +81,38 @@ const obj = {
 }
 ```
 
-## Keyed Collections
+**Equality Testing**
+- **sameValue**: same type and value . Used by `Object.is`
+- **sameValueZero**: `+0 == -0` e.g. Map methods
+- **Object equality** : 
+	- referential equality ie. refers to same location in memory
+	- loosely equal to primitive counterparts
+	- Primitives are tested by value.
+	- `empty_obj != {} ... not same memory`
+	- `Object.keys(obj).length == 0  //correct way`
 
-Keyed collections 
+**Keyed collections**
 - data structures *ordered by key* not index. e.g. Map and set objects 
 - associative in nature and use *SameValueZero* check (NaN can be key).
-- **iterable in order of insertion**
-- Map is a collection of **unique** **keyed** items, where key can be *any* type (even objects). Plain Object allows only `String` or `Symbol` keys
-- Set is a iterable collection of *unique* *values* of any type 
+- iterable in order of insertion
 
-Methods and properties in both
-- `new Map/Set(iterable)`
-- `.size` : length
-- `map.set(key, value) / set.add(val)` : Returns new map/set ; overrides previous
-- `.get(key)` – returns val or `undefined`
-- `.has(key)`
-- `.delete(key)` - return t/f
-- `.clear()`
-- `map.keys(), .values(), .entries()` 
-	- not same as static `Object.keys` etc. -> return real array ; not arraylike
+```js
+new Map(iterable) //Set
+.size ; map.set(k, v) set.add(v) ; //returns new set/map
 
+.get .has .delete .clear
 
-```jsx
+map.keys() .values() .entries() //unlike Object.keys() ; returns real array not array-like
+
 new Map([[1, 'hello'], [2, 'bye']]); //for key-values
-new Map(Object.entries(obj)); //from obj's key-values
-Object.fromEntries(map) //create object
+
+// map to object & viceverse
+Object.fromEntries(map) 
+new Map(Object.entries(obj))
+
+let john = { name: "John" }, arr = [ john ]; 
+john = null; // original isn't garbage-collected [arr[0]] ; // to prevent this, use weakmap, weakset
 ```
-
-#### Weakmap & Weakset
-
-```jsx
-let john = { name: "John" };
-let arr = [ john ]; 
-john = null; // original isn't garbage-collected [arr[0]]
-
-// to prevent this, use weakmap, weakset
-```
-
-[`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) only allow *objects* *keys* and have weak reference to them, so they can easily be removed by garbage collector. They only have `get` `set` `delete` `has` methods and no `size` and aren't iterables (you can't get all content)
 
 `WeakMap` and `WeakSet` are used as “secondary” data structures for “primary” object storage. Use cases :
 - extra data about objects, which auto-deletes when object dies
@@ -145,103 +122,82 @@ john = null; // original isn't garbage-collected [arr[0]]
 ```jsx
 // Symbol can be used too for this, only our code can see this
 let isRead = Symbol("isRead");
-msg_obj[0][isRead] = true;
+messages[0][isRead] = true;
 ```
 
-----
-### Control Flow 
+**Immutability**
+* immutable value : cannot be changed once created.  e.g. PRIMITIVES
+* objects and arrays are mutable — their properties/values can be changed 
+* Why use immutability
+	* better performance
+	* reduce memory leaks (make object references instead of cloning)
+	* thread-safety (multiple threads can reference the same object without interfering)
+* Done by `Object.freeze()`
 
-**Expression evaluation**
+**THIS keyword** 
+At function execution, a property `this` is assigned to function object which refers to current execution context. It depends on how function is called.
+* **object literals** : inhertied from enclosing context (scope)
+* **event handlers:** `currentTarget` ; if inline refers to element
+
+**How to evaluate expressions ?**
 - decide order of operations -> by *precedence*
 - when same precedence -> *associativity* . Almost all are left-to-right
 
-**Conditional stmts**
-- `case: ` tests for *strict* equality ; case can be enum values / string object
+```js
+fn(), obj.x, new Box()
+++x
+//rest of unary (same precedence)
+//arithmetic (Power > DM > AS)
+//bitwise shifts
+in  instanceof  <=  >//compare 
+== != ===   //equality checks
+
+// logical ops (7-3) 
+& ^ | && || ?? 
+
+//assignments
+=>  x:'s'  +=  ...spread, yeild, return 
+
+// comma operator : evaluate all, compute to last expression's result
+(1+2, 3+4) //7
+```
+
+`case: some_val ` tests for *strict* equality ; case can be enum values / string object
 
 **Loops**
 - `for` evaluates step at end of current iteration
-- `for in` iterates over *enumerable* properties 
-- `for of` iterates over *values* of **iterable** objects. Both pass by **value** to key/val
-- `for await(.. of ..)`
-	- iterate over async or sync objects
-	- can trigger custom iteration workflows for each property
-- `onix : for(key in obj)`
-	- onix is *label*, an identifier for *codeblock* that you can refer to elsewhere
-- `break` terminates current (or *labelled*) loop
-- `continue` *jumps* control-flow to next iteration. In for, it updates STEP. Given *label* must be LOOP
-- you can only jump to *ancestor* label
+- `for in` iterates over *enumerable* properties of Object
+- `for of` iterates over *values* of **iterable** objects. Both use pass by **value** to iterate 
+- `for await(.. of ..)` : iterate over async or sync objects
+- `onix : for(key in obj)` : onix is **label**, an identifier for codeblock that you can refer to elsewhere
+- `break` terminates current (or labelled) loop
+- `continue` *jumps* control-flow to next iteration of current (or labelled) loop. In for, it updates STEP. Given label must be LOOP. You can only jump to **ancestor** label
 
 **Ternary/conditional operator**
 - acts on 3 operands and works like an *inline-if-else*.
 - returns value of expr chosen to be evaluated.
 - can't work with `break` `continue` `return` (can't control flow)
 
----
-### Error Handling
+**Exception Handling**
+* An *exception* is a undesirable runtime event, that brings the execution to a halt.
+* All errors are *serializable* object with props `name` , `message` , `stack`
+* **Stack trace** : list of function calls that lead to an error -> latest to earliest
+* **Try** : 
+	* creates a codeblock where any error transfers control to *first catch block* in call stack. 
+	- for user-defined exception `throw val` 
+	- Error object is visible only in `catch` block. 
+- **Finally** : always execute immediately after `try` and `catch` blocks. Overrides rethrows/returns in `try-catch` with its own return (if given)
+- **Types**
+	- `ReferenceError` — accessing undeclared or uninitialized variables
+	- `SyntaxError` — incorrect syntax
+	- `TypeError` — invalid operands/arguments; invalid use or change to a value
+	- `StackOverflowError` — when number of execution contexts exceed size of host’s stack 
 
-An *exception* is a undesirable event during runtime, that brings the execution to a halt. To handle them, we specify steps to follow for each such event.
-
-**Stack trace** : list of function calls that lead to an error -> latest to earliest
-
-`try {..}`
-- creates a codeblock where any error transfers control to *first catch block* in call stack. 
-- for user-defined exception `throw val` 
-- Error object is visible only in `catch` block. 
-
-`finally {..}` : always execute *immediately* after `try` and `catch` blocks. *Overrides* rethrows/returns in `try-catch` with its own return (if given)
-
-All errors are *serializable* object with props `name` , `message` , `stack`
-**Types**
-- `ReferenceError` — accessing undeclared or uninitialized variables
-- `SyntaxError` — incorrect syntax
-- `TypeError` — invalid operands/arguments; invalid use or change to a value
-- `StackOverflowError` — when number of execution contexts exceed size of host’s stack 
-
----
-#### Precedence table
-
+**Extending Built-in Objects** : adding new properties to `prototype` of Class
 ```js
-fn(), obj.x, new Box()
-++x
-//rest of unary (same pre)
-//arithmetic (Power > DM > AS)
-//bitwise shifts
-in instanceof <= etc.//compare 
-== != etc. //equality checks
-/* logical ops (7-3) => & ^ | && || ?? */
-
-=>  x:'s'  +=  ...spread, yeild, return //assignments
-
-(1+2, 3+4)  //comma 7 ; eval all return last
-```
-
----
-#### Equality checks
-- *samevalue*: strict but `NaN==Nan` and `-0` =/= `+0` . Used by `Object.is`
-- *samevalueZero*: `+0 == -0` e.g. Map methods
-- *Object equality* : same memory space ; loosely equal to primitive counterparts 
-	- `empty_obj != {} ... not same memory`
-	- `Object.keys(obj).length == 0  //correct way`
-
----
-#### Type Coercion
-
-```jsx
-null + 2 == 2  //0 coerced
-undefined / 3 //NaN
-'hello'.toUppercase() //auto object coercion
-'3' > 2 //true ; on comparing diff types, they're number coerced
-
-(2+undefined) == NaN //false NaN != NaN , use isNaN()
-
-String(any) or '' + any //’undefined’, ‘null’, 'funct...', 'NaN'
-String([1,[[[2]]]])  // '1,2'
-
-isNaN(undefined) //true ; coerce to number
-Number.isNaN(undefined) //false ; No coercion
-NaN ** 0 === 1 //weird
-
-'box' > 'adam' == true //b after a
+Date.prototype.nextDay = function() { 
+	return new Date(this.setDate(this.getDate() +1))
+}
 ```
 
 ---
@@ -487,15 +443,6 @@ function partializer(original_func, ...bindUs) {
 }
 ```
 
-
----
-#### this keyword
-
-object literals : `this` inhertied from enclosing context
-Event handlers
-- `this=currentTarget`
-- in inline, `this=element` but in function refers to `window`
-
 ---
 #### Property Descriptors
 
@@ -559,33 +506,16 @@ NOTES
     - using factory function, and then adding new properties using concatenative inheritance.
     - functional mixins : functions created for extending existing objects
 
-## Functional Programming
-#### Decorator Functions
 
-take another function and adds “features” to it without affecting function’s body. We can combine multiple decorators
+**Decorator Functions** : take another function and adds “features” to it without affecting function’s body.  
 
-```jsx
-function addCache(orgFunc) {
-  const cache = new Map();
-  return function(key) { 
-    if (!cache.has(key)) cache.set(key, orgFunc.call(this,key)); 
-    return cache.get(key);
-  };
-}
-```
-
-To create decorators that keep _access to wrapped function properties_, use a **Proxy** object to wrap a function
-
-#### Function Currying
-
-A technique that transforms a function of multiple arguments into several functions of a single argument in sequence `f(a,b,c) === f(a)(b)(c)`
-
-Currying is possible because of **closures —** a returned function has access to previous argument(s) in chain.
-
-Uses
-- generate single purpose functions that are easy to maintain and debug
-- flexible invocations ⇒ sum(1,2)(3) or sum(1)(2)(3) etc…
-- **function composition :** a technique to use a HOF to chain functions in particular order. It improves readability and reusability of code, since you can chain same set of functions in various ways to create distinct HOFs
+**Function Currying**
+* A technique that transforms a function of multiple arguments into several functions of a single argument in sequence `f(a,b,c) === f(a)(b)(c)`
+* Currying is possible because of **closures
+* Uses
+	- generate single purpose functions that are easy to maintain and debug
+	- flexible invocations ⇒ sum(1,2)(3) or sum(1)(2)(3) etc…
+	- **function composition :** a technique to use a HOF to chain functions in particular order. It improves readability and reusability of code, since you can chain same set of functions in various ways to create distinct HOFs
 
 ## Generator Functions
 
@@ -1605,3 +1535,101 @@ myreg.exec("cdbbdbsbz") //lastIndex : 0
 /d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5
 /d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5 ; different literal 
 ```
+
+
+## Output Based
+
+When math/logical operations are done on different types, they are coerced to PRIMITIVE (first default, then number, then string)
+
+```js
+null + 2 == 2  ; '3' > 2 //true
+[] == true // false ; [] --> '' --> 0 ; true --> 1 
+NaN ** 0 === 1
+-'34'+10 // -24
++'dude' //NaN
+
+var y = 1, x = y = typeof x // 'undefined' ; = is evaluated RtL
+
+typeof [] // 'object' ; to check array use Array.isArray([])
+
+//truthy objects
+new Boolean(false) ; new String('')
+```
+
+```js
+(2+undefined) == NaN //false NaN != NaN
+isNaN(undefined) //true ; coerce to numbe
+Number.isNaN(undefined) //false ; No coercion
+typeof NaN // 'number'
+```
+
+```js
+String(val) or '' + val //’undefined’, ‘null’, 'funct...'
+String([1,[[[2]]]])  // '1,2'
+
+'box' > 'adam' == true //b after a
+
+Math.max([2,3,4,5]); // NaN
+Math.max.apply(null, arr); //max of array
+```
+
+```js
+3 instanceof Number //false
+2 in [1,2] //false ; checks property (in array; props are '0' , '1')
+```
+
+### Hoisting
+
+How to solve?
+* check all declarations (func, var) and hoist names
+* overshadow same names and assert
+
+```js
+console.log(a); //error
+function foo() { console.log(a,c) } // 'a' undefined
+let a = "a"; foo(); 
+var c = "c"; 
+```
+
+```js
+var foo = 'outside'; 
+function logIt() { console.log(foo); var foo = 'inside'; } 
+logIt(); //undefined <-- value is not hoisted ; shadowing
+```
+
+### Closures
+```js
+for(var i = 0; i < 10; i++) {
+    setTimeout(function() { console.log(i) }, i); //immediately prints 10 times 10
+}
+
+//to fix
+for(var i = 0; i < 10; i++) {
+    setTimeout(console.log.bind(console, i), i * 1000);
+}
+```
+
+Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.
+
+### OOPs
+
+```js
+var obj1 = { price: 20.99, get_price : function() { return this.price; } }; 
+
+var obj2 = Object.create(obj1); 
+delete obj2.price; 
+console.log(obj2.get_price()); // 20.99 ; from the Prototype chain, gets obj1 price
+```
+
+```js
+var obj1 = { value: "1"}, obj2 = { value: "2"}
+
+!function(x, y) {
+    x = y;
+    y.value = "3"
+}(obj1, obj2)
+
+console.log(obj1);//{ value: "1" } ; x is variable ; not object 
+console.log(obj2);// { value: "3"} ; pass by reference
+```
+
