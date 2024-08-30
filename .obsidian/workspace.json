@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML DOM.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML DOM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/Javascript.md",
+                "file": "Printed/HTML DOM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/Javascript.md"
+                "file": "Printed/HTML DOM.md"
               }
             }
           }
@@ -150,32 +150,33 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "Printed/HTML DOM.md",
-    "Printed/Databases.md",
-    "Printed/CSS.md",
     "Printed/Javascript.md",
-    "Printed/Web APIs.md",
-    "Printed/Misc.md",
-    "Printed/TypeScript.md",
     "Printed/Web Concepts.md",
-    "Random Things.md",
-    "Design Patterns.md",
-    "Core Web Vitals.md",
-    "NextJS.md",
-    "Install guides.md",
+    "Printed/Web APIs.md",
+    "Printed/TypeScript.md",
     "Printed/Tools.md",
+    "Printed/REACT.md",
+    "Printed/OOPs.md",
+    "Printed/Misc.md",
+    "Printed/HTML DOM.md",
+    "Printed/CSS.md",
+    "Printed/Databases.md",
+    "-img/Pasted image 20240830175047.png",
+    "Printed/Core Web Vitals.md",
+    "TBD/NextJS.md",
+    "TBD",
     "Testing.md",
+    "TBD/Design Patterns.md",
+    "TBD/GSAP.md",
+    "TBD/Installation.md",
+    "TBD/CheatSheets.md",
     "Printed/REST-HTTP.md",
     "Untitled.md",
     "SQL.md",
-    "Python Notes.md",
+    "TBD/Python Notes.md",
     "Redux Toolkit.md",
-    "Printed/REACT.md",
-    "Printed/OOPs.md",
     "DSA/6-Interview.md",
     "Tricky-Questions.md",
-    "DSA/5-Maths-Geometry.md",
-    "GSAP.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",
     "DSA/Untitled",
@@ -186,7 +187,6 @@
     "FrontEnd/Animations",
     "PHP",
     "DSA",
-    "Excalidraw",
     "Untitled.canvas"
   ]
 }

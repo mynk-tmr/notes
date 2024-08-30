@@ -145,6 +145,7 @@ ease: "power1.inOut" // start slow, end slow
 ```
 
 ## Staggers
+
 If a tween has multiple targets, you can add delay between start of each animation
 ```js
 gsap.to(".box", { //querySelectorAll
@@ -249,4 +250,3 @@ Draggable.create("#box", {
   inertia:true //requires "InertiaPlugin"
 })
 ```
-

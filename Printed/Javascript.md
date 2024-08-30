@@ -5,6 +5,65 @@
 - single-threaded : Core JS has 1 call stack
 - dynamic/runtime type binding of variables
 
+**JS Engine :** 
+* program that executes code and converts it into machine readable format.
+* Popular - V8 (Chromium , NodeJS), Spidermonkey (firefox)
+* V8 engine is an open source high-performance, written in C++. It combines interpreter and compiler together
+
+![[Pasted image 20240830175047.png]]
+
+**Parts of Engine**
+* **Parser** : scans script left to right, line by line, checking for errors and breaks up into **tokens**. It creates a Abstract syntax tree from them which is a tree graph of source code
+* **Interpreter** : used at 1st execution. Executes code line by line and converts them into **bytecode**
+* **Profiler**: watches for frequently executed code (HOT code) and passes to compiler for optimisations and re-optimisations.
+* **JIT Compiler**: compiles & optimise hot code into **machine code**. It is mixed with **bytecode** and given to computer.
+
+**Tips for optimised code**
+* **memoisation** : when arguments are repeated, compiler may memoize 
+* avoid `arguments` `eval` `for in` `delete`
+* **inline caching** : done by compiler for referentially transparent functions
+* **hidden classes** : 
+	* get attached to every object to track its shape/layout. Helps compiler optimize the property access time. 
+	* Avoid `delete` , shape changing
+
+**Engine Memory** 
+* **heap memory** to store objects in unordered way
+* **call stack** (LIFO) to store execution contexts, primitives and references to objects. It is initialised with global context.  When a function is called, it’s execution context is created and pushed to stack, and when it completes, it is popped.
+
+**Execution Context**
+* environment within which a **function or code** is ran. 
+* It's an internal data structure that contains details about current state of code like `this`, variables, control flow location.
+* Two types of contexts -> **global** and **function** (created for each function call)
+* 2 stages of execution for **each context** 
+	* **Creation phase** allocate memory for variables and functions (no value is assigned). 
+	* **Execution phase**: code is executed and values are updated.
+
+**Lexical Environment (LEX)**
+* specification object created for each **script or function or block of code.** It is responsible for **scoping** in JS.
+* contain an **environment record** (keylist of `local variables : value`  and `this : value` ) , and a reference to **parent LEX** or **null**
+* created during **creation phase** and update along with execution context. The context tells the engine which LEX it is currently working
+
+**Lexical Scope**
+* in this, visibility of variables in a context depend upon where they are defined in code.  
+* **Scope chain** 
+	* approach where each scope can access values in all its enclosing scopes but not vice-versa. 
+	* Inner scope **overshadow** outer scopes in name-conflicts. You can't override `let/const` by `var`
+	* cause : when engine tries to access a variable, it **traverses chain** of LEX from current to global until a hit is found.
+* only `this` has **dynamic-scope** in Javascript (value based on where it is executing)
+
+**Hoisting** 
+* process where, before code execution, interpreter relocates **func/class/variable/import** declarations to the top of their scope.
+* Cause: **creation phase** of contexts
+* Functions/Imports are fully hoisted. `var` is hoisted with `undefined`. Others are hoisted without values
+* **Temporal deadzone:** period between entering a variable's scope and its actual declaration in that. Applies to `let/const/class`. If accessed during TDZ -> `ReferenceError : unitialised` 
+* Avoid them: causes **memory leaks** 
+* `var` : no Block scope, no TDZ, redeclarable, creates a property on `window`
+
+**IIFE** : a function that is runs as soon as it is defined. `(function f() {..})()`
+
+**Primtive v/s Non-Primitive**
+* primitives are **immutable** values, passed & compared **by value**
+
 **Primitive datatypes** 
 1. **Number** : stored in 64 bit double precision.
 2. **Bigint:** stored in arbitrary precision. For Integers larger than `2^53 -1 (15 digits)`
@@ -90,6 +149,7 @@ const obj = {
 	- Primitives are tested by value.
 	- `empty_obj != {} ... not same memory`
 	- `Object.keys(obj).length == 0  //correct way`
+	- `JSON.stringify(obj1) === JSON.stringify(obj2)` (check equality)
 
 **Keyed collections**
 - data structures *ordered by key* not index. e.g. Map and set objects 
@@ -257,12 +317,39 @@ flags  = {
 }
 ```
 
+**Set descriptors**
+```js
+Object.defineProperty(obj, 'name', flags) //will overwrite
+Object.defineProperties(obj, {name: flags})
+Object.getOwnPropertyDescriptor(obj, 'name')
+Object.getOwnPropertyDescriptors(obj)
+```
+
+**Shallow v/s Deep copy**
+* Shallow copy: creates a copy where primitive fields are copied by value, but non-primitive fields are copied by reference (only memory address)
+* Deep copy: all the fields copied by value (different memory location)
+
+```js
+// copy ALL symbols, properties and descriptors
+clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj))
+
+//deep copy of nested objects & circular references
+structuredClone(obj) 
+
+//shallow copy
+Object.assign({}, src1, src2, src3) //if not empty {}, only modifies object
+```
+
+Limits of `.assign()`
+* copies **enumerable own** properties only, calls `get()` on sources and `set()` on targets
+* can't copy **accessor** properties
+
 **Function types**
 
 ```jsx
 function add(a,b) { a+b } //Function Declaration [separate stmt]
 hero = function () {..}   //Function Expression [created as part of expr]
-bar = function foo() {..} //NFE : named func expr
+bar = function foo() {..} //NFE ; foo can't be used elsewhere
 mk = new Function('...args' , '<body>');  //the New Syntax
 ```
 
@@ -659,38 +746,6 @@ export const b = 1;
 - runtime agnostic modules, achieved using dependency inversion
 - How? create a module  `binding.js` to communicate with runtime. It must perform checks and insert polyfills / change methods accordingly
 
-
-At first execution, interpreter is used. On further executions, V8 compiles & optimise frequently executed code (Hot code) into **machine code** to improve performance. The compiled code is *re-optimized dynamically* at runtime, based on code’s execution profile.
-
-**Engine Memory** 
-- *Call stack* : 
-	- a LIFO data structure that stores execution contexts, primitives and references to objects
-	- _Execution context_ is an internal data structure that contains details about a function’s execution like value of `this`, local & closure variable, control flow's location, etc.
-	- call stack is initialised with global context. When a function is called, it’s execution context is created and pushed to stack, and when it completes, it is popped
-- *Memory Heap* : stores actual objects
-
-_Parsing_ : Script is scanned left to right, line by line and converted into stream of tokens, control characters, line terminators, comments, or whitespace. 
-
-Execution : takes place for each execution context,
- 1. **Memory creation phase** allocate memory for variables and functions
- 2. **Code execution phase** : values are computed and assigned to variables (wherever possible). 
-
-`var` : no Block scope, no TDZ, redeclarable, creates a property on `window`
-`const` : can’t be bound to another reference during runtime
-##### Scope Chain
-- Each scope can access values in all its enclosing scopes but not vice-versa. This approach is called **lexical scoping** 
-- names in inner scope **overshadow** outer ones. (Err! block var trying to overshadow let/const)
-##### Hoisting
-- process where, before code execution, interpreter relocates _func/class/variable/import_ declarations to `top` of their scope. 
-- Only functions are hoisted with their values. 
-- `let/const/class` remain in TDZ until their declarations are reached during program flow. Any attempt to access during TDZ throws error.
-##### Lexical Environment
-- A specification object for a *executing* function/block/script. It has 2 keys
-	1. **Environment Record** : local variables are its properties, also store `this : value`
-	2. A reference to **outer LEX** object (or null)
-- ERec is populated with variables during allocation phase, but are uninitialised until declared. (why TDZ exist)
-- JS engine traverses LEX chain to find variables 
-
 **Garbage Collection**
 - performed automatically. We cannot force or prevent it.
 - garbage collector — a background process that monitors all objects and removes those that are _unreachable_ via chain of references from **root**
@@ -887,34 +942,13 @@ Object.groupBy(arr_of_obj, cb) //return sync with original
 Object.entries(obj) //2D array, with a entry as [own_enum_prop, value]
 Object.fromEntries(iterable)
 
+// create object with given prototype
+child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
 
 //inherit
 Object.getPrototypeOf(dog) // Function : animal
 dog.hasOwnProperty("type") 
 "type" in dog  // true if own or inherited 
-```
-
-**property descriptors**
-```js
-Object.defineProperty(obj, 'name', flags) //will overwrite
-Object.defineProperties(obj, {name: flags}) //multi
-Object.getOwnPropertyDescriptor(obj, 'name')
-Object.getOwnPropertyDescriptors(obj)
-
-//flag aware cloning -- include all symbols, properties, flags
-let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj))
-```
-
-```js
-Object.assign(target, obj1, obj2) 
-//copies enum own properties only, calls [get] on sources, [set] on target
-//can't copy accessor props
-//in errors, target upto error is modified
-
-// create object with given prototype
-child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
-
-structuredClone(obj) //deep copy of nested objects & circular references
 ```
 
 ## Array
