@@ -1,97 +1,3 @@
-A Web API acts as `interface` to use browser's or system's data/functionality. A web app uses many `APIs` to perform tasks.
-##### Types of APIs
-- `Browser APIs` — built into browser and are able to expose data from browser and system. e.g. Web Audio API
-- `Third-party APIs `— built into third-party platforms (e.g. Twitter, Facebook) that allow you to use some of platform's functionality in your web pages
-- `JavaScript libraries` — JS files containing **custom** functions that you can use. e.g React.
-- `JavaScript frameworks` — packages of HTML, CSS, JavaScript, and other technologies that you use to write an entire web application from scratch
-
-Library vs. Framework — "Inversion of Control". _A developer calls a method from a library. A framework calls the developer's code._
-
-Features of Client-side web APIs
-- **Objects-based —** code interacts with APIs using objects, which serve as containers for the data and functionality that API uses and exposes
-- **Fixed recognizable entry points.** e.g in Web Audio API — it is the `AudioContext` object. In DOM API, it is Node object
-- Use of **events** to handle changes in state
-- **Security mechanisms** where appropriate
-
-## JSON
-
-JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
-
-2 methods [json -> array/object]
-- `JSON.stringify` (_serialization_)
-- `JSON.parse`  (_deserialization_)
-
-Notes
-- JSON can be a single primitive
-- JSON keys requires double-quotes.
-- values that are `function, symbol, undefined` are skipped
-
-```jsx
-JSON.parse('{"name":"John"}'); 
-arr = JSON.parse('["name":"John"]'); //arr[0] 
-JSON.parse(data, (key,val) => {
-	//code
-	return newValue; // transform values including nested
-}) 
-
-//date fields are auto evaluated
-```
-
-```jsx
-JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
-
-//skip values
-JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
-	return key == 'under' ? undefined : value
-})
-
-//object's toJSON auto-invoked by stringify
-let room = {
-  number: 23,
-  toJSON() { return this.number }
-};
-
-//remove circular (self) references
-JSON.stringify(meetup, (key, value) => {
-  return (key !== "" && value == meetup) ? undefined : value;
-})
-```
-
-## Constraint Validation API
-
-An `invalid` event (bubble:*false*) is triggered on every invalid field. API supports **button, fieldset, input, output, select, textarea & form**
-
-```jsx
-myform.noValidate=true; /*or*/ <form novalidate></form>
-//disables default msgs of browser [not validation]
-
-myform.addEventListener('submit', (e)=>{
-	e.preventDefault(); //don't submit
-	//rest of code
-	form.submit(); // if all checks were valid
-});
-```
-
-Inline validation -> listen events `input` `change` `focus` `blur`
-
-**API methods**
-- `checkValidity()` `reportValidity()` (check+msg)
-- `setCustomValidity(msg)` : for report
-
-**Field properties**
-- `validationMessage` : error msg
-- `validity` : an object with bool properties
-  - patternMismatch , stepMismatch, typeMismatch (e.g. ❌ url)
-  - tooLong, tooShort, valueMissing, badInput (unreadable)
-  - rangeOverflow, rangeUnderflow
-  - valid (`true/false`)
-  - willValidate (`true` if not hidden, readonly or disabled)
-  - customError (`true` if custom msg was set)
-
-Html's `pattern` test with \\g \\m \\i flags disabled. So use JS.
-
-## Sending Files
-
 ##### Files
 ```ts
 x = ele.files //x -> name, type size
@@ -212,10 +118,7 @@ document.cookie = "id=3233; max-age=100;"
 let cookies = decodeURIComponent(document.cookie)
 
 // format cookies
-document.cookie.split(';').map(coo => { 
-	coo.trim(); 
-	return coo.split('=') 
-})
+document.cookie.split(';').map(coo => coo.trim().split('=') )
 
 // find and return a cookie value
 cookies.find(coo => coo.startsWith("name="))?.split("=")[1];
@@ -229,44 +132,24 @@ Parameters
 `path=/path/to/host` //on domain
 ```
 
-## Console and Dialog
-
-```jsx
-//**synchronous** modals - stop code execution until dismissed.
-alert(msg) //one button
-confirm(msg) // 2 buttons t/f
+**Synchronous** modals - pause code execution until dismissed.
+```js
+alert(msg) confirm(msg) // 2 buttons t/f
 prompt(msg, def_value)  //null or val
+```
 
+**Console API**
+```js
 //Writing log at different levels, colors and icons
 console.debug(), console.error(), console.warn(), console.info()
 
-console.log('Go to $o', 'goo.gl') //hyperlinking
-console.log('%cBanana', ‘color:yellow;’)  //css styled output
-
-//formated output
-console.table(object or array)
-console.dir(object)
-console.keys(object) 
-console.values(key_list)
-
-//useful
+//debugging
+console.keys() console.values()
 console.assert(test_expr, "text_if_fail")
 console.count('msg')  //logs msg: 1  msg: 2 ... count times code was visited
 console.time(bob)     //create a new timer
 console.timeEnd(bob)  //stop timer and logs it
-console.timeStamp('label')  //log a event during recording
-console.memory()    //return objects containing info on page memory use.
-
-// log stack trace at that point
-console.trace('msg') and console.exception('error_msg')
-
-//create a group of console statements
-console.group('label') or console.groupCollapsed('label') //initially collapsed
-...
-console.groupEnd()
-
-console.profile('title for header') // Use JS profiler to print profile report
-console.profileEnd()
+console.trace('msg') //stack trace
 ```
 
 ## Fetch
@@ -353,5 +236,46 @@ When the data gets updated in `localStorage` or `sessionStorage`, **storage e
 Event triggers on all `window` objects where the storage is accessible, except the one that caused it. e/g : `window.onstorage` 
 **That allows different windows from the same origin to exchange messages.**
 
-Modern browsers also support [Broadcast channel API](https://developer.mozilla.org/en-US/docs/Web/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it’s more full featured, but less supported. 
+## JSON
 
+JSON is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
+
+2 methods [json -> array/object]
+- `JSON.stringify` (_serialization_)
+- `JSON.parse`  (_deserialization_)
+
+Notes
+- JSON can be a single primitive
+- JSON keys requires double-quotes.
+- values that are `function, symbol, undefined` are skipped
+
+```jsx
+JSON.parse('{"name":"John"}'); 
+arr = JSON.parse('["name":"John"]'); //arr[0] 
+JSON.parse(data, (key,val) => {
+	//code
+	return newValue; // transform values including nested
+}) 
+
+//date fields are auto evaluated
+```
+
+```jsx
+JSON.stringify(obj, ['id', 'name']) //only these, nested keys in them have to be explicity included
+
+//skip values
+JSON.stringify(obj, (key, value) => {  //nested key-value also iterated over
+	return key == 'under' ? undefined : value
+})
+
+//object's toJSON auto-invoked by stringify
+let room = {
+  number: 23,
+  toJSON() { return this.number }
+};
+
+//remove circular (self) references
+JSON.stringify(meetup, (key, value) => {
+  return (key !== "" && value == meetup) ? undefined : value;
+})
+```

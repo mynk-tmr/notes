@@ -1,3 +1,71 @@
+A **protocol** is a set of rules and standards for exchanging data. Most Internet protocols are specified by Internet documents known as **Request For Comments** or **RFCs**
+
+*Packet* - A small unit of data that is transmitted over internet. **Latency** (ms) is time taken to reach its destination. **Bandwith** (bps) is the amount of data transfered per second
+
+*IP Address*: A unique ID assigned to each device on a network. IPv4 is 32bit (192.0.0.1 ⇒ four 8bit no.s). IPv6 is 128bit, uses hex numbers and is faster, cheaper and secure. Machines can use both via dual addressing
+
+*Domain Name:* A human-readable alias for IP address.
+
+*Port:* unique no. that identifies an app or service running on a device.
+
+*Socket:* combination of IP address and port number, representing a specific endpoint for communication.
+
+## DOMAIN NAME SYSTEM
+
+A protocol used to **translate** domain names into IP addresses. **BIND** is used to implement it.
+Domain name heirarchy — [www.google.co.in](http://www.google.co.in)
+- A domain name consists of **labels**, separated by dots.
+- root domain ("."), TLD (in), 2nd LD (co), domain (google), subdomain (www)
+- Domain names are managed by domain registries.
+##### DNS lookup process
+- First client searches its cache and local files. If not found, it issues a DNS request/ lookup, providing a hostname such as “[example.com](http://example.com)”.
+- this request is received by **recursive DNS resolver,** which searches for IP address with a series of recursive queries.
+    - it queries root DNS server, then TLD server (“.com”) and so on.. down to master sever (or authoritative name server)
+- name server sends IP address to resolver which sends it to client
+- DNS queries use **UDP** and port 53
+
+## Internet protocol suite (TCP/IP)
+
+Most common framework for organizing internet protocols. It loosely defines a **4 layer model,** which is built into OS and hardware.
+- **Application Layer** : responsible for handling data from/to processes or apps.
+- **Transport Layer :** responsible for end-to-end communication between two **sockets**
+- **Network layer** : responsible for routing data packets on network from source to target
+- **Hardware Layer** : Converts binary data in packet to network signals and back.
+
+At source, data travels **down** the layer — each layer adds routing data and break data into chunks. At destination, it travels up — each layer strips routing data and reconstruct data from chunks.
+![[Pasted image 20240113151401.png]]
+
+#### Transmission Control Protocol : TCP
+- Features
+    - **connection-oriented** — opens a connection to transmit data, then closes it
+    - **reliable** — for each packet received, an *acknowledgement* is sent to sender to confirm the delivery. TCP also includes a *checksum* in headers for error-checking
+    - transmits data as **stream of bytes** so they reach application layer in same order
+- Each TCP connection begins with a 3 way handshake
+    - During this, various parameters like _maximum segment size & window size_ are negotiated.
+    - Problem — Client may start sending data as soon as it dispatches last ACK packet. Server will not fulfill request, until it receives ACK packet.
+
+	![[Pasted image 20240113151931.png]]
+
+	- Once a connection is established, data is broken into TCP segments having - `header`, `port no. of target`, `sequence no.` , etc. then transmitted.
+	- At target, segments are reconstructed and sent to a specific application using port number.
+
+##### User Datagram Protocol (UDP) 
+- a **connectionless** protocol and provides **minimal** services to applications. 
+- **faster** than TCP because it’s connectionless but **less reliable** because No error-checking or retransmission of lost packets.
+- Used in — video & audio streaming
+
+##### Transport Layer Security (TLS 1.2/1.3)
+- a *cryptographic* protocol designed to provide security over a network. e.g. https uses it
+- It is built on top of TCP. Once TCP connection is established, client authenticates a server’s TLS certificate
+- Then, TLS handshake happens where the client and server exchange messages to negotiate encryption algorithm and a session key
+- Once **secure** connection is established, data is encrypted and exchanged.
+
+#### Internet Protocol
+- It is the only **network layer** protocol and gives each packet it's destination IP address
+- Unlike TCP, **IP is unreliable, connectionless** protocol
+- IP's job is to send and route packets to their destination computer. TCP’s job is to make sure all packets arrive and are in correct order.
+- IP adds its own headers to TCP packets. IP treats each packet as a self-contained data.
+
 ##### What is HTTP and HTTPS ?
 
 *Applayer* protocols for data exchange on WWW. They use port 80 & 443.
@@ -207,3 +275,34 @@ Simple Object Access Protocol is **strict** protocol to implement web services. 
 | overheads like URI, verb, etc.                    | none                                                                                  |
 | opens new TCP connection                          | No                                                                                    |
 | support both vertical and horizontal scaling.     | only support vertical scaling.                                                        |
+- **Unit tests** : test small isolated parts of codebase. Interaction with other units is *mocked* eg. class, methods, etc.
+- **Integration tests**: test interaction across *real* unit-tested portions of code like modules, database, etc.
+- **Smoke test / sanity test**: done before deep tests. Checks critical software functionality using unit+integration tests
+- **Functional tests**: test business requirements of app and verify output.
+- **End to End tests**: replicates a user behavior with the software.
+- **Performance tests**: evaluate system's performance under different conditions, identify memory leaks, bottlenecks, and scalability issues. Major ways -> *load testing* (to identify breakpoint) and *stress testing* (to identify behaviour) under heavy load.
+- **Regression tests**: ensure new changes don't break exisiting functionalities.
+- **Acceptance tests**: testing against predefined acceptance criteria set by stakeholders.
+- **Usability tests**: ensure software is user-friendly and improve UX
+- **Fuzz tests**: test with random or unexpected inputs to identify how it responds to unexpected data.
+- **Compatibility Testing**: ensuring that software works seamlessly on different platforms.
+
+### Levels of tests
+- **Whitebox tests**: test logic of app
+- **Blackbox tests**: test behaviour of app, not logic
+- **Greybox tests**: combine both
+- **Alpha tests:** test in controlled environment
+- **Beta/UAT tests:** test in real environment by selected end usersA Web API acts as `interface` to use browser's or system's data/functionality. A web app uses many `APIs` to perform tasks.
+##### Types of APIs
+- `Browser APIs` — built into browser and are able to expose data from browser and system. e.g. Web Audio API
+- `Third-party APIs `— built into third-party platforms (e.g. Twitter, Facebook) that allow you to use some of platform's functionality in your web pages
+- `JavaScript libraries` — JS files containing **custom** functions that you can use. e.g React.
+- `JavaScript frameworks` — packages of HTML, CSS, JavaScript, and other technologies that you use to write an entire web application from scratch
+
+Library vs. Framework — "Inversion of Control". _A developer calls a method from a library. A framework calls the developer's code._
+
+Features of Client-side web APIs
+- **Objects-based —** code interacts with APIs using objects, which serve as containers for the data and functionality that API uses and exposes
+- **Fixed recognizable entry points.** e.g in Web Audio API — it is the `AudioContext` object. In DOM API, it is Node object
+- Use of **events** to handle changes in state
+- **Security mechanisms** where appropriate

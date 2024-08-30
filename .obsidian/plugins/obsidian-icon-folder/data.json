@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiPalmtree",
+      "LiCroissant",
       "LiCog",
       "LiHexagon",
-      "LiLeaf",
-      "LiDatabase",
-      "LiCookie"
+      "LiLeaf"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -33,20 +33,17 @@
   "Install guides.md": "LiDownload",
   "Printed/Web Concepts.md": "LiWebhook",
   "Testing.md": "LiTestTube",
-  "Printed/REST-HTTP.md": "LiRss",
-  "Printed/REACTJS.md": "LiPersonStanding",
   "NextJS.md": "LiVegan",
-  "Redux Toolkit.md": "LiRedo",
   "Printed/Javascript.md": "LiJapaneseYen",
-  "Printed/Browser APIs.md": "LiMessageCircleCode",
   "Python Notes.md": "LiSnail",
-  "Printed/Internet Protocols.md": "LiRepeat",
   "Printed/OOPs.md": "LiCookie",
   "Design Patterns.md": "LiShieldMinus",
   "Printed/TypeScript.md": "LiType",
-  "Printed/MongoDB.md": "LiLeaf",
-  "SQL.md": "LiDatabase",
-  "ExpressJS.md": "LiHexagon",
-  "Printed/HTML-CSS-SCSS.md": "LiLandmark",
-  "Core Web Vitals.md": "LiCog"
+  "Core Web Vitals.md": "LiCog",
+  "Random Things.md": "LiHexagon",
+  "Printed/REACT.md": "LiPersonStanding",
+  "Printed/Misc.md": "LiRepeat",
+  "Printed/Databases.md": "LiLeaf",
+  "Printed/Web APIs.md": "LiMessageCircleCode",
+  "Printed/HTML DOM.md": "LiPalmtree"
 }

@@ -108,7 +108,7 @@ declare namespace D3 {
 //usage
 class Rectangle implements D3.drawRect {
 ...
-}
+}MongoDB
 ```
 
 **Decorators** : to add features to methods & functions

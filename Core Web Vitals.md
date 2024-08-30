@@ -5,6 +5,19 @@
 
 ![[Pasted image 20231228224715.png]]
 
+**Script Loading Optimisation**
+* used to embed a client-side script. `<script src='path' type='text/javascript' />`
+* parsing is blocked by loading & execution of script
+* Loading strategy (boolean attributes)
+	* **`async` :** block & execute only after complete download, and before window's `onload` event. Use for critical ones like analytics
+	* **`defer`**:  execute after page parsing, before window's `DOMcontentLoaded`. Less critical
+* How to load 3rd party scripts?
+	- via main script : `import('path').then(analytics => analytics.init())` 
+	- for 3rd party scripts, `preconnect` & `dns-prefetch` can be used
+	- lazy loading with `Intersection Observer`
+	- using CDNs
+	- cache script with webworker
+
 #### Rendering Waterfall
 - **style calculation**: CSS rules are applied to DOM node to form CSSOM. It only contains presentational elements
 - **layout creation**: calculate geometry of elements (vector boxes) and positions.
