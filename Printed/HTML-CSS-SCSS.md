@@ -1,43 +1,35 @@
+**HTML**: standard markup language of webpages
+**Elements**
+- *void* — self-closing elements.
+- *non-replaced* — doesn’t replace content. Have open+close tags.
+- *replaced* — replaced by non-text objects. Can be void or with content. e.g. `<input>` , `<hr>`
 
-**HTML**: standard markup language of webpages 
-
-Types of html elements
-1. *non-replaced* — doesn’t replace content. Have open+close tags.
-2. *replaced* — replaced by non-text objects. Can be void or with content. e.g. `<input>` , `<hr>`
-3. *void* — self-closing elements.
-
-Attributes define properties of an HTML element. They are _case-insensitive_
-Types
-1. *Global*: can be applied to all elements
-2. *i8n*:  `lang` and `dir`.
-3. *Generic*: attach additional info to node. E.g. `data-*`
-4. *Event* : allow `events` to trigger actions. e.g. `onclick="alert(event.type + this.src)"`
+**Attributes** : define properties of an HTML element. Case-insensitive but **values aren't**
+- *Global*: can be applied to all elements
+- *i8n*:  `lang` and `dir`.
+- *Generic*: attach additional info to node. E.g. `data-*`
+- *Event* : allow `events` to trigger actions
 
 **Whitespace** 
 - ignored when it appears on screen edge & outside elements.
-- multiple whitespaces during rendering are collapsed into one
-- parsing keeps whitespaces intact — `innerHTML` object
+- parsing keeps whitespaces intact — `innerHTML` object. But rendering collapses them into 1
 
-**Entitites —** to display special characters. Can be given in 3 formats — word, unicode (#) or hexcode (#x)
-
+**Entitites —** to display special characters.
 ```html
 rupee — &#8377;
 letter S — &#83; or &#x53;
-&amp; &lt; &gt; &quot; &apos; &nbsp; 
-&ne; (≠) &asymp; (≈) &ndash; (-) &mdash; (--)
-&copy; &reg; &trade; &deg; (°)
+&amp; &lt; &gt; &quot; &apos; &nbsp; &copy
 ```
 
-## TAGS
+**Well know Tags**
 
-`<!doctype html>` specify mime as html5, null element
+`<!doctype html>` specify mimetype of document as html5, null element
 `<html lang='en'>` root element
 `<head>` metadata + links to external resources
 `<title>` tab, history, search-engine, OG cards
 `<noscript>` content if script disabled
-`<base href target>` set base for reference links & default target
+`<base href= target= >` set base for reference links & default target
 `<style media='print | tv' >` internal css
-
 
 `<hr>` theme/topic shift in text
 `<h2>` best heading for SEO
@@ -50,7 +42,6 @@ letter S — &#83; or &#x53;
 `<u>` proper names, misspellings (wavy or dotted)
 `<small>` side comments, copyright info, legal text
 
-
 `<cite>` title of a cited _creative_ work (song, book, etc). Wrap immediately outside **anchor** element.
 `<strong>` important word or content that doesn’t change meaning of surrounding text
 `<em>` changes meaning. eg. sarcasm
@@ -58,33 +49,23 @@ letter S — &#83; or &#x53;
 `<s>` striked text (irrelevant)
 `<mark>` to mark/highlight text ; search results; important to context
 - inside quote elements to highlight things not originally emphasised by author
-- rec: insert content with `mark::before` for a11y
+- insert content with `mark::before` for a11y
 
-##### Code text
-- `<pre>` : *block* text; preserves formatting ; must be nested inside `<figure>` and describe with `<figcaption>`
-- `<code>` — generic inline code, usually wrapped in `<pre>`
-- `<samp>` — sample output of `<code>`
-- `<var>` — for variable names beside non-code text
-- `<kbd>` — keyboard inputs
-- `<output>` — result of a calc from `input`
+**Code tags**
+`<pre>` : *block* text; preserves formatting ; use in `<figure>` and describe with `<figcaption>`
+`<code>` — generic inline code, usually wrapped in `<pre>`
+`<samp>` — sample output of `<code>`
+`<var>` — for variable names beside non-code text
+`<kbd>` — keyboard inputs
+`<output>` — result of a calc from `input`
 
-##### Machine-readable info
+**Machine data
 ```html
 <data value="1000"> Ek Hazaar </data>
 <time datetime="13:30"> sawa ek baje </time>
-
-Other values
-<time datetime="2013-10-19" />
-<time datetime="10-19" /> 
-<time datetime="2023-W15" />
-<time datetime="8:00+5:30" />
-
-durations
-<time datetime="P2D" />
-<time datetime="PT15H39M" />
 ```
 
-##### Lists
+**Lists**
 - all **Block** (`menu, ul, ol, li, dl, dt, dd`)
 - description lists for QnA, defn, glossary, metadata display
 - you can give many dd for 1 dt.
@@ -92,46 +73,34 @@ durations
 	- `reversed`
 	- `type` : for ol, `a` `A` `i` `I` `1` ; use `start` to specify diff start point
 
-## Anchor tags
-
+**Anchor tags**
 - `href="tel:"` `href="sms:"`
 - `href="mailto:<addr>?subject=Shopping&body=Buy%20cooker"`
 - `hreflang="pt-BR"` to specify language of linked URL
 - `ping` a _space-separated_ list of URLs, used for tracking users. Sends POST requests to given list.
 
-Create download link
 ```html
+//create download link
 <a href="path/to/file" download="YakuzaLAD">Click me</a>
-```
 
-Security options
-```html
+//CSP
 <a rel="strict-origin"> tiny info if https is used</a>
 <a rel="noopener noreferrer">No info</a>
-```
 
-Fragments
-```html
+//Fragments
 <a href='mysite/#id'>Document fragment</a>
 <a target='blank' rel='noopener' href='example.com#:~:text=tomato'> Text Fragment</a>
 
 css matcher -> ::target-text
-```
 
-Button link
-```html
+//button link
 <button onclick='location.href = "url"'>
 ```
 
-Best Practices —
-- Good Link : [Download Firefox]
-- Good SEO : [Contact Logitech Solutions here]
-- Good Descriptions : [AoT S9/E3 (1080p, 1.4GB)]
-
-## Images
+**Images**
 
 ```html
-<img src alt height width loading='lazy'>
+<img src alt height width loading='lazy' decoding='async'>
 ```
 
 Load diff images for diff screens
@@ -156,25 +125,11 @@ Embed alternative versions of image
 </picture>
 ```
 
-*Best practices + SEO*
-- properly name image files [dinosaur.jpg]
-- use relative urls or CDNs
-- always give width, height — prevents layout shifts. 
-- don't wrap `<a>` around blocks
+**Virtual viewport** : visible area `<body>` of a webpage. It is split into
+- *layout* viewport : contains all elements which may or not appear on screen
+- *visual* viewport : part of page currently shown (excludes user-widgets, url bars ie., things we can't scale)
 
-**Image hitmaps**
-```html
-<img src="java.png" usemap="#hitme" />
-<map name="hitme">
-	<area shape="circle" coords="20, 25, 5" href="page-2.html" />
-	<area shape="rect" coords="10, 5, 20, 15" href="page-3.html" />
-	<area shape="poly" coords="0, 10, 20, 15, 30, 30" href="page-3.html" />
-	<area shape="default" href="page-4.html" /> <!-- area left-out -->
-</map>
-```
-
-## Container elements
-
+**Container elements**
 `<header>`: for introductory info. Can be in `<body> or <section>`
 `<footer>`: for site info, contact details, *quick links*
 `<main>`: all content unique to web page. Only 1 allowed. Used as child of `<body>`
@@ -214,9 +169,7 @@ details[open] > table
 - always use `autofocus` on dialog or element required to close dialog
 - API : `showModal() show() close()`
 
-## Embeds
-
-##### Video - Audio
+**Audio / Video Embeds**
 ```jsx
 <video src="path" controls autoplay loop muted poster="thumbnail.jpeg"
 preload="auto | none | metadata">
@@ -245,7 +198,7 @@ mp4, mp3, webm, ogg
 </video>
 ```
 
-##### Inline frame `<iframe>`
+**Inline frames**
 ```jsx
 <iframe sandbox allowfullscreen loading='lazy'/>
 //use like <video>
@@ -253,13 +206,8 @@ mp4, mp3, webm, ogg
 - embed media from 3rd party sites
 - To reduce page load time, _set src by js_ after main content is done loading
 
-> Google popular services you can embed.
 
-Others -> `svg` `object` `math`
-
-## Metadata tags
-
-Types
+**Metadata **
 - _pragma_: with http-equiv
 - _named_: with name
 - _unofficials_ : opengraph
@@ -284,9 +232,14 @@ set CSP of webpage
 <meta http-equiv="content-security-policy" content="default-src https:" />
 ```
 
-`viewport` — helps site responsiveness ; else site scales on smaller screens.
+`viewport` — helps site responsiveness. Sets virtual viewport explicitly and disable default shrink-to-fit behavior on smaller screens
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+- width,height : set viewport W/H
+- initial-scale : zoom level on load (0.1 to 10)
+- minimum-scale or maximum-scale : max/min range 
+- user-scalable : 1 or 0
 ```
 
 `author` — specify author. Used by CMS to provide visitors your info (if available).
@@ -414,31 +367,6 @@ function loadJSAsync(url) {
 
 `tabindex` : tab-order. -1 (not tabbable), 0 (at last), 1 2 3..(ordering). Try to use only `0 & 1` and use markup to order.
 
-__Good Table UI/UX__
-
-Styling
-  - alignment `left` for text, headings, qualitative data (phone no. etc.). 
-  - `right` for qualitative no. and same decimal length
-  - Combine related col/rows. Use different `font-weight & size` for combined data in cells e.g units, %change
-  - `1px solid light gray` (good borders)
-  - use `vertical-align : top` for large data
-  - cell heights : `40px or 48px or 56px`
-  - `scroll-smooth`
-  - low contrast `color` & `bgcol` (zebra) in alternate rows / cols
-  - `:hover` slight change 
-
-Too many columns/rows
-  - allow Resizing/Toggling col/rows
-  - Sorting options
-  - sticky header, footer, leftmost column
-  - horizontal scroll
-
-Table features
-  - small icons/thumbnails
-  - Expandable rows
-  - Modals for cell (can have editing features)
-  - Full screen mode
-
 ## SVGs
 
 SVG is a XML based markup language for vector images. Raster images are pixel based.
@@ -496,25 +424,6 @@ all coords : `x, y` etc..  [svg2.0]   | `font-*` `text-decoration`
 `fill` : bgcol                                 | `overflow`
 `stroke-width` : border-width       | `direction`
 `display, opacity, visibility, mask`  |  _clip-path ,transition, animation_
-
-
-## Viewport
-
-##### Virtual viewport
-- visible area `<body>` of a webpage. It is split into
-	- *layout* viewport : contains all elements which may or not appear on screen
-	- *visual* viewport : part of page currently shown (excludes user-widgets, url bars ie., things we can't scale)
-- `viewport` meta : sets *virtual* viewport explicitly and disable default *shrink-to-fit* behavior
-- content values : (none can be -ve)
-	- `width,height` : set viewport W/H. => `device-width, 600`
-	- `initial-scale`: zoom level on load (0.1 to 10)
-	- `minimum-scale or maximum-scale` : max/min range 
-	- `user-scalable` : 1 or 0
-	- `interactive-widget` : set how UI widgets affect viewport
-		- `=resizes-visual` : default; widget resizes only *visual* viewport
-		- `=resizes-content`: viewport resizes *entire* viewport
-		- `=overlays-content`: no resizing
-
 
 ## Forms
 

@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiCog",
       "LiHexagon",
       "LiLeaf",
       "LiDatabase",
-      "LiCookie",
-      "LiShieldMinus"
+      "LiCookie"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -27,7 +27,6 @@
     "iconsInNotesEnabled": true,
     "iconIdentifier": ":"
   },
-  "Printed/HTML.md": "LiLandmark",
   "Printed/CSS.md": "LiScissors",
   "Printed/Tools.md": "LiPenTool",
   "GSAP.md": "LiWand",
@@ -47,5 +46,7 @@
   "Printed/TypeScript.md": "LiType",
   "Printed/MongoDB.md": "LiLeaf",
   "SQL.md": "LiDatabase",
-  "ExpressJS.md": "LiHexagon"
+  "ExpressJS.md": "LiHexagon",
+  "Printed/HTML-CSS-SCSS.md": "LiLandmark",
+  "Core Web Vitals.md": "LiCog"
 }
