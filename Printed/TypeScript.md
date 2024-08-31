@@ -114,8 +114,8 @@ class Rectangle implements D3.drawRect {
 **Decorators** : to add features to methods & functions
 ```ts
 //add logger
-function log<T, P, Q>(fn: T, context: ClassMethodDecoratorContext) {
-    return function(this: Q, ...args: P) {
+function log<T, P>(fn: T, context: ClassMethodDecoratorContext) {
+    return function(this, ...args: P) {
         console.log("Entered "+ context.name)
         return fn.call(this, args)
     }

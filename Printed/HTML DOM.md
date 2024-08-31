@@ -817,13 +817,3 @@ div.scrollIntoView ({
     inline: 'center' //align to x-edge ("")
 })
 ```
-
-```js
-//zoom using 'wheel' event
-scale += event.deltaY * -0.01; //wheel down zooms
-scale = Math.min(Math.max(0.125, scale), 4); //limit zoom
-div.style.transform = `scale(${scale})`;
-
-//scroll events 
-'scroll', 'scrollend'
-```

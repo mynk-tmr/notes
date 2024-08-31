@@ -64,6 +64,13 @@
 **Primtive v/s Non-Primitive**
 * primitives are **immutable** values, passed & compared **by value**
 
+**Type coercion**
+* changing type of value from 1 to another by language
+* **static** **languages** : type checking at compile time. All types are known before execution
+* **dynamic languages** : type checking at run time
+* **weakly typed** : JS, PHP where type coercions are implicit
+* **strongly typed**: Java, C# where type coercions aren't allowed
+
 **Primitive datatypes** 
 1. **Number** : stored in 64 bit double precision.
 2. **Bigint:** stored in arbitrary precision. For Integers larger than `2^53 -1 (15 digits)`
@@ -186,7 +193,7 @@ messages[0][isRead] = true;
 ```
 
 **THIS keyword** 
-At function execution, a property `this` is assigned to function object which refers to current execution context. It depends on how function is called.
+`this` refers to current execution context of function or script. It is an object and depends on how function is called.
 * **object literals** : inhertied from enclosing context (scope)
 * **event handlers:** `currentTarget` ; if inline html refers to element
 
@@ -669,7 +676,7 @@ Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 
 **Async/Await**
 * simplify the process of working with chained promises
-* `async` function returns a *new Promise* that will resolve to function's *actual return* value or rejected with an exception uncaught.
+* `async` function returns a *new Promise* that will resolve to function's *actual return* value or rejected with an uncaught exception.
 * they can have `await <promise>` expressions that suspend function execution until promise settles
 * Benefits
 	* `try/catch` support ; sync like async code
