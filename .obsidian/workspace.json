@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/Core Web Vitals.md",
+                "file": "Printed/Output LLD.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/Core Web Vitals.md",
+                "file": "Printed/Output LLD.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/Core Web Vitals.md",
+                "file": "Printed/Output LLD.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/Core Web Vitals.md"
+                "file": "Printed/Output LLD.md"
               }
             }
           }
@@ -151,18 +151,20 @@
   "active": "297848e00723dd78",
   "lastOpenFiles": [
     "Printed/Javascript.md",
-    "Printed/OOPs.md",
-    "Printed/Misc.md",
     "Printed/HTML DOM.md",
+    "Printed/Output LLD.md",
     "Printed/Databases.md",
     "Printed/CSS.md",
+    "Printed/OOPs.md",
+    "DSA/2-Basic DSA.md",
+    "Printed/Core Web Vitals.md",
+    "Printed/Misc.md",
     "Printed/TypeScript.md",
     "Printed/Tools.md",
     "Printed/Web Concepts.md",
     "Printed/Web APIs.md",
     "Printed/REACT.md",
     "-img/Pasted image 20240830175047.png",
-    "Printed/Core Web Vitals.md",
     "TBD/NextJS.md",
     "TBD",
     "Testing.md",
@@ -175,7 +177,6 @@
     "SQL.md",
     "TBD/Python Notes.md",
     "Redux Toolkit.md",
-    "DSA/6-Interview.md",
     "Tricky-Questions.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",

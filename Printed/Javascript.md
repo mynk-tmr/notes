@@ -70,6 +70,7 @@
 * **dynamic languages** : type checking at run time
 * **weakly typed** : JS, PHP where type coercions are implicit
 * **strongly typed**: Java, C# where type coercions aren't allowed
+* In JS, when **math/logical** operations are done on different types, they are coerced to PRIMITIVE (first `default`, then `number`, then `string`)
 
 **Primitive datatypes** 
 1. **Number** : stored in 64 bit double precision.
@@ -615,6 +616,13 @@ Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 | to loop, use      | `for..of` which runs next()<br>until `done:true` | `for await..of`                          |
 | features          | can be `...spread`                               | NO                                       |
 
+**Iterative Functions**`fn(cb,thisArg)` 
+* they execute a callback for each element of iterable from first to last index
+* Empty slots can behave like `undefined` & skipped by such functions (*map keeps them*). If empty slot is manually assigned undefined, it won’t be skipped.
+* Custom sort `arr.sort(cb)`
+	* callback signature : `cb(a,b)` elements being compared ; must return `Number`
+	* If return > 0, then **a is bigger** and sorted behind.
+	- *random sort* : return `0.5 - Math.random()`
 
 **Callbacks**
 * fundamental async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time.
@@ -857,15 +865,13 @@ addEventListener("connect", (e) => {
 * used to create **offline** webapps, executing code based on if network is available. 
 * allow access to **push** notifications and background **sync** APIs
 
-## MATH 
 
-Note : only `static` methods and can't be used on BigInt
+**Math Class** : only `static` methods and can't be used on BigInt
 
 ```js
 Math.PI
 Math.abs(-39)
 Math.sign(9) /* -1, 1 or 0 */
-Math.sin(radian) ; Math.asin(value) 
 Math.log(num); Math.log10(num); Math.log2(num) //num >0
 Math.floor(float) ; Math.ceil(float)
 Math.min(...args) ; Math.max(...args)
@@ -877,71 +883,40 @@ mod = b - a + 1; //remove 1 to exclude b
 Math.floor(Math.random() * mod) + a;
 ```
 
-## DATE 
-
-In a date object, time is static and stored as ms from Jan 1, 1970. It does not have any properties, only methods.
+**Date Class** 
+* stores a timestamp as `ms` elapsed from Jan 1, 1970. 
+* Has No properties, only methods. 0-indexed month & sunday
+* Methods
+	- set* => sets timestamp in object => `setHours(ms), setFullYear(ms)`
+	- get*  => `getHours()`, `getUTCDate()`
+	- to* => human readable form => `toLocaleDateString(), toLocaleTimeString()`
 
 ```js
 new Date() //current time obj
-Date.now() //ms timestamp
+Date.now() //ms timestam
 new Date(0); //1 jan 1970 ; ms
 new Date(-86400_000); //31 dec 1969
 new Date("1995-03-25T13:33:55.383") 
 new Date(1995, 3, 25) //omitted set to 0
-ms = Date.parse("Aug 9, 1995") //parsed date for set* methods
 
-//month & sunday start from 0
-```
+ms = Date.parse("Aug 9, 1995") 
 
-Smart objects
-```jsx
 ti.setDate(feb_28.getDate() + 2) //mar 1 or mar 2 (auto-leap-check)
 why.setMinutes(why.getMinutes() + 25) //+25 minutes
 dt.setDate(0) //18 apr -> 31 march
 
 dt - why //subtract ms
-
-function getLastDayOfMonth(year, month) {
-  let date = new Date(year, month + 1, 0);
-  return date.getDate();
-}
 ```
 
-__Date object Methods__
-- set* => accepts *ms/parsed* date => setHours(), setFullYear()
-- get* => return in *local* time => getHours()
-- to* => human readable form => toLocaleDateString(), toLocaleTimeString()
 
-
-**Utilites**
-```js
-// Returns days left in the year
-const endYear = new Date(2024, 0, 1); 
-let daysLeft = (endYear.getTime() - Date.now()) / 86400_000;
-daysLeft = Math.round(daysLeft);
-
-getWeekDay = (date) => {
-	let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-	return days[date.getDay()]
-}
-
-function secondsLost() {
-  let d = new Date();
-  return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
-}
-```
-  
-## OBJECT   
-
+**Object Static Methods**
 ```js
 Object.preventExtensions(obj) //no new props
 Object.seal(obj) // no (+) (-) props , sets config-false for all
 Object.freeze(obj) // seal and write-false all
 
 //test
-Object.isExtensible(obj)
-Object.isSealed(obj)
-Object.isFrozen(obj)
+Object.isExtensible(obj) Object.isSealed(obj) Object.isFrozen(obj)
 
 //group object based on cb's return for each obj
 Object.groupBy(arr_of_obj, cb) //return sync with original
@@ -950,7 +925,7 @@ Object.entries(obj) //2D array, with a entry as [own_enum_prop, value]
 Object.fromEntries(iterable)
 
 // create object with given prototype
-child = Object.create(parent, inits); //like {id: 1, name: 'ds'}
+child = Object.create(parent, key_list)
 
 //inherit
 Object.getPrototypeOf(dog) // Function : animal
@@ -958,15 +933,11 @@ dog.hasOwnProperty("type")
 "type" in dog  // true if own or inherited 
 ```
 
-## Array
 
+**Arrays**
 ```jsx
-box = new Array(40); //length -> 40
 box2 = Array.of(9.3); // 1 element 9.3
 box.length = 5 ; // truncate array , 0 empties it
-
-//2D arrays 
-const arr = [[1,2]]
 
 //redefine arr to Object ; length is unaffected
 arr['hello'] = 'world';
@@ -976,8 +947,6 @@ arr [3.55] = 'hi';  // '3.55'
 fish = [1, ,3];  //length 3
 fish = [ ,2,3, ]; // length 3 [last comma ignored]
 ```
-
-Note : empty slots can behave like `undefined` & skipped in iterative methods (*map keeps them*). If empty slot is manually assigned undefined, it won’t be skipped.
 
 ```jsx
 arr.at(-1) 
@@ -999,14 +968,6 @@ arr.at(-1)
 .sort()
 .reverse()
 ```
-
-**Custom Sorts `sort(callback)`**
-- `cb(a,b)` -> elements being compared ; must return `Number`
-- If return > 0, then **a is bigger** and sorted behind.
-- *random sort* : return `0.5 - Math.random()`
-
-**Iterative methods**
-signature : `fn(cb,thisArg)` ; for each element & index, executes cb.
 
 ```jsx
 arr.forEach(cb)
@@ -1117,162 +1078,4 @@ myreg.exec("cdbbdbsbz") //lastIndex : 0
 
 /d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5
 /d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5 ; different literal 
-```
-
-
-## Output Based
-
-When math/logical operations are done on different types, they are coerced to PRIMITIVE (first default, then number, then string)
-
-```js
-null + 2 == 2  ; '3' > 2 //true
-[] == true // false ; [] --> '' --> 0 ; true --> 1 
-NaN ** 0 === 1
--'34'+10 // -24
-+'dude' //NaN
-
-(1+2, 3+4) //7
-```
-
-### typeOf
-
-```js
-typeof Date; // "function"
-typeof variable; // "undefined"
-typeof document.all // "undefined"
-typeof NaN // 'number'
-
-var y = 1, x = y = typeof x // 'undefined' ; = is evaluated RtL
-typeof [] // 'object' ; to check array use Array.isArray([])
-
-//truthy objects
-new Boolean(false) ; new String('')
-```
-
-```js
-(2+undefined) == NaN //false NaN != NaN
-isNaN(undefined) //true ; coerce to numbe
-Number.isNaN(undefined) //false ; No coercion
-```
-
-```js
-String(val) or '' + val //’undefined’, ‘null’, 'funct...'
-String([1,[[[2]]]])  // '1,2'
-
-'box' > 'adam' == true //b after a
-
-Math.max([2,3,4,5]); // NaN
-Math.max.apply(null, arr); //max of array
-```
-
-```js
-3 instanceof Number //false
-2 in [1,2] //false ; checks property (in array; props are '0' , '1')
-```
-
-### Hoisting
-
-How to solve?
-* check all declarations (func, var) and hoist names
-* overshadow same names and assert
-
-```js
-console.log(a); //error
-function foo() { console.log(a,c) } // 'a' undefined
-let a = "a"; foo(); 
-var c = "c"; 
-```
-
-```js
-var foo = 'outside'; 
-function logIt() { console.log(foo); var foo = 'inside'; } 
-logIt(); //undefined <-- value is not hoisted ; shadowing
-```
-
-### Closures
-
-```jsx
-obj = {
-  getThisGetter() {
-    return () => this;
-  },
-};
-fn = obj.getThisGetter(); // fn is arrow, fn() == obj
-hof = obj.getThisGetter ; // hof is non-arrow, hof()() === window  
-```
-
-### OOPs
-
-```js
-var obj1 = { price: 20.99, get_price : function() { return this.price; } }; 
-
-var obj2 = Object.create(obj1); 
-delete obj2.price; 
-console.log(obj2.get_price()); // 20.99 ; from the Prototype chain, gets obj1 price
-```
-
-```js
-var obj1 = { value: "1"}, obj2 = { value: "2"}
-
-!function(x, y) {
-    x = y;
-    y.value = "3"
-}(obj1, obj2)
-
-console.log(obj1);//{ value: "1" } ; x is variable ; not object 
-console.log(obj2);// { value: "3"} ; pass by reference
-```
-
-### Timers
-
-```js
-for(var i = 0; i < 10; i++)
-    setTimeout(function() { console.log(i) }, i); //immediately prints 10 times 10
-
-//to fix
-for(var i = 0; i < 10; i++)
-    setTimeout(console.log.bind(console, i), i * 1000);
-```
-
-Reason : `setTimeout` is executed when current call stack is over (loop finishes). However, anonymous functions keep a reference to i by creating a closure. Value i has been set to 10 after loop's end.
-
-```js
-function printNumbers(from, to, delay = 1000) {
-  for (i = from; i <= to; i++)
-    setTimeout(console.log, delay, i);
-}
-
-printNumbers(1, 5); // 1sec delay --> immediately output 6 6 6 6 6 
-//var i is func scoped so callbacks refer 6 at end of script
-```
-
-### Promises
-
-```jsx
-var a = Promise.resolve(1), b = Promise.resolve(a), c  = Promise.reject(a);
-
-b.then(console.log)  //1
-c.catch(console.log)  //Promise {1} ; no unwrapping
-```
-
-```jsx
-// 1 step in resolution require 1 tick
-
-var a = Promise.resolve('a') // resolved
-var a2 = new Promise( rs => rs(a)); //not yet (on next tick)
-var a3 = Promise.resolve(a) // resolved ; returns a
-
-a2.then(() => alert('a2'))
-a3.then(() => alert('a3')) 
-// a3 a2
-```
-
-```jsx
-let p = Promise.reject('why');
-setTimeout(
-	() => p.catch(() => alert('caught')), //new task
-	1000);
-window.addEventListener('unhandledrejection', event => alert(event.reason));
-
-//why -> 1s -> caught
 ```

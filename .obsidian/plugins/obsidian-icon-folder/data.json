@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiSpeech",
       "LiScroll",
       "LiPalmtree",
       "LiCroissant",
-      "LiCog",
-      "LiHexagon"
+      "LiCog"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -44,5 +44,6 @@
   "TBD/Design Patterns.md": "LiShieldMinus",
   "TBD/GSAP.md": "LiWand",
   "TBD/Python Notes.md": "LiSnail",
-  "TBD/Installation.md": "LiDownload"
+  "TBD/Installation.md": "LiDownload",
+  "Printed/Output LLD.md": "LiSpeech"
 }
