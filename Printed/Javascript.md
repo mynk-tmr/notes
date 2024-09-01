@@ -193,6 +193,26 @@ let isRead = Symbol("isRead");
 messages[0][isRead] = true;
 ```
 
+
+**Regular Expressions** -> considered objects of `RegExp` class. 
+* if `/g or /y` flags, they are **stateful** , ie., store `lastIndex` of matched string (in 1-based index)
+* 2 methods => `test` and `exec`, which check only 1st match ; but in stateful objects, advance past previous match
+* **`reg.exec('pattern')`** returns `[fully_matched_string, ...group_matches]`
+* **`reg.test('pattern')`** : true/false
+
+To get indices of match
+```js
+regex3.exec("foo bar foo").indices[0]
+```
+
+**Group capture**
+```js
+str.replace(/(-)(\w)/g, "$2$1") //swap
+
+str.replace(regex, (full_match, ...groups) => {}) // replace full-match with return
+```
+
+
 **THIS keyword** 
 `this` refers to current execution context of function or script. It is an object and depends on how function is called.
 * **object literals** : inhertied from enclosing context (scope)
@@ -565,8 +585,8 @@ NOTES
 
 **Generator Functions**
 * can **pause** and don’t follow run to completion. 
-* Only `*f` can pause itself with `yeild` and only its **own generator object** can resume it with `next()`
-* It is a control + communication mechanism. `*f` once returns, is marked complete
+* It has a control + communication mechanism. Only `*f` can pause itself with `yeild` and only its **own generator object** can resume it with `next()`
+*  `*f` once returns, is marked complete
 
 ```jsx
 function* f() {
@@ -601,7 +621,7 @@ function* outerGenerator() {
 - async iterators allow us to process a stream of generating data chunk by chunk.
 
 **Iterables**
-- objects that iterators can iterate upon. They implement `[Symbol.iterator]` and return iterator
+- objects that `Iterators` and `for of` can iterate upon. They implement `[Symbol.iterator]` and return iterator
 - a iterator can become iterable (return `this` in `Symbol..`) e.g. generator object
 - Arraylike have index and length but aren't always iterable
 
@@ -623,6 +643,14 @@ Array.from(obj, ^mapFn, ^thisArg) // convert iterables/arraylikes
 	* callback signature : `cb(a,b)` elements being compared ; must return `Number`
 	* If return > 0, then **a is bigger** and sorted behind.
 	- *random sort* : return `0.5 - Math.random()`
+- **Map, Filter, Reduce** : 
+	- `map` : creates a new array from return values of callback
+	- `filter`: returns array having items for which callback returned true
+	- `reduce()` reduces array to a single value by executing a callback for each element and passing the return of previous callback into next call
+
+```js
+callback_for_reducer(acc,curr,currindex, org_arr) {}
+```
 
 **Callbacks**
 * fundamental async pattern in JS. It is a function that event loop "calls back" into stack at a **later** time.
@@ -934,7 +962,7 @@ dog.hasOwnProperty("type")
 ```
 
 
-**Arrays**
+**Array MEthods**
 ```jsx
 box2 = Array.of(9.3); // 1 element 9.3
 box.length = 5 ; // truncate array , 0 empties it
@@ -948,9 +976,7 @@ fish = [1, ,3];  //length 3
 fish = [ ,2,3, ]; // length 3 [last comma ignored]
 ```
 
-```jsx
-arr.at(-1) 
-
+```js
 //search, optional fromIndex which supports negatives 
 `pos` indexOf(val) , lastIndexOf(val) 
 `bool` includes(val) //-ve fromIndex treated as a[0] to a[-i]
@@ -958,49 +984,27 @@ arr.at(-1)
 `DONT MODIFY ORIGINAL`
 .join('*') //stringify
 .slice(start, ^end_excl)
-.concat(...args) //args appended
+.concat(...args) 
 .flat(2) // lowers dimensionality by 2 
 
 `MODIFIERS`
 .pop()  .shift() 
 .push(...val) .unshift(...val) //new_size
-.splice(start, 4,...newEle) //return deleted
+.splice(startIdx, 4,...newEle) //return deleted
 .sort()
 .reverse()
+
+//ITERATIVE METHODS
+.forEach(cb) .flatMap(cb) // map then flat 1
+.find(cb) .findLast(cb) //first item for which callback returned true.
+.findIndex(cb) .findLastIndex(cb)
+.every(cb) // returns TRUE if callback returned true for every item
+.some(cb) //  ...... for 1 item
 ```
 
-```jsx
-arr.forEach(cb)
-.map(cb) //array of callback’s return values
-.flatMap(cb) // map then flat 1
-.filter(cb) // array of items for which callback returned true
-.reduce(cb, initval) // return of final callback
-.reduceRight(cb, initval) //starts from last element
-
-itm .find(cb) //first item for which callback returned true.
-itm .findLast(cb)
-pos .findIndex(cb) 
-pos .findLastIndex(cb)
-bool .every(cb) // callback returned true for every item
-bool .some(cb) //  ...... for 1 item
-
-//setup reducer
-cb(acc,curr,currindex, org_arr) { 
-	return x; //if no initval, 1st ele -> acc, 2nd ele -> curr
-}
-```
-
-`.reduce()` reduces array to a single value by executing a callback for each element and passing the return of previous callback into next call
-
- [typed array guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Typed_arrays).
-
-## Number
-
+**Number Class**
 ```js
-Number.MAX_VALUE;
-Number.MIN_VALUE;
-Number.POSITIVE_INFINITY;
-Number.NEGATIVE_INFINITY;
+Number.MAX_VALUE; Number.MIN_VALUE; Number.POSITIVE_INFINITY; Number.NEGATIVE_INFINITY;
 
 //Static methods
 Number.parseInt(num, radix) //returns integers, based to radix. 
@@ -1012,15 +1016,14 @@ Number.isInteger(num)  // type integer
 //Round/Floatise a number
 num.toFixed(2) // 2 decimals
 num.toPrecision(3) //3 digits
-num.toExponential(decimals_in_coeff) //coeff * 10^n where 1≤coeff<10
 ```
 
-## String
 
+**String in-built Methods**  : all are case-sensitive by default
 ```js
 str.concat(...args) 
 str.trim() , trimStart(), trimEnd() //remove whitespaces
-str.padStart(4, “de”), padEnd() // dede<str>
+str.padStart(4, “de”), str.padEnd() // dede<str>
 str.repeat(N) //string copied N times
 
 //char related
@@ -1028,54 +1031,186 @@ str[4]    //undefined
 str.charAt(4) // ''
 str.charCodeAt(4) //UTF-16, NO match - NaN
 
-String.fromCharCode(...unicodes) //returns a concat string from unicodes
+String.fromCharCode(...unicodes)
+utf_str.normalize() // converts to normal string
 
-utf_str.normalize() // converts to normal string. e.g. "\u5043\u3422\u4722" becomes some readable text
+.startsWith(substr)
+.includes(substr, check_from)
+.indexOf(substr, check_from) .lastIndex0f()
 
-//Search Methods — all are Case-Sensitive by default.
+.search(/regex/) // pos or -1
+.match(/regex/) // Array of matches or null
+.split(/regex/) // splits string into array of non-matched substrings
 
-[bool] startsWith(substr, check_upto) or endsWith()
-[bool] includes(substr, check_from)
-[pos] indexOf(substr, check_from) or lastIndexOf() //reverse search
-[pos] search(/regex/) //string arg -> regex
-[arr or null] match(/regex/) //array of matches
-[arr] split(/regex/) //array of non-matches (default : arr[0] =str)
-
-// String Extraction 
-replace(/regex/, inserted) //first match replaced (unless /g)
-slice(0,8)  // 0-7 returns '' if  +end < +start
-substring(0,8) //0-7 -ve indices treated as 0; if end < start, it swaps args
-substr(0, 4) //4 length
+.replace(/regex/, mystr) .replaceAll()
+.slice(0,8)  .substr(start, length)
 ```
 
-## RegExp
+**TypeScript Basics**
 
-```js
-const regex1 = /ab\\+c/g; // treat + as '+'
-const regex2 = new RegExp("a(b\\+)c", "g"); // flags are immutable
+```ts
+//type alias --> name for any type
+//interface --> like type alias but extensible
+type User = { id: number; }
+interface User { id : number;}
 
-//2 methods [return after first match]
-regex2.exec("dyab+c83") ///["ab+c" , "b+"] [fullMatch, ...groupMatches] 
-regex2.test("dyab+c83") //true
+//type annotations
+let a : string, b : boolean;
+let nums : number[] = [1,2,4]
+let dim : number[][][]
 
-//return range of matches
-const regex3 = /foo/dg; //d flag 
-regex3.exec("foo bar foo").indices  // [[0,3]]
-regex3.exec("foo bar foo").indices  // [[8,11]] ; stateful
+//literal types
+let a : number | "NIL";
 
-//group capture & replace
-str.replace(/(-)(\w)/g, "$2$1")
-str.replace(regex, (full_match, ...groups) => 
-  groups[1].toUpperCase())  //on hit, curr replaced with returned val
+//nullish are considered subtypes of all types
+let a : number = null //correct
+
+//type inference by ts compiler
+let a = 1; 
+
+//never returns or property is never present in type
+type Tree = {flesh: never}
+
+//functions
+let getFavoriteNumber = async () : Promise<number> => 28; 
+
+//Optional & Default params
+function fn(x? : number = 10) {}
+
+//makes a value as read-only.
+type User = { readonly id : string }
 ```
 
-Regex objects (with /g or /y) are stateful , ie., store `lastIndex` of matched string. **exec** and **test** advance past previous match.
+**Type assertions** --> to convert less specific to more specific type
+```ts
+let x = y as string;
+ele!.focus() //non-null assertion
+```
 
-```jsx
-myreg = new RegExp("d(b+)d", "g")
-myreg.exec("cdbbdbsbz") //lastIndex : 5 ; li is 1-based
-myreg.exec("cdbbdbsbz") //lastIndex : 0
+**Intersection** types (formed by combining types)
+```ts
+type Cat = { name : string}; type Domestic = {owner : string}
+let kitty : Cat & Domestic
+```
 
-/d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5
-/d(b+)d/g.exec("cdbbdbsbz") // lastIndex : 5 ; different literal 
+**Union** types : can be one of any operand types. We can refine them with **type narrowing**  
+```ts
+let x : boolean | string
+if(typeof x == "boolean") x = !x
+instanceof //another check
+```
+
+**`tuple`** -> typed array with a pre-defined length and types for each index.
+```ts
+let p : [string, number]
+```
+
+**`interface`** -> defines shapes of objects, classes and functions. They are extensible. 
+
+**Declaration merging :** compiler merges two separate declarations with same name into a single definition. (interface, namespace)
+
+`const` --> tells compiler to infer most narrow type
+```ts
+[k, v] as const 
+```
+
+`declare` -> specifies a type to an already existing variable
+```ts
+declare function foo(x : number) : string ;
+```
+
+**Enums** : allows for creating a value which could be one of many named constants. 
+```ts
+enum E { A, B} //E.A = 0 E.B = 1
+type X = E.A
+//to change default numbering
+enum E {A=5, B} //5,6
+```
+
+**Generics :** create reusable types that can work with many types. They treat types as slots
+```ts
+interface Addfn<T, U, X> {
+	(x : T, y: U) : X
+}
+```
+ 
+**Namespace** : to encapsulate types of functions, classes and objects that share common relationships.
+```ts
+declare namespace D3 {
+	export interface drawRect(x: number, y: number) : void;
+	//export is needed to access it outside
+}
+
+//usage
+class Rectangle implements D3.drawRect {}
+```
+
+**Decorators** : to add features to functions. They run before any field initialisation. Their return replaces original function
+```ts
+//add logger
+function log<T, P>(fn: T, context: ClassMethodDecoratorContext) {
+    return function(this, ...args: P) {
+        console.log("Entered "+ context.name)
+        return fn.call(this, args)
+    }
+}
+@bound @log greet() { } //log runs first
+```
+
+
+**Utility types :** facilitate common type transformations.
+```ts
+//to mock async wait
+type A = Awaited<Promise<string>>
+
+//to make a type with ALL properties of type Todo
+const todo: Partial<Todo> = {text : 'hello' } //optional
+Required<Todo> //required
+Readonly<Todo> //good for Object.freeze()
+
+//to define object type of specific Keys and their values
+Record<Keys, Type>;
+type CatName = "miffy" | "boris" | "mordred"; 
+type CatInfo = { age: number;    breed: string;  }  
+const cats: Record<CatName, CatInfo> = {    
+	miffy: { age: 10, breed: "Persian" }
+}
+
+//to make a type by picking keys from Type
+Pick<Type, Keys>;
+type Todo3 = Pick<Todo, "title" | "completed"> //picked them
+
+//to omit
+Omit<Type, Keys>;
+type Todo2 = Omit<Todo, "done" | "checked"> //omitted them
+
+//to exclude members from union
+Exclude<union, members>; //any union item assignable to members is deleted
+type T2 = Exclude<string | number | (() => void), Function> //T2 = string | number
+
+//to do opposite of exclude
+Extract<union, members>;
+type T2 = Extract<string | (() => void), Function> //T2 = () => void
+
+//Constructs a type by excluding `null` and `undefined`
+Nonnullable<T>;
+
+//Constructs a type from a function type
+Parameters<FnType>; //from params, if multiple -> returns tuple
+ReturnType<FnType>; //from return
+InstanceType<FnType>; //type of object returned by constructor Fn
+ThisParameter<FnType>; //type of this (or unknown)
+OmitThisParameter<fnType>;
+```
+
+For strings
+```ts
+UPPERCASE<strtype> ; //also lower, capitalise,
+```
+
+template literals
+```ts
+type Vertical = 'top' | 'bottom' | 'center'
+type Horizontal = 'left' | 'right' | 'center'
+type Position = Exclude<`${Vertical}-${Horizontal}`, 'center-center'>
 ```

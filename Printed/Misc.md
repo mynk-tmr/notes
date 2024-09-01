@@ -306,3 +306,52 @@ Features of Client-side web APIs
 - **Fixed recognizable entry points.** e.g in Web Audio API — it is the `AudioContext` object. In DOM API, it is Node object
 - Use of **events** to handle changes in state
 - **Security mechanisms** where appropriate
+
+##### Model View Controller
+- An architectural pattern which aims to separate app into 3 main logical components
+- **Model** manages data and business logic. When data state changes, it notifies *View* to update UI or *Controller* if update needs extra logic to occur
+- **View** handles display of data to user (templating / rendering)
+- **Controller** routes commands to model and view when requested by client
+
+##### Basic Server
+- A server using HTTP is called **web server.**
+- Server runs a **web application** that contains logic about how to respond to requests based on `routes` (`http-verb+uri`). Each `route` can have one or many request `handler` functions.
+- A **Web API** is collection of *endpoints* and the *resources* they expose. It is defined by requests it handles and responses it gives eg. `get/users/` having endpoints `/:id` or `/:type`
+
+##### Single Page APP
+- A single webpage sent by server that makes _incremental_ updates to itself over user session
+- It performs _client-side routing_ to eliminate the need to fetch new pages from server and avoid costly repaints
+- CSR enables developers to manipulate *history* stack without making a document request to the server.
+
+##### Progressive web Apps
+- web apps built and improved with modern APIs to enhance UX.
+- Benefit : with a single codebase, we can utilise broad reach of web apps and rich capabilities of platform-specific apps
+
+##### Server Components 
+- allow you to write UI that can be rendered and cached on server.
+- 3 server rendering strategies: static, dynamic, streaming
+- Benefits
+	- Data Fetching in secure & low latency manner
+	- caching rendered output 
+	- performance : moving non-interactive UI to server, means smaller bundle is sent to client
+	- First Contentful Paint (FCP) is fast, SEO is better
+
+##### API 
+- interface or standard of communication between softwares
+- Types of API
+	- **Remote APIs** : interact via network and manipulate resources on network.
+	- **Web APIs** : remote API based on http protocol. 
+	- **Local APIs** : to get local middleware services
+	- **Program APIs** : makes a remote program appear to be local by making use of RPCs (Remote Procedural Calls). 
+- Server-side APIs
+	- **REST**
+		- a *architectural* system based on HTTP response/request cycle.
+	- **GraphQL
+	    - a query language and server-side runtime.
+	    - gives clients exactly the data they request and no more.
+	    - can pull data from multiple sources in a single API call.
+
+##### Web Sockets
+- provides full-duplex channels(=bidirectional) over a single *TCP* connection. 
+- differs from HTTP — gives a **persistent connection** that **both parties can use** to send data at any time.
+- connections begin with a **handshake** to upgrade to bidirectional mode. 

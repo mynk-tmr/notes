@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiSoup",
+      "LiAtom",
+      "LiBrainCog",
       "LiSpeech",
-      "LiScroll",
-      "LiPalmtree",
-      "LiCroissant",
-      "LiCog"
+      "LiScroll"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -29,21 +29,20 @@
   },
   "Printed/CSS.md": "LiScissors",
   "Printed/Tools.md": "LiPenTool",
-  "Printed/Web Concepts.md": "LiWebhook",
   "Printed/Javascript.md": "LiScroll",
   "Printed/OOPs.md": "LiCookie",
-  "Printed/TypeScript.md": "LiType",
-  "Printed/REACT.md": "LiPersonStanding",
   "Printed/Misc.md": "LiRepeat",
-  "Printed/Databases.md": "LiLeaf",
   "Printed/Web APIs.md": "LiMessageCircleCode",
   "Printed/HTML DOM.md": "LiPalmtree",
-  "Printed/Core Web Vitals.md": "LiCog",
   "TBD/NextJS.md": "LiVegan",
   "TBD/CheatSheets.md": "LiHexagon",
   "TBD/Design Patterns.md": "LiShieldMinus",
   "TBD/GSAP.md": "LiWand",
   "TBD/Python Notes.md": "LiSnail",
   "TBD/Installation.md": "LiDownload",
-  "Printed/Output LLD.md": "LiSpeech"
+  "Printed/Output LLD.md": "LiSpeech",
+  "Printed/Optimisations.md": "LiCog",
+  "Printed/Extra Topics.md": "LiBrainCog",
+  "Printed/ReactJS.md": "LiAtom",
+  "Printed/Project-Based.md": "LiSoup"
 }

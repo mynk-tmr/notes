@@ -127,6 +127,9 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 **Small Hacks**
 ```js
 Math.max.apply(null, arr); //max of array
+
+//snake case to camel case
+str.replace(/(-)(\w)/g, (full_match, ...groups) => groups[1].toUpperCase())
 ```
 
 **Partialiser**
@@ -217,15 +220,13 @@ function() {
 
 ## Currying
 
-**sum(1)(3)(6)**
+**sum(1)(3)(6)()**
 ```js
-function sum(...args) {
-    let inner = (...more) => sum(...args,...more)
-    inner.toString = () => args.reduce((a, b) => a+b) //total 
+function sum(a) {
+    let inner = (b) => b === undefined? a : sum(a+b)
     return inner;
 }
 ```
-
 
 ## MNCs
 

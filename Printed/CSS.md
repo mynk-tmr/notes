@@ -9,7 +9,7 @@ selector {
 ```css
 /* css units */
 integer , number (2.3) , length (2.3vh), % (of parent)
-angle (90deg or 0.25 turn)
+angle (90deg or 0.25turn)
 color (hex, rgb, hsl)
 image -- url('path'), *gradient , image-set('one.ico' 1x, 'two.ico' 2x)
 position -- top, left, 100px etc. (center is default)
@@ -18,7 +18,7 @@ string -- `hello`
 ```
 
 Absolute units : always same in any context, since they have fixed base
-Relative units : relative to something else, so base changes
+Relative units : relative to something else, so changes based on context
 
 ## Cascade and Specificity
 
@@ -85,8 +85,6 @@ _Grid_ concepts :
 - `p:has(.red, #ouch)` --> match p if it has a *descendant* with .red or # ouch
 - `p:where(s1,s2)` --> like is() ; but 0 specificity ; others compute to most specific arg
 - `p:not(s1,s2)` --> not all of them
-- `p::part(foo)`  --> match p shadow DOM with part="bye foo bar"
-- `p::slotted(span)` --> p with a span in slot shadow dom
 
 ## Normal Flow & Box Model
 
@@ -108,49 +106,121 @@ _Grid_ concepts :
     - appear on same line, unless content overflows or is too big.
     - their size = content. They can wrap around other elements.
     - Don’t respect WH
-    - MBP will apply but only **Left and right** will **push** other elements and content.
+    - MBP will apply but only **Left and right** will **push** other elements.
 ##### Out of flow
 - when ele is not `display: block or inline` , is `fixed, absolute, float, multi-col, table-cell`
 - Creates a new **Block Formatting Context (BFC)** (inner layout) separate from rest of page. 
 - `<html>` is out of flow and creates BFC for document
-- `flow-root` gives container its new BFC
+- `display : flow-root` gives container its new BFC
 
-## Layout and Spacing
-
-#### Logical Properties & Values
-- lets us control layout based on **writing** mode.
+**Logical properties** lets us control layout based on **writing** mode.
 - `-inline-` : dimension parallel to text flow 
 - `-block-` :  perpendicular to text flow 
-- `start` : instead of *left*, `end` : instead of *right* like in `text-align`
-- `inset` , `inset-block`, `inset-inline`
+- positions : `start` `end` `inset` , `inset-block`, `inset-inline`
 
-#### Margin Collapsing
-Only applies in `normal flow` and to `block` margins that are `touching`
+**Margin collapsing**: Only applies in `normal flow` and to `block` margins that are `touching`
 - + margins — use largest
 - - margins — next sibling overlaps previous by larger (absolute) of 2.
 - A positive B negative — A + B ; if -ve ; next overlaps previous
 - No collapse if `<br/> <hr/>` `overflow:` set
 - `display: flow-root`, child's margins expand container's *border box* and never leaks out
 
-#### Stacking Context
-- each HTML element has its own and decides how its children are stacked in z-axis within it
+**Stacking Context**
+- each HTML element has its own and decides how its children are stacked in z-axis
 - default `z-index : auto or 0`.  
 - To change `z-index` of child, take it out of flow OR place it on a new layer with `opacity`, `will-change` , `transform` 
 - `<select>` is always at top
 
-## Reference
+**CSS Positions**
+* `static`  normal flow; no top-left support
+* `relative` normal flow ; re-position wrt itself
+* `fixed` removed from flow; place at (0,0) of viewport. Position wrt viewport
+* `absolute` like fixed but w.r.t non-static ancestor container
+* `sticky` static, until touches edge, then becomes absolute, requires top be set
+* `will-change : transform` to improve sticky/absolute repaint
+
+**Transitions**
+- provide a way to control animation when changing CSS properties.
+- Events  (animations like): 
+	- `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
+	- `transitionend` event is fired in both directions (to & back)
+	- Properties `propertyName`, `elapsedTime` (from start) and `pseudoElement` e.g. '::before'
+	- Using animations with `auto` may lead to unpredictable results
+
+Tips
+- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
+- use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
+```css
+div {  
+	transition: width 2s linear 1s; /* prop dur timing delay */
+	transition: width 5s, height 2s, transform 9s; 
+}
+```
+
+**Animations**
+- Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
+- `@keyframes` provides transition states and browser does interpolation.
 
 ```css
-.LENGTHS {
-	width: 
-		cm mm pt /*print*/ 
-		em /* % of parent fsz (for font* props only)*/
-		rem /* % of root's fsz */
-		vh, vw, vmin  /* % of viewport's dim */
-		min-content /* = widest child/word */
-		max-content /* = enough to hold children/words */
-		fit-content /* = clamp b/w min & max */
+@keyframes example {  
+	from {background-color: red;}  
+	to {background-color: yellow;}
+	}
+
+div {  
+	animation: example 5s linear 2s infinite alternate;
+	/* duration, timing-function, delay, iter-count, direction */
 }
+
+div {
+	animation-direction: 
+		normal /* play forward */
+		reverse
+		alternate
+		alternate-reverse;
+
+	animation-timing-function : ease-in; /* specifies the speed curve */
+	animation-fill-mode: forwards; 
+		/* specifies a style when animation is not playing (before it starts, after it ends, or both).	
+	`forwards` - retain style set by last keyframe */
+}
+```
+
+**2D transformations**
+```css
+div {
+	transform : scale(1, 0.3);
+	transform-origin : center;
+	transform:
+		matrix(n,n,n,n,n,n)	/* defines a 2D transformation */
+		translate(x,y) translateX(n) translateY(n)
+		scale(x,y) /* changes w,h */
+		rotate(angle)
+		skew(x-angle, y-angle)
+}
+```
+
+**3D transformations**
+```css
+div {
+	transform-style: preserve-3d; /* child elements will preserve 3D position */
+	perspective: 100px ; /* defines how far child elements are away from user. lower value --> more intensive 3D effect */
+	perspective-origin: left; /* position from where user is looking */
+	backface-visibility: hidden; /* hide object when it's not facing user */
+	transform: 
+		matrix3d()
+		translate3d() scale3d() skew3d() rotate3d() perspective()
+}
+```
+
+
+```js
+em // % of parent's font
+rem // % of root's font
+vh, vw, vmin  // % of viewport dimensions
+min-content // widest child/word
+max-content // enough to hold children/words 
+fit-content // clamp b/w min & max
 ```
 
 ```css
@@ -175,84 +245,42 @@ Only applies in `normal flow` and to `block` margins that are `touching`
 		calc(10% + 2px)
 		min(5vw, 100px, 7%) /*& max */
 		clamp(30px, 12%, 100px)  
-		url('path/to'); /* cursor, filter, *-image, *-path  */	
-
-	width: env(title-area-bar); /* user-agent vars 
-		requires <meta name="viewport" content="viewport-fit=cover" />
-	*/
+		url('path/to');
 }
 ```
 
 ```css
-/*PSUEDO CLASSES & ELEMENTS */
-:root
-div:only-child
-div:only-of-type
+div:only-child div:only-of-type
 div:empty /* (whitespace allowed) */
 div:nth-child(3n+2) /*every 3rd child starting from 2*/
-div:fullscreen
-div:modal
-div:picture-in-picture
-div:playing
-div:paused
-div:hover 
-div:active 
-div:focus-visible 
-div:focus-within /* even if any child is focused */
-div:lang(en)
-div:dir(ltr)
-a:visited 
-a:link 
-p:target  /* select p when <a> directs user to p */
+
+div:fullscreen div:modal div:picture-in-picture div:playing div:paused video::backdrop 
+
+div:focus-visible  div:focus-within /* even if any child is focused */
+div:lang(en) div:dir(ltr)
+
+a:visited a:link  p:target  /* select p when <a> directs user to p */
 p:target-within  /* even if directed to any child in it */
 
-div::before,
-div::after {
+div::before, div::after {
   content: url() / 'error'; /* img with alt */
-  display: block;   /* to add w/h */
 }
 
-video::backdrop
-div::first-letter
-div::first-line /* only on block */
-span::selection /* selected span */
-li::marker {
-  content: '%'; /* can be animated */
-}
+div::first-letter div::first-line span::selection 
+
+li::marker { content: '%'; }
 ```
 
-```css
-/* COUNTERS */
-div::after {
-  counter-reset: popo; /* create/reset popo */
-  counter-increment: popo; /* +1 */
-  content: counter(popo); /* 1 */
-  content: counters(popo, '.');   /* 1. */
-}
-```
 
 ```css
-.POSITIONS {
-  position: static; /* normal flow; no top-left support*/
-  position: relative; /* normal flow ; re-position wrt itself */
-  position: fixed; /* removed from flow; position fixed at viewport */
-  position: absolute; /*like fixed but fixed inside non-static ancestor container*/
-  position: sticky; /*static, until touches edge, then becomes absolute, requires top be set */
-  will-change: transform; /* improves sticky/absolute repaint */
-}
-```
-
-```css
-.FLEX_LAYOUT {
-	flex-direction: column-reverse; /* set main axis */
-	flex-wrap: wrap;
+#parent {
+	flex-direction: row; /* set main axis */
 	justify-content: start; 
 	align-items: stretch; /* items in row */
 	align-content: end; /* ROWS */
-	place-content: end center;  /*AC JC*/
 }
 
-.CHILD_PROPS {
+#child {
 	flex-basis: 100px; /* init main-size; Growth/shrink will be next. */
 	flex-grow: 1.2; /*growth factor, ratio of empty space to add  */
 	flex-shrink: 0; /* shrink factor, ratio of -ve space subtracted */
@@ -263,8 +291,8 @@ div::after {
 ```
 
 ```css
-.GRID_CONTAINER {
-  grid-template-rows: 1fr auto fit-content(100px) clamp();  /*1fr 1fr = 50%:50% of free space */
+#parent {
+  grid-template-rows: 1fr fit-content(100px);  /*1fr 1fr = 50%:50% of free space */
   grid-template-columns: [first] 10px [second] 20px [last];
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
     /* make 100px cols w/o overflowing ; fill them with children  */
@@ -275,35 +303,28 @@ div::after {
 
   /* implicit tracks */
   grid-auto-columns: 60px; /* def: 100% */
-  grid-auto-flow: dense; /* backtrack to fill empty holes */
+  grid-auto-flow: columns;
 }
 
-.GRID_CHILD {
+#grid {
   grid-row: 1/-1; /*start, end*/
   grid-row: first / last;
   grid-column: 1 / span 3; /* from line-1, span 3 cols ; also = span 3 / 4 */
-
   place-self: end center; 
-  justify-self: end; /* inline */
-  align-self: first baseline; /* block ; use baseline from first/last line */
-
   order: -1; /* place at 1st cell (default is 0 for all) */
 }
 
-.USING_TEMPLATE_AREAS {
+#templating {
   grid-template-areas:
     '.      top top' 
-    'aside main main' 
-    'footer ' ; 
-  .CHILD {
-    grid-area: top; /*identifier*/
+    'aside main main';
+  & child {
+    grid-area: top; 
   }
 }
 ```
 
 ```css
-/* 5 generic fonts: serif, sans-serif, monospace, cursive, fantasy */
-
 .TYPOGRAPHY { 
   font-family: system-ui, "Roboto", sans-serif, "Apple Color Emoji"; 
   font-size-adjust: 0.5; /* make font-swap better if fallback */
@@ -414,83 +435,5 @@ div::-webkit-resizer /* resize arrows */
   border-radius: 15px 30px 15px 30px;  /*set clockwise*/
   background-position: -75px 0; /* multiple imgs from a sprite, by changing X pos  */
   border-image: url(border.png) 30 round; /*https://www.w3schools.com/css/css3_border_images.asp*/
-}
-```
-
-## Animations and Transitions
-
-##### Animations
-- Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
-- `@keyframes` provides transition states and browser does interpolation.
-
-```css
-@keyframes example {  
-	from {background-color: red;}  
-	to {background-color: yellow;}
-	}
-
-div {  
-	animation: example 5s linear 2s infinite alternate;
-	/* duration, timing-function, delay, iter-count, direction */
-}
-
-div {
-	animation-direction: 
-		normal /* play forward */
-		reverse
-		alternate
-		alternate-reverse;
-
-	animation-timing-function : ease-in; /* specifies the speed curve */
-	animation-fill-mode: forwards; 
-		/* specifies a style when animation is not playing (before it starts, after it ends, or both).	
-	`forwards` - retain style set by last keyframe */
-}
-```
-
-##### 2D Transformations
-```css
-div {
-	transform : scale(1,0.3); /* applies2D or 3D transformation to element */
-	transform-origin : center;
-	transform:
-		matrix(n,n,n,n,n,n)	/* defines a 2D transformation */
-		translate(x,y) translateX(n) translateY(n)
-		scale(x,y) /* changes w,h */
-		rotate(angle)
-		skew(x-angle, y-angle)
-}
-```
-
-##### 3D transformations
-```css
-div {
-	transform-style: preserve-3d; /* child elements will preserve 3D position */
-	perspective: 100px ; /* defines how far child elements are away from user. lower value --> more intensive 3D effect */
-	perspective-origin: left; /* position from where user is looking */
-	backface-visibility: hidden; /* hide object when it's not facing user */
-	transform: 
-		matrix3d()
-		translate3d() scale3d() skew3d() rotate3d() perspective()
-}
-```
-
-##### Transitions
-- provide a way to control animation when changing CSS properties.
-- Events  (animations like): 
-	- `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
-	- `transitionend` event is fired in both directions (to & back)
-	- Properties `propertyName`, `elapsedTime` (from start) and `pseudoElement` e.g. '::before'
-	- Using animations with `auto` may lead to unpredictable results
-
-[discrete animation type](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties#discrete) : properties will flip between two values 50% into run
-
-Tips
-- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
-- use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
-```css
-div {  
-	transition: width 2s linear 1s; /* prop dur timing delay */
-	transition: width 5s, height 2s, transform 9s; 
 }
 ```

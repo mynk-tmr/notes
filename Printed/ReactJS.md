@@ -1,6 +1,5 @@
 ##### Reactjs
 - A JS library to build web and native UI.
-- Has rich ecosystem which enables us to build full fledged production apps
 - With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
 
 ## JSX (JS XML)
@@ -826,28 +825,46 @@ submit(value, { method: "post", encType: "text/plain" })
 //2nd arg is same as props of `<Form/>`
 ```
 
+## ReactTs
 
-## REDUX
+```ts
+//ISOMORPHIC COMPONENT
 
-3 principles of redux
-- a single *store* (object) holds app state
-- dispatch *actions* to update state, when something happens in app. Created by factories
-- define pure *reducers* for updating state based on actions
+const Text = <E extends React.ElementType = 'div'>(props : TextProps<E>) => {}
 
-Implementing redux store
-- `getState()` to access state
-- `dispatch(actionfn)` for sending action objects
-- `subscribe(listener)` to register and its return to unsuscribe
+type TextProps<E extends React.ElementType> = TextOwnProps<E> & Omit<React.ComponentProps<E>, keyof TextOwnProps<E>>
 
-##### Old way
-```tsx
-const store = createStore(combineReducers(R1, R2))
-const R1 = function(state=initMoney, action) {..}
-const R2 = function(state=initCakes, action) {..}
-
-const unsub = store.subscribe(() => {..})
-
-//to extend redux's functionality, we use Middlewares
-createStore(R, applyMiddleware(logger, asyncThunk,...))
+type TextOwnProps<E extends React.ElementType> = { as? : E, /* rest */}
 ```
 
+```tsx
+//typing events
+e : React.MouseEvent<HTMLButtonElement>
+
+//css type
+React.CSSProperties
+
+//discriminated types
+type UpdateAction = { type: 'up' | 'down' ; payload : number}
+type ResetAction = {type: 'reset' }
+type ReducerAction = UpdateAction | ResetAction
+
+//non-null assertion to skip optional chaining
+useRef<HTMLDivElement>(null!) 
+
+//with class components
+class Button extends Component<ButtonProps, ButtonState> {...}
+
+//restricting props with never
+type MyProp = { children? : never}
+
+//type safety, ...rest support for wrapper components
+//we can use Omit to get better type
+type ButtonProp = {variant : 'red' | 'blue' } & React.ComponentProps<'button'>
+
+//extracting props of a type
+props : React.ComponentProps<typeof Suspense>
+
+//generic props
+const List = <T extends {},>(props : ListProps<T>) => {...};
+```

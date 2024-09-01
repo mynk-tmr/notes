@@ -390,7 +390,6 @@ tr:nth-child(even) {} tr:nth-child(odd) {}
 ```html
 <input type='submit' formaction='Post_to_url'   /> //to override form's action
 <input type='reset'/>
-
 ```
 
 **Datalist tag**
@@ -473,52 +472,38 @@ myform.addEventListener('submit', (e)=>{
 	- `eC.dataTransfer`
 
 
-## DOM
-
-DOM represents content on HTML document as a **hierarchical tree** of node objects.
+**Document Object Model** : represents content on HTML document as a **hierarchical tree** of node objects.
 - **DOM-API** exposes the functionality to change webpage’s content
 - It is cross-platform and language-independent.
 - It is *live data-structure* and updates when changed by JS
 
 DOM basic objects
 - `window` : global object
-- `document` : property of window. Serves as **root** node.
-    - its properties are `documentElement` (html) , `head` `body`
+- `document` : property of window. Serves as **root** node. Its properties are `documentElement` (html) , `head` `body`
 
-#### DOM Datatypes
-```js
-`NODELIST (iterable of nodes)`
-children.length, children[4], children.forEach //live
-
-`HTMLCollection - a live iterable of HTMLElements`
-//returned by -Element- methods
-
-`NamedNodeMap - a live iterable of `Attr` objects mapping element's attributes`
-div.attributes.id.value //or specified 
-
-`DOMTokenList - space separated live classes on element`
-div.classList //get
+`DocumentFragment` interface is a lightweight version of `document`. It is used to compose nodes and inserted as a whole to improve performance
+```jsx
+let fragment = new DocumentFragment();
+fragment.append(eleList)
+div.appendChild(fragment) //append fragment to DOM
 ```
 
-##### Node Codes / Constants
+**DOM Datatypes**
+* **Nodes** : objects that make up DOM tree.
+* **HTMLElement**: a node with a specific node type `Node.ELEMENT_NODE`. It has several subtypes like `HTMLInputElement`
+* **NodeList** : iterable of nodes. E.g. `children` (has `length`)
+* **HTMLCollection** : iterable of HTMLElements. Returned by `document.getElement**` methods
+* **NamedNodeMap**: iterable of `Attr` objects = element's attributes. E.g. `div.attributes.id.value`
+* **DOMTokenList**: set of space separated tokens on attribute. e.g. `div.classList`
+
+**Node Codes/ Constants**
 `1 (Node.ELEMENT_NODE)`
 `3 (Node.TEXT_NODE)`
 `8 (Node.COMMENT_NODE)`
 `9 (Node.DOCUMENT_NODE)`
 `11 (Node.DOCUMENT_FRAGMENT_NODE)`
 
-`DocumentFragment` interface is a lightweight version of `Document`. It is used to compose nodes and inserted as a whole to improve performance
-```jsx
-let fragment = new DocumentFragment();
-fragment.append(eleList) //append to fragment
-div.appendChild(fragment) //append fragment to DOM
-```
 
-##### Node v/s Element
-Node is a generic name of any **object** in DOM tree.
-An element is a node with a specific node type `Node.ELEMENT_NODE`. It has several subtypes like `HTMLInputElement`
-
-##### Node Relationships
 Each node has **6 relationships** (default : null)
 `parentNode` `firstChild` `lastChild` `previousSibling` `nextSibling` `childNodes`
 (with `*Element*` versions )
@@ -526,66 +511,58 @@ Each node has **6 relationships** (default : null)
 - Altering attributes — always use **get** and **set** methods
 - Inserting *multiple nodes* return **undefined** or throw error if insertion fails.  But for 1 node a *reference* to node is returned
 
-##### Altering attributes
+**Altering attributes of Element**
 - standard html attributes -> element properties. Some may type convert
 - Boolean attributes can’t be set to false, they have to be `removeAttribute()`
 
 ```jsx
-getAttribute('id'); //better than div.id
-setAttribute('id', 333); //name is lowercased, string coerced
-removeAttribute('id'); //No error on absent 
-hasAttribute('id')
+getAttribute('id') --> set*, has*, remove*
 
 //styling 
 $ div.style //inline styles object
 $ div.currentStyle // computed styles object
 $ getComputedStyle(div,':hover') 
 
-
 div.className //returns a string of space-separated classes
 div.classList //returns a domtokenlist
 div.classList[2] //get 3rd class
-
-//classlist
-values() //return iterable list of classes
-add('hero', 'mob');                                      
-remove('hero', 'mob'); 
-toggle('active');
-replace('dark', 'light'); // replace dark with light
-contains('hero') // false
 ```
 
-## Event-Handling
+**`div.classList` methods**
+```js
+values() //return iterable list of classes
+add('hero', 'mob') remove('hero', 'mob') toggle('active') replace('dark', 'light')
+contains('hero')
+```
 
-Events are fired to notify **"interesting changes"** that may affect code execution. They may be user-generated (like clicks) or system generated (like low battery). 
+**Event Handling**
+* **Events** are fired to notify **"interesting changes"** that may affect code execution. They may be user or system generated
+* Each event is an **object** that implements **Event interface.** They can be accessed only via listeners
+* An **event target** is any object that can subscribe to an event. It can trigger callbacks (called eventlisteners) upon event.
+* Events happen in **cascade** : a compound event happens after elemental events
+* Event flow has 3 phases 
+	- Capturing phase ⬇️ — event flows down from **root** element to event **target** via branch
+	- Target phase 🎯 — event reaches its target element
+	- Bubbling phase ⬆️ — event flows up from target to root through same DOM branch
 
-Each event is represented by an **object** that implements **Event interface.** They can be accessed only via listeners
-
-An **event target** is any object that can subscribe to an event. It can trigger callbacks (called eventlisteners) upon event.
-
-Events happen in **cascade** : a compound event happens after elemental events
-Event flow has 3 phases 
-- Capturing phase ⬇️ — event flows down from **root** element to event **target** via branch
-- Target phase 🎯 — event reaches its target element
-- Bubbling phase ⬆️ — event flows up from target to root through same DOM branch
-
-##### Event Delegation
+**Event Delegation**
 - a technique which uses **bubbling** to handle event at a Node higher than actual node target
 - Greatly reduces no. of event handlers needed, thus improving memory utilisation and performance
 - wherever possible, attach listeners on `document`
 
-##### Handler Optimisations
-used for rate-limiting the execution of callback to improve performance
-- Given a rapid series of events,
-    - **Debouncing** ensures that callback is executed **only once** by calling it only when time difference between 2 events > max_delay
-    - **Throttling** ensures that callback is executed at **regular intervals** by calling it only when time elapsed since previous callback > max_delay
-- debounce — *search*
-- throttling — *infinite scrolling*
+**Readonly Event properties**
+- `target` — element that triggered event
+- `type` of event that was fired e.g. `‘click'`
+- `currentTarget` — element on which event is currently flowing
+- `detail` more info about the event
+- `eventPhase` — 1 for capturing phase, 2 for target, 3 for bubbling
+- `isTrusted`  — user-generated `true` and for synthetic `false`
+- `timeStamp` — time(ms) when event was created
 
 3 ways to register **event-listeners :**
 - HTML event attributes — `onclick='handler()'`
 - property — `btn.onclick = handler`
-- `.add`
+- `.addEventListener()`
     - can add any number of handlers for a **single** event.
     - works on any event target, even XMLHttpRequest
 
@@ -594,11 +571,7 @@ addEventListener(type, listener, flags)
 //named listeners aren't re-registered. Anonymous do
 
 // default flags
-{ capture : false, 
-	passive : false, 
-	once : false,    
-	signal : null,  
-}
+{ capture : false, passive : false, once : false, signal : null }
 ```
 
 Adding more listeners **inside a listener** doesn’t trigger them during **current phase** of flow
@@ -608,48 +581,40 @@ Adding more listeners **inside a listener** doesn’t trigger them during **curr
 - `stopPropagation()` — stops the event-flow once it has processed all its listeners on **currentTarget** ; works only if `bubbles=true` (default)
 - `stopImmediatePropagation()` stops the event-flow. No other listeners will be called
 
-**Passive Listeners**
-cannot cancel the default handling, so the browser can start it immediately, without waiting for the listener to finish. Will work only when **all listeners** on an event path are passive.
+**Passive Listeners** : cannot cancel default handling, so browser can start it immediately, without waiting for listener to finish. Will work only when **all listeners** on an event path are passive.
 
-**synthetic or custom events**
+**Synthetic or custom events**
 ```jsx
 const event = new CustomEvent("build", { detail: 'hi', bubbles: true});
-
-//send event to element invoking listeners in appropriate order.
 btn.onclick = input.dispatchEvent(event);
 ```
 
-Unlike **"native" async** events, it invokes event handlers _synchronously_ and returns when all of them have executed. `false` if atleast 1 handler used `preventDefault()`, else true.
+**`dispatchEvent`** 
+* unlike **"native" async** events, it invokes event handlers synchronously and returns when all of them have executed. 
+* `false` if atleast 1 handler used `preventDefault()`, else true.
 
-## Reference
-
+**document properties**
 ```js
-window.top //topmost window
-window.parent
-
 document.activeElement //focused
-document.referrer //uri of referrer page
 document.readyState //loading, loaded, completed
-document.styleSheets //iterable stylesheet collection
 document.title 
 document.forms //links, images, etc
-document.importNode(node, deep=true) //clone node+children from another doc
-document.adoptNode(node) //steal node+subtree
 document.createElement('p') //TextNode, Comment
 document.getElementsByName('div') //LIVE nodelist
 document.getSelection().toString() //selected text
 ```
 
-### HTMLElement interface (live)
-
+**HTMLElement Properties**
 ```js
 tagName //uppercase
 innerHTML textContent //markup inside vs. all textnodes in ele+children
 innerText //respect css hidden
+```
 
-//FIND elements
-$q //first matched child
-$qall //static nodelist
+**HTMLElement methods**
+```js
+querySelector //first matched child
+querySelectorAll //static nodelist of matched children
 div.closest('.book') //itself or ancestor closest
 div.matches('.book') //true if this ele matched
 
@@ -684,83 +649,55 @@ div.insertAdjacentHTML(pos, markup)
 'beforeend' 'afterend' // after last child / element
 ```
 
----
-##### Event Object properties
-$ `target` — element that triggered event
-$ `type` of event that was fired e.g. `‘click'`
-$`currentTarget` — element on which event is currently flowing
-$`detail` more info about the event
-$`eventPhase` — 1 for capturing phase, 2 for target, 3 for bubbling
-$`isTrusted`  — user-generated `true` and for synthetic `false`
-$`timeStamp` — time(ms) when event was created
+**Drag & Drop events**
+* 6 events : dragstart > drag > dragenter > dragover > dragleave/drop > dragend 
+* `event.dataTransfer` stores data being dragged. 
 
----
-#### Drag events
-
-`event.dataTransfer` stores data being dragged.
 ```jsx
-dT.setData('text/plain', str) //text/uri-list 
-dT.getData('text/plain'); //str
-dT.setDragImage('hi.png', 50, 50) //cursor at (50,50) inside drag image
-dT.dropEffect = 'link'; //cursor [move, copy, none] ; if none event got cancelled
-[...dT.types].includes("text/html") //false
+dT.setData('text/plain', str)
+dT.getData('text/plain')
+dT.setDragImage('hi.png')
+dT.dropEffect = 'link'; //move, copy, none ; if none event got cancelled
 ```
 
----
-#### Pointer Events
-
-Better since, they are _hardware-agnostic_ and supports mouse, stylus, touch, etc.
-Event flow : `down` `enter` `over` `move` `out` `leave` `up`  ; can `cancel` anywhere
-Others : `got/lost pointercapture` 
-Mouse-only : `click` `dblclick` ; `contextmenu` right-click.
-Notes
-- preventDefault  `down`
+**Pointer Events** :  Better since, they are _hardware-agnostic_ and supports mouse, stylus, touch, etc.
+* Event flow : `down` `enter` `over` `move` `out` `leave` `up`  ; can `cancel` anywhere
+* `enter/leave` do not bubble
+* Others : `got/lost pointercapture` 
+* Mouse-only : `click` `dblclick` ; `contextmenu` right-click.
 - for `move` to work, prevent `ondragstart` and add `touch-action: none` on element
-- `enter/leave` do not bubble
-- `move` fires continously 
-##### Event properties
-- `pointerId` given to **each** finger, stylus, etc during a flow. Starts from 1.
-- `pointerType` (mouse, pen, touch, etc.).
-- `isPrimary` true if primary for given **type**
+
+**Properties of pointer / drag event**
+- `pointerId` given to each pointing device. Starts from 1
 - `button` — 0 to 5 {L,M,R, X1, X2, eraser}
 - `relatedTarget` — element where pointer was previously
-- Modifier keys (**true** if pressed) : `altKey`, `ctrlKey`, `shiftKey` , `metaKey` (ctrl of Mac)
-- `clientX` `clientY` — (x,y) coords of pointer at event [viewport relative]
-- `screenX` `screenY` — for combined screens (many monitors)
+- Modifier keys (**true** if pressed) : `altKey`, `ctrlKey`, `shiftKey` , `metaKey` 
+- `clientX` `clientY` — (x,y) coords of pointer at event (w.r.t viewport)
+- `screenX` `screenY` — for combined screens
 - `pageX` `pageY` — document relative, takes scrolled amount into account
 - `offsetX` `offsetY` — target relative
 
----
-#### Keyboard Events
+**Key events**
+* Shouldn’t be used for inputs. **`Fn key`**— no keyboard event
+* Types
+	- `keydown` – auto-repeats if the key is pressed for long
+	- `keyup` – when released
+- Properties
+	- `code` (location) : `"KeyA"`, `"Digit0"` , `"Enter"`
+	- `key` (interpretation) : `"A"`, `"a"` or same as `code` for non-character keys
+	- Modifier keys `altKey`, `ctrlKey`, `shiftKey` , `metaKey`
+	- `repeat` : **true** if long key press
 
-Shouldn’t be used for inputs. **`Fn key`**— no keyboard event
-Types
-- `keydown` – auto-repeats if the key is pressed for long
-- `keyup` – release [once only]
-Properties
-- `code` (location) : `"KeyA"`, `"Digit0"` , `"Enter"`
-- `key` (interpretation) : `"A"`, `"a"` or same as `code` for non-character keys
-- Modifier keys `altKey`, `ctrlKey`, `shiftKey` , `metaKey`
-- `location` : which **version** of key pressed. [0,1,2,3] → [single key, left one, right one, numpad]
-- `repeat` : **true** if long key press
+**Load Events** : fires on `document.body`
+- `DOMContentLoaded` – DOM built but resources are yet to be loaded. 
+- `load` - when resources are fully loaded. Also fires on any element with resource e.g. img
+- `error` - error while loading
+- `beforeunload` - before page close. In handler, prevent default and set event.returnValue = '"';
 
-----
-#### Load events
-
-**document.body**
-- `DOMContentLoaded` – DOM built but resources are yet to be loaded. `load` happens when resources loaded
-- `resize` —  window is resized.
-- `beforeunload` — before page close ; shows confirm dialog. In handler, prevent default and set event.returnValue = '"';
-Any **element** with resources e.g. img `load` — success `error` 
-
----
 **Full screen and PIP mode**
-
 ```jsx
-document.fullscreenEnabled //true
-document.fullscreenElement; // get element currently in fs mode
-div.requestFullscreen(); //put div is fs-mode
-div.exitFullscreen();
+document.fullscreenEnabled document.fullscreenElement 
+div.requestFullscreen() div.exitFullscreen();
 
 // Similarly for PIP
 pictureInPicture
@@ -778,9 +715,7 @@ document.pointerlockElement //read only getter
 'pointerlockchange' // event associated
 ```
 
----
-#### Dimensions
-
+**Dimensions**
 ```js
 window.
 outerHeight. outerWidth //window
@@ -796,9 +731,8 @@ div.getBoundingClientRect()  // position w.r.t viewport
 // contains top, bottom, left, right
 ```
 
----
-#### Scroll manipulation
 
+**Scrolling elements**
 ```jsx
 window
 .scrollX .scrollY  //amount scrolled
@@ -817,3 +751,4 @@ div.scrollIntoView ({
     inline: 'center' //align to x-edge ("")
 })
 ```
+

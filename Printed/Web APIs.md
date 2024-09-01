@@ -152,45 +152,6 @@ console.timeEnd(bob)  //stop timer and logs it
 console.trace('msg') //stack trace
 ```
 
-## Fetch
-
-A *promise* based API to send/get network resources using http headers
-
-```jsx
-const response = fetch(url, options);
-
-//using constructor
-const heads = new Headers({ "Content-Type": "application/json"})
-const request = new Request(url, heads) //request.url ; request["Cont..]
-```
-
-**Options object**
-- `body: JSON.stringify(data)` 
-- `headers: JSON.stringify(obj)` : set HTTP headers
-- `mode` : origin policy -> `cors`, `no-cors`, or `same-origin`
-- `referrerPolicy` : 
-- `method` : (GET, POST, PUT, DELETE, etc)
-- `cache` : use from cache? `no-cache` `force-cache` 
-- `credentials` : send/get cookies ? -> `omit` `same-origin**` `include` 
-- `signal : ctr.signal`: set abortcontroller
-
-**Headers object**
-- have a _guard_ to prevent malicious changes
-- methods
-	- `.append(key,value)`, Map methods
-	- `.getSetCookie()` : only on nodejs
-
-**Response objects**
-- returned when fetch promises are resolved
-- `res.ok` (t/f) `res.status` (404) `res.statusText` 
-- fetch rejects only when a network error or CORS is misconfigured
-
-```jsx
-//methods on Request and Response to extract body [return Promise]
-// can only run once
-.arrayBuffer() .blob() .formData() .json() .text()
-```
-
 ## LocalStorage, SessionStorage
 
 **Local storage vs. Cookies**
