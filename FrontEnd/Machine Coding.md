@@ -96,10 +96,11 @@ function() {
 
 ## Currying
 
-**sum(1)(3)(6)()**
+**sum(1)(3)(6)**
 ```js
 function sum(a) {
-    let inner = (b) => b === undefined? a : sum(a+b)
+    let inner = (b) => sum(a+b)
+    inner.toString = () => a
     return inner;
 }
 ```

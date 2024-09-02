@@ -372,6 +372,34 @@ Limits of `.assign()`
 * copies **enumerable own** properties only, calls `get()` on sources and `set()` on targets
 * can't copy **accessor** properties
 
+**JSON** is a **text**-based data format following JavaScript object syntax. JSON exists as a **string**. 
+- `JSON.stringify` (_serialization_)  `JSON.parse`  (_deserialization_)
+- JSON can be a single primitive
+- JSON keys requires double-quotes.
+- values that are `function, symbol, undefined` are skipped
+- updater function in method also iterates on nested keys
+
+```jsx
+arr = JSON.parse('["name":"John"]'); //arr[0] 
+JSON.parse(object, (key,val) =>  newValue) // transform values including nested 
+```
+
+```jsx
+JSON.stringify(obj, ['id', 'name']) //only these
+
+//skip values
+JSON.stringify(obj, (key, value) =>  key == 'under' ? undefined : value)
+
+//remove circular (self) references
+JSON.stringify(obj, (key, value) => value == obj? undefined : value )
+
+//object's toJSON auto-invoked by stringify
+let room = {
+  number: 23,
+  toJSON() { return this.number }
+};
+```
+
 **Function types**
 
 ```jsx

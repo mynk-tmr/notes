@@ -105,7 +105,7 @@ css matcher -> ::target-text
 Load diff images for diff screens
 ```html
 <img srcset="apple.jpg 480w, banana.jpg 800w" 
-	 sizes="(max-width: 600px) 480px, 800px" 
+	 sizes="(max-width: 600px) 480px, 800px"
 	 src="fallback.jpg" />
 ```
 

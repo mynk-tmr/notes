@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/CSS3.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/CSS3.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/CSS3.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/CSS3.md"
+                "file": "FrontEnd/Machine Coding.md"
               }
             }
           }
@@ -144,25 +144,27 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "Printed/CSS.md",
-    "Printed/CSS3.md",
+    "FrontEnd/Project-QnA.md",
+    "FrontEnd/CSS.md",
+    "FrontEnd/GIT NPM.md",
     "Printed/ReactJS.md",
-    "Printed/HTML DOM.md",
-    "Printed/Web APIs.md",
     "Printed/OOPs.md",
-    "Printed/Misc.md",
-    "Printed/Javascript.md",
-    "Printed/Extra Topics.md",
-    "Printed/Machine Coding.md",
-    "Printed/Project-QnA.md",
-    "Printed/Output-Based.md",
+    "FrontEnd/Javascript.md",
+    "FrontEnd/DOM HTML.md",
+    "FrontEnd/Internet.md",
+    "FrontEnd/Extra Topics.md",
+    "Printed/Web APIs.md",
+    "FrontEnd/Machine Coding.md",
+    "Printed/CSS.md",
+    "FrontEnd/Output-Based.md",
+    "FrontEnd",
     "Printed/Optimisations.md",
-    "Printed/Tools.md",
     "Printed/TypeScript.md",
     "DSA/2-Basic DSA.md",
     "-img/Pasted image 20240830175047.png",
@@ -176,7 +178,6 @@
     "Printed/REST-HTTP.md",
     "SQL.md",
     "TBD/Python Notes.md",
-    "Redux Toolkit.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",
     "DSA/Untitled",
@@ -186,7 +187,6 @@
     "Backend",
     "FrontEnd/Animations",
     "PHP",
-    "DSA",
     "Untitled.canvas"
   ]
 }

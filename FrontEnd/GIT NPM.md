@@ -1,16 +1,3 @@
-### Terms
-- **package** : a directory with js modules or libraries. Must have `package.json` file. 
-- **package manager** : automates managing packages & dependencies. **npm** is default manager of nodejs.
-- **module bundler** : creates a single static file from multiple files. It builds a dependency graph from `entry` point(s) and then combine them into a single `output` file.
-- **transpiler** : converts code from other languages to ones browser understands. e.g. Babel
-- **task runner**: To automate different parts of the build process like testing, linting, compiling etc. Commonly **npm scripts** are used.
-- **version control system** :  software tools that help software teams manage changes to source code over time and revert back when required.
-- **Git** : a distributed version control tool. It records changes in a project as **snapshots** in a database called *repository*
-- **Test runners** : tools that execute a pre-defined test script and auto-generate results. e.g. Jest
-- **Webpack**: a module bundler & compiler for JavaScript and other front end assets.
-
-
-## GIT
 
 ```bash
 git init /path/
@@ -79,18 +66,6 @@ Flags for **git log**
 --merges  #show only merge-commits
 ```
 
-Pretty Formats
-
-```shell
-$git log --pretty=format:"%cn committed %h %cr"
-
-#%n : newline
-#%Cred %Cgreen %Cblue %Creset : change colors
-#%cn %ce %cl :  committer name, email and local-part
-#%ch %cr : committed date (human style, relative )
-#%H %h : commit hash (full, shortened)
-```
-
 Git stash — save current working directory
 
 ```bash
@@ -127,35 +102,6 @@ git remote add A /pathto/
 git fetch A --tags
 git merge --allow-unrelated-histories A/main
 git remote remove A
-```
-
-
----
-Git has two main data structures - **object store & index,** stored in `.git` folder
-
-**Git objects** represent a data structure and have a unique hash-id. Types
-
-- **Blobs** (file structures)
-- **Trees** ( directory structure)
-    - **tree-ish** is anything that ultimately leads to a tree object. e.g. **branch, tag**
-    - **commit-ish** (type of tree-ishes) e.g. `HEAD, sha-1 hash`
-    - **combined** : tree-ish:path e.g. `main:assets/hello.js`
-
----
-### Branch
-
-- A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of last commit
-- new `branch` -> new copy
-- `HEAD` is pointer to current local branch ; when it points to a specific commit -> detached
-
-2 ways to integrate branches
-- merge : combine end-points and point to it.
-	- **fast-forward**: move main branch's tip forward onto feat tip
-	- **2 parent**: new commit is created (merge commit)
-- rebase : replay all commits in a particular branch over a different branch
-
-```shell
-cat .git/HEAD #ref: refs/heads/main
 ```
 
 ```shell
@@ -260,17 +206,10 @@ git rebase -i --root #first commit
   --committer-date-is-author-date 
 ```
 
-## Common npm commands
 
+**Common npm commands**
 ```bash
-npm docs lodash #open doc website
-npm i npm@latest -g #upgrade
-
-npm get init-license #default value
-npm set init-license 'MIT' #default value
-npm config edit #open editor
 npm config fix #repair config
-
 npm i / rm lodash momo #install multiple ; can be .tgz, git url
 npm ci #clean install project using pkglock
 
@@ -280,8 +219,6 @@ npm i -S pkg@1.2 #~1.2.latest
 npm i -S pkg@4 #^4.L.L
 npm i -P pkg #install as dependecy
 npm i -D pkg #install as dev-dependency
-
-# other flags -g (global), -O (optional dep.)
 
 npm ls --depth 0 #list installed packages
 npm ls # + all dependency tree
@@ -294,72 +231,3 @@ npm prune #remove unused pkgs
 npm view pkg #show info
 ```
 
-## package.json
-
-`package.json` contains metadata about the project and its dependencies. It helps npm to handle project
-
-`package-lock.json` records exact version of each installed package & dependencies -- to build identical dependency tree in every dEV environment. PUSH this.
-
-**Version range**
-- `~1.0.4` => stick to minor (++patches)
-- `^1.1.0` => stick to major (_default ; ++features_)
-- `2.3.2` => exactly this, no auto-upgrade
-
-Properties of package.json
-```json
-"name" //url safe project name
-"version" //1.0.2
-"description" 
-"main": "index.js"  //entry point of app
-"browser" //use instead of "main" for FE
-"author": {} //name, email, url
-"contributors": [] //authors
-"bugs": {}  //url (of issues), email
-"homepage"  //url 
-"repository"  //type (git) , url
-"config": {}  //like port
-```
-
-other dependencies
-```js
-{
-  "dependencies": {
-    "foo": "1.0.0 - 2.9",
-    "bar": "<2.1.2",
-    "asd": "http://asdf.com/asdf.tar.gz",
-    "wsad": "../foo/bar"
-  },
-  "peerDependencies": { //your pkg requires
-	  "tea": "2.x"
-  }  
-}
-```
-
-#### NPM Scripts
-
-written in `scripts` object. key is *life-cycle* event, value is cmd to run. Always runs from *root* dir
-
-Best practices
-- only for what nodejs can't do
-- dont' use `sudo`
-- place them in `/scripts` folder
-
-```js
-//define pre & post scripts
-premyscript, myscript, postmyscript
-
-//run scripts of dependencies
-npm explore pkg -- npm run cmd
-
-//useful inbuilt
-prestart, start, poststart, stop, restart, build
-
-//test
-pretest test postest
-
-//run multiple
-"all": "npm-run-all --serial/--parallel start test"
-
-//use files
-"install": "scripts/install.js",
-```

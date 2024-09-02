@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiUnplug",
+      "LiPaintbrush2",
       "LiFlaskRound",
       "LiSoup",
-      "LiAtom",
-      "LiBrainCog",
-      "LiSpeech"
+      "LiAtom"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -27,22 +27,21 @@
     "iconsInNotesEnabled": true,
     "iconIdentifier": ":"
   },
-  "Printed/CSS.md": "LiScissors",
-  "Printed/Tools.md": "LiPenTool",
-  "Printed/Javascript.md": "LiScroll",
   "Printed/OOPs.md": "LiCookie",
-  "Printed/Misc.md": "LiRepeat",
-  "Printed/Web APIs.md": "LiMessageCircleCode",
-  "Printed/HTML DOM.md": "LiPalmtree",
   "TBD/NextJS.md": "LiVegan",
   "TBD/CheatSheets.md": "LiHexagon",
   "TBD/Design Patterns.md": "LiShieldMinus",
   "TBD/GSAP.md": "LiWand",
   "TBD/Python Notes.md": "LiSnail",
   "TBD/Installation.md": "LiDownload",
-  "Printed/Extra Topics.md": "LiBrainCog",
   "Printed/ReactJS.md": "LiAtom",
-  "Printed/Machine Coding.md": "LiSpeech",
-  "Printed/Output-Based.md": "LiFlaskRound",
-  "Printed/Project-QnA.md": "LiSoup"
+  "FrontEnd/Extra Topics.md": "LiBrainCog",
+  "FrontEnd/Machine Coding.md": "LiSpeech",
+  "FrontEnd/Output-Based.md": "LiFlaskRound",
+  "FrontEnd/Project-QnA.md": "LiSoup",
+  "FrontEnd/Internet.md": "LiRepeat",
+  "FrontEnd/DOM HTML.md": "LiPalmtree",
+  "FrontEnd/Javascript.md": "LiScroll",
+  "FrontEnd/CSS.md": "LiPaintbrush2",
+  "FrontEnd/GIT NPM.md": "LiUnplug"
 }

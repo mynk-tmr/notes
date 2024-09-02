@@ -145,7 +145,6 @@ project({ comments: { $slice: [1,3] } })
 project({ $comment : 'my comment' }) //insert comment in projected docs
 ```
 
-
 **Authentiation with JWT**
 * **Json web tokens :** *stateless* method of securely transmitting info as JSON. Stateless means each request is *self-contained* and requires no session data storage
 * Parts of JWT
@@ -159,4 +158,90 @@ project({ $comment : 'my comment' }) //insert comment in projected docs
 	- *Token Expiration:* obtain new JWT
 - when to use: stateless api, microservices, reducing database calls
 - when NOT: payment related data (credit card no.) should never be sent in payload
+
+**TailwindCSS**
+* utility-first CSS framework that provides pre-defined CSS classes to style UI
+* provides a `config` file to customise design system. It includes variables for `colors, fonts, animations` etc
+* **Utility** classes are small, single-purpose classes that provide a specific styling utility e.g. `m-2` `p-3`
+* **Component** classes are larger classes that provide a collection of styles for a specific component. e.g. `btn` `card`
+* It uses **purge** to create files for production that removes any unused classes t to minimize CSS file size
+* Common tips
+	* using purge
+	* caching to speed up builds
+
+**GraphQL
+- a query language and server-side runtime.
+- gives clients exactly the data they request and no more.
+- can pull data from multiple sources in a single API call.
+
+**Best  practices to develop RESTful web services**
+- use `JSON` whenever possible 
+- use `heirarchy` 
+- use appropriate error codes
+- use `filter` and `pagination` for large datasets to avoid blockage
+- role-based access controls
+- caching
+- API versioning:  to make seamless changes in endpoints. Semantic versioning can be followed. Use `/v1`,`/v2`, etc at the beginning of the API path
+
+**How to design RESTful API/system ?**
+1. create data schema of resources (key-values, types, classes etc.)
+2. `Content-Type` of each resource
+3. request format to perform CRUD operations eg. `POST user/:id/todo/new <body>`
+4. reponse format that server sends for each e.g. `200 (OK) Content-type:text/css <body>`
+
+**Types of Test**
+* **Unit tests** : test small isolated parts of codebase. Interaction with other units is *mocked* eg. class, methods, etc.
+- **Integration tests**: test interaction across *real* unit-tested portions of code like modules, database, etc.
+- **End to End tests**: replicates a user behavior with the software.
+- **Performance tests**: evaluate system's performance under different conditions, identify memory leaks, bottlenecks,
+
+**GIT**
+* has two main data structures - **object store & index,** stored in `.git` folder
+* **Git objects** represent a data structure and have a unique hash-id. Types
+	- **Blobs** (file structures)
+	- **Trees** ( directory structure)
+	    - **tree-ish** is anything that ultimately leads to a tree object. e.g. **branch, tag**
+	    - **commit-ish** (type of tree-ishes) e.g. `HEAD, sha-1 hash`
+	    - **combined** : tree-ish:path e.g. `main:assets/hello.js`
+- A `branch` is pointer to last commit made on branch. Internally, it's a **file** that contains sha-1 checksum of last commit
+- new `branch` -> new copy
+- `HEAD` is pointer to current local branch ; when it points to a specific commit -> detached
+
+**2 ways to integrate branches**
+- merge : combine end-points and point to it.
+	- **fast-forward**: move main branch's tip forward onto feat tip
+	- **2 parent**: new commit is created (merge commit)
+- rebase : replay all commits in a particular branch over a different branch
+
+
+`package.json` contains metadata about the project and its dependencies. It helps npm to handle project
+`package-lock.json` records exact version of each installed package & dependencies -- to build identical dependency tree in every dEV environment. PUSH this.
+
+**Version range**
+- `~1.0.4` => stick to minor (++patches)
+- `^1.1.0` => stick to major (_default ; ++features_)
+- `2.3.2` => exactly this, no auto-upgrade
+
+**Properties of package.json**
+```json
+"name" //url safe project name
+"version" //1.0.2
+"description" 
+"main": "index.js"  //entry point of app
+"config": {}  //like port
+"dependencies": {},
+"scripts"
+```
+
+**npm scripts** : written in `scripts` field. key is *life-cycle* event, value is cmd to run. Always runs from *root* dir
+```js
+//define pre & post scripts
+premyscript, myscript, postmyscript
+
+//run scripts of dependencies
+npm explore pkg -- npm run cmd
+
+//useful inbuilt
+prestart, start, poststart, stop, restart, build
+```
 
