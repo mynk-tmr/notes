@@ -1,6 +1,5 @@
 ##### Reactjs
-- A JS library to build web and native UI.
-- With react, we *describe* webpage as a tree of small reusuable *components* and react handles how to render them.
+- A JS library to build web and native UI. With react, we describe webpage as a tree of small reusuable components and react handles how to render them.
 
 ## JSX (JS XML)
 
@@ -439,8 +438,6 @@ class ErrorBoundary extends Component {
 	<Test/>
 </ErrorBoundary>
 ```
-
-**Mixins** were used to reuse class components
 
 ## Memoization
 

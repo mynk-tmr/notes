@@ -1,12 +1,5 @@
 
 ```css
-/* a css rule*/
-selector {
-	declarations
-}
-```
-
-```css
 /* css units */
 integer , number (2.3) , length (2.3vh), % (of parent)
 angle (90deg or 0.25turn)
@@ -22,81 +15,7 @@ Relative units : relative to something else, so changes based on context
 
 ## Cascade and Specificity
 
-`Cascade` : algorithm that decides which rule to apply among several candidates.
-
-Perform these steps, stop if 1 rule is decided.
-- `@media` is true 
-- comes from `transition > !important > animation` 
-- If !imp : `agent > user > author` AND ... `inline` > `layer 1 to N` > `unlayered`
-- If NOT !imp : `author > user > agent` AND ... `inline` > `unlayered` > `layer N to 1`
-- pick `most specific` rule
-- pick `later` defined one
-
-**Specificity** : (0,0,0,0). Add 1 for each selector
-  1. direct (1), inherited (0)
-  2. id 
-  3. attribute, class, pseudo-class
-  4. element, psuedo-element
-
-## Custom properties (--)
-
-When you declare custom property, they are visible only to selected element and all its descendants. That's why `:root` is chosen.  Access `var(--custom, default1, default2...)`
-
-```js
-// get variable from inline style
-div.style.getPropertyValue("--my-var");
-
-// get variable from wherever
-getComputedStyle(div).getPropertyValue("--my-var");
-
-// set as inline style 
-div.style.setProperty('--bg', 'blue', /* 'important' */);
-```
-
-## Grid and Flexbox
-
-_Flexbox_ concepts :
-  - main axis and cross axis
-  - growth, shrink, basis
-
-_Grid_ concepts :
- - grid tracks : rows or columns defined using `grid-template` 
- - grid lines,  grid gutter
- - grid cell & grid area (collection of adjacent grid cells)
- - ==explicit v/s implicit grid==
-   - explicit : when we define grid tracks with `grid-template`
-   - implcit : when css define new grid tracks for placing extra content. Their size is set by `grid-auto-*`
-
-## CSS Selectors
-
-##### Common
-- Element `#id, .class, tag, universal (*)`
-- Group `s1, s2` (apply to all args)
-- Combinators (apply to 2nd arg) `s1 s2, s1>s2, s1 + s2,  s1 ~ s2`  
-- Relative (1st arg implied)  `+ img`  <--- img next to any element
-- Psuedo-class (:) => select in specific state
-- Psuedo-element (::) => select specific parts of element
-##### Attribute selectors
-- `a[href='.. i]` (case-insensitive)
-- `^= (startswith) $= (endswith) ~= (one of list) |='en' (en-* or en)`
-
-##### Psuedo Selectors
-- `p:is(.red, #ouch)` --> match p if any 1 is valid 
-- `p:has(.red, #ouch)` --> match p if it has a *descendant* with .red or # ouch
-- `p:where(s1,s2)` --> like is() ; but 0 specificity ; others compute to most specific arg
-- `p:not(s1,s2)` --> not all of them
-
-## Normal Flow & Box Model
-
-- CSS treats dom nodes as **boxes** and lay them out in normal flow by default. 
 - Elements are laid out in order they appear in markup
-- Boxes have **outer & inner displays**  
-	- `display: block flex`
-	-  inner : how elements inside box are laid out e.g. `flex`, `grid`, `normal`
-	- outer : how box is laid out e.g.`block`, `inline`, `inline-block` (block with no-linebreak)
-- Standard Model — width and height pertain to **content** box.
-- Alternate Model — they pertain to `border box`. Set by `box-sizing: border-box`
-- Sub-boxes in box -- `Content` < `Padding` < `Border` < `Margin`
 - *Block elements*
     - force line-breaks before and after
     - Take up full width of their container.
@@ -125,37 +44,6 @@ _Grid_ concepts :
 - No collapse if `<br/> <hr/>` `overflow:` set
 - `display: flow-root`, child's margins expand container's *border box* and never leaks out
 
-**Stacking Context**
-- each HTML element has its own and decides how its children are stacked in z-axis
-- default `z-index : auto or 0`.  
-- To change `z-index` of child, take it out of flow OR place it on a new layer with `opacity`, `will-change` , `transform` 
-- `<select>` is always at top
-
-**CSS Positions**
-* `static`  normal flow; no top-left support
-* `relative` normal flow ; re-position wrt itself
-* `fixed` removed from flow; place at (0,0) of viewport. Position wrt viewport
-* `absolute` like fixed but w.r.t non-static ancestor container
-* `sticky` static, until touches edge, then becomes absolute, requires top be set
-* `will-change : transform` to improve sticky/absolute repaint
-
-**Transitions**
-- provide a way to control animation when changing CSS properties.
-- Events  (animations like): 
-	- `transitionrun` -delay- `transitionstart`, `transitionend /cancel`  (non-cancelable)
-	- `transitionend` event is fired in both directions (to & back)
-	- Properties `propertyName`, `elapsedTime` (from start) and `pseudoElement` e.g. '::before'
-	- Using animations with `auto` may lead to unpredictable results
-
-Tips
-- use `setTimeout(12ms)` to trigger transition of appended or display:none elements
-- use `@prefers-reduce` OR server side `Sec-CH-Prefers-Reduced-Motion`
-```css
-div {  
-	transition: width 2s linear 1s; /* prop dur timing delay */
-	transition: width 5s, height 2s, transform 9s; 
-}
-```
 
 **Animations**
 - Improvement over transitions - can be looped, don't require trigger to run, and can combine complex state changes.
@@ -185,34 +73,6 @@ div {
 	`forwards` - retain style set by last keyframe */
 }
 ```
-
-**2D transformations**
-```css
-div {
-	transform : scale(1, 0.3);
-	transform-origin : center;
-	transform:
-		matrix(n,n,n,n,n,n)	/* defines a 2D transformation */
-		translate(x,y) translateX(n) translateY(n)
-		scale(x,y) /* changes w,h */
-		rotate(angle)
-		skew(x-angle, y-angle)
-}
-```
-
-**3D transformations**
-```css
-div {
-	transform-style: preserve-3d; /* child elements will preserve 3D position */
-	perspective: 100px ; /* defines how far child elements are away from user. lower value --> more intensive 3D effect */
-	perspective-origin: left; /* position from where user is looking */
-	backface-visibility: hidden; /* hide object when it's not facing user */
-	transform: 
-		matrix3d()
-		translate3d() scale3d() skew3d() rotate3d() perspective()
-}
-```
-
 
 ```js
 em // % of parent's font
@@ -271,59 +131,6 @@ div::first-letter div::first-line span::selection
 li::marker { content: '%'; }
 ```
 
-
-```css
-#parent {
-	flex-direction: row; /* set main axis */
-	justify-content: start; 
-	align-items: stretch; /* items in row */
-	align-content: end; /* ROWS */
-}
-
-#child {
-	flex-basis: 100px; /* init main-size; Growth/shrink will be next. */
-	flex-grow: 1.2; /*growth factor, ratio of empty space to add  */
-	flex-shrink: 0; /* shrink factor, ratio of -ve space subtracted */
-	order: 2;
-	flex: auto; /* 1 1 auto */
-	flex: initial;  /* 0 1 auto default */
-}
-```
-
-```css
-#parent {
-  grid-template-rows: 1fr fit-content(100px);  /*1fr 1fr = 50%:50% of free space */
-  grid-template-columns: [first] 10px [second] 20px [last];
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
-    /* make 100px cols w/o overflowing ; fill them with children  */
-    /* if auto-fit, remove unused cols, then add free-space to each child equally*/
-  
-  place-items: center end; /* within CELL in block & inline */
-  place-content: space-evenly center;  /* distribute row & col tracks */
-
-  /* implicit tracks */
-  grid-auto-columns: 60px; /* def: 100% */
-  grid-auto-flow: columns;
-}
-
-#grid {
-  grid-row: 1/-1; /*start, end*/
-  grid-row: first / last;
-  grid-column: 1 / span 3; /* from line-1, span 3 cols ; also = span 3 / 4 */
-  place-self: end center; 
-  order: -1; /* place at 1st cell (default is 0 for all) */
-}
-
-#templating {
-  grid-template-areas:
-    '.      top top' 
-    'aside main main';
-  & child {
-    grid-area: top; 
-  }
-}
-```
-
 ```css
 .TYPOGRAPHY { 
   font-family: system-ui, "Roboto", sans-serif, "Apple Color Emoji"; 
@@ -367,9 +174,6 @@ div::-webkit-resizer /* resize arrows */
 .SHADOW_FILTERS {
   box-shadow: 3px 3px red inset ; /* shadow at (0,0) ; box at (3,3) */
   box-shadow: 0 0 0 2em red, 0 0 0 4em yellow; /* nested borders */
-  filter: blur(5px); /*apply filter to ele*/
-  backdrop-filter: blur(5px); /* only to bg */
-  filter: drop-shadow(3px 3px 2px cyan); /*shadow in image's shape*/
 }
 ```
 
@@ -380,19 +184,6 @@ div::-webkit-resizer /* resize arrows */
   overflow: auto; /* scrollbar only if needed ; JS can scroll hidden  */
   text-overflow: ellipsis;  /* ... */
   word-break: break-all;   /* break long words to nextline */
-}
-```
-
-```css
-.GRADIENTS {
-  background-image:
-    linear-gradient(blue, red 40%, orange) /* be blue at 0%, red at 40%, orange at 100% */
-    linear-gradient(red 30px, green) /* hard red from 0-30px */
-    linear-gradient(red , 30% , blue) /* use 30% as midpoint */
-    repeating-linear-gradient(blue, red 20px) /* repeat till box is covered. */
-
-    radial-gradient(ellipse at 0% 30%, red, yellow) /* default: circle at 50% 50% */
-    repeating-radial-gradient(black 5px,white 5px 10px); /* hard repeats */
 }
 ```
 
@@ -413,27 +204,5 @@ div::-webkit-resizer /* resize arrows */
     scroll -> to element, scroll only if page scrolls.
     local -> to element ; scroll with element's content
   */
-}
-
-```
-
-```css
-.LAYOUTING_STYLES {
-  display: none;
-  content-visibility: auto; /* render only when element is about to be scrolled to */
-  float: inline-start; /* text-wrap around it */
-  display: flow-root; /* on container to clearfloat */
-  column-count: 2; /* list items in 2 cols */
-  column-width: 200px; /* autocreate cols */
-  column-gap: 2rem;
-  column-rule: 5px solid red; /* divider */
-}
-```
-
-```css
-.ADVANCED {
-  border-radius: 15px 30px 15px 30px;  /*set clockwise*/
-  background-position: -75px 0; /* multiple imgs from a sprite, by changing X pos  */
-  border-image: url(border.png) 30 round; /*https://www.w3schools.com/css/css3_border_images.asp*/
 }
 ```

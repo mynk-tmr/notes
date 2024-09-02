@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiFlaskRound",
       "LiSoup",
       "LiAtom",
       "LiBrainCog",
-      "LiSpeech",
-      "LiScroll"
+      "LiSpeech"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -40,9 +40,9 @@
   "TBD/GSAP.md": "LiWand",
   "TBD/Python Notes.md": "LiSnail",
   "TBD/Installation.md": "LiDownload",
-  "Printed/Output LLD.md": "LiSpeech",
-  "Printed/Optimisations.md": "LiCog",
   "Printed/Extra Topics.md": "LiBrainCog",
   "Printed/ReactJS.md": "LiAtom",
-  "Printed/Project-Based.md": "LiSoup"
+  "Printed/Machine Coding.md": "LiSpeech",
+  "Printed/Output-Based.md": "LiFlaskRound",
+  "Printed/Project-QnA.md": "LiSoup"
 }

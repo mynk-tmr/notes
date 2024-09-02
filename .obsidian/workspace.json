@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Printed/CSS.md",
+                "file": "Printed/CSS3.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Printed/CSS.md",
+                "file": "Printed/CSS3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Printed/CSS.md",
+                "file": "Printed/CSS3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Printed/CSS.md"
+                "file": "Printed/CSS3.md"
               }
             }
           }
@@ -144,26 +144,26 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "command-palette:Open command palette": false
     }
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "Printed/Extra Topics.md",
     "Printed/CSS.md",
-    "Printed/Web APIs.md",
-    "Printed/Project-Based.md",
-    "Printed/HTML DOM.md",
-    "Printed/Misc.md",
-    "Printed/Tools.md",
+    "Printed/CSS3.md",
     "Printed/ReactJS.md",
-    "Printed/TypeScript.md",
-    "Printed/Javascript.md",
-    "Untitled.md",
-    "Printed/Output LLD.md",
-    "Printed/Optimisations.md",
+    "Printed/HTML DOM.md",
+    "Printed/Web APIs.md",
     "Printed/OOPs.md",
+    "Printed/Misc.md",
+    "Printed/Javascript.md",
+    "Printed/Extra Topics.md",
+    "Printed/Machine Coding.md",
+    "Printed/Project-QnA.md",
+    "Printed/Output-Based.md",
+    "Printed/Optimisations.md",
+    "Printed/Tools.md",
+    "Printed/TypeScript.md",
     "DSA/2-Basic DSA.md",
     "-img/Pasted image 20240830175047.png",
     "TBD/NextJS.md",
@@ -177,7 +177,6 @@
     "SQL.md",
     "TBD/Python Notes.md",
     "Redux Toolkit.md",
-    "Tricky-Questions.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",
     "DSA/Untitled",
