@@ -63,8 +63,9 @@ function getSecondsFromDayStart() {
 
 **Bind**
 ```js
-Function.prototype.bind = Function.prototype.bind || function(ctx){ 
-	return () => this.apply(ctx, arguments) //inherit this from outer
+Function.prototype.bind = Function.prototype.bind || function(ctx, ...args){ 
+	let fn = this;
+	return (...more) => fn.apply(ctx, [...args, ...more] )
 }
 ```
 
@@ -93,6 +94,127 @@ function() {
 	return {promise, resolve, reject}
 }
 ```
+
+**Reduce**
+```js
+function(callback, initialValue) {
+    if (typeof callback !== 'function') throw 'error'
+    const array = this, hasInit = initialValue !== undefined;
+    let acc = hasInit? initialValue : array[0];
+
+    for (let i in array)
+        acc = callback.call(undefined, acc, array[i], i, array);
+    return acc;
+}
+```
+
+**Map**
+```js
+function(callback, thisArg) {
+    const arr = this, result = []
+    for(let i in arr) {
+	    result[i] = callback.call(thisArg, arr[i], i, arr) 
+    }
+}
+```
+
+**Filter**
+```js
+function(callback, thisArg) {
+    const arr = this, result = []
+    for(let i in arr) {
+	    let val = arr[i]
+	    let bool = callback.call(thisArg, val, i, arr);
+	    if(bool) res.push(val)
+    }
+}
+```
+​
+**Find**
+```js
+function find(cb) {
+	const arr=this;
+	for(let i in arr) if( cb(arr[i], i, arr) ) return i;
+	return -1
+} 
+
+findLast <-- ulta loop
+```
+
+​**Promise**
+```js
+function Promise(executor) {
+	let successCB = [], errorCB = [];
+	function resolve(val) {
+		try {
+			val = successCB.reduce((acc, func) => func(acc), val)
+		} catch(err) {
+			reject(error);
+		}
+	}
+	function reject(error) {
+		let handler = errorCB[0];
+		if(!handler) throw 'unhandled rejection';
+		try {
+			handler(error);
+			return this;
+		}
+		catch(error) {
+			errorCB.shift();
+			reject(error);
+		}
+	}
+	this.then(success, failure) {
+		successCB.push(success);
+		if(failure) errorCB.push(failure);
+		return this;
+	}
+	this.catch(handler) {
+		errorCB.push(handler)
+		return this;
+	}
+	executor(resolve, reject)
+}
+```
+
+
+​
+
+setTimeout
+
+[
+
+Let's write a polyfill for setTimeout.
+
+Well my implementation of setTimeout is inspired from the sleep and requestIdleCallback. For those who don't know what sleep is, sleep is a function which blocks the main thread execution for a specified delay. Below is a sleep implementation. The above function loops until the current time exceeds the delayed time.
+
+![](https://alphaayush.notion.site/image/https%3A%2F%2Fmiro.medium.com%2F1*m-R_BkNf1Qjr1YbyOIJY2w.png?table=block&id=b2292fbb-8c1b-45d8-992e-5cd5e41286fa&spaceId=1605f3ad-9940-4d62-be74-28bf33f4a36b&userId=&cache=v2)
+
+https://medium.com/@choprabhishek630/lets-write-a-polyfill-for-settimeout-24564b1a7142
+
+![](https://miro.medium.com/max/1200/0*qmDEtgvI5GAx-CV2)
+
+
+
+
+
+](https://medium.com/@choprabhishek630/lets-write-a-polyfill-for-settimeout-24564b1a7142)
+
+JavaScript
+
+Copy
+
+(() => { const timers = new Map(); function checkOnIdle() { for (let [id, timeout] of timers.entries()) { const { endTime, callback } = timeout; if (Date.now() > endTime) { callback(); myClearTimeout(id); } } requestIdleCallback(checkOnIdle); } window.mySetTimeout = function (callback, delay) { var startTime = Date.now(); const id = startTime; timers.set(id, { callback, endTime: startTime + delay }); return id; } window.myClearTimeout = function (id) { if (timers.has(id)) { timers.delete(id); } } requestIdleCallback(checkOnIdle); } )() const id = mySetTimeout(() => { console.log("hi2") } , 1000) myClearTimeout(id)
+
+​
+
+setInterval
+
+JavaScript
+
+Copy
+
+(() => { const intervals = new Set(); window.mySetInterval = function (callback, delay) { const id = Date.now(); intervals.add(id); const _interval = () => { setTimeout(() => { if (intervals.has(id)) { callback(); _interval(); } } , delay) } _interval() return id; } window.myClearInterval = function (id) { intervals.delete(id); } } )() const i = mySetInterval(() => console.log('yo'), 1000) setTimeout(() => myClearInterval(i), 10000)
 
 ## Currying
 
