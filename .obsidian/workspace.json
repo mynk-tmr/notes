@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FrontEnd/DOM HTML.md",
+                "file": "DSA/1-Theory.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FrontEnd/DOM HTML.md",
+                "file": "DSA/1-Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FrontEnd/DOM HTML.md",
+                "file": "DSA/1-Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FrontEnd/DOM HTML.md"
+                "file": "DSA/1-Theory.md"
               }
             }
           }
@@ -150,17 +150,20 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "FrontEnd/GIT NPM.md",
-    "FrontEnd/Javascript.md",
-    "FrontEnd/Internet.md",
-    "FrontEnd/Extra Topics.md",
-    "FrontEnd/DOM HTML.md",
-    "FrontEnd/CSS.md",
-    "FrontEnd/Machine Coding.md",
+    "DSA/3-Leetcode.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/2-Basic DSA.md",
     "FrontEnd/Output-Based.md",
     "FrontEnd/Project-QnA.md",
-    "DSA/3-Leetcode.md",
-    "DSA/2-Basic DSA.md",
+    "FrontEnd/Javascript.md",
+    "FrontEnd/Machine Coding.md",
+    "FrontEnd/DOM HTML.md",
+    "DSA/1-Theory.md",
+    "FrontEnd/CSS.md",
+    "FrontEnd/GIT NPM.md",
+    "FrontEnd/Internet.md",
+    "FrontEnd/Extra Topics.md",
     "Printed/ReactJS.md",
     "Printed/OOPs.md",
     "Printed/Web APIs.md",
@@ -176,9 +179,6 @@
     "TBD/GSAP.md",
     "TBD/Installation.md",
     "TBD/CheatSheets.md",
-    "Printed/REST-HTTP.md",
-    "SQL.md",
-    "TBD/Python Notes.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",
     "DSA/Untitled",

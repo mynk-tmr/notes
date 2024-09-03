@@ -227,11 +227,14 @@ for(i in arr) {
 class LRUCache {
   //ctr --> map, capacity
   get(key) {
-	  if (!map.has(key)) return -1
-	  //delete key; set key,val; return val
+	  if(map.has(key) === false) return undefined
+	  let val = map.get(key)
+	  map.delete(key)
+	  map.set(key, val)
+	  return val;
 	}
   put(key, v) {
-	//delete key ; set k,v ; 
+	map.delete(key); map.set(key, val)
 	if(map.size > cap) {
       const lru_item = map.keys().next().value;
       map.delete(lru_item);
@@ -262,7 +265,7 @@ class LFUCache {
   }
 
   get(key) {
-    if (!map.has(key)) return -1
+    if (!map.has(key)) return undefined
     const itm = map.get(key)
     this.#adjustFqGroup(key, itm)
     return itm.value
