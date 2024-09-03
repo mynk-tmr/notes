@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FrontEnd/Machine Coding.md",
+                "file": "FrontEnd/DOM HTML.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FrontEnd/Machine Coding.md",
+                "file": "FrontEnd/DOM HTML.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FrontEnd/Machine Coding.md",
+                "file": "FrontEnd/DOM HTML.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FrontEnd/Machine Coding.md"
+                "file": "FrontEnd/DOM HTML.md"
               }
             }
           }
@@ -150,23 +150,24 @@
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
+    "FrontEnd/GIT NPM.md",
+    "FrontEnd/Javascript.md",
     "FrontEnd/Internet.md",
     "FrontEnd/Extra Topics.md",
     "FrontEnd/DOM HTML.md",
     "FrontEnd/CSS.md",
-    "FrontEnd/Javascript.md",
-    "FrontEnd/GIT NPM.md",
+    "FrontEnd/Machine Coding.md",
+    "FrontEnd/Output-Based.md",
+    "FrontEnd/Project-QnA.md",
+    "DSA/3-Leetcode.md",
+    "DSA/2-Basic DSA.md",
     "Printed/ReactJS.md",
     "Printed/OOPs.md",
-    "FrontEnd/Machine Coding.md",
-    "FrontEnd/Project-QnA.md",
     "Printed/Web APIs.md",
     "Printed/CSS.md",
-    "FrontEnd/Output-Based.md",
     "FrontEnd",
     "Printed/Optimisations.md",
     "Printed/TypeScript.md",
-    "DSA/2-Basic DSA.md",
     "-img/Pasted image 20240830175047.png",
     "TBD/NextJS.md",
     "TBD",

@@ -141,9 +141,27 @@ function find(cb) {
 findLast <-- ulta loop
 ```
 
+**FLAT**
+```js
+function flat(depth) {
+    let res = [];
+    flatten(this, 0);
+    return res;
+
+    function flatten(arr, currentDepth) {
+      for (let val of arr) {
+        if (Array.isArray(val) && currentDepth < depth)
+	        flatten(val, currentDepth + 1);
+        else
+	        res.push(val);
+      }
+    }
+}
+```
+
 ​**Promise**
 ```js
-function Promise(executor) {
+function myPromise(executor) {
 	let successCB = [], errorCB = [];
 	function resolve(val) {
 		try {
@@ -164,57 +182,76 @@ function Promise(executor) {
 			reject(error);
 		}
 	}
-	this.then(success, failure) {
+	this.then = function(success, failure) {
 		successCB.push(success);
 		if(failure) errorCB.push(failure);
 		return this;
 	}
-	this.catch(handler) {
+	this.catch = function(handler) {
 		errorCB.push(handler)
 		return this;
 	}
-	executor(resolve, reject)
+	queueMicrotask(() => executor(resolve, reject))
 }
 ```
 
+**setTimeout**
+```js
+(() => {
+  const timers = new Map();
+  window.mySetTimeout = function (callback, delay) {
+    let startTime = Date.now(), id = startTime;
+    timers.set(id, {
+      callback,
+      endTime: startTime + delay
+    });
+    return id;
+  }
+  window.myClearTimeout = function (id) {
+      timers.delete(id)
+  }
+  function checkOnIdle() {
+    for (let [id, timeout] of timers.entries()) {
+      const { endTime, callback } = timeout;
+      if (Date.now() > endTime) {
+        callback();
+        myClearTimeout(id);
+      }
+    }
+    requestIdleCallback(checkOnIdle);
+  }
+  requestIdleCallback(checkOnIdle);
+}
+)()
+```
 
-​
+**setInterval**
+```js
+(() => {
+  const intervals = new Set();
+  window.mySetInterval = function (callback, delay) {
+    const id = Date.now();
+    intervals.add(id);
+    
+    const inner = () => {
+        if (intervals.has(id)) {
+          callback();
+          repeat();
+        }
+      } 
 
-setTimeout
-
-[
-
-Let's write a polyfill for setTimeout.
-
-Well my implementation of setTimeout is inspired from the sleep and requestIdleCallback. For those who don't know what sleep is, sleep is a function which blocks the main thread execution for a specified delay. Below is a sleep implementation. The above function loops until the current time exceeds the delayed time.
-
-![](https://alphaayush.notion.site/image/https%3A%2F%2Fmiro.medium.com%2F1*m-R_BkNf1Qjr1YbyOIJY2w.png?table=block&id=b2292fbb-8c1b-45d8-992e-5cd5e41286fa&spaceId=1605f3ad-9940-4d62-be74-28bf33f4a36b&userId=&cache=v2)
-
-https://medium.com/@choprabhishek630/lets-write-a-polyfill-for-settimeout-24564b1a7142
-
-![](https://miro.medium.com/max/1200/0*qmDEtgvI5GAx-CV2)
-
-
-
-
-
-](https://medium.com/@choprabhishek630/lets-write-a-polyfill-for-settimeout-24564b1a7142)
-
-JavaScript
-
-Copy
-
-(() => { const timers = new Map(); function checkOnIdle() { for (let [id, timeout] of timers.entries()) { const { endTime, callback } = timeout; if (Date.now() > endTime) { callback(); myClearTimeout(id); } } requestIdleCallback(checkOnIdle); } window.mySetTimeout = function (callback, delay) { var startTime = Date.now(); const id = startTime; timers.set(id, { callback, endTime: startTime + delay }); return id; } window.myClearTimeout = function (id) { if (timers.has(id)) { timers.delete(id); } } requestIdleCallback(checkOnIdle); } )() const id = mySetTimeout(() => { console.log("hi2") } , 1000) myClearTimeout(id)
-
-​
-
-setInterval
-
-JavaScript
-
-Copy
-
-(() => { const intervals = new Set(); window.mySetInterval = function (callback, delay) { const id = Date.now(); intervals.add(id); const _interval = () => { setTimeout(() => { if (intervals.has(id)) { callback(); _interval(); } } , delay) } _interval() return id; } window.myClearInterval = function (id) { intervals.delete(id); } } )() const i = mySetInterval(() => console.log('yo'), 1000) setTimeout(() => myClearInterval(i), 10000)
+    const repeat = () => {
+      setTimeout( inner, delay)
+    }
+    repeat()
+    return id;
+  }
+  window.myClearInterval = function (id) {
+    intervals.delete(id);
+  }
+}
+)()
+```
 
 ## Currying
 
@@ -252,4 +289,3 @@ function ans(str, finalValue) {
 	return ans;
 }
 ```
-

@@ -874,6 +874,7 @@ JS engine apply many **optimizations** to speed it up
 - timer continues “ticking” while showing alert/confirm/prompt.
 - **Zero delay scheduling** is used to execute code immediately after current task
 
+**`window.requestIdleCallback(cb)`** : queues a function to be called during a browser's idle periods. Used to perform background work on main event loop, without impacting animation and input response.
 
 **Web Workers API**
 * feature that allows for multi-threading in JavaScript 
