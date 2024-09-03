@@ -17,7 +17,7 @@
 
 **Association** : special type of association. Used to denote "HAS-A" relationship.
 
-**Composition** : special association where contained object can't exist on its own. Better than inheritance.
+**Composition** : special association where contained object can't exist on its own.
 ##### Inheritance
 - allows one class to inherit properties and behavior from another. 
 - supports “reusability” and "extensibility"
@@ -78,12 +78,7 @@
 - **Dependency Inversion** : high-level modules (complex logic) should not import anything from low-level modules  and communicate via `interface`
 
 ##### Design patterns
-- formalized best practices that programmer can use to solve common problems. There are 23 grouped into 3 categories:
-- **Creational**: provide various object creation mechanisms, which increase flexibility and reuse => *Abstract Factory, Builder, Factory Method, Prototype, Singleton*
-
-- **Structural**: explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient => *Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy*
-
-- **Behavioral**: concerned with algorithms and assignment of responsibilities between objects =>  *Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor*
+- formalized best practices that programmer can use to solve common problems.
 
 ## Examples
 

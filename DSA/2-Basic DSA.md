@@ -142,9 +142,8 @@ for(i : n-2)
 		swap(a[i], a[x + i])
 ```
 
-## Binary Search
 
-Iterative (prefer this)
+**Iterative Binary search (prefer this)**
 ```js
 low = 0, high = n - 1;
 while (low <= high)
@@ -155,7 +154,7 @@ while (low <= high)
 return -1
 ```
 
-Recursive
+**Recursive Binary Search**
 ```js
 return seek()
 seek(low = 0, high = n - 1)
@@ -165,7 +164,7 @@ seek(low = 0, high = n - 1)
     return nums[mid] > target ? seek(low, mid - 1) : seek(mid + 1, high)
 ```
 
-2-D binary search
+**2-D binary search**
 ```js
 m = matrix.length, n = matrix[0].length
 l = 0, r = m * n - 1
@@ -179,3 +178,36 @@ while (l <= r)
 return false;
 ```
 
+**Implement a Trie for lowercase english strings**
+```js
+class Node {
+	children = []; //store next letter; eg. 'c' in children[2]
+	isLeaf = false; //not a end of word currently
+}
+
+class Trie {
+	root = new Node()
+	insert(str) {
+		curr = this.root;
+		for(ch of [...str]) {
+			idx = ch.charCodeAt() - 'a'.charCodeAt();
+			curr.children[idx] ??= new Node()
+			curr = curr.children[idx] 
+		}
+		curr.isLeaf = true;
+	}
+	search(str) {
+		curr = this.root
+		for(ch of [...str]) {
+			idx = ch.charCodeAt() - 'a'.charCodeAt();
+			if(curr.children[idx] === undefined) return false
+			curr = curr.children[idx]
+		}
+		return curr.isLeaf
+	}
+}
+
+// how to run
+let arr = ['and', 'ant', 'trap', 'trans'], trie =  new Trie()
+for(word of arr) trie.insert(word)
+```

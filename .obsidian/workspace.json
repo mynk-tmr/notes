@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "1-Theory.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5
+    "width": 264.5,
+    "collapsed": true
   },
   "right": {
     "id": "405b630c95c62d76",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "1-Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "1-Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DSA/1-Theory.md"
+                "file": "1-Theory.md"
               }
             }
           }
@@ -145,40 +146,44 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "oz-clear-unused-images:Clear Unused Images": false
     }
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "DSA/3-Leetcode.md",
-    "DSA/4-Trees-Graphs.md",
-    "DSA/5-Maths-Geometry.md",
     "DSA/2-Basic DSA.md",
+    "1-Theory.md",
+    "DSA/1-Theory.md",
+    "-img/Pasted image 20240830175047.png",
+    "-img/Pasted image 20240113151931.png",
+    "-img/Pasted image 20240113151401.png",
+    "-img/Pasted image 20240104064255.png",
+    "-img/Pasted image 20240903173459.png",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/3-Leetcode.md",
+    "Printed/OOPs.md",
     "FrontEnd/Output-Based.md",
     "FrontEnd/Project-QnA.md",
     "FrontEnd/Javascript.md",
     "FrontEnd/Machine Coding.md",
     "FrontEnd/DOM HTML.md",
-    "DSA/1-Theory.md",
     "FrontEnd/CSS.md",
     "FrontEnd/GIT NPM.md",
     "FrontEnd/Internet.md",
     "FrontEnd/Extra Topics.md",
     "Printed/ReactJS.md",
-    "Printed/OOPs.md",
     "Printed/Web APIs.md",
     "Printed/CSS.md",
     "FrontEnd",
     "Printed/Optimisations.md",
     "Printed/TypeScript.md",
-    "-img/Pasted image 20240830175047.png",
     "TBD/NextJS.md",
     "TBD",
     "Testing.md",
     "TBD/Design Patterns.md",
     "TBD/GSAP.md",
-    "TBD/Installation.md",
-    "TBD/CheatSheets.md",
     "-img/Pasted image 20240816204511.png",
     "Printed",
     "DSA/Untitled",

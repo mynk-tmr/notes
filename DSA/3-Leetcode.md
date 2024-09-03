@@ -65,7 +65,6 @@ fn solve(obj, name='') {
 		if(typeof val === 'object') solve(val, nukey + "_")
 		else js[nukey] = val;
 	}
-	return js;
 }
 ```
 
