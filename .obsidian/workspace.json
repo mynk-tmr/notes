@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-Theory.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5,
-    "collapsed": true
+    "width": 264.5
   },
   "right": {
     "id": "405b630c95c62d76",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "1-Theory.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "1-Theory.md",
+                "file": "FrontEnd/Machine Coding.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "1-Theory.md"
+                "file": "FrontEnd/Machine Coding.md"
               }
             }
           }
@@ -145,34 +144,32 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "oz-clear-unused-images:Clear Unused Images": false
+      "command-palette:Open command palette": false
     }
   },
   "active": "297848e00723dd78",
   "lastOpenFiles": [
-    "DSA/2-Basic DSA.md",
-    "1-Theory.md",
+    "FrontEnd/Javascript.md",
+    "FrontEnd/Internet.md",
+    "FrontEnd/GIT NPM.md",
+    "FrontEnd/Extra Topics.md",
+    "FrontEnd/DOM HTML.md",
+    "FrontEnd/CSS.md",
     "DSA/1-Theory.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/3-Leetcode.md",
+    "DSA/2-Basic DSA.md",
+    "FrontEnd/OOPs.md",
+    "FrontEnd/ReactJS.md",
+    "FrontEnd/Project-QnA.md",
+    "FrontEnd/Output-Based.md",
+    "FrontEnd/Machine Coding.md",
+    "DSA/5-Maths-Geometry.md",
     "-img/Pasted image 20240830175047.png",
     "-img/Pasted image 20240113151931.png",
     "-img/Pasted image 20240113151401.png",
     "-img/Pasted image 20240104064255.png",
     "-img/Pasted image 20240903173459.png",
-    "DSA/5-Maths-Geometry.md",
-    "DSA/4-Trees-Graphs.md",
-    "DSA/3-Leetcode.md",
-    "Printed/OOPs.md",
-    "FrontEnd/Output-Based.md",
-    "FrontEnd/Project-QnA.md",
-    "FrontEnd/Javascript.md",
-    "FrontEnd/Machine Coding.md",
-    "FrontEnd/DOM HTML.md",
-    "FrontEnd/CSS.md",
-    "FrontEnd/GIT NPM.md",
-    "FrontEnd/Internet.md",
-    "FrontEnd/Extra Topics.md",
-    "Printed/ReactJS.md",
     "Printed/Web APIs.md",
     "Printed/CSS.md",
     "FrontEnd",

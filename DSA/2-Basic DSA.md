@@ -189,7 +189,7 @@ class Trie {
 	root = new Node()
 	insert(str) {
 		curr = this.root;
-		for(ch of [...str]) {
+		for(ch of str) {
 			idx = ch.charCodeAt() - 'a'.charCodeAt();
 			curr.children[idx] ??= new Node()
 			curr = curr.children[idx] 
@@ -198,7 +198,7 @@ class Trie {
 	}
 	search(str) {
 		curr = this.root
-		for(ch of [...str]) {
+		for(ch of str) {
 			idx = ch.charCodeAt() - 'a'.charCodeAt();
 			if(curr.children[idx] === undefined) return false
 			curr = curr.children[idx]

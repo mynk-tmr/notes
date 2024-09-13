@@ -388,3 +388,5 @@ console.trace('msg') //stack trace
 **Git** : a distributed version control tool. It records changes in a project as **snapshots** in a database called *repository*
 
 **Test runners** : tools that execute a pre-defined test script and auto-generate results. e.g. Jest
+
+**Code splitting** : practice of breaking up application into smaller pieces that can be loaded on demand.

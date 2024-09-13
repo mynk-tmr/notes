@@ -17,17 +17,6 @@ function partializer(original_func, ...bindUs) {
 }
 ```
 
-**Cache Decorator**
-```js
-function addCache(orgFunc) {
-  const cache = new Map();
-  return function(key) { 
-    if (!cache.has(key)) cache.set(key, orgFunc.call(this,key)); 
-    return cache.get(key);
-  };
-}
-```
-
 **Curry**
 ```js
 function curry(func) {

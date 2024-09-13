@@ -486,7 +486,7 @@ CSS is **scalable and maintainable** for large project by:
 3. Using performance enhancing techniques like lazy-loading, etc.
 
 **Scrollbar styling**
-Pseudo-elements : `::-webkit-scrollbar` , `::-webkit-resiver`
+Pseudo-elements : `::-webkit-scrollbar` , `::-webkit-resizer`
 ```css
 scrollbar-color: red cyan; /* thumb ,  track */
 scrollbar-width: thin; /* none (hide but still scrollable) */
