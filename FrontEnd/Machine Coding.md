@@ -20,13 +20,13 @@ function partializer(original_func, ...bindUs) {
 **Curry**
 ```js
 function curry(func) {
-    return curried;
-    function curried(...args) {
+    return collector;
+    function collector(...args) {
         if(args.length >= func.length)
             return func(...args);
         else
             return function(...more) {
-                return curried(...args,...more);
+                return collector(...args,...more);
 ```
 
 **Date-Related**

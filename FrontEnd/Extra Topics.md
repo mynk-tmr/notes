@@ -4,7 +4,6 @@
 * ensures function is called only after a specific **delay** since event's last occurence.
 * Implement: **track delay** between **2 events** and run function if time interval exceeds
 * Use cases: where action has to be taken after some period of **inactivity** e.g. search, autocomplete
-* Cons: if function takes too long, it may call API repeatedely
 * Calculation 
 	* if `D = debounce rate`, `N = no. of events`, `P = time period`
 	* event frequency `F = P / N` and no. of calls = `ceil(F/D)`
@@ -13,7 +12,6 @@
 * ensure function is called at a **steady** rate, regardless of event frequency
 * Implement: use timestamp to **track last call** and run function if time interval has exceeded
 * Use cases: where events must be handled at **regular intervals**.  e.g. scroll, resize, infinte scrolling, game apps
-* Cons: if function takes too long, it may break
 * Calculation 
 	* if `T = throttle rate`, ideal no. of calls is `L = ceil(P/T)`, but actual no. is `min(N, L) `
 
@@ -28,11 +26,11 @@ function debounce(func, wait) {
 
 function throttle(func, delay) {
   let lastCall = 0;
-  return function (...args) {
+  return async function (...args) {
     const now = Date.now();
     if (now - lastCall >= delay) {
-      func(...args);
       lastCall = now;
+      return await func.apply(this, args);
     }
   };
 }
