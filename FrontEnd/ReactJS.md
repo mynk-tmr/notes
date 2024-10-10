@@ -55,7 +55,8 @@ root.unmount(); //destroy Rendered tree and makes root unusable
 - non-index key -> fix re-order bugs
 
 **Portals**
-* lets a component render some of its children into a different place in the DOM. 
+* Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+
 * only changes the physical placement of the DOM node. It acts as child node of the React component that renders it (bubbling etc.)
 
 ```jsx
