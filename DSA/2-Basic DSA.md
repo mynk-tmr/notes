@@ -91,7 +91,7 @@ class HashSet {
 ```js
 for(i : 1 to n) //assume left subarr is already sorted
 	pick = a[i], j=i-1
-	while(a[j] > a[i] && j >=0)
+	while(a[j] > pick && j >=0)
 		a[j+1] = a[j] //shift
 		--j;
 	a[j + 1] = pick

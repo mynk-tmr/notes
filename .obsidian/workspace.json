@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FrontEnd/ReactJS.md",
+                "file": "DSA/2-Basic DSA.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FrontEnd/ReactJS.md",
+                "file": "DSA/2-Basic DSA.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FrontEnd/ReactJS.md",
+                "file": "DSA/2-Basic DSA.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FrontEnd/ReactJS.md"
+                "file": "DSA/2-Basic DSA.md"
               }
             }
           }
@@ -150,6 +150,7 @@
   },
   "active": "f1b606852e0ed3d4",
   "lastOpenFiles": [
+    "FrontEnd/ReactJS.md",
     "TBD/GSAP.md",
     "FrontEnd/Extra Topics.md",
     "FrontEnd/Machine Coding.md",
@@ -163,7 +164,6 @@
     "DSA/3-Leetcode.md",
     "DSA/2-Basic DSA.md",
     "FrontEnd/OOPs.md",
-    "FrontEnd/ReactJS.md",
     "FrontEnd/Project-QnA.md",
     "FrontEnd/Output-Based.md",
     "DSA/5-Maths-Geometry.md",
