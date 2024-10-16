@@ -190,19 +190,6 @@ rmax=a[-1], maxdiff=0; //0 since problem stmt
 return diff
 ```
 
-##### Find longest consecutive sequence `O(nlogN)`
-- sort array, traverse, track largest ele encountered so far
-- +1 len if new largest is in sequence, else reset it
-```js
-nums.sort()
-last = nums[0], len = 1, mxlen = 1;
-for (let val of nums)
-	if (val > last)
-	  len = (val - last == 1) ? len + 1 : 1;
-	  mxlen = Math.max(len, mxlen)
-	  last = val; //at end
-```
-
 ##### Find Nth largest element e.g. 3rd
 ```js
 sld = [-Infinity, -Infinity, a[0]] //size 3
@@ -278,6 +265,19 @@ for(val of set.values())
 	  while(set.delete(it++)) len++;
 	  mxlen = MAX(mxlen, len);
 	  len = 0;
+```
+
+##### Find longest consecutive sequence `O(nlogN)`
+- sort array, traverse, track largest ele encountered so far
+- +1 len if new largest is in sequence, else reset it
+```js
+nums.sort()
+last = nums[0], len = 1, mxlen = 1;
+for (let val of nums)
+	if (val > last)
+	  len = (val - last == 1) ? len + 1 : 1;
+	  mxlen = Math.max(len, mxlen)
+	  last = val; //at end
 ```
 
 ##### Validate Sudoku
