@@ -1,16 +1,15 @@
 ### Set - Map
 
-| topic                        | how to do                                                                      |
-| ---------------------------- | ------------------------------------------------------------------------------ |
-| check duplicates             | Set                                                                            |
-| store freq of items in array | Map                                                                            |
-| two sum problem              | Map `{val: index}`                                                             |
-| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                  |
-| custom Map                   | use object = {k, v}                                                            |
-| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`      |
-| valid anagrams               | are == **length**; get **Freqmap** of both strings. For each key, compare freq |
-
-
+| topic                        | how to do                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| check duplicates             | Set                                                                                                                      |
+| store freq of items in array | Map                                                                                                                      |
+| two sum problem              | Map `{val: index}`                                                                                                       |
+| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                                                            |
+| custom Map                   | use object = {k, v}                                                                                                      |
+| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`                                                |
+| valid anagrams               | are same length; get **Freqmap** of both strings. For each key, compare freq                                             |
+| group anagrams               | for each str -> **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
 
 
 ## Binary Search
@@ -278,25 +277,6 @@ for(val of set.values())
 	  while(set.delete(it++)) len++;
 	  mxlen = MAX(mxlen, len);
 	  len = 0;
-```
-
-##### Check Valid Anagram s, t in O(n)
-- store {char, freq} of s in map. Then, for each char of t
-```js
-ct = map[ch] ?? 0
-if(ct == 0) return false;
---map[ch]
-```
-
-##### Groups anagrams in array of strings
-```js
-group = {}
-for(str of strs)
-    sorted = str.split('').sort().join('');
-    group[sorted] ??= [];
-    group[sorted].push(str) //the unsorted
-
-return Object.values(group)
 ```
 
 ##### Top K(=3) Frequent Elements 
