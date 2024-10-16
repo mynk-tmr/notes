@@ -12,6 +12,7 @@
 | group anagrams                                   | for each str => **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
 | top k frequent elements                          | FreqMap => Array.from entries => sort in DESC b/on freq =>slice(0,k)                                                     |
 | longest consecutive sequence of numbers in array | **Set(nums)**                                                                                                            |
+| valid sudoku                                     | **Set** for each row/col/box. If (r)(c) already in owner sets, false. Add (r)(c) to owner sets if absent                 |
 
 ### Prefix - Sum / Min / etc
 
@@ -247,33 +248,6 @@ class LFUCache {
     }
   }
 }
-```
-
-##### Validate Sudoku
-```js
-hasVal(set, val) {
-  if (val == ".") return false;
-  if (set.has(val)) return true;
-  set.add(val);
-}
-
-get3x3(i, j, board) {
-	let r = 3 * Math.floor(i / 3) + Math.floor(j / 3);
-    let c = 3 * (i % 3) + (j % 3)
-    return board[r][c]
-}
-
-//main function
-for(i: 0 < 9)
-	//define row, col, box as Set()
-	for(j: 0 < 9)
-		rowi = board[i][j]
-		coli = board[j][i]
-		boxi = get3x3(i, j, board)
-		if(hasVal(row, rowi) || hasVal(col, coli) || hasVal(box, boxi))
-			return false;
-
-return true;
 ```
 
 ## Moore's Voting
