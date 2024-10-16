@@ -1,17 +1,23 @@
 ### Set - Map
 
-| topic                        | how to do                                                                                                                |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| check duplicates             | Set                                                                                                                      |
-| store freq of items in array | Map                                                                                                                      |
-| two sum problem              | Map `{val: index}`                                                                                                       |
-| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                                                            |
-| custom Map                   | use object = {k, v}                                                                                                      |
-| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`                                                |
-| valid anagrams               | are same length; get **Freqmap** of both strings. For each key, compare freq                                             |
-| group anagrams               | for each str => **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
-| top k frequent elements      | FreqMap => Array.from entries => sort in DESC b/on freq =>slice(0,k)                                                     |
+| topic                                            | how to do                                                                                                                |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| check duplicates                                 | Set                                                                                                                      |
+| store freq of items in array                     | Map                                                                                                                      |
+| two sum problem                                  | Map `{val: index}`                                                                                                       |
+| LRU cache                                        | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                                                            |
+| custom Map                                       | use object = {k, v}                                                                                                      |
+| custom Set                                       | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`                                                |
+| valid anagrams                                   | are same length; get **Freqmap** of both strings. For each key, compare freq                                             |
+| group anagrams                                   | for each str => **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
+| top k frequent elements                          | FreqMap => Array.from entries => sort in DESC b/on freq =>slice(0,k)                                                     |
+| longest consecutive sequence of numbers in array | **Set(nums)**                                                                                                            |
 
+### Prefix - Sum / Min / etc
+
+| problem                      | how to do                                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| product of array except self | compute prefix product of each ele -> `ans[0..n]` . Then for `n-1 to 0`, multiply suffix product to `ans[i]` |
 
 ## Binary Search
 
@@ -133,18 +139,6 @@ for(i: 0 to n-1)
 	if(sub) mlen = MAX(mlen, i - sub) // i - (sub + 1) +1
 ```
 
-##### Array product except self
-```js
-ans = [], prod = 1
-for(i : 0 to n-1)
-	ans[i] = prod; //take prefix product, for 0th, it's 1
-    prod *= nums[i] 
-prod=1
-for(i: n-1 to 0)
-	ans[i] *= prod; //multiply suffprod
-    prod *= nums[i]; //take suffix product
-```
-
 ## Carry Item
 
 ##### Find lexical next permutation of array
@@ -253,31 +247,6 @@ class LFUCache {
     }
   }
 }
-```
-##### Find longest consecutive sequence `O(N) with Set`
-- if set has val-1, val cannot be start of a seq, 
-- otherwise it is, so keep deleting ele sequentially from it
-```js
-len = 0, mxlen = 0; set = new Set(nums);
-for(val of set.values())
-	if(!set.has(val-1))
-	  let it = val;
-	  while(set.delete(it++)) len++;
-	  mxlen = MAX(mxlen, len);
-	  len = 0;
-```
-
-##### Find longest consecutive sequence `O(nlogN)`
-- sort array, traverse, track largest ele encountered so far
-- +1 len if new largest is in sequence, else reset it
-```js
-nums.sort()
-last = nums[0], len = 1, mxlen = 1;
-for (let val of nums)
-	if (val > last)
-	  len = (val - last == 1) ? len + 1 : 1;
-	  mxlen = Math.max(len, mxlen)
-	  last = val; //at end
 ```
 
 ##### Validate Sudoku
