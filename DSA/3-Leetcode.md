@@ -1,9 +1,10 @@
 ### Set - Map
 
-| topic                        | how to do |
-| ---------------------------- | --------- |
-| check duplicates             | Set       |
-| store freq of items in array | Map       |
+| topic                        | how to do          |
+| ---------------------------- | ------------------ |
+| check duplicates             | Set                |
+| store freq of items in array | Map                |
+| two sum problem              | Map `{val: index}` |
 
 
 
@@ -212,17 +213,6 @@ for(i : 1 to n-1)
 return sld[0]
 ```
 
-
-##### Two sum problem (find pairs)
-```js
-map = {} // {ele, index}
-for(i in arr) {
-	val= arr[i]
-	map.set(val, i)
-	need = sum - val;
-	if(map.has(need)) return [map.get(need), i];
-}
-```
 ##### Implement LRU Cache
 - map store keys in order, so on get/put delete key and re-insert. Then, LRU item will bubble to first index of map. To get it, use iterator's `{value : item}`
 - without built in ? create `map` with *(doubly linked list hashmap*)
