@@ -1,10 +1,13 @@
 ### Set - Map
 
-| topic                        | how to do          |
-| ---------------------------- | ------------------ |
-| check duplicates             | Set                |
-| store freq of items in array | Map                |
-| two sum problem              | Map `{val: index}` |
+| topic                        | how to do                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| check duplicates             | Set                                                                       |
+| store freq of items in array | Map                                                                       |
+| two sum problem              | Map `{val: index}`                                                        |
+| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`             |
+| custom Map                   | use object = {k, v}                                                       |
+| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set` |
 
 
 
@@ -211,31 +214,6 @@ for(i : 1 to n-1)
 	sld[j-1] = a[i]	
 
 return sld[0]
-```
-
-##### Implement LRU Cache
-- map store keys in order, so on get/put delete key and re-insert. Then, LRU item will bubble to first index of map. To get it, use iterator's `{value : item}`
-- without built in ? create `map` with *(doubly linked list hashmap*)
-	- on get, put -> delete & prepend item
-	- on cap breach, remove tail
-
-```js
-class LRUCache {
-  //ctr --> map, capacity
-  get(key) {
-	  if(map.has(key) === false) return undefined
-	  let val = map.get(key)
-	  map.delete(key)
-	  map.set(key, val)
-	  return val;
-	}
-  put(key, v) {
-	map.delete(key); map.set(key, val)
-	if(map.size > cap) {
-      const lru_item = map.keys().next().value;
-      map.delete(lru_item);
-    }
-}
 ```
 
 ##### Implement LFU Cache
