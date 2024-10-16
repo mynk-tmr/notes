@@ -9,7 +9,8 @@
 | custom Map                   | use object = {k, v}                                                                                                      |
 | custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`                                                |
 | valid anagrams               | are same length; get **Freqmap** of both strings. For each key, compare freq                                             |
-| group anagrams               | for each str -> **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
+| group anagrams               | for each str => **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
+| top k frequent elements      | FreqMap => Array.from entries => sort in DESC b/on freq =>slice(0,k)                                                     |
 
 
 ## Binary Search
