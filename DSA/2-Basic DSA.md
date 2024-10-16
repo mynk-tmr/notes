@@ -4,11 +4,10 @@
 class DLL {
   head = null; tail=null
   append(key, val) {
-      const node = {key, val, prev: null, next: null}
-      if(!head) head=tail=node;
-      else {
-          tail.next = node; node.prev = tail; tail = node;
-      }
+      const tail = {key, val, prev: this.tail, next: null}
+      if(!tail.prev) head=tail=node;
+      else tail.prev.next = tail;
+      
   }
   remove(node) {
       if(!node.next && !node.prev) // if there's only 1 node
@@ -90,10 +89,8 @@ class HashSet {
 ##### INSERTION SORT
 ```js
 for(i : 1 to n) //assume left subarr is already sorted
-	pick = a[i], j=i-1
-	while(a[j] > pick && j >=0)
-		a[j+1] = a[j] //shift
-		--j;
+	pick = a[i], j=i
+	while(a[--j] > pick && j >=0) a[j+1] = a[j] //shift
 	a[j + 1] = pick
 ```
 
