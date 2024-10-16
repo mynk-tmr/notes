@@ -1,13 +1,14 @@
 ### Set - Map
 
-| topic                        | how to do                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------- |
-| check duplicates             | Set                                                                       |
-| store freq of items in array | Map                                                                       |
-| two sum problem              | Map `{val: index}`                                                        |
-| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`             |
-| custom Map                   | use object = {k, v}                                                       |
-| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set` |
+| topic                        | how to do                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------ |
+| check duplicates             | Set                                                                            |
+| store freq of items in array | Map                                                                            |
+| two sum problem              | Map `{val: index}`                                                             |
+| LRU cache                    | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                  |
+| custom Map                   | use object = {k, v}                                                            |
+| custom Set                   | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`      |
+| valid anagrams               | are == **length**; get **Freqmap** of both strings. For each key, compare freq |
 
 
 
