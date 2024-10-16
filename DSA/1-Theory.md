@@ -49,7 +49,7 @@
 - `O(N!)` - *Factorial* (checking permutations & combinations). e.g. travelling salesman
 
 **Lists and Array**
-* both store ordered collection of values. 
+* both store **ordered** collection of values. 
 * List can have **multiple** types and don't support **math** operations
 * Array only **same** type and may support math operations.
 * use cases: TODO, carts, social media feed
@@ -67,12 +67,11 @@
 **Heap data structure:** 
 - It is a **complete binary tree** (nodes are formed from left to right)
 - In **max-heap**, all nodes are greater than their children. 
-- In **max-heap**, all nodes are smaller than their children. 
+- In **min-heap**, all nodes are smaller than their children. 
 - Uses : memory management, **priority queues** (task scheduling) 
 
 **Linked Lists**
-* elements are stored in ordered sequence of nodes. Each node contains a pointer to the next node.  `{data, next }`
-* All operatons are `O (n)`
+* elements are stored in **ordered** sequence of nodes. Each node contains a pointer to the next node.
 * Why better?
 	* No need to shift data to insert/delete items
 	* doesn't require contiguous memory locations
@@ -94,20 +93,15 @@
 * Elements are added to and removed from the top (most recently added items).
 * Use cases: undo/redo operations
 * Stack may be created using an **array or singly linked list**. For SLL, prepend and HEAD = top
-* Properties: `top len maxLen`
-* Operations : `push(i) pop() peek() clear() isEmpty()`
 
 **Queues**: FIFO
 * Elements can only be added to `rear` and removed from `front`
-* Properties: `front=0` `rear=0` `len` `maxlen`
-* Operations: `enque(i)` `deque()` `peek()` `isEmpty()` `clear()`
 * Uses: print jobs, user-input processing, chat apps 
 * **Linear** Queues : 
 	* Implemented using either an array or linked list.
 	* Cons: once `rear` has reached array's end, it's not possible to add elements
 * **Circular** Queues
 	*  last element is connected to first element forming a circle. So `rear` can move forward, if queue has empty space
-	* `rear=-1` and has `isFull()` 
 * **Double-Ended / Dequeue**
 	* Implemented using a circular array or a circular **doubly** linked list.
 	* Elements can be added/removed from either end `LEFT`, `RIGHT`
@@ -143,7 +137,7 @@
 	* Linked list way : `node = {data, left, right}`. A `root` pointer in tree
 	* Array implementation
 		* `tree[0] = root`
-		* for node at `i`, parent at `floor(i/2) - 1`, left child at `2i + 1` and right child at `2i + 2`
+		* for node at `i`, parent at `ceil(i/2) - 1`, left child at `2i + 1` and right child at `2i + 2`
 * Traversing 
 	* **Preorder** : visit root, traverse left sub-tree, then right sub-tree
 	* **Postorder**: (L, R, X)
