@@ -220,6 +220,6 @@
 **Cache** 
 * CPU cache is a small, fast memory between **main memory (RAM)** and CPU. Program+state exist in RAM. 
 * It stores recently accessed data and instructions, so the CPU can access them quickly without  fetching them from the slower main memory. 
-* Contiguous memory storage allows for better cache locality and fewer cache misses. When an array element is accessed, the cache can prefetch and store nearby elements
+* Contiguous memory storage allows for better caching and fewer cache misses. When an array element is accessed, the cache can prefetch and store nearby elements
 * Cache performance depends on **latency** and **hit ratio**. Each replacement strategy is a compromise between them.
 * To implement an LRU cache we use : **a hashmap and a doubly linked list**. DLL helps in maintaining the eviction order and a hashmap helps with O(1) lookup
