@@ -1,3 +1,13 @@
+### Set - Map
+
+| topic                        | how to do |
+| ---------------------------- | --------- |
+| check duplicates             | Set       |
+| store freq of items in array | Map       |
+
+
+
+
 ## Binary Search
 
 #### Problems
@@ -202,10 +212,7 @@ for(i : 1 to n-1)
 return sld[0]
 ```
 
-## Hashing
 
-check duplicates -> use `Set`
-need to store frequency -> use `Map`
 ##### Two sum problem (find pairs)
 ```js
 map = {} // {ele, index}
