@@ -199,57 +199,6 @@ for(i : 1 to n-1)
 return sld[0]
 ```
 
-##### Implement LFU Cache
-
-```js
-class LFUCache {
-  map = new Map(); //stores itm = {value, frequency}
-  hash = {}; //stores { i : Set of itms with freq=i}
-  minfq = 0;
-
-  constructor(cap) {
-    this.cap = cap;
-  }
-
- //each time item is already present, +1 its freq
- //Remove it from set at fqgroup[freq-1] and add to fqgroup[freq]
-
-  #adjustFqGroup(key, itm) {
-    hash[itm.freq].delete(key);
-    hash[++itm.freq] ??= new Set();
-    hash[itm.freq].add(key);
-    if (hash[this.minfq].size === 0) ++this.minfq
-  }
-
-  get(key) {
-    if (!map.has(key)) return undefined
-    const itm = map.get(key)
-    this.#adjustFqGroup(key, itm)
-    return itm.value
-  }
-
-  put(key, value) {
-    if (map.has(key)) {
-      const itm = map.get(key)
-      this.#adjustFqGroup(key, itm)
-      itm.value = value;
-    }
-    else { //invalidate
-      if (map.size === this.cap) {
-        const rmkey = hash[this.minfq].keys().next().value;
-        hash[this.minfq].delete(rmkey);
-        map.delete(rmkey)
-      }
-      const itm = { value, freq: 0 };
-      map.set(key, itm);
-      hash[0] ??= new Set();
-      hash[0].add(key);
-      this.minfq = 0;
-    }
-  }
-}
-```
-
 ## Moore's Voting
 
 Find elements that are majority e.g. appear >n/2 or >n/3 & so on...
@@ -291,7 +240,6 @@ return res.filter(v => isOK(nums, v))
 
 ## Two pointers
 
-Assert Palindrome
 ##### Remove duplicate from Sorted in O(1)
 ```js
 uniq = 0
