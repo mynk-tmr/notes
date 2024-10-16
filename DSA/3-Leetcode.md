@@ -279,20 +279,6 @@ for(val of set.values())
 	  len = 0;
 ```
 
-##### Top K(=3) Frequent Elements 
-```js
-freqMap; freqGroup; result
-for(val : nums)
-	//set freqMap {val, freq}
-
-for ([val, freq] of freqMap)
-    freqGroup[freq] ??= new Set()
-    freqGroup[freq].add(val)
-
-for(i : n..1 && res.length < k) //all same or all diff
-	if (freqGroup[i]) result.push(...freqGroup[i])
-```
-
 ##### Validate Sudoku
 ```js
 hasVal(set, val) {
