@@ -22,14 +22,13 @@
 	- *first* unique element
 - job scheduling
 
-### Running Sum / Min / etc
+### Running Sum / Min / etc 
 
+* subcategory of *DP problems*
 * cumulative sum/product upto each index, need to be calculated e.g.
 	* product of array except self
 	* subarrays sum to K (count, longest?)
-* range queries e.g. find x from i=2 to i=9 . Keyword : *dynamic* input
-* looping over array multiple times.
-* *segment trees* can be used instead too
+* range queries e.g. find sum from i=2 to i=9 . If array is mutable, use **segment trees**
 
 ### Slow Fast pointers
 
