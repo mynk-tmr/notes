@@ -32,6 +32,7 @@ When to use?
 	* subarrays sum to K (count, longest?)
 * range queries e.g. find x from i=2 to i=9 . Keyword : *dynamic* input
 * looping over array multiple times.
+* *segment trees* can be used instead too
 
 ### Slow Fast pointers
 
