@@ -46,8 +46,72 @@ When to use?
 
 e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
 
+| problem           | how to                  |
+| ----------------- | ----------------------- |
+| assert palindrome | To lowercase, --a < ++b |
 
+### Stack
 
+When to use?
+* validate expressions/brackets (*balanced* matching)
+* convert infix to prefix, postfix 
+* DFS no recursion 
+* NGE/NSE of all elements (Monotonic stack)
+* 
+
+##### Next greater Element distance
+```js
+stack = [], map = Array(n).fill(0) //0 coz problem stmt
+for(i : n-1...0)
+	while (stack.length && a[stack.at(-1)] <= a[i])
+      stack.pop()
+    if (stack.length)
+      map[i] = stack.at(-1) - i;
+    stack.push(i)
+```
+
+##### Car Fleet
+Each slower car will swallow faster cars behind it's position to become a fleet. 
+```js
+//create cars array => car = {time, pos}
+cars.sort((A, B) => A.pos - B.pos)
+stack = []
+for (car of cars) 
+	while (stack.length && stack.at(-1).time <= car.time)
+	  stack.pop()
+	stack.push(car)
+return stack.length
+```
+
+##### Largest area in histogram of bar width=1
+- stack bars as long as height is improving. When not, remove bar. A rectangle can be formed with 
+	- height = height of smaller removed bar 
+	- width= index of current bar - index of removed bar 
+- put earliest possible position of current bar in stack
+```js
+stack = [] , max = 0;
+heights.push(0) //to evaluate last height
+heights.forEach((ht, i) => {
+	let earliest = i;
+	while (stack.length && stack.at(-1)[1] > ht) {
+	  let [pos, height] = stack.pop()
+	  max = Math.max(max, (i - pos) * height);
+	  earliest = pos;
+	}
+	stack.push([earliest, ht])
+})
+```
+
+## Queue
+##### Generate Valid Parantheses for given N
+```js
+q = [[1, 0, '(']] //count of left & right paras
+while (q.length)
+	[lf, rt, s] = q.pop()
+	if (s.length === 2 * n) ans.push(s)
+	if (lf < n) q.push([lf + 1, rt, s + '('])
+	if (rt < lf) q.push([lf, rt + 1, s + ')'])
+```
 
 
 ## Binary Search
@@ -230,6 +294,7 @@ for(val of nums)
 		cta-- ; ctb--;
 return res.filter(v => isOK(nums, v))
 ```
+
 
 ## Two pointers
 
@@ -414,109 +479,4 @@ nums.forEach((val, rt) => {
 	  lf = rt + 1 - k; //lf -- 0
 	  if (q[0] === nums[lf]) q.shift()
 })
-```
-
-## Stack
-##### Valid Paranthesis
-```js
-stack = [];
-pairs = { '(' : ')', '{' : '}', '[' : ']'}
-for (ch of s)
-	if (ch in pairs)
-      stack.push(pairs[ch])
-    else if(ch !== stack.pop())
-      return false;
-
-return stack.length === 0;
-```
-##### Implement minstack
-Get min ele in stack in `O(1)`. On push, store current MIN (min ele so far)
-```js
-class MinStack {
-  push(val) {
-    push({ val, min: Math.min(val, this.getMin()) })
-  }
-  getMin() {
-    return stack.length === 0? Infinity : stack.at(-1).min
-  }
-}
-```
-
-##### Next Greater Element (all distinct)
-Monotonic stack {top -> bottom , decreasing}. Elements left in stack have no NGE
-```js
-map = {}
-for (val of arr)
-    while (stack.length && stack.at(-1) <= val)
-      map[stack.pop()] = val;
-    stack.push(val)
-```
-
-##### Next greater Element distance
-```js
-stack = [], map = Array(n).fill(0) //0 coz problem stmt
-for(i : n-1...0)
-	while (stack.length && a[stack.at(-1)] <= a[i])
-      stack.pop()
-    if (stack.length)
-      map[i] = stack.at(-1) - i;
-    stack.push(i)
-```
-
-##### Car Fleet
-Each slower car will swallow faster cars behind it's position to become a fleet. 
-```js
-//create cars array => car = {time, pos}
-cars.sort((A, B) => A.pos - B.pos)
-stack = []
-for (car of cars) 
-	while (stack.length && stack.at(-1).time <= car.time)
-	  stack.pop()
-	stack.push(car)
-return stack.length
-```
-
-##### Largest area in histogram of bar width=1
-- stack bars as long as height is improving. When not, remove bar. A rectangle can be formed with 
-	- height = height of smaller removed bar 
-	- width= index of current bar - index of removed bar 
-- put earliest possible position of current bar in stack
-```js
-stack = [] , max = 0;
-heights.push(0) //to evaluate last height
-heights.forEach((ht, i) => {
-	let earliest = i;
-	while (stack.length && stack.at(-1)[1] > ht) {
-	  let [pos, height] = stack.pop()
-	  max = Math.max(max, (i - pos) * height);
-	  earliest = pos;
-	}
-	stack.push([earliest, ht])
-})
-```
-
-##### Evaluate postfix expression
-```js
-stack = []
-calc = ['+', '-', '*', '/']
-for (token of tokens) {
-    if (!calc.includes(token)) stack.push(token)
-    else
-      let B = stack.pop(), A = stack.pop()
-      let ans = eval('(' + A + ')' + token + '(' + B + ')');
-      ans = Number.parseInt(ans)
-      stack.push(ans)
-    
-return stack.at(-1);
-```
-
-## Queue
-##### Generate Valid Parantheses for given N
-```js
-q = [[1, 0, '(']] //count of left & right paras
-while (q.length)
-	[lf, rt, s] = q.pop()
-	if (s.length === 2 * n) ans.push(s)
-	if (lf < n) q.push([lf + 1, rt, s + '('])
-	if (rt < lf) q.push([lf, rt + 1, s + ')'])
 ```
