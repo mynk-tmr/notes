@@ -1,6 +1,5 @@
 ### Set
 
-When to use?
 * unique/distinct assertion e.g. 
 	* find duplicates/unique in list
 	* find non-repeating subsequences in array/string
@@ -13,7 +12,6 @@ When to use?
 
 ### Map
 
-When to use?
 - to track item frequencies e.g. 
 	- top k frequent ele
 	- frequency of substring in a given string
@@ -26,7 +24,6 @@ When to use?
 
 ### Running Sum / Min / etc
 
-When to use?
 * cumulative sum/product upto each index, need to be calculated e.g.
 	* product of array except self
 	* subarrays sum to K (count, longest?)
@@ -57,7 +54,6 @@ When to use?
 * convert infix to prefix, postfix 
 * DFS no recursion 
 * NGE/NSE of all elements (Monotonic stack)
-* 
 
 ##### Next greater Element distance
 ```js
@@ -102,7 +98,9 @@ heights.forEach((ht, i) => {
 })
 ```
 
-## Queue
+### Queue
+
+* generate valid brackets 
 ##### Generate Valid Parantheses for given N
 ```js
 q = [[1, 0, '(']] //count of left & right paras
