@@ -1,24 +1,33 @@
 ### Set - Map
 
-| topic                                            | how to do                                                                                                                |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| check duplicates                                 | Set                                                                                                                      |
-| store freq of items in array                     | Map                                                                                                                      |
-| two sum problem                                  | Map `{val: index}`                                                                                                       |
-| LRU cache                                        | Map; a `shift(k,v)` that deletes+set (k,v) for each `get,put`                                                            |
-| custom Map                                       | use object = {k, v}                                                                                                      |
-| custom Set                                       | use object = {**stringify**(v), null};  contains? `stringify(val) in Set`                                                |
-| valid anagrams                                   | are same length; get **Freqmap** of both strings. For each key, compare freq                                             |
-| group anagrams                                   | for each str => **sort** (key), add `key : [str]` to Map if absent, else `push[str]` to key. Return `Object.values(Map)` |
-| top k frequent elements                          | FreqMap => Array.from entries => sort in DESC b/on freq =>slice(0,k)                                                     |
-| longest consecutive sequence of numbers in array | **Set(nums)**                                                                                                            |
-| valid sudoku                                     | **Set** for each row/col/box. If (r)(c) already in owner sets, false. Add (r)(c) to owner sets if absent                 |
+| topic                                            | how to do                                                                                                |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| check duplicates                                 | Set                                                                                                      |
+| store freq of items in array                     | Map                                                                                                      |
+| two sum problem                                  | {val: index}                                                                                             |
+| LRU cache                                        | `shift(k,v)` / map                                                                                       |
+| custom Map                                       | {k, v}                                                                                                   |
+| custom Set                                       | {stringify(k) : v}                                                                                       |
+| valid anagrams                                   | same length & same freqMap                                                                               |
+| group anagrams                                   | `{ [sorted_str] : [anagrams] `                                                                           |
+| top k frequent elements                          | FreqMap => Array => sort in DESC b/on freq =>slice(0,k)                                                  |
+| longest consecutive sequence of numbers in array | Set                                                                                                      |
+| valid sudoku                                     | **Set** for each row/col/box. If (r)(c) already in owner sets, false. Add (r)(c) to owner sets if absent |
 
 ### Prefix - Sum / Min / etc
 
-| problem                      | how to do                                                                                                    |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| product of array except self | compute prefix product of each ele -> `ans[0..n]` . Then for `n-1 to 0`, multiply suffix product to `ans[i]` |
+| problem                      | how to do |
+| ---------------------------- | --------- |
+| product of array except self |           |
+| pivot index (lsum is rsum)   |           |
+
+### Slow Fast pointers
+
+| problem                        | how to do |
+| ------------------------------ | --------- |
+| check cycle in linked list     |           |
+| return node where cycle starts |           |
+
 
 ## Binary Search
 
@@ -103,19 +112,7 @@ solve(curri)
         swap(curri, i) //when backtrack, revert swapped to orginal
 ```
 
-## Prefix Sum
-
-##### Find pivot index (leftsum = rightsum)
-```js
-lsum = 0, rsum=0;
-nums.forEach(v => rsum+=v)
-for(let i in nums) {
-	rsum-= nums[i];
-    if(lsum === rsum) return i;
-    lsum+=nums[i]
-}
-```
-
+##
 ##### Count no. of subarray sum to K
 ```js
 //hash frequency of prefix sums 
