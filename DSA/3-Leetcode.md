@@ -24,7 +24,7 @@ When to use?
 	- *first* unique element
 - job scheduling
 
-### Prefix - Sum / Min / etc
+### Running Sum / Min / etc
 
 When to use?
 * cumulative sum/product upto each index, need to be calculated e.g.
