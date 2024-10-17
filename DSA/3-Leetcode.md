@@ -6,8 +6,8 @@
 | store freq of items in array                     | Map                                                                                                      |
 | two sum problem                                  | {val: index}                                                                                             |
 | LRU cache                                        | `shift(k,v)` / map                                                                                       |
-| custom Map                                       | {k, v}                                                                                                   |
-| custom Set                                       | {stringify(k) : v}                                                                                       |
+| LFU cache                                        | `cache(k,v)` and `FreqMap { [freq] : Keys_Set }`                                                         |
+| Map - Set (custom)                               | {k, v}  /// {stringify(k) : v}                                                                           |
 | valid anagrams                                   | same length & same freqMap                                                                               |
 | group anagrams                                   | `{ [sorted_str] : [anagrams] `                                                                           |
 | top k frequent elements                          | FreqMap => Array => sort in DESC b/on freq =>slice(0,k)                                                  |
@@ -27,6 +27,17 @@
 | ------------------------------ | --------- |
 | check cycle in linked list     |           |
 | return node where cycle starts |           |
+
+### Sliding Window/Two pointers
+
+When to use?
+- If a wider scope of the sliding window is valid, the narrower scope is valid too.
+- If a narrower scope is invalid, the wider scope is invalid too.
+
+e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
+
+
+
 
 
 ## Binary Search
