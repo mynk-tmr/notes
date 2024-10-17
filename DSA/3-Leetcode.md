@@ -39,7 +39,9 @@ find cycles in linked lists
 * validate expressions/brackets (*balanced* matching)
 * convert infix to prefix, postfix 
 * DFS no recursion 
-* NGE/NSE of all elements (Monotonic stack)
+* NGE/NSE of elements (Monotonic stack)
+	* Daily Temperature problem (NGE distance)
+	* 
 
 ### Arrays
 
@@ -173,31 +175,6 @@ solve(curri)
 	    swap(curri, i) //swap i..n-1 & recurr on modified nums
         solve(curri + 1)
         swap(curri, i) //when backtrack, revert swapped to orginal
-```
-
-## Carry Item
-
-##### Find lexical next permutation of array
-`O(n) time & O(1) space`
-```js
-pivot, swapi 
-if(n == 1) return ar;
-//find first i,i+1 that are sorted
-for(i: n-2..0)
-	if (a[i+1] > a[i]) pivot = i; break;
-
-//if no pivot, array is last permute, so reverse it
-if(pivot is undef) return ar.reverse()
-
-//swap ele after pivot that's closest bigger 
-for(i: n-1 > pivot)
-	if (a[i] > a[pivot]) swapi = i; break;
-swap(swapi, pivot)
-
-//reverse from pivot+1
-while(++pivot < --n) {
-    swap(n, pivot)
-  }
 ```
 
 ##### Find ele who are larger than all their right ele(s)
