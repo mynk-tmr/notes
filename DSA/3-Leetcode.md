@@ -37,12 +37,14 @@ find cycles in linked lists
 
 ### Stack
 
-When to use?
 * validate expressions/brackets (*balanced* matching)
 * convert infix to prefix, postfix 
 * DFS no recursion 
 * NGE/NSE of all elements (Monotonic stack)
 
+### Arrays
+
+* to solve circular array problems, extend the original array to twice length
 ##### Next greater Element distance
 ```js
 stack = [], map = Array(n).fill(0) //0 coz problem stmt
