@@ -1,32 +1,41 @@
-### Set - Map
+### Set
 
-| topic                                            | how to do                                                                                                |
-| ------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| check duplicates                                 | Set                                                                                                      |
-| store freq of items in array                     | Map                                                                                                      |
-| two sum problem                                  | {val: index}                                                                                             |
-| LRU cache                                        | `shift(k,v)` / map                                                                                       |
-| LFU cache                                        | `cache(k,v)` and `FreqMap { [freq] : Keys_Set }`                                                         |
-| Map - Set (custom)                               | {k, v}  /// {stringify(k) : v}                                                                           |
-| valid anagrams                                   | same length & same freqMap                                                                               |
-| group anagrams                                   | `{ [sorted_str] : [anagrams] `                                                                           |
-| top k frequent elements                          | FreqMap => Array => sort in DESC b/on freq =>slice(0,k)                                                  |
-| longest consecutive sequence of numbers in array | Set                                                                                                      |
-| valid sudoku                                     | **Set** for each row/col/box. If (r)(c) already in owner sets, false. Add (r)(c) to owner sets if absent |
+When to use?
+* unique/distinct assertion e.g. 
+	* find duplicates/unique in list
+	* find non-repeating subsequences in array/string
+* set operations ( union, int, diff ) e.g. same/diff items between array
+* job scheduling with 1 resource
+
+| practical       | how to do                                                                                                 |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| validate sudoku |  **Set** for each row/col/box. If (r)(c) already in owner sets, false. Add (r)(c) to owner sets if absent |
+
+### Map
+
+When to use?
+- to track item frequencies e.g. 
+	- top k frequent ele
+	- frequency of substring in a given string
+- anagrams -> same size & Freqmap. To group, `{ [sorted_str] : [anagrams] `
+- cache/memoisation
+- to track items previously visited with *index* e.g. 2-sum problems.
+- when Set related problems, tell you to return a specific answer. e.g.
+	- *first* unique element
+- job scheduling
 
 ### Prefix - Sum / Min / etc
 
-| problem                      | how to do |
-| ---------------------------- | --------- |
-| product of array except self |           |
-| pivot index (lsum is rsum)   |           |
+When to use?
+* cumulative sum/product upto each index, need to be calculated e.g.
+	* product of array except self
+	* subarrays sum to K (count, longest?)
+* range queries e.g. find x from i=2 to i=9 . Keyword : *dynamic* input
+* looping over array multiple times.
 
 ### Slow Fast pointers
 
-| problem                        | how to do |
-| ------------------------------ | --------- |
-| check cycle in linked list     |           |
-| return node where cycle starts |           |
+find cycles in linked lists
 
 ### Sliding Window/Two pointers
 
@@ -121,31 +130,6 @@ solve(curri)
 	    swap(curri, i) //swap i..n-1 & recurr on modified nums
         solve(curri + 1)
         swap(curri, i) //when backtrack, revert swapped to orginal
-```
-
-##
-##### Count no. of subarray sum to K
-```js
-//hash frequency of prefix sums 
-map, sum=0, ct=0 
-map.set(0, 1)
-for(val : arr) 
-	sum+=val;
-    subfrq = map.get(sum - k); //how many subarrays upto i with sum=k exist?
-    fullfrq = map.get(sum) ?? 0;
-    if(sub) ct+=sub;
-    map.set(sum, fullfrq + 1)
-```
-
-##### Longest subarray that sum to K ( has -ve values)
-```js
-//hash prefixsum indices
-for(i: 0 to n-1)
-	sum+=a[i]
-	if(!map.has(sum)) map.set(sum, i) //always consider leftmost subarray
-	if(sum == k) mlen = MAX(mlen, i+1)
-	sub = map.get(sum - k) //longest subarray (sum=k) that ends at i
-	if(sub) mlen = MAX(mlen, i - sub) // i - (sub + 1) +1
 ```
 
 ## Carry Item
