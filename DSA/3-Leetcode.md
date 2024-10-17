@@ -35,18 +35,6 @@
 
 find cycles in linked lists
 
-### Sliding Window/Two pointers
-
-When to use?
-- If a wider scope of the sliding window is valid, the narrower scope is valid too.
-- If a narrower scope is invalid, the wider scope is invalid too.
-
-e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
-
-| problem           | how to                  |
-| ----------------- | ----------------------- |
-| assert palindrome | To lowercase, --a < ++b |
-
 ### Stack
 
 When to use?
@@ -100,17 +88,8 @@ heights.forEach((ht, i) => {
 
 ### Queue
 
-* generate valid brackets 
-##### Generate Valid Parantheses for given N
-```js
-q = [[1, 0, '(']] //count of left & right paras
-while (q.length)
-	[lf, rt, s] = q.pop()
-	if (s.length === 2 * n) ans.push(s)
-	if (lf < n) q.push([lf + 1, rt, s + '('])
-	if (rt < lf) q.push([lf, rt + 1, s + ')'])
-```
-
+* generate valid brackets `[['(', 1, 0 ]]`
+* 
 
 ## Binary Search
 
@@ -254,6 +233,45 @@ for(i : 1 to n-1)
 return sld[0]
 ```
 
+### N Sum problems
+
+Requires SORTING array first and using res[ ] to store pairs
+
+**2-sum `O(NlogN + N)`** 
+```js
+left=0, right = n-1
+while(left < right) 
+	s = a[left] + a[right];
+	if(s < T) left++
+	else if(s > T) right--
+	else 
+		res.push([a[left], a[right]])
+		while (left < right && a[left] == a[++left]);
+	    while (left < right && a[right] == a[--right]);
+```
+
+**3-sum `O(NlogN + N^2)`**
+```js
+for(i : 0..n-2)
+	if (i > 0 && a[i] === a[i - 1]) continue;
+    left = i + 1; right = n - 1;
+    while (left < right)
+	    s = a[i] + a[left] + a[right];
+	    //same as above, push a[i] too
+```
+
+**4-sum `O(NlogN + N^3)`**
+```js
+for(i : 0..n-3)
+	if (i > 0 && a[i] === a[i - 1]) continue;
+	for(j: i+1..n-2)
+		if (j > i+1 && a[j] === a[j - 1]) continue;
+	    left = j + 1; right = n - 1;
+	    while (left < right)
+		    //same as above
+```
+
+
 ## Moore's Voting
 
 Find elements that are majority e.g. appear >n/2 or >n/3 & so on...
@@ -293,6 +311,18 @@ for(val of nums)
 return res.filter(v => isOK(nums, v))
 ```
 
+### Sliding Window
+
+When to use?
+- If a wider scope of the sliding window is valid, the narrower scope is valid too.
+- If a narrower scope is invalid, the wider scope is invalid too.
+
+e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
+
+| problem           | how to                  |
+| ----------------- | ----------------------- |
+| assert palindrome | To lowercase, --a < ++b |
+
 
 ## Two pointers
 
@@ -310,43 +340,6 @@ while(node?.next)
 	else node = node.next
 ```
 
-### N Sum problems
-
-Requires SORTING array first and using res[ ] to store pairs
-
-**2-sum `O(NlogN + N)`** 
-```js
-left=0, right = n-1
-while(left < right) 
-	s = a[left] + a[right];
-	if(s < T) left++
-	else if(s > T) right--
-	else 
-		res.push([a[left], a[right]])
-		while (left < right && a[left] == a[++left]);
-	    while (left < right && a[right] == a[--right]);
-```
-
-**3-sum `O(NlogN + N^2)`**
-```js
-for(i : 0..n-2)
-	if (i > 0 && a[i] === a[i - 1]) continue;
-    left = i + 1; right = n - 1;
-    while (left < right)
-	    s = a[i] + a[left] + a[right];
-	    //same as above, push a[i] too
-```
-
-**4-sum `O(NlogN + N^3)`**
-```js
-for(i : 0..n-3)
-	if (i > 0 && a[i] === a[i - 1]) continue;
-	for(j: i+1..n-2)
-		if (j > i+1 && a[j] === a[j - 1]) continue;
-	    left = j + 1; right = n - 1;
-	    while (left < right)
-		    //same as above
-```
 
 ## Sliding Window
 
