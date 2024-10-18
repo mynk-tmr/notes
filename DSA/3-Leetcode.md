@@ -40,9 +40,8 @@ find cycles in linked lists
 * convert infix to prefix, postfix 
 * DFS no recursion 
 * NGE/NSE of elements (**Monotonic** stack => Elements decrease from bottom to top)
-	* Daily Temperature problem, Lar (NGE distance)
+	* Daily Temperature problem, Largest area in histogram (NGE distance)
 	* Car fleet problem
-	* Largest rectangle in histogram
 
 ### Arrays
 
