@@ -47,25 +47,6 @@ find cycles in linked lists
 
 * to solve circular array problems, extend the original array to twice length
 
-##### Largest area in histogram of bar width=1
-- stack bars as long as height is improving. When not, remove bar. A rectangle can be formed with 
-	- height = height of smaller removed bar 
-	- width= index of current bar - index of removed bar 
-- put earliest possible position of current bar in stack
-```js
-stack = [] , max = 0;
-heights.push(0) //to evaluate last height
-heights.forEach((ht, i) => {
-	let earliest = i;
-	while (stack.length && stack.at(-1)[1] > ht) {
-	  let [pos, height] = stack.pop()
-	  max = Math.max(max, (i - pos) * height);
-	  earliest = pos;
-	}
-	stack.push([earliest, ht])
-})
-```
-
 ### Queue
 
 * generate valid brackets `[['(', 1, 0 ]]`
