@@ -39,36 +39,14 @@ find cycles in linked lists
 * validate expressions/brackets (*balanced* matching)
 * convert infix to prefix, postfix 
 * DFS no recursion 
-* NGE/NSE of elements (Monotonic stack)
+* NGE/NSE of elements (**Monotonic** stack => Elements decrease from bottom to top)
 	* Daily Temperature problem (NGE distance)
-	* 
+	* Car fleet problem
+	* Largest rectangle in histogram
 
 ### Arrays
 
 * to solve circular array problems, extend the original array to twice length
-##### Next greater Element distance
-```js
-stack = [], map = Array(n).fill(0) //0 coz problem stmt
-for(i : n-1...0)
-	while (stack.length && a[stack.at(-1)] <= a[i])
-      stack.pop()
-    if (stack.length)
-      map[i] = stack.at(-1) - i;
-    stack.push(i)
-```
-
-##### Car Fleet
-Each slower car will swallow faster cars behind it's position to become a fleet. 
-```js
-//create cars array => car = {time, pos}
-cars.sort((A, B) => A.pos - B.pos)
-stack = []
-for (car of cars) 
-	while (stack.length && stack.at(-1).time <= car.time)
-	  stack.pop()
-	stack.push(car)
-return stack.length
-```
 
 ##### Largest area in histogram of bar width=1
 - stack bars as long as height is improving. When not, remove bar. A rectangle can be formed with 
