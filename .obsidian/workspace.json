@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/3-Leetcode.md",
+                "file": "DSA/2-Basic DSA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3-Leetcode"
+              "title": "2-Basic DSA"
             }
           }
         ],
@@ -181,8 +181,8 @@
   },
   "active": "f11023010b130da5",
   "lastOpenFiles": [
-    "DSA/2-Neetcode.md",
     "DSA/3-Leetcode.md",
+    "DSA/2-Neetcode.md",
     "DSA/2-Basic DSA.md",
     "DSA/1-Theory.md",
     "DSA/5-Maths-Geometry.md",

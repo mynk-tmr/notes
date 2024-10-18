@@ -247,18 +247,6 @@ for(val of nums)
 return res.filter(v => isOK(nums, v))
 ```
 
-### Sliding Window
-
-When to use?
-- If a wider scope of the sliding window is valid, the narrower scope is valid too.
-- If a narrower scope is invalid, the wider scope is invalid too.
-
-e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
-
-| problem           | how to                  |
-| ----------------- | ----------------------- |
-| assert palindrome | To lowercase, --a < ++b |
-
 
 ## Two pointers
 
@@ -278,6 +266,16 @@ while(node?.next)
 
 
 ## Sliding Window
+
+**When to use?**
+- If a wider scope of the sliding window is valid, the narrower scope is valid too.
+- If a narrower scope is invalid, the wider scope is invalid too.
+
+e.g. subarray sum to 2 -> `[1,1]` is valid, but `[1]` is invalid. So, this problem isn't solved by TPs
+
+| problem           | how to                  |
+| ----------------- | ----------------------- |
+| assert palindrome | To lowercase, --a < ++b |
 
 **Patterns**
 - Find `n` size subset that <conditon/>  => constant window
