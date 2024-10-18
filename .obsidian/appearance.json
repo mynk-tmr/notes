@@ -1,7 +1,8 @@
 {
   "accentColor": "",
   "cssTheme": "Things",
-  "monospaceFontFamily": "DejaVu Sans Mono",
+  "monospaceFontFamily": "DejaVu Sans Mono,FiraCode Nerd Font Propo",
   "theme": "moonstone",
-  "baseFontSize": 14
+  "baseFontSize": 14,
+  "textFontFamily": "Inter"
 }
