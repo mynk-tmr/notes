@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/2-Basic DSA.md",
+                "file": "DSA/4-Trees-Graphs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2-Basic DSA"
+              "title": "4-Trees-Graphs"
             }
           }
         ],
@@ -181,11 +181,11 @@
   },
   "active": "f11023010b130da5",
   "lastOpenFiles": [
+    "DSA/5-Maths-Geometry.md",
+    "DSA/1-Theory.md",
+    "DSA/2-Basic DSA.md",
     "DSA/3-Leetcode.md",
     "DSA/2-Neetcode.md",
-    "DSA/2-Basic DSA.md",
-    "DSA/1-Theory.md",
-    "DSA/5-Maths-Geometry.md",
     "DSA/4-Trees-Graphs.md",
     "FrontEnd/ReactJS.md",
     "TBD/GSAP.md",
