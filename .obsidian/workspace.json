@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FrontEnd/Extra Topics.md",
+                "file": "Misc/OOPs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Extra Topics"
+              "title": "OOPs"
             }
           }
         ]
@@ -167,29 +167,29 @@
   },
   "active": "410f63669b6042e3",
   "lastOpenFiles": [
-    "FrontEnd/CSS.md",
+    "Misc/Internet.md",
+    "Misc/GIT NPM.md",
+    "Misc/Data structures.md",
+    "Misc/Design Patterns.md",
+    "FrontEnd/ReactJS.md",
+    "FrontEnd/Project-QnA.md",
+    "FrontEnd/Output-Based.md",
     "FrontEnd/Javascript.md",
+    "FrontEnd/Machine Coding.md",
+    "FrontEnd/HTML + DOM.md",
+    "FrontEnd/Extra Topics.md",
+    "FrontEnd/GSAP.md",
+    "FrontEnd/CSS.md",
     "Misc/OOPs.md",
     "Misc/Useful Bash.md",
-    "Misc/Data structures.md",
     "DSA/4-Trees-Graphs.md",
     "DSA/2-Leetcode.md",
     "DSA/5-Maths-Geometry.md",
     "DSA/2-Basic DSA.md",
     "Untitled.canvas",
-    "FrontEnd/HTML.md",
-    "Misc/Internet.md",
-    "Misc/GIT NPM.md",
-    "FrontEnd/Extra Topics.md",
     "TBD/CheatSheets.md",
-    "Misc/Design Patterns.md",
-    "FrontEnd/GSAP.md",
     "TBD/Python Notes.md",
     "TBD/NextJS.md",
-    "FrontEnd/ReactJS.md",
-    "FrontEnd/Project-QnA.md",
-    "FrontEnd/Output-Based.md",
-    "FrontEnd/Machine Coding.md",
     "DSA/2-Neetcode.md",
     "-img/Pasted image 20240830175047.png",
     "-img/Pasted image 20240113151931.png",

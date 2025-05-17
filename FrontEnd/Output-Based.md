@@ -45,12 +45,6 @@ Math.max([2,3,4,5]); // NaN
 2 in [1,2] //false ; checks property (in array; props are '0' , '1')
 ```
 
-
-**Solving Hoisting Problems**
-* check all declarations (func, var) and hoist names
-* overshadow same names and assert
-
-
 **Closures Questions**
 
 ```jsx

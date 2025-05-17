@@ -159,16 +159,6 @@ project({ $comment : 'my comment' }) //insert comment in projected docs
 - when to use: stateless api, microservices, reducing database calls
 - when NOT: payment related data (credit card no.) should never be sent in payload
 
-**TailwindCSS**
-* utility-first CSS framework that provides pre-defined CSS classes to style UI
-* provides a `config` file to customise design system. It includes variables for `colors, fonts, animations` etc
-* **Utility** classes are small, single-purpose classes that provide a specific styling utility e.g. `m-2` `p-3`
-* **Component** classes are larger classes that provide a collection of styles for a specific component. e.g. `btn` `card`
-* It uses **purge** to create files for production that removes any unused classes t to minimize CSS file size
-* Common tips
-	* using purge
-	* caching to speed up builds
-
 **GraphQL
 - a query language and server-side runtime.
 - gives clients exactly the data they request and no more.

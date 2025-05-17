@@ -28,18 +28,15 @@
     "iconIdentifier": ":"
   },
   "FrontEnd/Extra Topics.md": "LiBrainCog",
-  "FrontEnd/Machine Coding.md": "LiSpeech",
   "FrontEnd/Output-Based.md": "LiFlaskRound",
   "FrontEnd/Project-QnA.md": "LiSoup",
   "FrontEnd/Javascript.md": "LiScroll",
   "FrontEnd/CSS.md": "LiPaintbrush2",
   "FrontEnd/ReactJS.md": "LiAtom",
-  "FrontEnd/GSAP.md": "LiWand",
-  "Misc/Design Patterns.md": "LiShieldMinus",
   "Misc/GIT NPM.md": "LiUnplug",
   "Misc/Internet.md": "LiRepeat",
   "Misc/OOPs.md": "LiCookie",
-  "FrontEnd/HTML.md": "LiPalmtree",
   "Misc/Data structures.md": "LiBadgeSwissFranc",
-  "Misc/Useful Bash.md": "LiDownload"
+  "Misc/Useful Bash.md": "LiDownload",
+  "FrontEnd/HTML + DOM.md": "LiPalmtree"
 }
