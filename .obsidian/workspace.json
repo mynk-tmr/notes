@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FrontEnd/Javascript.md",
+                "file": "FrontEnd/Extra Topics.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Javascript"
+              "title": "Extra Topics"
             }
           }
         ]
@@ -167,6 +167,8 @@
   },
   "active": "410f63669b6042e3",
   "lastOpenFiles": [
+    "FrontEnd/CSS.md",
+    "FrontEnd/Javascript.md",
     "Misc/OOPs.md",
     "Misc/Useful Bash.md",
     "Misc/Data structures.md",
@@ -189,8 +191,6 @@
     "FrontEnd/Output-Based.md",
     "FrontEnd/Machine Coding.md",
     "DSA/2-Neetcode.md",
-    "FrontEnd/Javascript.md",
-    "FrontEnd/CSS.md",
     "-img/Pasted image 20240830175047.png",
     "-img/Pasted image 20240113151931.png",
     "-img/Pasted image 20240113151401.png",

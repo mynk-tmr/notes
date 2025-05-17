@@ -72,7 +72,7 @@ fit-content : clamp b/w min & max
 * set by `display: flow-root` or `position : fixed / absolute`
 * creates an "isolation" between inside and outside of an element. In a BFC, elements are laid out in **normal-flow**. 
 	* Block elements are placed vertically while inline-elements horizontally
-	* Blocks have width-height (default: 100% width) ; inline do not. They are as wide as content
+	* Blocks have width-height (default: 100% width) ; inline do not. They are as wide as content.
 	* **inline** elements don't have **block** margins
 * external effects of BFC
 	* considered **out-of-flow** w.r.t others
@@ -121,7 +121,6 @@ div { 
 * lets an element gradually change from one style to another.
 * v/s Transitions - can be looped, don't require interaction to run, and can combine complex state changes.
 - `@keyframes` provides transition states and browser does interpolation.
-- timing function specifies speed curve of animation
 - `animation-fill-mode`: specifies a style when animation is not playing (before it starts, after it ends, or both).	e.g. `forwards` mean retain last keyframe's style
 - `animation-direction`: how to play animation on each iteration. `normal` (1st to last keyframe); `reverse`, `alternate`
 
@@ -273,7 +272,6 @@ div.style.setProperty('--bg', 'blue', /* 'important' */);
 * queries allow to apply CSS styles based on user's device features & current state
 * `not`: inverts the meaning of an entire media query.
 * `only`: prevents older browsers that do not support media queries with media features to apply rules
-* `and`: combines a media feature with a media type or other media features.
 * `min-width`  "apply CSS rule-set if the viewport is at least this wide"
 
 ```css
@@ -345,7 +343,7 @@ Specificity values
 *  ID
 * Class, Attribute, PseudoClass
 * Element, PseudoELement
-* **`* and >, ~ etc.`***  : 0 
+* **`* and >  , ~`***  : 0 
 
 **Web safe vs Fallback fonts**
 * Safe fonts - commonly installed on most devices and web browsers. 
@@ -439,16 +437,6 @@ text-transform: capitalize;
 text-indent: 2rem each-line;  /*2rem tab*/
 writing-mode: vertical-lr; /* vertical letters, LtoR newlines */
 text-decoration: line-through red wavy, overline blue dotted;
-```
-
-**CSS drop-down**
-```css
-.dropdown {
-	display: none;
-	&:hover, &:active {
-		display: block;
-	}
-}
 ```
 
 **CSS preprocessor**
