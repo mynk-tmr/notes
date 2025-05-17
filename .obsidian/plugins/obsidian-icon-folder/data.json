@@ -6,11 +6,11 @@
     "emojiStyle": "none",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiBadgeSwissFranc",
       "LiUnplug",
       "LiPaintbrush2",
       "LiFlaskRound",
-      "LiSoup",
-      "LiAtom"
+      "LiSoup"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -35,10 +35,11 @@
   "FrontEnd/CSS.md": "LiPaintbrush2",
   "FrontEnd/ReactJS.md": "LiAtom",
   "FrontEnd/GSAP.md": "LiWand",
-  "Misc/Commands.md": "LiDownload",
   "Misc/Design Patterns.md": "LiShieldMinus",
   "Misc/GIT NPM.md": "LiUnplug",
   "Misc/Internet.md": "LiRepeat",
   "Misc/OOPs.md": "LiCookie",
-  "FrontEnd/HTML.md": "LiPalmtree"
+  "FrontEnd/HTML.md": "LiPalmtree",
+  "Misc/Data structures.md": "LiBadgeSwissFranc",
+  "Misc/Useful Bash.md": "LiDownload"
 }

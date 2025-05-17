@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DSA/1-Theory.md",
+                "file": "FrontEnd/Javascript.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1-Theory"
+              "title": "Javascript"
             }
           }
         ]
@@ -167,14 +167,18 @@
   },
   "active": "410f63669b6042e3",
   "lastOpenFiles": [
-    "Untitled.canvas",
-    "DSA/1-Theory.md",
-    "FrontEnd/HTML.md",
     "Misc/OOPs.md",
+    "Misc/Useful Bash.md",
+    "Misc/Data structures.md",
+    "DSA/4-Trees-Graphs.md",
+    "DSA/2-Leetcode.md",
+    "DSA/5-Maths-Geometry.md",
+    "DSA/2-Basic DSA.md",
+    "Untitled.canvas",
+    "FrontEnd/HTML.md",
     "Misc/Internet.md",
     "Misc/GIT NPM.md",
     "FrontEnd/Extra Topics.md",
-    "Misc/Commands.md",
     "TBD/CheatSheets.md",
     "Misc/Design Patterns.md",
     "FrontEnd/GSAP.md",
@@ -184,10 +188,6 @@
     "FrontEnd/Project-QnA.md",
     "FrontEnd/Output-Based.md",
     "FrontEnd/Machine Coding.md",
-    "DSA/5-Maths-Geometry.md",
-    "DSA/4-Trees-Graphs.md",
-    "DSA/3-Leetcode.md",
-    "DSA/2-Basic DSA.md",
     "DSA/2-Neetcode.md",
     "FrontEnd/Javascript.md",
     "FrontEnd/CSS.md",

@@ -2,7 +2,7 @@
 - **Problem** - a function of inputs and mapping them to outputs.
 - **Algorithm** - 
 	- a step-by-step set of operations to solve a specific problem or a set of problems.
-	- properties : It must be correct and has finite concrete steps
+	- It must be correct and has finite concrete steps
 - **Program** - a specific sequence of instructions in a prog. lang., and it may contain the implementation of many algorithms.
 - Meaningful and processed data is the **information**.
 - **cost** of a solution is the amount of resources it needs.
@@ -13,7 +13,7 @@
     - Operations: +, -, /
 - **Primitive data types** : int char
 - **Non-primitive**: user-defined e.g. stack, heap, etc
-- **Abstract data type** (non-primitives) describes a set of objects sharing the same properties (domain) and behaviors (operations)
+- **Abstract data type**: data type defined solely through its functionality as perceived by the end user.
 
 **Data Structure**
 - A organization of the data so that it can be used efficiently. It is used to implement an ADT.
@@ -212,8 +212,8 @@
 - Heap memory has a slower allocation of variables
 
 **Cache** 
-* CPU cache is a small, fast memory between **main memory (RAM)** and CPU. Program+state exist in RAM. 
-* It stores recently accessed data and instructions, so the CPU can access them quickly without  fetching them from the slower main memory. 
+* CPU cache is a small, fast memory between **main memory (RAM)** and CPU. 
+* Program+state exist in RAM. It stores recently accessed data and instructions, so the CPU can access them quickly without  fetching them from the slower main memory. 
 * Contiguous memory storage -> better caching and fewer cache misses. When an array element is accessed, the cache can prefetch and store nearby elements
 * Cache performance depends on **latency** and **hit ratio**. Each replacement strategy is a compromise between them.
 * To implement an LRU cache we use : **a hashmap and a doubly linked list**. DLL helps in maintaining the eviction order and a hashmap helps with O(1) lookup
