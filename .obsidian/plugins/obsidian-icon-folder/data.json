@@ -27,21 +27,18 @@
     "iconsInNotesEnabled": true,
     "iconIdentifier": ":"
   },
-  "TBD/NextJS.md": "LiVegan",
-  "TBD/CheatSheets.md": "LiHexagon",
-  "TBD/Design Patterns.md": "LiShieldMinus",
-  "TBD/GSAP.md": "LiWand",
-  "TBD/Python Notes.md": "LiSnail",
-  "TBD/Installation.md": "LiDownload",
   "FrontEnd/Extra Topics.md": "LiBrainCog",
   "FrontEnd/Machine Coding.md": "LiSpeech",
   "FrontEnd/Output-Based.md": "LiFlaskRound",
   "FrontEnd/Project-QnA.md": "LiSoup",
-  "FrontEnd/Internet.md": "LiRepeat",
-  "FrontEnd/DOM HTML.md": "LiPalmtree",
   "FrontEnd/Javascript.md": "LiScroll",
   "FrontEnd/CSS.md": "LiPaintbrush2",
-  "FrontEnd/GIT NPM.md": "LiUnplug",
   "FrontEnd/ReactJS.md": "LiAtom",
-  "FrontEnd/OOPs.md": "LiCookie"
+  "FrontEnd/GSAP.md": "LiWand",
+  "Misc/Commands.md": "LiDownload",
+  "Misc/Design Patterns.md": "LiShieldMinus",
+  "Misc/GIT NPM.md": "LiUnplug",
+  "Misc/Internet.md": "LiRepeat",
+  "Misc/OOPs.md": "LiCookie",
+  "FrontEnd/HTML.md": "LiPalmtree"
 }
